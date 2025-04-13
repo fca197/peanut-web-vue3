@@ -2,7 +2,7 @@ import {pinia} from "@/pinia"
 import {resetRouter} from "@/router"
 import {routerConfig} from "@/router/config"
 import {getCurrentUserApi} from "@@/apis/users"
-import {getToken, removeToken, setToken as _setToken} from "@@/utils/cache/cookies"
+import {getToken, removeToken, setKeyValue, setToken as _setToken} from "@@/utils/cache/cookies"
 import {useSettingsStore} from "./settings"
 import {useTagsViewStore} from "./tags-view"
 
@@ -10,6 +10,7 @@ export const useUserStore = defineStore("user", () => {
   const token = ref<string>(getToken() || "")
   const roles = ref<string[]>([])
   const username = ref<string>("")
+  const loginPhone = ref<string>("")
 
   const tagsViewStore = useTagsViewStore()
   const settingsStore = useSettingsStore()
@@ -23,7 +24,10 @@ export const useUserStore = defineStore("user", () => {
   // 获取用户详情
   const getInfo = async () => {
     const {data} = await getCurrentUserApi()
-    username.value = data.userName
+    username.value = data.userName;
+    setKeyValue("userName", username.value);
+    setKeyValue("loginPhone", loginPhone.value);
+    loginPhone.value = data.loginPhone
     // 验证返回的 roles 是否为一个非空数组，否则塞入一个没有任何作用的默认角色，防止路由守卫逻辑进入无限循环
     roles.value = routerConfig.defaultRoles
   }

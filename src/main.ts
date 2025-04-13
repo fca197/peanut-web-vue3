@@ -12,6 +12,7 @@ import "element-plus/theme-chalk/dark/css-vars.css"
 import "vxe-table/lib/style.css"
 import "@@/assets/styles/index.scss"
 import "virtual:uno.css"
+import "@/common/assets/styles/style.css"
 
 // 创建应用实例
 const app = createApp(App)

@@ -233,29 +233,4 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
 </template>
 
 <style lang="scss" scoped>
-.el-alert {
-  margin-bottom: 20px;
-}
-
-.search-wrapper {
-  margin-bottom: 20px;
-  :deep(.el-card__body) {
-    padding-bottom: 2px;
-  }
-}
-
-.toolbar-wrapper {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.table-wrapper {
-  margin-bottom: 20px;
-}
-
-.pager-wrapper {
-  display: flex;
-  justify-content: flex-end;
-}
 </style>
