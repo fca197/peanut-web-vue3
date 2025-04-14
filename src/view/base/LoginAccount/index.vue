@@ -10,56 +10,59 @@
         </el-form-item>
       </el-form>
     </el-card>
+
     <el-card shadow="never">
-      <el-button type="primary" icon="plus" @click="addEditClick">添加</el-button>
-      <el-button type="danger" icon="Minus">删除</el-button>
+      <TableBar
+        document-title="用户" :document-url="documentUrl" :add-component="AddEditFormVue" :refresh-list="getDataList"
+        :data-table-ref="dataTableRef"
+      />
+        <el-table ref="dataTableRef" :data="dataList" stripe>
+          <el-table-column type="selection"/>
+          <el-table-column v-for="h in headerList" :label="h.showName" :prop="h.fieldName"/>
+        </el-table>
+      <el-row >
+        <el-pagination background layout="prev, pager, next" :total="100"/>
+      </el-row>
     </el-card>
-    <el-card shadow="never">
-      <el-table :data="dataList" v-loading="tableLoading">
-        <el-table-column label="手机号" prop="loginPhone"></el-table-column>
-        <el-table-column label="手机号" prop="loginPhone"></el-table-column>
-        <el-table-column label="手机号" prop="loginPhone"></el-table-column>
-        <el-table-column label="手机号" prop="loginPhone"></el-table-column>
-      </el-table>
-    </el-card>
-    <el-dialog :title="adDialogShowTitle" v-model="adDialogShow">
-      <add-edit-form-vue :login-account="addEditForm"/>
-    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import {ref} from "vue"
-import AddEditFormVue from "./AddEditForm.vue";
+import AddEditFormVue from "./AddEditForm.vue"
+import TableBar from "@/layouts/components/TableBar/index.vue"
+import {queryPage} from "@@/utils/common-js.ts";
 
 const queryForm = ref({
   loginPhone: undefined
 })
-const addEditForm = ref({
-  loginPhone: undefined
-})
-const adDialogShowTitle = ref("");
-const tableLoading = ref(true)
-const adDialogShow = ref(true)
-const dataList = [{
-  loginPhone: "1293892323"
-}, {
-  loginPhone: "1293892323"
-}, {
-  loginPhone: "1293892323"
-}, {
-  loginPhone: "1293892323"
-}];
-tableLoading.value = false
 
-function addEditClick(data: any) {
-  if (data) {
-    adDialogShowTitle.value = "修改用户信息"
-  } else {
-    adDialogShowTitle.value = "添加用户信息"
+const dataTableRef = ref({});
+const documentUrl = ref("/tLoginAccount")
+let dataList = ref([])
+let headerList = ref([
+  {
+    showName: "序号",
+    fieldName: "id"
+  }, {
+    showName: "用户名",
+    fieldName: "userName"
+  }, {
+    showName: "手机号",
+    fieldName: "loginPhone"
   }
-  adDialogShow.value = true
+])
+
+const getDataList = () => {
+  queryPage("/loginAccount/queryPageList", {pageSize: 10, pageNum: 1})
+    .then((t) => {
+      // console.info(t)
+      dataList.value = t.data.records
+    })
 }
+onMounted(() => {
+  getDataList()
+})
 </script>
 
 <style scoped lang="scss">
