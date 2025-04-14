@@ -14,14 +14,13 @@
     <el-card shadow="never">
       <TableBar
         document-title="用户" :document-url="documentUrl" :add-component="AddEditFormVue" :refresh-list="getDataList"
-        :data-table-ref="dataTableRef"
+        :data-table-ref="dataTableRef" :multiple-selection="multipleSelection"
       />
-        <el-table ref="dataTableRef" :data="dataList" stripe>
-          <el-table-column type="selection"/>
-          <el-table-column v-for="h in headerList" :label="h.showName" :prop="h.fieldName"/>
-        </el-table>
-      <el-row >
-        <el-pagination background layout="prev, pager, next" :total="100"/>
+      <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
+        <el-table-column type="selection"/>
+        <el-table-column v-for="h in headerList" :label="h.showName" :prop="h.fieldName"/>
+      </el-table>
+      <el-row>
       </el-row>
     </el-card>
   </div>
@@ -33,14 +32,23 @@ import AddEditFormVue from "./AddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {queryPage} from "@@/utils/common-js.ts";
 
+import {type LoginAccount} from "@/view/base/LoginAccount/Type.ts"
+
 const queryForm = ref({
   loginPhone: undefined
 })
 
+const multipleSelection = ref<string []>([])
+
+function handleSelectionChange(val: LoginAccount []) {
+  multipleSelection.value = val.map(t => t.id)
+  console.info("multipleSelection ", multipleSelection)
+}
+
 const dataTableRef = ref({});
 const documentUrl = ref("/tLoginAccount")
-let dataList = ref([])
-let headerList = ref([
+const dataList = ref([])
+const headerList = ref([
   {
     showName: "序号",
     fieldName: "id"

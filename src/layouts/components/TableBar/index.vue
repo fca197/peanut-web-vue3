@@ -2,6 +2,10 @@
 
 
 const props = defineProps({
+  multipleSelection: {
+    type: Array,
+    default: []
+  },
   documentUrl: {
     type: String,
     required: true
@@ -73,11 +77,17 @@ const addItem = () => {
   addDialogShow.value = true
 }
 const deleteById = () => {
-  console.info("dataTableRef.value ",props.dataTableRef)
+  if (props.multipleSelection.length < 1) {
+    ElMessage.error("请选择需要删除的对象")
+    return;
+  }
+  console.info("dataTableRef.value ", props.multipleSelection)
+  props.refreshList && props.refreshList()
 }
 
 const saveFun = () => {
   addDialogShow.value = false;
+  props.refreshList && props.refreshList()
 }
 
 </script>
