@@ -21,6 +21,18 @@
 import {onMounted, ref} from "vue"
 import {getById, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
+
+const props = defineProps({
+  saveFun: {
+    type: Function
+  },
+  editId: {
+    type: String,
+    required: false
+  }
+})
+
+const dtoUrl = ref<string>("/factory")
 // 表单引用
 const addFormRef = ref<FormInstance>()
 // 表单校验规则
@@ -33,16 +45,6 @@ const checkRules = ref<FormRules>({
     {required: true, message: "请输入工厂编码", trigger: "blur"},
     {min: 2, max: 20, message: "密码长度在 2 到 20 个字符", trigger: "blur"}
   ]
-})
-
-const props = defineProps({
-  saveFun: {
-    type: Function
-  },
-  editId: {
-    type: String,
-    required: false
-  }
 })
 
 onMounted(() => {
@@ -59,7 +61,7 @@ function loadById() {
     return
   }
   console.info("props.editId ", props.editId)
-  getById("/factory/queryByIdList", props.editId).then(t => {
+  getById(`${dtoUrl.value}/queryByIdList`, props.editId).then((t) => {
     addForm.value = t
     console.info(" addForm.value ", addForm.value)
   })
@@ -70,14 +72,14 @@ function saveForm() {
   addFormRef.value?.validate((valid) => {
     if (valid) {
       if (props.editId) {
-        postNoResult("/factory/updateById", addForm.value, "修改成功", saveFormAfter)
+        postNoResult(`${dtoUrl.value}/updateById`, addForm.value, "修改成功", saveFormAfter)
       } else {
-        postNoResult("/factory/insert", addForm.value, "保存成功", saveFormAfter)
+        postNoResult(`${dtoUrl.value}/insert`, addForm.value, "保存成功", saveFormAfter)
       }
     } else {
       ElMessage.error("表单校验失败，请检查必填项")
     }
-  });
+  })
 }
 
 function saveFormAfter() {

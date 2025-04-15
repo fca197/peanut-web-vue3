@@ -15,9 +15,13 @@
 
     <el-card shadow="never">
       <TableBar
-        document-title="工厂" :add-component="AddEditFormVue" :refresh-list="getDataList"
-        :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
-        data-batch-delete-url="/factory/deleteByIdList"
+        :document-title="documentTitle"
+        :add-component="AddEditFormVue"
+        :refresh-list="getDataList"
+        :data-table-ref="dataTableRef"
+        :multiple-selection="multipleSelection"
+        ref="tableBarRef"
+        :data-batch-delete-url="dataBatchDeleteUrl"
       />
       <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
@@ -54,7 +58,11 @@ import {ref} from "vue"
 import AddEditFormVue from "./AddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type Factory} from "@v/base/Factory/Type.ts"
+import {type Factory} from "./Type.ts"
+
+const dtoUrl = ref<string>("/factory")
+const documentTitle = ref<string>("工厂")
+const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 const queryForm = ref({
   factoryName: undefined
@@ -83,7 +91,7 @@ function getDataList() {
     data: queryForm.value
   }
   console.info("getDataList {}", req)
-  postResultInfo("/factory/queryPageList", req)
+  postResultInfo(`${dtoUrl.value}/queryPageList`, req)
     .then((t) => {
       dataList.value = t.data.dataList
       tableTotal.value = Number.parseInt(t.data.total)
