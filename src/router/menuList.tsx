@@ -31,6 +31,15 @@ export function menuList(): Array<RouteRecordRaw> {
             title: "工厂管理",
             elIcon: "House"
           }
+        },
+        {
+          path: "/base/config/app",
+          name: "APP管理",
+          component: () => import("@/view/base/BaseApp/BaseAppIndex.vue"),
+          meta: {
+            title: "App管理",
+            elIcon: "House"
+          }
         }
       ]
     }
