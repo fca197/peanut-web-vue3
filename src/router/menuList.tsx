@@ -40,6 +40,15 @@ export function menuList(): Array<RouteRecordRaw> {
             title: "App管理",
             elIcon: "House"
           }
+        },
+        {
+          path: "/base/config/BaseAppResource",
+          name: "APP菜单管理",
+          component: () => import("@/view/base/BaseAppResource/BaseAppResourceIndex.vue"),
+          meta: {
+            title: "App菜单管理",
+            elIcon: "House"
+          }
         }
       ]
     }
