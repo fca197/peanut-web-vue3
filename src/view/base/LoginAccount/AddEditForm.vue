@@ -8,45 +8,66 @@
     </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
-    <el-button @click="cancelForm" type="info" icon="close">取消</el-button>
-    <el-button @click="saveForm" type="primary" icon="check">确定</el-button>
+    <el-button @click="cancelForm" type="info" icon="close">
+      取消
+    </el-button>
+    <el-button @click="saveForm" type="primary" icon="check">
+      确定
+    </el-button>
   </el-row>
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
-import {save} from "@/common/utils/common-js.ts"
+import { onMounted, ref } from "vue"
+import { postNoResult } from "@/common/utils/common-js.ts"
 
 const props = defineProps({
   saveFun: {
     type: Function
+  },
+  editId: {
+    type: String,
+    required: false
   }
 })
 
+onMounted(() => {
+  loadById()
+})
+
+function loadById() {
+  if (!props.editId) {
+    return
+  }
+  console.info("props.editId ", props.editId)
+  // postResultInfo("/loginAccount/get",{})
+}
+
 const addForm = ref({
+  id: props.editId,
   userName: undefined,
   loginPhone: undefined
 })
 
-const saveForm = () => {
+function saveForm() {
   console.info("addForm ", addForm)
-  save("/loginAccount/insert", addForm.value, saveFormAfter)
+  postNoResult("/loginAccount/insert", addForm.value, "保存成功", saveFormAfter)
 }
-const saveFormAfter = (data: any) => {
+
+function saveFormAfter(data: any) {
   const pwd = data.data.newPwd
-  console.info("data ",data)
-  ElMessageBox.alert(`密码为： <span style='font-size: 20px;color: red'>${pwd}</span>,仅提示一次，请妥善保存`,"密码提示",{
+  console.info("data ", data)
+  ElMessageBox.alert(`密码为： <span style='font-size: 20px;color: red'>${pwd}</span>,仅提示一次，请妥善保存`, "密码提示", {
     dangerouslyUseHTMLString: true
   })
   cancelForm()
 }
 
-const cancelForm = (data: any) => {
+function cancelForm() {
   if (props.saveFun) {
-    props.saveFun();
+    props.saveFun()
   }
 }
-
 </script>
 
 <style scoped lang="scss">

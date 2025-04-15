@@ -1,14 +1,16 @@
 <script lang="ts" setup>
 
+import {downloadFilePost, postNoResult} from "@@/utils/common-js.ts";
 
 const props = defineProps({
   multipleSelection: {
     type: Array,
     default: []
   },
-  documentUrl: {
+  dataBatchDeleteUrl: {
     type: String,
-    required: true
+    required: false,
+    default: ""
   },
   dataTableRef: {
     type: Object,
@@ -34,6 +36,11 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  downLoadUrl: {
+    type: String,
+    required: false,
+    default: ""
+  },
   addBtnFun: {
     type: Function,
     required: false
@@ -50,63 +57,79 @@ const props = defineProps({
     type: Object,
     required: false
   },
-  editComponent: {
+  queryDto: {
     type: Object,
-    required: false
-  },
-  editItemDto: {
-    type: Object,
-    required: false
-  },
-  saveUrl: {
-    type: String,
     required: false
   }
 })
 
-const addDialogShow = ref(false);
-const editDialogShow = ref(false);
+const addDialogShow = ref(false)
+const editId = ref<string>("")
+
 const config = ref({
   title: ""
 })
 
-// const addItemDto = ref({})
-
-const addItem = () => {
-  config.value.title = "添加" + props.documentTitle
+function addItem() {
+  editId.value = ""
+  config.value.title = `添加${props.documentTitle}`
   addDialogShow.value = true
 }
-const deleteById = () => {
+
+function deleteById() {
+  if (props.dataBatchDeleteUrl === "") {
+    ElMessage.error("请配置删除地址")
+    return
+  }
   if (props.multipleSelection.length < 1) {
     ElMessage.error("请选择需要删除的对象")
-    return;
+    return
   }
   console.info("dataTableRef.value ", props.multipleSelection)
+  postNoResult(props.dataBatchDeleteUrl, {idList: props.multipleSelection}, "删除成功", () => {
+    props.refreshList && props.refreshList()
+  })
+}
+
+function saveFun() {
+  addDialogShow.value = false
   props.refreshList && props.refreshList()
 }
 
-const saveFun = () => {
-  addDialogShow.value = false;
-  props.refreshList && props.refreshList()
+function showEditDialog(eId: string) {
+  console.info("editId ", eId)
+  editId.value = eId
+  config.value.title = `修改${props.documentTitle}`
+  addDialogShow.value = true
 }
 
+function downloadFun() {
+  downloadFilePost(props.downLoadUrl, props.queryDto)
+}
+
+defineExpose({
+  showEditDialog
+})
 </script>
 
 <template>
-  <el-button v-if="props.showAddBtn" type="primary" icon="plus" @click="addItem">添加</el-button>
-  <el-button v-if="props.showDelBtn" type="danger" icon="minus" @click="deleteById">删除</el-button>
+  <el-button v-if="props.showAddBtn" type="primary" icon="plus" @click="addItem">
+    添加
+  </el-button>
+  <el-button v-if="props.showDelBtn" type="danger" icon="minus" @click="deleteById">
+    删除
+  </el-button>
   <el-button v-if="props.showRefreshBtn && props.refreshList" type="info" icon="Refresh" @click="props.refreshList">
     刷新
   </el-button>
-  <el-button v-if="props.showDownloadBtn" type="warning" icon="download">下载</el-button>
-  <slot name="otherBtn"></slot>
+  <el-button v-if="props.showDownloadBtn && props.downLoadUrl" type="warning" icon="download" @click="downloadFun">
+    下载
+  </el-button>
+  <slot name="otherBtn" />
   <el-dialog :title="config.title" v-model="addDialogShow" destroy-on-close>
-    <component :is="props.addComponent" v-bind="{
-      saveFun: saveFun }"
+    <component
+      :is="props.addComponent" :save-fun="saveFun" :edit-id="editId"
     />
-  </el-dialog>
-  <el-dialog :title="config.title" v-model="editDialogShow" destroy-on-close>
-    <component :is="props.editComponent"></component>
   </el-dialog>
 </template>
 

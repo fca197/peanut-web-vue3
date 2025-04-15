@@ -4,3 +4,4 @@ export interface LoginAccount {
   pwd: string
   id: string
 }
+
