@@ -3,6 +3,10 @@
 import { downloadFilePost, postNoResult } from "@@/utils/common-js.ts"
 
 const props = defineProps({
+  dialogWith: {
+    type: Number,
+    default: 500
+  },
   multipleSelection: {
     type: Array,
     default: () => []
@@ -86,7 +90,10 @@ function deleteById() {
     return
   }
   console.info("dataTableRef.value ", props.multipleSelection)
-  ElMessageBox.confirm(`确定需要删除${props.multipleSelection.length}条数据吗？`, "删除提示").then(() => {
+  ElMessageBox.confirm(`确定需要删除<span style="color: red; margin: 0 5px">${props.multipleSelection.length}</span>条数据吗？`, "删除提示", {
+    dangerouslyUseHTMLString: true,
+    type: "warning"
+  }).then(() => {
     postNoResult(props.dataBatchDeleteUrl, { idList: props.multipleSelection }, "删除成功", () => {
       props.refreshList && props.refreshList()
     })
@@ -128,7 +135,7 @@ defineExpose({
     下载
   </el-button>
   <slot name="otherBtn" />
-  <el-dialog :title="config.title" v-model="addDialogShow" destroy-on-close>
+  <el-dialog :title="config.title" v-model="addDialogShow" destroy-on-close :width="dialogWith">
     <component
       :is="props.addComponent" :save-fun="saveFun" :edit-id="editId"
     />
