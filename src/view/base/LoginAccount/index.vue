@@ -3,10 +3,12 @@
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
         <el-form-item label="手机号" prop="loginPhone">
-          <el-input v-model="queryForm.loginPhone"></el-input>
+          <el-input v-model="queryForm.loginPhone" clearable></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="search"> 查询</el-button>
+          <el-button type="primary" icon="search" @click="getDataList">
+            查询
+          </el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -20,7 +22,7 @@
       <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
         <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
-        <el-table-column fixed="right" label="操作" width="350px">
+        <el-table-column fixed="right" label="操作" width="550px">
           <template #default="scope">
             <el-button
               type="warning"
@@ -36,6 +38,27 @@
             >
               重置密码
             </el-button>
+            <el-button
+              type="primary"
+              icon="edit"
+              @click="todo(scope.row)"
+            >
+              角色
+            </el-button>
+            <el-button
+              type="info"
+              icon="edit"
+              @click="todo(scope.row)"
+            >
+              角色组
+            </el-button>
+            <el-button
+              type="success"
+              icon="edit"
+              @click="todo(scope.row)"
+            >
+              部门
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -44,7 +67,6 @@
           background
           v-model:current-page="currentPageNum"
           v-model:page-size="currentPageSize"
-          :page-sizes="pageSizeAr"
           layout="total, sizes, prev, pager, next"
           :total="tableTotal"
           @size-change="handleSizeChange"
@@ -56,12 +78,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
+import { ref } from "vue"
 import AddEditFormVue from "./AddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {postNoResult, postResultInfo} from "@@/utils/common-js.ts";
-
-import {type LoginAccount} from "@/view/base/LoginAccount/Type.ts"
+import { postNoResult, postResultInfo, todo } from "@@/utils/common-js.ts"
+import { type LoginAccount } from "@v/base/LoginAccount/Type.ts"
 
 const queryForm = ref({
   loginPhone: undefined
@@ -81,24 +102,38 @@ const headerList = ref([
   {
     showName: "序号",
     fieldName: "id"
-  }, {
+  },
+  {
     showName: "用户名",
     fieldName: "userName"
-  }, {
+  },
+  {
     showName: "手机号",
     fieldName: "loginPhone"
+  },
+  {
+    showName: "角色",
+    fieldName: "baseRoleName"
+  },
+  {
+    showName: "角色组",
+    fieldName: "baseRoleGroupName"
+  },
+  {
+    showName: "部门",
+    fieldName: "deptName"
   }
 ])
 
 const currentPageNum = ref(1)
-const pageSizeAr = ref([1, 2, 3, 4, 5, 6, 7])
-const currentPageSize = ref(pageSizeAr.value[0])
+const currentPageSize = ref(10)
 const tableTotal = ref(0)
 
 function getDataList() {
   const req = {
     pageSize: currentPageSize.value,
-    pageNum: currentPageNum.value
+    pageNum: currentPageNum.value,
+    data: queryForm.value
   }
   console.info("getDataList {}", req)
   postResultInfo("/loginAccount/queryPageList", req)
@@ -127,7 +162,7 @@ function handleCurrentChange(val: number) {
   getDataList()
 }
 
-function resetPwd(row) {
+function resetPwd(row: LoginAccount) {
   postNoResult("/loginAccount/resetPwd", {
     id: row.id
   }, "修改成功", (t) => {

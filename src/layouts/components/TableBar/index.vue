@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 
-import {downloadFilePost, postNoResult} from "@@/utils/common-js.ts";
+import { downloadFilePost, postNoResult } from "@@/utils/common-js.ts"
 
 const props = defineProps({
   multipleSelection: {
     type: Array,
-    default: []
+    default: () => []
   },
   dataBatchDeleteUrl: {
     type: String,
@@ -86,8 +86,10 @@ function deleteById() {
     return
   }
   console.info("dataTableRef.value ", props.multipleSelection)
-  postNoResult(props.dataBatchDeleteUrl, {idList: props.multipleSelection}, "删除成功", () => {
-    props.refreshList && props.refreshList()
+  ElMessageBox.confirm(`确定需要删除${props.multipleSelection.length}条数据吗？`, "删除提示").then(() => {
+    postNoResult(props.dataBatchDeleteUrl, { idList: props.multipleSelection }, "删除成功", () => {
+      props.refreshList && props.refreshList()
+    })
   })
 }
 

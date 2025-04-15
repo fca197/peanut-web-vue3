@@ -23,7 +23,7 @@ export interface ResultInfo {
 }
 
 /** 增 */
-export function postNoResult(url: string, data: any, suMsg: string, suFun: any) {
+export function postNoResult(url: string, data: any, suMsg: string, suFun: (data: any) => void) {
   request<Result<ResultInfo>>({
     url,
     method: "post",
@@ -33,7 +33,7 @@ export function postNoResult(url: string, data: any, suMsg: string, suFun: any) 
     if (r.code === 200) {
       ElMessage.success(suMsg || "操作成功")
       if (suFun) {
-        suFun(r)
+        suFun(r.data)
       }
     }
   })
@@ -80,4 +80,9 @@ export async function downloadFilePost(reqUrl: string, reqData: any) {
   } catch (error) {
     ElMessage.error(`文件下载失败,请稍后再试. 错误信息：${error}`)
   }
+}
+
+export function todo(data: any) {
+  console.info("todo ", data)
+  ElMessage.warning("敬请期待")
 }
