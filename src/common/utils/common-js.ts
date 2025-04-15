@@ -5,12 +5,18 @@ export interface Result<ResultPageInfo> {
   data: ResultPageInfo
 }
 
+export interface HeaderInfo {
+  fieldName: string
+  showName: string
+}
+
 export interface ResultPageInfo {
   total: string // 总数
   size: string// 页面条数
   current: string // 当前页
   records: [] // 数组
   dataList: [] // 数组
+  headerList: [] // 数组
 }
 
 export interface ResultInfo {
@@ -85,4 +91,16 @@ export async function downloadFilePost(reqUrl: string, reqData: any) {
 export function todo(data: any) {
   console.info("todo ", data)
   ElMessage.warning("敬请期待")
+}
+
+export function getById(url: string, id: string) {
+  return request<Result<any>>({
+    url,
+    method: "post",
+    data: {
+      idList: [id]
+    }
+  }).then((t) => {
+    return t.data.dataList[0]
+  })
 }

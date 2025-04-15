@@ -26,7 +26,7 @@ export function menuList(): Array<RouteRecordRaw> {
         {
           path: "/base/config/factory",
           name: "工厂管理",
-          component: () => import("@/view/base/LoginAccount/index.vue"),
+          component: () => import("@/view/base/Factory/index.vue"),
           meta: {
             title: "工厂管理",
             elIcon: "House"
