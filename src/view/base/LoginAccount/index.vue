@@ -41,16 +41,9 @@
             <el-button
               type="primary"
               icon="edit"
-              @click="todo(scope.row)"
+              @click="editRoleFun(scope.row)"
             >
-              角色
-            </el-button>
-            <el-button
-              type="info"
-              icon="edit"
-              @click="todo(scope.row)"
-            >
-              角色组
+              角色信息
             </el-button>
             <el-button
               type="success"
@@ -75,14 +68,18 @@
       </el-row>
     </el-card>
   </div>
+  <el-dialog v-model="editConfigShow" :title="editConfigShowTitle" destroy-on-close width="700px">
+    <component :is="EditRole" :close-dialog-fun="closeDialog" :user-info="editTableDto" ></component>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import {ref} from "vue"
 import AddEditFormVue from "./AddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { postNoResult, postResultInfo, todo } from "@@/utils/common-js.ts"
-import { type LoginAccount } from "@v/base/LoginAccount/Type.ts"
+import {postNoResult, postResultInfo, todo} from "@@/utils/common-js.ts"
+import {type LoginAccount} from "@v/base/LoginAccount/Type.ts"
+import EditRole from "./EditRole.vue"
 
 const queryForm = ref({
   loginPhone: undefined
@@ -96,6 +93,9 @@ function handleSelectionChange(val: LoginAccount []) {
 }
 
 const dataTableRef = ref({})
+const editConfigShow = ref<boolean>(false)
+const editConfigShowTitle = ref<string>("")
+const editConfigShowType = ref<string>("")
 const dataList = ref([])
 const tableBarRef = ref({})
 const headerList = ref([
@@ -128,6 +128,7 @@ const headerList = ref([
 const currentPageNum = ref(1)
 const currentPageSize = ref(10)
 const tableTotal = ref(0)
+const editTableDto = ref<any> (null)
 
 function getDataList() {
   const req = {
@@ -171,6 +172,18 @@ function resetPwd(row: LoginAccount) {
       dangerouslyUseHTMLString: true
     })
   })
+}
+
+function editRoleFun(row: LoginAccount) {
+  editConfigShowTitle.value = "修改角色信息"
+  editConfigShowType.value = "role"
+  editConfigShow.value = true
+  editTableDto.value = row
+}
+
+function closeDialog() {
+  editConfigShow.value = false
+  getDataList()
 }
 </script>
 

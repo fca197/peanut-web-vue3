@@ -104,3 +104,15 @@ export function getById(url: string, id: string) {
     return t.data.dataList[0]
   })
 }
+
+export function queryAllList(url: string) {
+  return request<Result<any>>({
+    url,
+    method: "post",
+    data: {
+      queryPage: false
+    }
+  }).then((t) => {
+    return t.data.dataList[0]
+  })
+}

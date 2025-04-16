@@ -2,12 +2,12 @@
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="应用ID" prop="appId">
-          <el-input v-model="queryForm.appId" clearable placeholder="请输入应用ID"/>
-        </el-form-item>
-        <el-form-item label="资源ID" prop="resourceId">
-          <el-input v-model="queryForm.resourceId" clearable placeholder="请输入资源ID"/>
-        </el-form-item>
+              <el-form-item label="角色ID" prop="roleGroupId">
+                <el-input v-model="queryForm.roleGroupId" clearable placeholder="请输入角色ID" />
+              </el-form-item>
+              <el-form-item label="资源ID" prop="resourceId">
+                <el-input v-model="queryForm.resourceId" clearable placeholder="请输入资源ID" />
+              </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
             查询
@@ -28,8 +28,8 @@
       />
       <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
-        <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
-        <el-table-column fixed="right" label="操作" width="100px">
+        <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
+        <el-table-column fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
               type="warning"
@@ -58,24 +58,24 @@
 
 <script setup lang="ts">
 import {ref} from "vue"
-import AddEditFormVue from "./BaseAppResourceAddEditForm.vue"
+import AddEditFormVue from "./BaseRoleGroupResourceAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type BaseAppResource} from "./BaseAppResourceType.ts"
+import {type BaseRoleGroupResource} from "./BaseRoleGroupResourceType.ts"
 
-const dtoUrl = ref<string>("/baseAppResource")
-const documentTitle = ref<string>("资源")
+const dtoUrl = ref<string>("/baseRoleGroupResource")
+const documentTitle = ref<string>("角色组资源表")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 const queryForm = ref({
-  appId: undefined,
-  resourceId: undefined,
-  id: undefined
+      roleGroupId:  undefined,
+      resourceId:  undefined,
+      id: undefined
 })
 
 const multipleSelection = ref<string []>([])
 
-function handleSelectionChange(val: BaseAppResource []) {
+function handleSelectionChange(val: BaseRoleGroupResource []) {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }

@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => {
       alias: {
         // @ 符号指向 src 目录
         "@": resolve(__dirname, "src"),
+        "@v": resolve(__dirname, "src/view"),
         // @@ 符号指向 src/common 通用目录
         "@@": resolve(__dirname, "src/common")
       }
@@ -119,8 +120,6 @@ export default defineConfig(({ mode }) => {
         dts: true,
         dtsDir: resolve(__dirname, "types/auto")
       }),
-      // 原子化 CSS
-      UnoCSS(),
       // 自动按需导入 API
       AutoImport({
         imports: ["vue", "vue-router", "pinia"],
