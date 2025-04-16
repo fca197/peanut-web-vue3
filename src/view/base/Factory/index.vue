@@ -25,7 +25,7 @@
       />
       <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
-        <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" width="176px"/>
+        <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
         <el-table-column fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
@@ -82,7 +82,18 @@ const tableBarRef = ref({})
 const currentPageNum = ref(1)
 const currentPageSize = ref(10)
 const tableTotal = ref(0)
-const headerList = ref<HeaderInfo[]>([])
+const headerList = ref<HeaderInfo[]>([
+  {
+    showName: "序号",
+    fieldName: "id"
+  }, {
+    showName: "工厂名称",
+    fieldName: "factoryName"
+  }, {
+    showName: "工厂编码",
+    fieldName: "factoryCode"
+  }
+])
 
 function getDataList() {
   const req = {
@@ -95,7 +106,7 @@ function getDataList() {
     .then((t) => {
       dataList.value = t.data.dataList
       tableTotal.value = Number.parseInt(t.data.total)
-      headerList.value = t.data.headerList
+      // headerList.value = t.data.headerList
     })
 }
 
