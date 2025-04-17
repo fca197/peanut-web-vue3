@@ -38,7 +38,7 @@ export function menuList(): Array<RouteRecordRaw> {
           component: () => import("@/view/base/BaseApp/BaseAppIndex.vue"),
           meta: {
             title: "App管理",
-            elIcon: "House"
+            elIcon: "Compass"
           }
         },
         {
@@ -47,7 +47,16 @@ export function menuList(): Array<RouteRecordRaw> {
           component: () => import("@/view/base/BaseAppResource/BaseAppResourceIndex.vue"),
           meta: {
             title: "App菜单管理",
-            elIcon: "House"
+            elIcon: "Memo"
+          }
+        },
+        {
+          path: "/base/config/ApsBomGroup",
+          name: "",
+          component: () => import("@v/base/ApsBomGroup/ApsBomGroupIndex.vue"),
+          meta: {
+            title: "零件组",
+            elIcon: "Files"
           }
         }
       ]

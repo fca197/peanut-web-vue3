@@ -52,6 +52,8 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTransfer: typeof import('element-plus/es')['ElTransfer']
+    ElTree: typeof import('element-plus/es')['ElTree']
+    ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
