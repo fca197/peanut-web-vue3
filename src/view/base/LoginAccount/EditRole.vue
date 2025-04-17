@@ -58,7 +58,7 @@ onMounted(() => {
     baseRoleList.value = t.map((tt) => {
       return {key: tt.id, label: tt.roleName}
     })
-    // console.info("baseRoleList ", baseRoleList.value)
+    console.info("baseRoleList ", baseRoleList.value)
   })
   getRoleGroupList().then(t => baseRoleGroupList.value = t.map((tt) => {
     return {key: tt.id, label: tt.roleGroupName}
@@ -71,7 +71,6 @@ onMounted(() => {
   }).then(t => {
     userRoleList.value = t.data.dataList.map(tt => tt.roleId)
     console.info("userRoleList.value  ", userRoleList.value)
-
   })
   postResultInfo("/baseUserRoleGroup/queryPageList", {
     queryPage: false,
@@ -99,8 +98,6 @@ function saveUserRole() {
   postNoResult("/loginAccount/updateRole", req, "保存成功", closeDialog)
 }
 </script>
-
-
 <style scoped lang="scss">
 
 </style>

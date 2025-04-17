@@ -67,10 +67,11 @@
         />
       </el-row>
     </el-card>
+
+    <el-dialog v-model="editConfigShow" :title="editConfigShowTitle" destroy-on-close width="700px">
+          <component v-if="editConfigShowType" :is="EditRole" :close-dialog-fun="closeDialog" :user-info="editTableDto" ></component>
+    </el-dialog>
   </div>
-  <el-dialog v-model="editConfigShow" :title="editConfigShowTitle" destroy-on-close width="700px">
-    <component :is="EditRole" :close-dialog-fun="closeDialog" :user-info="editTableDto" ></component>
-  </el-dialog>
 </template>
 
 <script setup lang="ts">

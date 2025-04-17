@@ -1,9 +1,9 @@
 import {postResultInfo} from "@@/utils/common-js.ts"
 
 export interface BaseRole {
-  roleCode: undefined
-  roleName: undefined
-  roleGroupId: undefined
+  roleCode: string
+  roleName: string
+  roleGroupId: string
   id: string
 }
 

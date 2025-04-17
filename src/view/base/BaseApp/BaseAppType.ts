@@ -1,6 +1,5 @@
 export interface BaseApp {
-  appCode: underfind,
-  appName: underfind,
-  id: underfind
+  appCode: string
+  appName: string
+  id: string
 }
-

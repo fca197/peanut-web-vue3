@@ -1,5 +1,5 @@
 export interface BaseAppResource {
-  appId: undefined
-  resourceId: undefined
+  appId: string
+  resourceId: string
   id: string
 }
