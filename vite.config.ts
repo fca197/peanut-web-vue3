@@ -3,7 +3,6 @@
 import { resolve } from "node:path"
 import vue from "@vitejs/plugin-vue"
 import vueJsx from "@vitejs/plugin-vue-jsx"
-import UnoCSS from "unocss/vite"
 import AutoImport from "unplugin-auto-import/vite"
 import SvgComponent from "unplugin-svg-component/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
@@ -59,6 +58,10 @@ export default defineConfig(({ mode }) => {
     },
     // 构建配置
     build: {
+      // 自定义打包输出目录
+      outDir: "dist",
+      // 开启 sourcemap
+      // sourcemap: true,
       // 自定义底层的 Rollup 打包配置
       rollupOptions: {
         output: {
@@ -69,8 +72,7 @@ export default defineConfig(({ mode }) => {
            */
           manualChunks: {
             vue: ["vue", "vue-router", "pinia"],
-            element: ["element-plus", "@element-plus/icons-vue"],
-            vxe: ["vxe-table"]
+            element: ["element-plus", "@element-plus/icons-vue"]
           }
         }
       },
@@ -132,6 +134,7 @@ export default defineConfig(({ mode }) => {
         resolvers: [ElementPlusResolver()]
       })
     ],
+
     // Configuring Vitest: https://cn.vitest.dev/config
     test: {
       include: ["tests/**/*.test.{ts,js}"],
