@@ -52,7 +52,7 @@ export function menuList(): Array<RouteRecordRaw> {
         },
         {
           path: "/base/config/ApsBomGroup",
-          name: "",
+          name: "零件组",
           component: () => import("@v/base/ApsBomGroup/ApsBomGroupIndex.vue"),
           meta: {
             title: "零件组",
