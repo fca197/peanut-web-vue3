@@ -26,8 +26,8 @@ const queryLoading = ref<boolean>(true)
 onMounted(() => {
   queryData()
 })
-function queryData(){
-  data.value =[]
+function queryData() {
+  data.value = []
   queryApsBomGroupTree().then((t) => {
     data.value = t
     queryLoading.value = false

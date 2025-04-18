@@ -3,14 +3,14 @@ interface List {
   parentId: string
 }
 
-export function list2tree(list: List [], parentId: string){
+export function list2tree(list: any [], parentId: string | undefined) {
 
   const mapTmp = {}
   const roots: List[] = []
 
   // 首先将所有节点存储到 map 中
   list.forEach((item) => {
-    mapTmp[item.id] = { ...item, children: []}
+    mapTmp[item.id] = {...item, children: []}
   })
   // 遍历列表，建立父子关系
   list.forEach((item) => {

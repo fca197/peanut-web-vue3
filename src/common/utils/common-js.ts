@@ -1,8 +1,10 @@
 import {request} from "@/http/axios"
+import {getToken} from "@@/utils/cache/cookies.ts";
+import {DistrictCode} from "@v/base/TDistrictCode/TDistrictCodeType.ts";
 
-export interface Result<ResultPageInfo> {
+export interface Result<T> {
   code: number
-  data: ResultPageInfo
+  data: T
 }
 
 export interface HeaderInfo {
@@ -10,27 +12,22 @@ export interface HeaderInfo {
   showName: string
 }
 
-export interface ResultPageInfo {
+export interface ResultPageInfo<T> {
   total: string // 总数
   size: string// 页面条数
   current: string // 当前页
-  records: [] // 数组
-  dataList: [] // 数组
-  headerList: [] // 数组
+  records: T [] // 数组
+  dataList: T [] // 数组
+  headerList: T [] // 数组
 }
 
-export interface ResultInfo {
-  total: number // 总数
-  size: number// 页面条数
-  current: number // 当前页
-  records: [] // 数组
-  dataList: [] // 数组
-  data: any
+export interface ResultInfo<T> {
+  data: T
 }
 
 /** 增 */
 export function postNoResult(url: string, data: any, suMsg: string, suFun: (data: any) => void) {
-  request<Result<ResultInfo>>({
+  request<Result<ResultInfo<any>>>({
     url,
     method: "post",
     data
@@ -46,7 +43,7 @@ export function postNoResult(url: string, data: any, suMsg: string, suFun: (data
 }
 
 export function postResultInfo(url: string, data: any) {
-  return request<Result<ResultPageInfo>>({
+  return request<Result<ResultPageInfo<any>>>({
     url,
     method: "post",
     data
@@ -56,11 +53,14 @@ export function postResultInfo(url: string, data: any) {
 export async function downloadFilePost(reqUrl: string, reqData: any) {
   try {
     reqData = reqData || {}
+    reqUrl = `/api/peanut${reqUrl}`
+    const token = getToken()
     const response = await fetch(reqUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json", // 请求体为 JSON 格式
-        "Accept": "application/octet-stream" // 期望响应为二进制流
+        "Accept": "application/octet-stream", // 期望响应为二进制流
+        "j-token": token
       },
       body: JSON.stringify(reqData) // 将请求数据转换为 JSON 字符串
     })
@@ -70,12 +70,15 @@ export async function downloadFilePost(reqUrl: string, reqData: any) {
     const link = document.createElement("a")
 
     // 提取文件名
-    let fileName = "data.bin"
+    let fileName = "未命名.xlsx"
     const contentDisposition = response.headers.get("Content-Disposition")
     if (contentDisposition) {
       const match = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)
       if (match != null && match[1]) {
         fileName = match[1].replace(/['"]/g, "")
+      }
+      if (fileName.indexOf("%") !== -1) {
+        fileName = decodeURI(fileName)
       }
     }
     link.href = url
@@ -88,12 +91,12 @@ export async function downloadFilePost(reqUrl: string, reqData: any) {
   }
 }
 
-export function todo(data: any) {
+export async function todo(data: any) {
   console.info("todo ", data)
   ElMessage.warning("敬请期待")
 }
 
-export function getById(url: string, id: string) {
+export async function getById(url: string, id: string) {
   return request<Result<any>>({
     url,
     method: "post",
@@ -105,7 +108,7 @@ export function getById(url: string, id: string) {
   })
 }
 
-export function queryAllList(url: string) {
+export async function queryAllList(url: string) {
   return request<Result<any>>({
     url,
     method: "post",
@@ -114,5 +117,35 @@ export function queryAllList(url: string) {
     }
   }).then((t) => {
     return t.data.dataList[0]
+  })
+}
+
+export interface KVEntity {
+  label: string
+  value: any
+}
+
+interface pinyin4jSzmData {
+  str: string
+}
+
+export async function pinyin4jSzm(value: string) {
+  const data: pinyin4jSzmData = {
+    str: value
+  }
+  return request<Result<any>>({
+    url: "/pinyin4j/getSZM",
+    method: "post",
+    data
+  }).then((t) => {
+    return t.data.szmUpper
+  })
+}
+
+export function queryDistrictByParentCode(data: string) {
+  return request<Result<ResultPageInfo<DistrictCode>>>({
+    url: "/districtCode/queryList",
+    method: "POST",
+    data: {data: {parentCode: data || '0'}}
   })
 }

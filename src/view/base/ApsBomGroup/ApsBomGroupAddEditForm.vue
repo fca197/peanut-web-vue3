@@ -13,7 +13,7 @@
         node-key="id"
         :highlight-current="true"
         :check-strictly="true"
-        show-checkbox :data="bomGroupList" :props="defaultProps"
+        show-checkbox :data="bomGroupList" :props="apsGroupDefaultProps"
       ></el-tree-select>
     </el-form-item>
   </el-form>
@@ -31,7 +31,7 @@
 import {onMounted, ref} from "vue"
 import {getById, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
-import {ApsBomGroup, queryApsBomGroupTree} from "@v/base/ApsBomGroup/ApsBomGroupType.ts"
+import {ApsBomGroup, apsGroupDefaultProps, queryApsBomGroupTree} from "@v/base/ApsBomGroup/ApsBomGroupType.ts"
 
 const props = defineProps({
   saveFun: {
@@ -131,11 +131,7 @@ function removeLeaves(nodes) {
   });
 };
 
-const defaultProps = {
-  children: "children",
-  label: "groupName",
-  id: "id"
-}
+
 const handleCheckChange = (data: any, checked: boolean, indeterminate: boolean) => {
   console.log(data, checked, indeterminate)
   console.log("bomGroupTreeRef.value.getCheckedKeys() ",bomGroupTreeRef.value.getCheckedKeys())

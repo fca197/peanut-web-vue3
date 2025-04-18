@@ -6,7 +6,8 @@ vite.config.*.timestamp*
 
 # MacOS
 .DS_Store
-
+dist.zip
+dist/
 # Local env files
 *.local
 .vscode/

@@ -58,6 +58,24 @@ export function menuList(): Array<RouteRecordRaw> {
             title: "零件组",
             elIcon: "Files"
           }
+        },
+        {
+          path: "/base/config/ApsBom",
+          name: "零件",
+          component: () => import("@v/base/ApsBom/ApsBomIndex.vue"),
+          meta: {
+            title: "零件",
+            elIcon: "setting"
+          }
+        },
+        {
+          path: "/base/config/ApsBomSupplier",
+          name: "零件供应商",
+          component: () => import("@v/base/ApsBomSupplier/ApsBomSupplierIndex.vue"),
+          meta: {
+            title: "零件供应商",
+            elIcon: "Avatar"
+          }
         }
       ]
     }

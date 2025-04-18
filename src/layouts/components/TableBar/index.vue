@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
-import { downloadFilePost, postNoResult } from "@@/utils/common-js.ts"
-
+import {downloadFilePost, postNoResult} from "@@/utils/common-js.ts"
+import  UploadFile from "./UploadFile.vue"
 const props = defineProps({
   dialogWith: {
     type: Number,
@@ -36,11 +36,12 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
-  showDownloadBtn: {
-    type: Boolean,
-    default: true
-  },
   downLoadUrl: {
+    type: String,
+    required: false,
+    default: ""
+  },
+  uploadUrl: {
     type: String,
     required: false,
     default: ""
@@ -68,6 +69,7 @@ const props = defineProps({
 })
 
 const addDialogShow = ref(false)
+const dialogType = ref<string>("")
 const editId = ref<string>("")
 
 const config = ref({
@@ -77,6 +79,7 @@ const config = ref({
 function addItem() {
   editId.value = ""
   config.value.title = `添加${props.documentTitle}`
+  dialogType.value = "addItem"
   addDialogShow.value = true
 }
 
@@ -94,7 +97,7 @@ function deleteById() {
     dangerouslyUseHTMLString: true,
     type: "warning"
   }).then(() => {
-    postNoResult(props.dataBatchDeleteUrl, { idList: props.multipleSelection }, "删除成功", () => {
+    postNoResult(props.dataBatchDeleteUrl, {idList: props.multipleSelection}, "删除成功", () => {
       props.refreshList && props.refreshList()
     })
   })
@@ -109,6 +112,7 @@ function showEditDialog(eId: string) {
   console.info("editId ", eId)
   editId.value = eId
   config.value.title = `修改${props.documentTitle}`
+  dialogType.value = "addItem"
   addDialogShow.value = true
 }
 
@@ -116,6 +120,11 @@ function downloadFun() {
   downloadFilePost(props.downLoadUrl, props.queryDto)
 }
 
+function uploadFun() {
+  config.value.title = `上传文件`
+  dialogType.value = "upload"
+  addDialogShow.value = true
+}
 defineExpose({
   showEditDialog
 })
@@ -131,14 +140,21 @@ defineExpose({
   <el-button v-if="props.showRefreshBtn && props.refreshList" type="info" icon="Refresh" @click="props.refreshList">
     刷新
   </el-button>
-  <el-button v-if="props.showDownloadBtn && props.downLoadUrl" type="warning" icon="download" @click="downloadFun">
+  <el-button v-if="props.downLoadUrl" type="warning" icon="download" @click="downloadFun">
     下载
   </el-button>
-  <slot name="otherBtn" />
+  <el-button v-if="props.uploadUrl" type="primary" icon="upload" @click="uploadFun">
+    上传
+  </el-button>
+  <slot name="otherBtn"/>
   <el-dialog :title="config.title" v-model="addDialogShow" destroy-on-close :width="dialogWith">
     <component
+      v-if="dialogType === 'addItem'"
       :is="props.addComponent" :save-fun="saveFun" :edit-id="editId"
     />
+    <div v-if="dialogType === 'upload'">
+      <upload-file/>
+    </div>
   </el-dialog>
 </template>
 
