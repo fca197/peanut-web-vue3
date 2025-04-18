@@ -85,6 +85,15 @@ export function menuList(): Array<RouteRecordRaw> {
             title: "工厂管理",
             elIcon: "House"
           }
+        },
+        {
+          path: "/base/config/ApsGoodsBom",
+          name: "商品零件",
+          component: () => import("@v/base/ApsGoodsBom/ApsGoodsBomIndex.vue"),
+          meta: {
+            title: "商品零件",
+            elIcon: "SwitchFilled"
+          }
         }
       ]
     }
