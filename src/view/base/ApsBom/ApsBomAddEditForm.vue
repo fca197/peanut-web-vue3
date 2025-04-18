@@ -19,7 +19,7 @@
     </el-form-item>
     <el-form-item label="购买方式" prop="supplyMode">
       <el-select v-model="addForm.supplyMode">
-        <el-option v-for="(sm) in supplyModeList" :value="sm.value" :key="sm.value" :label="sm.label"></el-option>
+        <el-option v-for="(sm) in supplyModeList" :value="sm.value" :key="sm.value" :label="sm.label" />
       </el-select>
     </el-form-item>
     <el-form-item label="规格" prop="bomUnit">
@@ -60,11 +60,10 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
-import {FormInstance, FormRules} from "element-plus"
-
 import {getById, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {supplyModeList} from "@v/base/ApsBom/ApsBomType.ts"
+import {FormInstance, FormRules} from "element-plus"
+import {onMounted, ref} from "vue"
 
 
 const props = defineProps({

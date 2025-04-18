@@ -20,6 +20,7 @@ export default antfu(
   {
     // 对所有文件都生效的规则
     rules: {
+      "@typescript-eslint/consistent-type-imports": "off",
       // vue
       "vue/block-order": ["error", { order: ["script", "template", "style"] }],
       "vue/attributes-order": "off",

@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import type {HeaderInfo} from "@@/utils/common-js.ts"
-import {postResultInfo} from "@@/utils/common-js.ts"
 import type {ApsBom} from "./ApsBomType.ts"
-import {supplyModeList} from "./ApsBomType.ts"
-
-import { ElTable } from 'element-plus';
-
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ApsBomGroup, apsGroupDefaultProps, queryApsBomGroupTree} from "@v/base/ApsBomGroup/ApsBomGroupType.ts"
+import {postResultInfo} from "@@/utils/common-js.ts"
+import { ElTable } from "element-plus"
 import {ref} from "vue"
+import {supplyModeList} from "./ApsBomType.ts"
+import {ApsBomGroup, apsGroupDefaultProps, queryApsBomGroupTree} from "@v/base/ApsBomGroup/ApsBomGroupType.ts"
 import AddEditFormVue from "./ApsBomAddEditForm.vue"
+
 
 const dtoUrl = ref<string>("/apsBom")
 const documentTitle = ref<string>("BOM 清单")

@@ -1,3 +1,6 @@
+import {request} from "@/http/axios.ts";
+import {Result, ResultPageInfo} from "@@/utils/common-js.ts";
+
 export interface ApsBom {
   bomCode: string
   bomName: string
@@ -26,3 +29,17 @@ export const supplyModeList: supplyModeType[] = [{
   label: "购买",
   value: "buy"
 }]
+
+export function queryApsBomList(pageNumber: number, data: any) {
+  return request<Result<ResultPageInfo<ApsBom>>>({
+    url: "/apsBom/queryPageList",
+    method: "post",
+    data: {
+      pageSize: 10,
+      pageNumber: 1,
+      data
+    }
+  }).then(r => {
+    return r.data.dataList;
+  })
+}
