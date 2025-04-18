@@ -94,6 +94,15 @@ export function menuList(): Array<RouteRecordRaw> {
             title: "商品零件",
             elIcon: "SwitchFilled"
           }
+        },
+        {
+          path: "/base/config/ApsMachine",
+          name: "机器管理",
+          component: () => import("@v/base/ApsMachine/ApsMachineIndex.vue"),
+          meta: {
+            title: "机器管理",
+            elIcon: "Connection"
+          }
         }
       ]
     }
