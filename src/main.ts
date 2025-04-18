@@ -11,7 +11,7 @@ import "nprogress/nprogress.css"
 import "element-plus/theme-chalk/dark/css-vars.css"
 import "@@/assets/styles/index.scss"
 import "@/common/assets/styles/style.css"
-
+import "element-plus/dist/index.css"
 // 创建应用实例
 const app = createApp(App)
 

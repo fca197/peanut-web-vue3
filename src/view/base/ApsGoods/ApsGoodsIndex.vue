@@ -8,11 +8,10 @@
               <el-form-item label="商品备注" prop="goodsRemark">
                 <el-input v-model="queryForm.goodsRemark" clearable placeholder="请输入商品备注" />
               </el-form-item>
-              <el-form-item label="${column.comment}" prop="supplierStatus">
-                <el-input v-model="queryForm.supplierStatus" clearable placeholder="请输入${column.comment}" />
-              </el-form-item>
-              <el-form-item label="工厂ID" prop="factoryId">
-                <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
+              <el-form-item label="工厂" prop="factoryId">
+                <el-select v-model="queryForm.factoryId" clearable style="width: 130px" >
+                  <el-option v-for="f in factoryList" :value="f.id" :label="f.factoryName" :key="f.id"></el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="工艺路线" prop="processPathId">
                 <el-input v-model="queryForm.processPathId" clearable placeholder="请输入工艺路线" />
@@ -75,6 +74,7 @@ import TableBar from "@/layouts/components/TableBar/index.vue"
 import { ElTable } from 'element-plus';
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsGoods} from "./ApsGoodsType.ts"
+import {Factory, queryFactoryList} from "@v/base/TFactory/TFactoryType.ts";
 
 const dtoUrl = ref<string>("/apsGoods")
 const documentTitle = ref<string>("aps 商品表")
@@ -95,7 +95,7 @@ const queryForm = ref<ApsGoods>({
 const multipleSelection = ref<string []>([])
 
 // 表格
-const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
+const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
@@ -104,7 +104,7 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([])
-
+const factoryList = ref<Factory[]> ([])
 
 // 获取表格内数据
 function getDataList() {
@@ -121,9 +121,12 @@ function getDataList() {
       headerList.value = t.data.headerList
     })
 }
-//页面加载事件
+// 页面加载事件
 onMounted(() => {
   getDataList()
+  queryFactoryList().then((r)=>{
+    factoryList.value = r
+  })
 })
 // table点击事件
 function editData(data: any) {

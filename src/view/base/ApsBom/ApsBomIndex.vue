@@ -32,8 +32,8 @@ const queryForm = ref({
 })
 
 const multipleSelection = ref<string []>([])
+const dataTableRef = ref<any>({})
 // const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
-const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 
 const currentPageNum = ref<number>(1)

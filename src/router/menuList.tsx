@@ -24,15 +24,6 @@ export function menuList(): Array<RouteRecordRaw> {
           }
         },
         {
-          path: "/base/config/factory",
-          name: "工厂管理",
-          component: () => import("@/view/base/Factory/index.vue"),
-          meta: {
-            title: "工厂管理",
-            elIcon: "House"
-          }
-        },
-        {
           path: "/base/config/app",
           name: "APP管理",
           component: () => import("@/view/base/BaseApp/BaseAppIndex.vue"),
@@ -75,6 +66,24 @@ export function menuList(): Array<RouteRecordRaw> {
           meta: {
             title: "零件供应商",
             elIcon: "Avatar"
+          }
+        },
+        {
+          path: "/base/config/ApsGoods",
+          name: "商品管理",
+          component: () => import("@v/base/ApsGoods/ApsGoodsIndex.vue"),
+          meta: {
+            title: "商品管理",
+            elIcon: "List"
+          }
+        },
+        {
+          path: "/base/config/TFactory",
+          name: "工厂管理",
+          component: () => import("@v/base/TFactory/TFactoryIndex.vue"),
+          meta: {
+            title: "工厂管理",
+            elIcon: "House"
           }
         }
       ]

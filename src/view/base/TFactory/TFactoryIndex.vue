@@ -2,8 +2,16 @@
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="工厂名称" prop="loginPhone">
-          <el-input v-model="queryForm.factoryName" clearable></el-input>
+        <el-form-item label="名称" prop="factoryName">
+          <el-input v-model="queryForm.factoryName" clearable placeholder="请输入名称"/>
+        </el-form-item>
+        <el-form-item label="编码" prop="factoryCode">
+          <el-input v-model="queryForm.factoryCode" clearable placeholder="请输入编码"/>
+        </el-form-item>
+        <el-form-item label="状态" prop="factoryStatus">
+          <el-select v-model="queryForm.factoryStatus" clearable style="width: 100px">
+            <el-option v-for="s in factoryStatusList" :label="s.label" :value="s.value" :key="s.value"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -25,7 +33,13 @@
       />
       <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
-        <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
+        <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <el-table-column  label="状态">
+          <template #default="{ row }">
+            <!-- 自定义渲染逻辑 -->
+          {{ row["factoryStatus"] === "ENABLED" ? "启用" : "禁用" }}
+          </template>
+        </el-table-column>
         <el-table-column fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
@@ -55,33 +69,35 @@
 
 <script setup lang="ts">
 import {ref} from "vue"
-import AddEditFormVue from "./AddEditForm.vue"
+import AddEditFormVue from "./TFactoryAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type Factory} from "./Type.ts"
+import {ElTable} from "element-plus"
+import {HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import {type Factory, factoryStatusList } from "./TFactoryType.ts"
 
 const dtoUrl = ref<string>("/factory")
-const documentTitle = ref<string>("工厂")
+const documentTitle = ref<string>("工厂表")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
-
-const queryForm = ref({
-  factoryName: undefined
+// 查询表格
+const queryForm = ref<Factory>({
+  factoryName: "",
+  factoryCode: "",
+  factoryStatus: "",
+  id: ""
 })
 
+//  表格选中的id
 const multipleSelection = ref<string []>([])
 
-function handleSelectionChange(val: Factory []) {
-  multipleSelection.value = val.map(t => t.id)
-  console.info("multipleSelection ", multipleSelection)
-}
-
+//  表格
 const dataTableRef = ref({})
-const dataList = ref([])
-const tableBarRef = ref({})
-
-const currentPageNum = ref(1)
-const currentPageSize = ref(10)
-const tableTotal = ref(0)
+//  表格操作头
+const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
+//  表格相关
+const dataList = ref<Factory[]>([])
+const currentPageNum = ref<number>(1)
+const currentPageSize = ref<number>(10)
+const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
   {
     showName: "序号",
@@ -94,7 +110,7 @@ const headerList = ref<HeaderInfo[]>([
     fieldName: "factoryCode"
   }
 ])
-
+//  获取表格内数据
 function getDataList() {
   const req = {
     pageSize: currentPageSize.value,
@@ -109,24 +125,33 @@ function getDataList() {
       // headerList.value = t.data.headerList
     })
 }
-
+//  页面加载事件
 onMounted(() => {
   getDataList()
 })
 
+//  table点击事件
 function editData(data: any) {
-  // console.info("data ", data)
+  //  console.info("data ", data)
   tableBarRef.value?.showEditDialog(data.id)
 }
 
+//  页面条数变更事件
 function handleSizeChange(val: number) {
   currentPageSize.value = val
   getDataList()
 }
 
+//  页面变更事件
 function handleCurrentChange(val: number) {
   currentPageNum.value = val
   getDataList()
+}
+
+//  表格选中事件
+function handleSelectionChange(val: Factory[]) {
+  multipleSelection.value = val.map(t => t.id)
+  console.info("multipleSelection ", multipleSelection)
 }
 
 </script>
@@ -134,3 +159,4 @@ function handleCurrentChange(val: number) {
 <style scoped lang="scss">
 
 </style>
+

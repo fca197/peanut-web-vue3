@@ -2,6 +2,7 @@
 
 import {downloadFilePost, postNoResult} from "@@/utils/common-js.ts"
 import  UploadFile from "./UploadFile.vue"
+import {ElTable} from "element-plus";
 const props = defineProps({
   dialogWith: {
     type: Number,
