@@ -13,6 +13,14 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/BaseTableHeader",
+          name: "动态表头",
+          component: () => import("@/view/base/BaseTableHeader/BaseTableHeaderIndex.vue"),
+          meta: {
+            title: "动态表头",
+            elIcon: "Coin"
+          }
+        }, {
           path: "/base/config/LoginAccount",
           name: "登录账户管理",
           component: () => import("@/view/base/LoginAccount/index.vue"),
