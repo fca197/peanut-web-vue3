@@ -13,6 +13,30 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/ApsWorkshopStation",
+          name: "工位",
+          component: () => import("@/view/base/ApsWorkshopStation/ApsWorkshopStationIndex.vue"),
+          meta: {
+            title: "工位",
+            elIcon: "Aim"
+          }
+        }, {
+          path: "/base/config/ApsWorkshopSection",
+          name: "工段",
+          component: () => import("@/view/base/ApsWorkshopSection/ApsWorkshopSectionIndex.vue"),
+          meta: {
+            title: "工段",
+            elIcon: "SemiSelect"
+          }
+        }, {
+          path: "/base/config/ApsRoom",
+          name: "工作车间",
+          component: () => import("@/view/base/ApsRoom/ApsRoomIndex.vue"),
+          meta: {
+            title: "工作车间",
+            elIcon: "House"
+          }
+        }, {
           path: "/base/config/BaseTableHeader",
           name: "动态表头",
           component: () => import("@/view/base/BaseTableHeader/BaseTableHeaderIndex.vue"),
@@ -22,28 +46,28 @@ export function menuList() {
           }
         }, {
           path: "/base/config/LoginAccount",
-          name: "登录账户管理",
+          name: "登录账户",
           component: () => import("@/view/base/LoginAccount/index.vue"),
           meta: {
-            title: "登录账户管理",
+            title: "登录账户",
             elIcon: "user"
           }
         },
         {
           path: "/base/config/app",
-          name: "APP管理",
+          name: "APP",
           component: () => import("@/view/base/BaseApp/BaseAppIndex.vue"),
           meta: {
-            title: "App管理",
+            title: "App",
             elIcon: "Compass"
           }
         },
         {
           path: "/base/config/BaseAppResource",
-          name: "APP菜单管理",
+          name: "APP菜单",
           component: () => import("@/view/base/BaseAppResource/BaseAppResourceIndex.vue"),
           meta: {
-            title: "App菜单管理",
+            title: "App菜单",
             elIcon: "Memo"
           }
         },
@@ -76,20 +100,20 @@ export function menuList() {
         },
         {
           path: "/base/config/ApsGoods",
-          name: "商品管理",
+          name: "商品",
           component: () => import("@v/base/ApsGoods/ApsGoodsIndex.vue"),
           meta: {
-            title: "商品管理",
+            title: "商品",
             elIcon: "List"
           }
         },
         {
           path: "/base/config/Factory",
-          name: "工厂管理",
+          name: "工厂",
           component: () => import("@/view/base/Factory/FactoryIndex.vue"),
           meta: {
-            title: "工厂管理",
-            elIcon: "House"
+            title: "工厂",
+            elIcon: "OfficeBuilding"
           }
         },
         {
@@ -103,10 +127,10 @@ export function menuList() {
         },
         {
           path: "/base/config/ApsMachine",
-          name: "机器管理",
+          name: "机器",
           component: () => import("@v/base/ApsMachine/ApsMachineIndex.vue"),
           meta: {
-            title: "机器管理",
+            title: "机器",
             elIcon: "Connection"
           }
         },
