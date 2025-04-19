@@ -28,12 +28,19 @@
       <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
         <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
-        <el-table-column fixed="right" label="操作" width="150px">
+        <el-table-column fixed="right" label="操作" width="250px">
           <template #default="scope">
             <el-button
               type="warning"
               icon="edit"
               @click="editData(scope.row)"
+            >
+              编辑
+            </el-button>
+            <el-button
+              type="primary"
+              icon="setting"
+              @click="openSettingDayFun(scope.row)"
             >
               编辑
             </el-button>
@@ -52,11 +59,15 @@
         />
       </el-row>
     </el-card>
+    <el-dialog title="设置工作日" v-model="openSettingDay" append-to-body width="600px">
+      <calendar-day-setting :calendar-id="currentCalendarId" :cancel-form-fun="()=>openSettingDay=false"/>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import {ref} from "vue"
+import CalendarDaySetting from "./CalendarDaySetting.vue"
 import AddEditFormVue from "./CalendarAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from 'element-plus';
@@ -92,10 +103,6 @@ const dataList = ref<Calendar[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
-//calendarName:  undefined,
-// calendarCode:  undefined,
-//   calendarType:  undefined,
-//   calendarDesc:  undefined,
 const headerList = ref<HeaderInfo[]>([
   {fieldName: "factoryName", showName: "工厂"},
   {fieldName: "calendarCode", showName: "编码"},
@@ -103,6 +110,8 @@ const headerList = ref<HeaderInfo[]>([
 ])
 
 const factoryList = ref<Factory []>([])
+const openSettingDay = ref<boolean>(false)
+const currentCalendarId = ref<string>("")
 
 // 获取表格内数据
 function getDataList() {
@@ -149,7 +158,11 @@ function handleSelectionChange(val: Calendar[]) {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
-
+function openSettingDayFun(row){
+  console.info("openSettingDayFun ", row)
+  currentCalendarId.value = row.id
+  openSettingDay.value = true
+}
 </script>
 
 <style scoped lang="scss">
