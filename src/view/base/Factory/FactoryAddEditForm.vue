@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
-import {type Factory, factoryStatusList} from "./TFactoryType.ts"
+import {type Factory, factoryStatusList} from "./FactoryType.ts"
 import {getById, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 

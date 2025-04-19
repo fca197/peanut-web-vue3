@@ -19,7 +19,7 @@ export const factoryStatusList: KVEntity [] = [
   }
 ]
 
-export function queryFactoryList(): Factory[] {
+export function queryFactoryList(): Promise<Factory[]> {
   return request<Result<ResultPageInfo<Factory>>>(
     {
       url: "/factory/queryPageList",

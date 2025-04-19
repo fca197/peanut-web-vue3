@@ -2,23 +2,11 @@
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-              <el-form-item label="商品名称" prop="goodsName">
-                <el-input v-model="queryForm.goodsName" clearable placeholder="请输入商品名称" />
-              </el-form-item>
-              <el-form-item label="商品备注" prop="goodsRemark">
-                <el-input v-model="queryForm.goodsRemark" clearable placeholder="请输入商品备注" />
-              </el-form-item>
-              <el-form-item label="工厂" prop="factoryId">
-                <el-select v-model="queryForm.factoryId" clearable style="width: 130px" >
-                  <el-option v-for="f in factoryList" :value="f.id" :label="f.factoryName" :key="f.id"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="工艺路线" prop="processPathId">
-                <el-input v-model="queryForm.processPathId" clearable placeholder="请输入工艺路线" />
-              </el-form-item>
-              <el-form-item label="制造流水线ID produceProcess" prop="produceProcessId">
-                <el-input v-model="queryForm.produceProcessId" clearable placeholder="请输入制造流水线ID produceProcess" />
-              </el-form-item>
+        <el-form-item label="工厂ID" prop="factoryId">
+          <el-select v-model="queryForm.factoryId" clearable style="width: 150px">
+            <el-option v-for="f in factoryList" :value="f.id" :key="f.id" :label="f.factoryName" />
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
             查询
@@ -39,7 +27,7 @@
       />
       <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
-        <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
+        <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
         <el-table-column fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
@@ -69,25 +57,25 @@
 
 <script setup lang="ts">
 import {ref} from "vue"
-import AddEditFormVue from "./ApsGoodsAddEditForm.vue"
+import AddEditFormVue from "./CalendarAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from 'element-plus';
+import {ElTable} from 'element-plus';
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsGoods} from "./ApsGoodsType.ts"
+import {type Calendar} from "./CalendarType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
-const dtoUrl = ref<string>("/apsGoods")
-const documentTitle = ref<string>("aps 商品表")
+const dtoUrl = ref<string>("/calendar")
+const documentTitle = ref<string>("日历表")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
-//查询表格
-const queryForm = ref<ApsGoods>({
-  goodsName:  undefined, // 商品名称
-  goodsRemark:  undefined, // 商品备注
-  supplierStatus:  undefined, //
-  factoryId:  undefined, // 工厂ID
-  processPathId:  undefined, // 工艺路线
-  produceProcessId:  undefined, // 制造流水线ID produceProcess
+// 查询表格
+const queryForm = ref<Calendar>({
+  factoryId: undefined,
+  calendarName: undefined,
+  calendarCode: undefined,
+  calendarType: undefined,
+  calendarDesc: undefined,
+  calendarDisabled: undefined,
   id: undefined
 })
 
@@ -95,16 +83,26 @@ const queryForm = ref<ApsGoods>({
 const multipleSelection = ref<string []>([])
 
 // 表格
+// const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
 const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsGoods[] >([])
+const dataList = ref<Calendar[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
-const headerList = ref<HeaderInfo[]>([])
-const factoryList = ref<Factory[]> ([])
+//calendarName:  undefined,
+// calendarCode:  undefined,
+//   calendarType:  undefined,
+//   calendarDesc:  undefined,
+const headerList = ref<HeaderInfo[]>([
+  {fieldName: "factoryName", showName: "工厂"},
+  {fieldName: "calendarCode", showName: "编码"},
+  {fieldName: "calendarName", showName: "名称"}
+])
+
+const factoryList = ref<Factory []>([])
 
 // 获取表格内数据
 function getDataList() {
@@ -118,33 +116,36 @@ function getDataList() {
     .then((t) => {
       dataList.value = t.data.dataList
       tableTotal.value = Number.parseInt(t.data.total)
-      headerList.value = t.data.headerList
+      // headerList.value = t.data.headerList
     })
 }
+
 // 页面加载事件
 onMounted(() => {
   getDataList()
-  queryFactoryList().then((r)=>{
-    factoryList.value = r
-  })
+  queryFactoryList().then(t => factoryList.value = t)
 })
+
 // table点击事件
 function editData(data: any) {
   // console.info("data ", data)
   tableBarRef.value?.showEditDialog(data.id)
 }
+
 // 页面条数变更事件
 function handleSizeChange(val: number) {
   currentPageSize.value = val
   getDataList()
 }
+
 // 页面变更事件
 function handleCurrentChange(val: number) {
   currentPageNum.value = val
   getDataList()
 }
+
 // 表格选中事件
-function handleSelectionChange(val: ApsGoods[]) {
+function handleSelectionChange(val: Calendar[]) {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }

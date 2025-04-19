@@ -1,8 +1,6 @@
-import {RouteRecordRaw} from "vue-router"
-
 const Layouts = () => import("@/layouts/index.vue")
 
-export function menuList(): Array<RouteRecordRaw> {
+export function menuList() {
   return [
     {
       path: "/base/config",
@@ -78,9 +76,9 @@ export function menuList(): Array<RouteRecordRaw> {
           }
         },
         {
-          path: "/base/config/TFactory",
+          path: "/base/config/Factory",
           name: "工厂管理",
-          component: () => import("@v/base/TFactory/TFactoryIndex.vue"),
+          component: () => import("@/view/base/Factory/FactoryIndex.vue"),
           meta: {
             title: "工厂管理",
             elIcon: "House"
@@ -110,7 +108,16 @@ export function menuList(): Array<RouteRecordRaw> {
           component: () => import("@v/base/DistrictCode/DistrictCodeIndex.vue"),
           meta: {
             title: "区域编码",
-            elIcon: "Connection"
+            elIcon: "Location"
+          }
+        },
+        {
+          path: "/base/config/Calendar",
+          name: "日历",
+          component: () => import("@v/base/Calendar/CalendarIndex.vue"),
+          meta: {
+            title: "日历",
+            elIcon: "Calendar"
           }
         }
       ]

@@ -2,16 +2,26 @@
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="名称" prop="factoryName">
-          <el-input v-model="queryForm.factoryName" clearable placeholder="请输入名称"/>
+        <el-form-item label="${column.comment}" prop="fileName">
+          <el-input v-model="queryForm.fileName" clearable placeholder="请输入${column.comment}"/>
         </el-form-item>
-        <el-form-item label="编码" prop="factoryCode">
-          <el-input v-model="queryForm.factoryCode" clearable placeholder="请输入编码"/>
+        <el-form-item label="${column.comment}" prop="fileSize">
+          <el-input v-model="queryForm.fileSize" clearable placeholder="请输入${column.comment}"/>
         </el-form-item>
-        <el-form-item label="状态" prop="factoryStatus">
-          <el-select v-model="queryForm.factoryStatus" clearable style="width: 100px">
-            <el-option v-for="s in factoryStatusList" :label="s.label" :value="s.value" :key="s.value"></el-option>
-          </el-select>
+        <el-form-item label="${column.comment}" prop="localFilePath">
+          <el-input v-model="queryForm.localFilePath" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="cloudFilePath">
+          <el-input v-model="queryForm.cloudFilePath" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="expireTime">
+          <el-input v-model="queryForm.expireTime" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="fileType">
+          <el-input v-model="queryForm.fileType" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="fileSuffix">
+          <el-input v-model="queryForm.fileSuffix" clearable placeholder="请输入${column.comment}"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -34,12 +44,6 @@
       <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
         <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
-        <el-table-column  label="状态">
-          <template #default="{ row }">
-            <!-- 自定义渲染逻辑 -->
-          {{ row["factoryStatus"] === "ENABLED" ? "启用" : "禁用" }}
-          </template>
-        </el-table-column>
         <el-table-column fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
@@ -69,48 +73,45 @@
 
 <script setup lang="ts">
 import {ref} from "vue"
-import AddEditFormVue from "./TFactoryAddEditForm.vue"
+import AddEditFormVue from "./FileUploadAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from "element-plus"
-import {HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
-import {type Factory, factoryStatusList } from "./TFactoryType.ts"
+import {ElTable} from 'element-plus';
+import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
+import {type FileUpload} from "./FileUploadType.ts"
 
-const dtoUrl = ref<string>("/factory")
-const documentTitle = ref<string>("工厂表")
+const dtoUrl = ref<string>("/fileUpload")
+const documentTitle = ref<string>("文件上传表")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
+
 // 查询表格
-const queryForm = ref<Factory>({
-  factoryName: "",
-  factoryCode: "",
-  factoryStatus: "",
-  id: ""
+const queryForm = ref<FileUpload>({
+  fileName: undefined,
+  fileSize: undefined,
+  localFilePath: undefined,
+  cloudFilePath: undefined,
+  expireTime: undefined,
+  fileType: undefined,
+  fileSuffix: undefined,
+  id: undefined
 })
 
-//  表格选中的id
+// 表格选中的id
 const multipleSelection = ref<string []>([])
 
-//  表格
+// 表格
+// const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
 const dataTableRef = ref({})
-//  表格操作头
+// 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
-//  表格相关
-const dataList = ref<Factory[]>([])
+// 表格相关
+const dataList = ref<FileUpload[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
-const headerList = ref<HeaderInfo[]>([
-  {
-    showName: "序号",
-    fieldName: "id"
-  }, {
-    showName: "工厂名称",
-    fieldName: "factoryName"
-  }, {
-    showName: "工厂编码",
-    fieldName: "factoryCode"
-  }
-])
-//  获取表格内数据
+const headerList = ref<HeaderInfo[]>([])
+
+
+// 获取表格内数据
 function getDataList() {
   const req = {
     pageSize: currentPageSize.value,
@@ -122,34 +123,35 @@ function getDataList() {
     .then((t) => {
       dataList.value = t.data.dataList
       tableTotal.value = Number.parseInt(t.data.total)
-      // headerList.value = t.data.headerList
+      headerList.value = t.data.headerList
     })
 }
-//  页面加载事件
+
+// 页面加载事件
 onMounted(() => {
   getDataList()
 })
 
-//  table点击事件
+// table点击事件
 function editData(data: any) {
-  //  console.info("data ", data)
+  // console.info("data ", data)
   tableBarRef.value?.showEditDialog(data.id)
 }
 
-//  页面条数变更事件
+// 页面条数变更事件
 function handleSizeChange(val: number) {
   currentPageSize.value = val
   getDataList()
 }
 
-//  页面变更事件
+// 页面变更事件
 function handleCurrentChange(val: number) {
   currentPageNum.value = val
   getDataList()
 }
 
-//  表格选中事件
-function handleSelectionChange(val: Factory[]) {
+// 表格选中事件
+function handleSelectionChange(val: FileUpload[]) {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }

@@ -68,7 +68,7 @@ import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from 'element-plus';
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsMachine} from "./ApsMachineType.ts"
-import {Factory, queryFactoryList} from "@v/base/TFactory/TFactoryType.ts";
+import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsMachine")
 const documentTitle = ref<string>("aps 生产机器")

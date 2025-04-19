@@ -82,7 +82,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsGoodsBom, isFollowList} from "./ApsGoodsBomType.ts"
 import {ApsGoods, queryGoodsList} from "@v/base/ApsGoods/ApsGoodsType.ts";
 import {isFlow} from "@babel/types";
-import {Factory, queryFactoryList} from "@v/base/TFactory/TFactoryType.ts";
+import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsGoodsBom")
 const documentTitle = ref<string>("BOM 清单")

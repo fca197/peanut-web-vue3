@@ -67,7 +67,7 @@ import {onMounted, ref} from "vue"
 import {type ApsGoodsBom, checkBomUseExpressionFun, isFollowList} from "./ApsGoodsBomType.ts"
 import {getById, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
-import {Factory, queryFactoryList} from "@v/base/TFactory/TFactoryType.ts";
+import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 import {ApsGoods, queryGoodsList} from "@v/base/ApsGoods/ApsGoodsType.ts";
 import {ApsBom, queryApsBomList} from "@v/base/ApsBom/ApsBomType.ts";
 

@@ -1,21 +1,20 @@
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="商品名称" prop="goodsName">
-      <el-input v-model="addForm.goodsName" clearable placeholder="请输入商品名称"/>
-    </el-form-item>
-    <el-form-item label="商品备注" prop="goodsRemark">
-      <el-input v-model="addForm.goodsRemark" clearable placeholder="请输入商品备注"/>
-    </el-form-item>
-    <el-form-item label="工厂" prop="factoryId">
-      <el-select v-model="addForm.factoryId" style="width: 100%">
-        <el-option v-for="f in factoryList" :value="f.id" :label="f.factoryName" :key="f.id"></el-option>
+    <el-form-item label="工厂ID" prop="factoryId">
+      <el-select v-model="addForm.factoryId" clearable placeholder="请输入工厂ID">
+        <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id" />
       </el-select>
     </el-form-item>
-    <el-form-item label="工艺路线" prop="processPathId">
-      <el-input v-model="addForm.processPathId" clearable placeholder="请输入工艺路线"/>
+    <el-form-item label="名称" prop="calendarName">
+      <el-input v-model="addForm.calendarName" clearable placeholder="请输入名称" @change="querySzm"/>
     </el-form-item>
-    <el-form-item label="制造流水线ID produceProcess" prop="produceProcessId">
-      <el-input v-model="addForm.produceProcessId" clearable placeholder="请输入制造流水线ID produceProcess"/>
+    <el-form-item label="编码" prop="calendarCode">
+      <el-input v-model="addForm.calendarCode" clearable placeholder="请输入编码"/>
+    </el-form-item>
+    <el-form-item label="状态" prop="calendarDisabled">
+      <el-select v-model="addForm.calendarDisabled" clearable >
+        <el-option v-for="s in calendarDisabledList" :label="s.label" :value="s.value" :key="s.value" />
+      </el-select>
     </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
@@ -30,8 +29,8 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
-import {type ApsGoods} from "./ApsGoodsType.ts"
-import {getById, postNoResult} from "@/common/utils/common-js.ts"
+import {type Calendar, calendarDisabledList} from "./CalendarType.ts"
+import {getById, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
@@ -46,59 +45,46 @@ const props = defineProps({
 })
 
 // 对象URL
-const dtoUrl = ref<string>("/apsGoods")
+const dtoUrl = ref<string>("/calendar")
 // 表单引用
 const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
-  // 商品名称
-  goodsName: [
-    {required: true, message: "请输入商品名称", trigger: "blur"},
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
-  // 商品备注
-  goodsRemark: [
-    {required: true, message: "请输入商品备注", trigger: "blur"},
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
   // 工厂ID
   factoryId: [
     {required: true, message: "请输入工厂ID", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
-  // 工艺路线
-  processPathId: [
-    {required: true, message: "请输入工艺路线", trigger: "blur"},
+  //
+  calendarName: [
+    {required: true, message: "请输入名称", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
-  // 制造流水线ID produceProcess
-  produceProcessId: [
-    {required: true, message: "请输入制造流水线ID produceProcess", trigger: "blur"},
+  //
+  calendarCode: [
+    {required: true, message: "请输入编码", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
+  ]
 
 })
-
-const factoryList = ref<Factory[]>([])
-
 
 // 页面加载事件
 onMounted(() => {
   loadById()
-  queryFactoryList().then((r) => {
-    factoryList.value = r
-  })
+  queryFactoryList().then( r => factoryList.value = r)
 })
 // 添加对象
-const addForm = ref<ApsGoods | null>({
-  goodsName: "",  // 商品名称
-  goodsRemark: "",  // 商品备注
-  supplierStatus: "",  //
-  factoryId: "",  // 工厂ID
-  processPathId: "",  // 工艺路线
-  produceProcessId: "",  // 制造流水线ID produceProcess
+const addForm = ref<Calendar>({
+  factoryId: "",
+  calendarName: "",
+  calendarCode: "",
+  calendarType: "",
+  calendarDesc: "",
+  calendarDisabled: false,
   id: ""
 })
+
+const factoryList = ref<Factory []>([])
 
 function loadById() {
   if (!props.editId) {
@@ -111,7 +97,7 @@ function loadById() {
   })
 }
 
-//保存
+// 保存
 function saveForm() {
   console.info("addForm ", addForm)
   addFormRef.value?.validate((valid) => {
@@ -120,7 +106,7 @@ function saveForm() {
       if (props.editId) {
         postNoResult(`${dtoUrl.value}/updateById`, addForm.value, "修改成功", saveFormAfter)
       } else {
-        //调用保存
+        // 调用保存
         postNoResult(`${dtoUrl.value}/insert`, addForm.value, "保存成功", saveFormAfter)
       }
     } else {
@@ -129,7 +115,7 @@ function saveForm() {
   })
 }
 
-//保存成功后，方法， 目前关闭弹窗
+// 保存成功后，方法， 目前关闭弹窗
 function saveFormAfter() {
   cancelForm()
 }
@@ -139,6 +125,10 @@ function cancelForm() {
   if (props.saveFun) {
     props.saveFun()
   }
+}
+
+function querySzm() {
+  pinyin4jSzm(addForm.value.calendarName).then(r=>addForm.value.calendarCode=r)
 }
 </script>
 
