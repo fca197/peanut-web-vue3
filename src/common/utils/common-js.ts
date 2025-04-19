@@ -1,6 +1,6 @@
 import {request} from "@/http/axios"
 import {getToken} from "@@/utils/cache/cookies.ts";
-import {DistrictCode} from "@v/base/TDistrictCode/TDistrictCodeType.ts";
+import {DistrictCode} from "@v/base/DistrictCode/DistrictCodeType.ts";
 
 export interface Result<T> {
   code: number

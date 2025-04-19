@@ -103,6 +103,15 @@ export function menuList(): Array<RouteRecordRaw> {
             title: "机器管理",
             elIcon: "Connection"
           }
+        },
+        {
+          path: "/base/config/DistrictCode",
+          name: "区域编码",
+          component: () => import("@v/base/DistrictCode/DistrictCodeIndex.vue"),
+          meta: {
+            title: "区域编码",
+            elIcon: "Connection"
+          }
         }
       ]
     }

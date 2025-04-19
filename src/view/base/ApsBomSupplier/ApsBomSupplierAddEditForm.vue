@@ -65,7 +65,7 @@ import {onMounted, ref} from "vue"
 import {getById, queryDistrictByParentCode, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {ApsBomSupplier, supplierStatusList} from "@v/base/ApsBomSupplier/ApsBomSupplierType.ts";
-import {DistrictCode} from "@v/base/TDistrictCode/TDistrictCodeType.ts";
+import {DistrictCode} from "@v/base/DistrictCode/DistrictCodeType.ts";
 
 const props = defineProps({
   saveFun: {
