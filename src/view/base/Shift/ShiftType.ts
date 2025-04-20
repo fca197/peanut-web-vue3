@@ -5,5 +5,5 @@ export interface Shift {
   shiftName: string | undefined
   factoryId: string | undefined
   id: string
-  shiftItemList: shiftItemDtoList[]
+  shiftItemDtoList: ShiftItem[]
 }
