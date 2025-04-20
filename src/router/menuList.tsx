@@ -13,6 +13,22 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/BaseReportConfigUser",
+          name: "用户报表",
+          component: () => import("@/view/base/BaseReportConfigUser/BaseReportConfigUserIndex.vue"),
+          meta: {
+            title: "用户报表",
+            elIcon: "Notebook"
+          }
+        },  {
+          path: "/base/config/BaseReportConfig",
+          name: "报表",
+          component: () => import("@/view/base/BaseReportConfig/BaseReportConfigIndex.vue"),
+          meta: {
+            title: "报表",
+            elIcon: "Grid"
+          }
+        },   {
           path: "/base/config/BaseOplog",
           name: "日志",
           component: () => import("@/view/base/BaseOplog/BaseOplogIndex.vue"),
