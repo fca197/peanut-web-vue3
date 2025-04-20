@@ -14,7 +14,7 @@
     <el-form-item label="班次">
       <el-button icon="plus" type="primary" @click="addItem">添加</el-button>
 
-      <el-col v-for=" (item ,index) in addForm.shiftItemList" :key="index" :span="24">
+      <el-col v-for=" (item ,index) in addForm.shiftItemDtoList" :key="index" :span="24">
         <el-time-picker
           style="width: 100px"
           v-model="item.beginTime" end-placeholder="下班时间" format="HH:mm"
@@ -88,7 +88,7 @@ const addForm = ref<Shift>({
   shiftName: "",
   factoryId: "",
   id: "",
-  shiftItemList: []
+  shiftItemDtoList: []
 })
 
 const factoryList = ref<Factory[]>([])
@@ -144,6 +144,8 @@ function loadSzm() {
 }
 
 function addItem() {
+  if (addForm.value.shiftItemList === undefined)
+    addForm.value.shiftItemList = []
   addForm.value.shiftItemList.push({})
 }
 
