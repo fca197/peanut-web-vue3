@@ -13,6 +13,15 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/Dictionary",
+          name: "字典",
+          component: () => import("@/view/base/Dictionary/DictionaryIndex.vue"),
+          meta: {
+            title: "字典",
+            elIcon: "Reading"
+          }
+        },
+        {
           path: "/base/config/Shift",
           name: "班次",
           component: () => import("@/view/base/Shift/ShiftIndex.vue"),
