@@ -13,6 +13,15 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/Shift",
+          name: "班次",
+          component: () => import("@/view/base/Shift/ShiftIndex.vue"),
+          meta: {
+            title: "班次",
+            elIcon: "Coin"
+          }
+        },
+        {
           path: "/base/config/ApsLogisticsPath",
           name: "物流路径",
           component: () => import("@/view/base/ApsLogisticsPath/ApsLogisticsPathIndex.vue"),

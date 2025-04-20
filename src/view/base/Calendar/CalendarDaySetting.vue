@@ -20,7 +20,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="增加工作日" prop="workDayList">
-      <el-button icon="el-icon-plus" @click="addWorkDay" type="primary">
+      <el-button icon="plus" @click="addWorkDay" type="primary">
         添加
       </el-button>
       <el-form-item v-for="(item,index) in openSettingDayForm.workDayList">
@@ -32,13 +32,13 @@
 
         />
 
-        <el-button type="danger" class="el-icon-delete" @click="deleteWorkDay(index)">
+        <el-button type="danger" icon="Minus" @click="deleteWorkDay(index)">
           删除
         </el-button>
       </el-form-item>
     </el-form-item>
     <el-form-item label="增加休息日" prop="noWorkDayList">
-      <el-button icon="el-icon-plus" @click="addWorkDay" type="primary">
+      <el-button icon="plus" @click="addNoWorkDay" type="primary">
         添加
       </el-button>
       <el-form-item v-for="(item,index) in openSettingDayForm.noWorkDayList">
@@ -49,7 +49,7 @@
           range-separator="-" start-placeholder="开始日期"
           type="daterange" value-format="yyyy-MM-dd"
         />
-        <el-button type="danger" icon="el-icon-delete" @click="deleteNoWorkDay(index)">
+        <el-button type="danger" icon="Minus" @click="deleteNoWorkDay(index)">
           <delete/>
           删除
         </el-button>
