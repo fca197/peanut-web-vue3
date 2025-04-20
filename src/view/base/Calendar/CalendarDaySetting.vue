@@ -123,17 +123,19 @@ function deleteNoWorkDay(index) {
 function calendarChange(v) {
   console.info("calendarChange ", v)
 }
-function cancelForm(){
+
+function cancelForm() {
   props.cancelFormFun()
 }
-function saveForm(){
+
+function saveForm() {
   const req = Object.assign({}, openSettingDayForm.value);
   req.id = openSettingDayForm.id;
   req.workDayList = openSettingDayForm.workDayList?.map(t => t.date)
   req.noWorkDayList = openSettingDayForm.noWorkDayList?.map(t => t.date)
   req.defaultWorkDayList = openSettingDayForm.defaultWorkDay;
   console.log("saveForm req ", req)
-  postNoResult("/calendar/day/update", req, "保存成功" ,()=>cancelForm() )
+  postNoResult("/calendar/day/update", req, "保存成功", () => cancelForm())
 }
 </script>
 

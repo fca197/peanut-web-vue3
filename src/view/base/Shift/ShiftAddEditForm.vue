@@ -106,6 +106,11 @@ function loadById() {
 
 // 保存
 function saveForm() {
+  let shiftItemDtoList = [];
+  addForm.value.shiftItemList.forEach(t => {
+    shiftItemDtoList.push(t);
+  })
+  addForm.value.shiftItemDtoList = shiftItemDtoList;
   console.info("addForm ", addForm)
   addFormRef.value?.validate((valid) => {
     if (valid) {
