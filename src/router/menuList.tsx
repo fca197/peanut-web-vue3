@@ -13,6 +13,15 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/ApsLogisticsPath",
+          name: "物流路径",
+          component: () => import("@/view/base/ApsLogisticsPath/ApsLogisticsPathIndex.vue"),
+          meta: {
+            title: "物流路径",
+            elIcon: "Operation"
+          }
+        },
+        {
           path: "/base/config/BaseResource",
           name: "菜单",
           component: () => import("@/view/base/BaseResource/BaseResourceIndex.vue"),
@@ -20,7 +29,8 @@ export function menuList() {
             title: "菜单",
             elIcon: "Menu"
           }
-        }, {
+        },
+        {
           path: "/base/config/BaseReportConfigUser",
           name: "用户报表",
           component: () => import("@/view/base/BaseReportConfigUser/BaseReportConfigUserIndex.vue"),
@@ -28,7 +38,8 @@ export function menuList() {
             title: "用户报表",
             elIcon: "Notebook"
           }
-        },  {
+        },
+        {
           path: "/base/config/BaseReportConfig",
           name: "报表",
           component: () => import("@/view/base/BaseReportConfig/BaseReportConfigIndex.vue"),
@@ -36,7 +47,8 @@ export function menuList() {
             title: "报表",
             elIcon: "Grid"
           }
-        },   {
+        },
+        {
           path: "/base/config/BaseOplog",
           name: "日志",
           component: () => import("@/view/base/BaseOplog/BaseOplogIndex.vue"),
@@ -44,7 +56,8 @@ export function menuList() {
             title: "日志",
             elIcon: "Memo"
           }
-        }, {
+        },
+        {
           path: "/base/config/ApsStatus",
           name: "状态",
           component: () => import("@/view/base/ApsStatus/ApsStatusIndex.vue"),
@@ -52,7 +65,8 @@ export function menuList() {
             title: "状态",
             elIcon: "Soccer"
           }
-        }, {
+        },
+        {
           path: "/base/config/ApsWorkshopStation",
           name: "工位",
           component: () => import("@/view/base/ApsWorkshopStation/ApsWorkshopStationIndex.vue"),
@@ -60,7 +74,8 @@ export function menuList() {
             title: "工位",
             elIcon: "Aim"
           }
-        }, {
+        },
+        {
           path: "/base/config/ApsWorkshopSection",
           name: "工段",
           component: () => import("@/view/base/ApsWorkshopSection/ApsWorkshopSectionIndex.vue"),
@@ -68,7 +83,8 @@ export function menuList() {
             title: "工段",
             elIcon: "SemiSelect"
           }
-        }, {
+        },
+        {
           path: "/base/config/ApsRoom",
           name: "工作车间",
           component: () => import("@/view/base/ApsRoom/ApsRoomIndex.vue"),
@@ -76,7 +92,8 @@ export function menuList() {
             title: "工作车间",
             elIcon: "House"
           }
-        }, {
+        },
+        {
           path: "/base/config/BaseTableHeader",
           name: "动态表头",
           component: () => import("@/view/base/BaseTableHeader/BaseTableHeaderIndex.vue"),
@@ -84,7 +101,8 @@ export function menuList() {
             title: "动态表头",
             elIcon: "Coin"
           }
-        }, {
+        },
+        {
           path: "/base/config/LoginAccount",
           name: "登录账户",
           component: () => import("@/view/base/LoginAccount/index.vue"),
