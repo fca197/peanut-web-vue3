@@ -13,6 +13,14 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/BaseResource",
+          name: "菜单",
+          component: () => import("@/view/base/BaseResource/BaseResourceIndex.vue"),
+          meta: {
+            title: "菜单",
+            elIcon: "Menu"
+          }
+        }, {
           path: "/base/config/BaseReportConfigUser",
           name: "用户报表",
           component: () => import("@/view/base/BaseReportConfigUser/BaseReportConfigUserIndex.vue"),
