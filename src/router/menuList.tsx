@@ -13,6 +13,14 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/BaseOplog",
+          name: "日志",
+          component: () => import("@/view/base/BaseOplog/BaseOplogIndex.vue"),
+          meta: {
+            title: "日志",
+            elIcon: "Memo"
+          }
+        }, {
           path: "/base/config/ApsStatus",
           name: "状态",
           component: () => import("@/view/base/ApsStatus/ApsStatusIndex.vue"),

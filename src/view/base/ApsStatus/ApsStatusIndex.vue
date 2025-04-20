@@ -98,7 +98,7 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([])
-const orderStatusMap = new Map<String, String>();
+const orderStatusMap = {};
 
 // 获取表格内数据
 function getDataList() {
