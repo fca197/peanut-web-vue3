@@ -1,4 +1,4 @@
-import {Result} from "@@/utils/common-js.ts";
+import {KVEntity, Result} from "@@/utils/common-js.ts";
 import {request} from "@/http/axios.ts";
 
 export interface ApsOrder {
@@ -38,6 +38,12 @@ export function queryOrderStatusList() {
       data: {}
     }
   ).then((t) => {
-    return t.data.dataList
+    return t.data.dataList.map<KVEntity>(tt=>{
+      const ttt:KVEntity ={
+       label: tt.desc,
+       value: tt.code
+      }
+      return ttt;
+    })
   })
 }

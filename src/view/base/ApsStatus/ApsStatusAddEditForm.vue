@@ -11,7 +11,7 @@
     </el-form-item>
     <el-form-item label="订单状态" prop="orderStatusId">
       <el-select v-model="addForm.orderStatusId" clearable >
-        <el-option v-for="s in orderStatusList"  :key="s.code" :value="s.code" :label="s.desc"/>
+        <el-option v-for="s in orderStatusList"  :key="s.value" :value="s.value" :label="s.label"/>
       </el-select>
     </el-form-item>
   </el-form>
@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
 import {type ApsStatus} from "./ApsStatusType.ts"
-import {getById, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
+import {getById, KVEntity, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {OrderStatus, queryOrderStatusList} from "@v/base/ApsOrder/ApsOrderType.ts";
 
@@ -61,7 +61,7 @@ const checkRules = ref<FormRules>({
 
 })
 
-const  orderStatusList = ref<OrderStatus[]>([])
+const  orderStatusList = ref<KVEntity[]>([])
 // 页面加载事件
 onMounted(() => {
   loadById()

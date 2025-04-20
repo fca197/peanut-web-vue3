@@ -98,7 +98,7 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([])
-const orderStatusMap = {}
+const orderStatusMap = new Map<String, String>();
 
 // 获取表格内数据
 function getDataList() {
@@ -120,8 +120,9 @@ function getDataList() {
 onMounted(() => {
   queryOrderStatusList().then(r => {
     r?.forEach(t => {
-      orderStatusMap[t.code] = t.desc
+      orderStatusMap[t.value] = t.label
     })
+    console.info("orderStatusMap ", orderStatusMap, r)
   }).then(() => getDataList())
 })
 
