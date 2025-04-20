@@ -13,6 +13,15 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/BaseSupplier",
+          name: "供应商",
+          component: () => import("@/view/base/BaseSupplier/BaseSupplierIndex.vue"),
+          meta: {
+            title: "供应商",
+            elIcon: "UserFilled"
+          }
+        },
+        {
           path: "/base/config/Dictionary",
           name: "字典",
           component: () => import("@/view/base/Dictionary/DictionaryIndex.vue"),
