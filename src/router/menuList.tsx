@@ -13,6 +13,14 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/base/config/ApsStatus",
+          name: "状态",
+          component: () => import("@/view/base/ApsStatus/ApsStatusIndex.vue"),
+          meta: {
+            title: "状态",
+            elIcon: "Soccer"
+          }
+        }, {
           path: "/base/config/ApsWorkshopStation",
           name: "工位",
           component: () => import("@/view/base/ApsWorkshopStation/ApsWorkshopStationIndex.vue"),

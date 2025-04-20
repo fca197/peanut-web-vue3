@@ -54,7 +54,7 @@ export async function downloadFilePost(reqUrl: string, reqData: any) {
   try {
     reqData = reqData || {}
     reqUrl = `/api/peanut${reqUrl}`
-    const token = getToken()
+    const token: string = getToken() + ""
     const response = await fetch(reqUrl, {
       method: "POST",
       headers: {
