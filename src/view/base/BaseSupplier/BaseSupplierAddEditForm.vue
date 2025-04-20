@@ -73,25 +73,9 @@ const checkRules = ref<FormRules>({
   supplierEmail: [
     {required: true, message: "请输入", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
-  //
-  supplierAddr: [
-    {required: true, message: "请输入", trigger: "blur"},
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
-  //
-  supplierRemark: [
-    {required: true, message: "请输入", trigger: "blur"},
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
-  //
-  supplierStatus: [
-    {required: true, message: "请输入", trigger: "blur"},
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
+  ]
 
 })
-
 
 // 添加对象
 const addForm = ref<BaseSupplier>({
