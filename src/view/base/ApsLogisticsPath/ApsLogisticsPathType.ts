@@ -1,4 +1,5 @@
 import {KVEntity} from "@@/utils/common-js.ts";
+import {ApsLogisticsPathItem} from "@v/base/ApsLogisticsPathItem/ApsLogisticsPathItemType.ts";
 
 export interface ApsLogisticsPath {
   logisticsPathCode: string
@@ -7,6 +8,7 @@ export interface ApsLogisticsPath {
   isDefault: number
   factoryId: string
   id: string
+  apsLogisticsPathItemList: ApsLogisticsPathItem []
 }
 
 export const isDefaultList: KVEntity [] = [

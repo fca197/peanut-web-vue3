@@ -17,7 +17,7 @@
     </el-card>
 
     <el-card shadow="never">
-      <table-bar
+      <TableBar
         :document-title="documentTitle"
         :add-component="AddEditFormVue"
         :refresh-list="getDataList"
@@ -62,6 +62,7 @@
 import {onMounted, ref} from "vue"
 import AddEditFormVue from "./ApsLogisticsPathAddEditForm.vue"
 import {ElTable} from 'element-plus';
+import TableBar from "@/layouts/components/TableBar/index.vue"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsLogisticsPath} from "./ApsLogisticsPathType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";

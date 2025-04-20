@@ -15,9 +15,28 @@
       <el-input v-model="addForm.logisticsPathRemark" clearable placeholder="请输入备注"/>
     </el-form-item>
     <el-form-item label="默认" prop="isDefault">
-      <el-select v-model="addForm.isDefault" >
-        <el-option v-for="kv in isDefaultList" :key="kv.value" :value="kv.value" :label="kv.label" />
+      <el-select v-model="addForm.isDefault">
+        <el-option v-for="kv in isDefaultList" :key="kv.value" :value="kv.value" :label="kv.label"/>
       </el-select>
+    </el-form-item>
+    <el-form-item label="省市" prop="apsLogisticsPathItemList">
+      <el-form-item>
+        <el-input-number v-model="defaultAllDayCount" :min="0" :max="100" placeholder="请输入天数"/>
+        <el-button type="primary" @click="defaultAllDayCountFun">
+          统一设置
+        </el-button>
+      </el-form-item>
+      <el-table :data="addForm.apsLogisticsPathItemList">
+        <el-table-column label="省编码" prop="provinceCode"/>
+        <el-table-column label="省名称" prop="provinceName"/>
+        <el-table-column label="市编码" prop="cityCode"/>
+        <el-table-column label="市名称" prop="cityName"/>
+        <el-table-column label="天数" prop="transportDay">
+          <template #default="sc">
+            <el-input-number :min="0" :max="100" :step="1" v-model="sc.row.transportDay"/>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
@@ -36,6 +55,8 @@ import {type ApsLogisticsPath, isDefaultList} from "./ApsLogisticsPathType.ts"
 import {getById, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
+import {queryDistrictByParentCode} from "@v/base/DistrictCode/DistrictCodeType.ts";
+import {ApsLogisticsPathItem} from "@v/base/ApsLogisticsPathItem/ApsLogisticsPathItemType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -68,9 +89,7 @@ const checkRules = ref<FormRules>({
     {required: true, message: "请输入工厂ID", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
-
 })
-
 
 // 添加对象
 const addForm = ref<ApsLogisticsPath>({
@@ -79,11 +98,12 @@ const addForm = ref<ApsLogisticsPath>({
   logisticsPathRemark: "",
   isDefault: 0,
   factoryId: "",
-  id: ""
+  id: "",
+  apsLogisticsPathItemList: []
 })
 
-
 const factoryList = ref<Factory[]>([])
+const defaultAllDayCount = ref<number>(1)
 
 function loadById() {
   if (!props.editId) {
@@ -131,10 +151,30 @@ function loadSzm() {
   pinyin4jSzm(addForm.value.logisticsPathName).then(r => addForm.value.logisticsPathCode = r)
 }
 
+function defaultAllDayCountFun() {
+  addForm.value.apsLogisticsPathItemList.forEach(t => t.transportDay = defaultAllDayCount.value)
+}
+
 // 页面加载事件
 onMounted(() => {
   loadById()
   queryFactoryList().then(r => factoryList.value = r)
+  queryDistrictByParentCode("0").then(r => {
+    r.forEach(t => {
+      const item: ApsLogisticsPathItem = {
+        provinceCode: t.code,
+        provinceName: t.name,
+        cityCode: undefined,
+        cityName: undefined,
+        transportDay: 3,
+        logisticsPathId: undefined,
+        isDefault: 0,
+        factoryId: undefined,
+        id: undefined
+      }
+      addForm.value.apsLogisticsPathItemList.push(item)
+    })
+  })
 })
 </script>
 

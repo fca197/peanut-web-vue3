@@ -62,10 +62,10 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
-import {getById, queryDistrictByParentCode, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
+import {getById,  pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {ApsBomSupplier, supplierStatusList} from "@v/base/ApsBomSupplier/ApsBomSupplierType.ts";
-import {DistrictCode} from "@v/base/DistrictCode/DistrictCodeType.ts";
+import {DistrictCode, queryDistrictByParentCode} from "@v/base/DistrictCode/DistrictCodeType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -138,7 +138,7 @@ const areaList = ref<DistrictCode[]>([])
 
 function loadById() {
   queryDistrictByParentCode("0").then(t=> {
-    provinceList.value = t.data.dataList
+    provinceList.value = t
   })
   if (!props.editId) {
     addForm.value.provinceCode = ""
@@ -188,7 +188,7 @@ watch(() => addForm.value.provinceCode, (n) => {
   addForm.value.areaCode = null
 
   queryDistrictByParentCode(n).then(t=> {
-    cityList.value = t.data.dataList
+    cityList.value = t
   })
 })
 
@@ -196,7 +196,7 @@ watch(() => addForm.value.cityCode, (n) => {
   console.info("cityCode: ", n)
   addForm.value.areaCode = null
   queryDistrictByParentCode(n).then(t=> {
-    areaList.value = t.data.dataList
+    areaList.value = t
   })
 })
 

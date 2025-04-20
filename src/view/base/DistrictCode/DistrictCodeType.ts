@@ -1,4 +1,5 @@
-import {KVEntity} from "@@/utils/common-js.ts";
+import {KVEntity, Result, ResultPageInfo} from "@@/utils/common-js.ts";
+import {request} from "@/http/axios.ts";
 
 export interface DistrictCode {
   code: string
@@ -23,3 +24,13 @@ export const districtCodeLevel: KVEntity[] = [
     value: 3
   },
 ]
+
+export function queryDistrictByParentCode(data: string) {
+  return request<Result<ResultPageInfo<DistrictCode>>>({
+    url: "/districtCode/queryList",
+    method: "POST",
+    data: {data: {parentCode: data || '0'}}
+  }).then(r => {
+    return r.data.dataList;
+  })
+}

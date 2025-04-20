@@ -1,12 +1,11 @@
 export interface ApsLogisticsPathItem {
-  logisticsPathId: string
-  provinceCode: string
-  provinceName: string
-  cityCode: string
-  cityName: string
-  transportDay: string
-  isDefault: string
-  factoryId: string
-  id: string
+  logisticsPathId: string | undefined
+  provinceCode: string | undefined
+  provinceName: string | undefined
+  cityCode: string | undefined
+  cityName: string | undefined
+  transportDay: number | undefined
+  isDefault: number | undefined
+  factoryId: string | undefined
+  id: string | undefined
 }
-

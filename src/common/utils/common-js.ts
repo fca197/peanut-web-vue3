@@ -141,11 +141,3 @@ export async function pinyin4jSzm(value: string) {
     return t.data.szmUpper
   })
 }
-
-export function queryDistrictByParentCode(data: string) {
-  return request<Result<ResultPageInfo<DistrictCode>>>({
-    url: "/districtCode/queryList",
-    method: "POST",
-    data: {data: {parentCode: data || '0'}}
-  })
-}
