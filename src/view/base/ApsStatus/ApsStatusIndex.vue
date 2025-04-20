@@ -29,6 +29,11 @@
       <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
         <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <el-table-column label="订单状态">
+          <template #default="scope">
+            {{ orderStatusMap[scope.row.orderStatusId] }}
+          </template>
+        </el-table-column>
         <el-table-column fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
@@ -63,6 +68,7 @@ import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from 'element-plus';
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsStatus} from "./ApsStatusType.ts"
+import {queryOrderStatusList} from "@v/base/ApsOrder/ApsOrderType.ts";
 
 const dtoUrl = ref<string>("/apsStatus")
 const documentTitle = ref<string>("排产状态表")
@@ -92,7 +98,7 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([])
-
+const orderStatusMap = {}
 
 // 获取表格内数据
 function getDataList() {
@@ -112,7 +118,11 @@ function getDataList() {
 
 // 页面加载事件
 onMounted(() => {
-  getDataList()
+  queryOrderStatusList().then(r => {
+    r?.forEach(t => {
+      orderStatusMap[t.code] = t.desc
+    })
+  }).then(() => getDataList())
 })
 
 // table点击事件
