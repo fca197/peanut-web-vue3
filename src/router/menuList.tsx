@@ -13,7 +13,16 @@ export function menuList() {
       component: Layouts,
       children: [
         {
-          path: "/base/config/BaseSupplier",
+          path: "/aps/ApsSaleConfig",
+          name: "销售配置",
+          component: () => import("@/view/aps/ApsSaleConfig/ApsSaleConfigIndex.vue"),
+          meta: {
+            title: "销售配置",
+            elIcon: "UserFilled"
+          }
+        },
+        {
+          path: "/base/BaseSupplier",
           name: "供应商",
           component: () => import("@/view/base/BaseSupplier/BaseSupplierIndex.vue"),
           meta: {
@@ -22,7 +31,7 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/Dictionary",
+          path: "/base/Dictionary",
           name: "字典",
           component: () => import("@/view/base/Dictionary/DictionaryIndex.vue"),
           meta: {
@@ -31,7 +40,7 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/Shift",
+          path: "/base/Shift",
           name: "班次",
           component: () => import("@/view/base/Shift/ShiftIndex.vue"),
           meta: {
@@ -40,16 +49,16 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/ApsLogisticsPath",
+          path: "/aps/ApsLogisticsPath",
           name: "物流路径",
-          component: () => import("@/view/base/ApsLogisticsPath/ApsLogisticsPathIndex.vue"),
+          component: () => import("@/view/aps/ApsLogisticsPath/ApsLogisticsPathIndex.vue"),
           meta: {
             title: "物流路径",
             elIcon: "Operation"
           }
         },
         {
-          path: "/base/config/BaseResource",
+          path: "/base/BaseResource",
           name: "菜单",
           component: () => import("@/view/base/BaseResource/BaseResourceIndex.vue"),
           meta: {
@@ -58,7 +67,7 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/BaseReportConfigUser",
+          path: "/base/BaseReportConfigUser",
           name: "用户报表",
           component: () => import("@/view/base/BaseReportConfigUser/BaseReportConfigUserIndex.vue"),
           meta: {
@@ -67,7 +76,7 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/BaseReportConfig",
+          path: "/base/BaseReportConfig",
           name: "报表",
           component: () => import("@/view/base/BaseReportConfig/BaseReportConfigIndex.vue"),
           meta: {
@@ -76,7 +85,7 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/BaseOplog",
+          path: "/base/BaseOplog",
           name: "日志",
           component: () => import("@/view/base/BaseOplog/BaseOplogIndex.vue"),
           meta: {
@@ -85,43 +94,43 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/ApsStatus",
+          path: "/aps/ApsStatus",
           name: "状态",
-          component: () => import("@/view/base/ApsStatus/ApsStatusIndex.vue"),
+          component: () => import("@/view/aps/ApsStatus/ApsStatusIndex.vue"),
           meta: {
             title: "状态",
             elIcon: "Soccer"
           }
         },
         {
-          path: "/base/config/ApsWorkshopStation",
+          path: "/aps/ApsWorkshopStation",
           name: "工位",
-          component: () => import("@/view/base/ApsWorkshopStation/ApsWorkshopStationIndex.vue"),
+          component: () => import("@/view/aps/ApsWorkshopStation/ApsWorkshopStationIndex.vue"),
           meta: {
             title: "工位",
             elIcon: "Aim"
           }
         },
         {
-          path: "/base/config/ApsWorkshopSection",
+          path: "/aps/ApsWorkshopSection",
           name: "工段",
-          component: () => import("@/view/base/ApsWorkshopSection/ApsWorkshopSectionIndex.vue"),
+          component: () => import("@/view/aps/ApsWorkshopSection/ApsWorkshopSectionIndex.vue"),
           meta: {
             title: "工段",
             elIcon: "SemiSelect"
           }
         },
         {
-          path: "/base/config/ApsRoom",
+          path: "/aps/ApsRoom",
           name: "工作车间",
-          component: () => import("@/view/base/ApsRoom/ApsRoomIndex.vue"),
+          component: () => import("@/view/aps/ApsRoom/ApsRoomIndex.vue"),
           meta: {
             title: "工作车间",
             elIcon: "House"
           }
         },
         {
-          path: "/base/config/BaseTableHeader",
+          path: "/base/BaseTableHeader",
           name: "动态表头",
           component: () => import("@/view/base/BaseTableHeader/BaseTableHeaderIndex.vue"),
           meta: {
@@ -130,7 +139,7 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/LoginAccount",
+          path: "/base/LoginAccount",
           name: "登录账户",
           component: () => import("@/view/base/LoginAccount/index.vue"),
           meta: {
@@ -139,7 +148,7 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/app",
+          path: "/base/app",
           name: "APP",
           component: () => import("@/view/base/BaseApp/BaseAppIndex.vue"),
           meta: {
@@ -148,7 +157,7 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/BaseAppResource",
+          path: "/base/BaseAppResource",
           name: "APP菜单",
           component: () => import("@/view/base/BaseAppResource/BaseAppResourceIndex.vue"),
           meta: {
@@ -157,43 +166,43 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/ApsBomGroup",
+          path: "/aps/ApsBomGroup",
           name: "零件组",
-          component: () => import("@v/base/ApsBomGroup/ApsBomGroupIndex.vue"),
+          component: () => import("@v/aps/ApsBomGroup/ApsBomGroupIndex.vue"),
           meta: {
             title: "零件组",
             elIcon: "Files"
           }
         },
         {
-          path: "/base/config/ApsBom",
+          path: "/aps/ApsBom",
           name: "零件",
-          component: () => import("@v/base/ApsBom/ApsBomIndex.vue"),
+          component: () => import("@v/aps/ApsBom/ApsBomIndex.vue"),
           meta: {
             title: "零件",
             elIcon: "setting"
           }
         },
         {
-          path: "/base/config/ApsBomSupplier",
+          path: "/aps/ApsBomSupplier",
           name: "零件供应商",
-          component: () => import("@v/base/ApsBomSupplier/ApsBomSupplierIndex.vue"),
+          component: () => import("@v/aps/ApsBomSupplier/ApsBomSupplierIndex.vue"),
           meta: {
             title: "零件供应商",
             elIcon: "Avatar"
           }
         },
         {
-          path: "/base/config/ApsGoods",
+          path: "/aps/ApsGoods",
           name: "商品",
-          component: () => import("@v/base/ApsGoods/ApsGoodsIndex.vue"),
+          component: () => import("@v/aps/ApsGoods/ApsGoodsIndex.vue"),
           meta: {
             title: "商品",
             elIcon: "List"
           }
         },
         {
-          path: "/base/config/Factory",
+          path: "/base/Factory",
           name: "工厂",
           component: () => import("@/view/base/Factory/FactoryIndex.vue"),
           meta: {
@@ -202,25 +211,25 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/ApsGoodsBom",
+          path: "/aps/ApsGoodsBom",
           name: "商品零件",
-          component: () => import("@v/base/ApsGoodsBom/ApsGoodsBomIndex.vue"),
+          component: () => import("@v/aps/ApsGoodsBom/ApsGoodsBomIndex.vue"),
           meta: {
             title: "商品零件",
             elIcon: "SwitchFilled"
           }
         },
         {
-          path: "/base/config/ApsMachine",
+          path: "/aps/ApsMachine",
           name: "机器",
-          component: () => import("@v/base/ApsMachine/ApsMachineIndex.vue"),
+          component: () => import("@v/aps/ApsMachine/ApsMachineIndex.vue"),
           meta: {
             title: "机器",
             elIcon: "Connection"
           }
         },
         {
-          path: "/base/config/DistrictCode",
+          path: "/base/DistrictCode",
           name: "区域编码",
           component: () => import("@v/base/DistrictCode/DistrictCodeIndex.vue"),
           meta: {
@@ -229,7 +238,7 @@ export function menuList() {
           }
         },
         {
-          path: "/base/config/Calendar",
+          path: "/base/Calendar",
           name: "日历",
           component: () => import("@v/base/Calendar/CalendarIndex.vue"),
           meta: {

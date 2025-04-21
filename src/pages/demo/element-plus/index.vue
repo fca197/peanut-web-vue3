@@ -154,10 +154,10 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
         </div>
       </div>
       <div class="table-wrapper">
-        <el-table :data="tableData">
-          <el-table-column type="selection" width="50" align="center" />
-          <el-table-column prop="username" label="用户名" align="center" />
-          <el-table-column prop="roles" label="角色" align="center">
+        <ElTable :data="tableData">
+          <ElTableColumn type="selection" width="50" align="center" />
+          <ElTableColumn prop="username" label="用户名" align="center" />
+          <ElTableColumn prop="roles" label="角色" align="center">
             <template #default="scope">
               <el-tag v-if="scope.row.roles === 'admin'" type="primary" effect="plain" disable-transitions>
                 admin
@@ -166,10 +166,10 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
                 {{ scope.row.roles }}
               </el-tag>
             </template>
-          </el-table-column>
-          <el-table-column prop="phone" label="手机号" align="center" />
-          <el-table-column prop="email" label="邮箱" align="center" />
-          <el-table-column prop="status" label="状态" align="center">
+          </ElTableColumn>
+          <ElTableColumn prop="phone" label="手机号" align="center" />
+          <ElTableColumn prop="email" label="邮箱" align="center" />
+          <ElTableColumn prop="status" label="状态" align="center">
             <template #default="scope">
               <el-tag v-if="scope.row.status" type="success" effect="plain" disable-transitions>
                 启用
@@ -178,9 +178,9 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
                 禁用
               </el-tag>
             </template>
-          </el-table-column>
-          <el-table-column prop="createTime" label="创建时间" align="center" />
-          <el-table-column fixed="right" label="操作" width="150" align="center">
+          </ElTableColumn>
+          <ElTableColumn prop="createTime" label="创建时间" align="center" />
+          <ElTableColumn fixed="right" label="操作" width="150" align="center">
             <template #default="scope">
               <el-button type="primary" text bg size="small" @click="handleUpdate(scope.row)">
                 修改
@@ -189,8 +189,8 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
                 删除
               </el-button>
             </template>
-          </el-table-column>
-        </el-table>
+          </ElTableColumn>
+        </ElTable>
       </div>
       <div class="pager-wrapper">
         <el-pagination

@@ -19,10 +19,10 @@
         :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
         data-batch-delete-url="/loginAccount/deleteByIdList"
       />
-      <el-table ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
-        <el-table-column type="selection"/>
-        <el-table-column v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
-        <el-table-column fixed="right" label="操作" width="550px">
+      <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
+        <ElTableColumn type="selection"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn fixed="right" label="操作" width="550px">
           <template #default="scope">
             <el-button
               type="warning"
@@ -53,8 +53,8 @@
               部门
             </el-button>
           </template>
-        </el-table-column>
-      </el-table>
+        </ElTableColumn>
+      </ElTable>
       <el-row class="paginationDiv">
         <el-pagination
           background
