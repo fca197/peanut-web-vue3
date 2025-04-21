@@ -13,12 +13,21 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsProjectConfig",
+          name: "制造配置",
+          component: () => import("@/view/aps/ApsProjectConfig/ApsProjectConfigIndex.vue"),
+          meta: {
+            title: "制造配置",
+            elIcon: "MagicStick"
+          }
+        },
+        {
           path: "/aps/ApsSaleConfig",
           name: "销售配置",
           component: () => import("@/view/aps/ApsSaleConfig/ApsSaleConfigIndex.vue"),
           meta: {
             title: "销售配置",
-            elIcon: "UserFilled"
+            elIcon: "MagicStick"
           }
         },
         {

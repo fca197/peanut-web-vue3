@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
-import AddEditFormVue from "./ApsSaleConfigAddEditForm.vue"
+import AddEditFormVue from "./ApsProjectConfigAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from "element-plus"
+import {ElTable} from 'element-plus';
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsSaleConfig} from "./ApsSaleConfigType.ts"
+import {type ApsProjectConfig} from "./ApsProjectConfigType.ts"
 
-const dtoUrl = ref<string>("/apsSaleConfig")
-const documentTitle = ref<string>("销售配置表")
+const dtoUrl = ref<string>("/apsProjectConfig")
+const documentTitle = ref<string>("项目配置表")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格
-const queryForm = ref<ApsSaleConfig>({
+const queryForm = ref<ApsProjectConfig>({
   saleCode: undefined,
   saleName: undefined,
   supplierStatus: undefined,
@@ -30,16 +30,17 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsSaleConfig[]>([])
+const dataList = ref<ApsProjectConfig[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  {fieldName: "parentSaleCode", showName: "销售组编码"},
-  {fieldName: "parentSaleName", showName: "销售组名称"},
-  {fieldName: "saleCode", showName: "销售编码"},
-  {fieldName: "saleName", showName: "销售名称"}
+  {fieldName: "parentSaleCode", showName: "制造组编码"},
+  {fieldName: "parentSaleName", showName: "制造组名称"},
+  {fieldName: "saleCode", showName: "制造编码"},
+  {fieldName: "saleName", showName: "制造名称"}
 ])
+
 
 // 获取表格内数据
 function getDataList() {
@@ -85,10 +86,11 @@ function handleCurrentChange(val: number) {
 }
 
 // 表格选中事件
-function handleSelectionChange(val: ApsSaleConfig[]) {
+function handleSelectionChange(val: ApsProjectConfig[]) {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
+
 
 const addSaleConfigDialog = ref<boolean>(false)
 const isValue = ref<number>(0)
@@ -106,17 +108,43 @@ function closeAddSaleConfigFun() {
 
 }
 
+
 // 页面加载事件
 onMounted(() => {
   getDataList()
 })
+
 </script>
 
 <template>
   <div class="app-container">
+    <el-card class="search-wrapper" shadow="never">
+      <el-form v-model="queryForm" inline>
+        <el-form-item label="${column.comment}" prop="saleCode">
+          <el-input v-model="queryForm.saleCode" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="saleName">
+          <el-input v-model="queryForm.saleName" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="supplierStatus">
+          <el-input v-model="queryForm.supplierStatus" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="isValue">
+          <el-input v-model="queryForm.isValue" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="parentId">
+          <el-input v-model="queryForm.parentId" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" icon="search" @click="getDataList">
+            查询
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+
     <el-card shadow="never">
       <TableBar
-        :show-add-btn="false"
         :document-title="documentTitle"
         :add-component="AddEditFormVue"
         :refresh-list="getDataList"
@@ -124,13 +152,7 @@ onMounted(() => {
         :multiple-selection="multipleSelection"
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
-      >
-        <template #otherBtn>
-          <el-button type="primary" icon="Plus" @click="addSaleConfigFun(0,undefined)">
-            添加
-          </el-button>
-        </template>
-      </TableBar>
+      />
       <ElTable
         ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
@@ -154,7 +176,7 @@ onMounted(() => {
       </ElTable>
 
     </el-card>
-    <el-dialog v-model="addSaleConfigDialog" title="销售配置" destroy-on-close>
+    <el-dialog v-model="addSaleConfigDialog" title="制造配置" destroy-on-close>
       <add-edit-form-vue :is-value="1" :save-fun="closeAddSaleConfigFun" :parent-id="parentId"/>
     </el-dialog>
   </div>
@@ -163,3 +185,4 @@ onMounted(() => {
 <style scoped lang="scss">
 
 </style>
+

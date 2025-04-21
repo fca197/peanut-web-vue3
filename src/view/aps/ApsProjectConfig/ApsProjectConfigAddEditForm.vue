@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
-import {type ApsSaleConfig} from "./ApsSaleConfigType.ts"
-import {getById, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
+import {type ApsProjectConfig} from "./ApsProjectConfigType.ts"
+import {getById, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 
 const props = defineProps({
@@ -25,26 +25,27 @@ const props = defineProps({
 })
 
 // 对象URL
-const dtoUrl = ref<string>("/apsSaleConfig")
+const dtoUrl = ref<string>("/apsProjectConfig")
 // 表单引用
 const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
   //
   saleCode: [
-    {required: true, message: "请输入编码", trigger: "blur"},
+    {required: true, message: "请输入", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   //
   saleName: [
-    {required: true, message: "请输入名称", trigger: "blur"},
+    {required: true, message: "请输入", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ]
 
 })
 
+
 // 添加对象
-const addForm = ref<ApsSaleConfig>({
+const addForm = ref<ApsProjectConfig>({
   saleCode: "",
   saleName: "",
   supplierStatus: "",
@@ -68,6 +69,7 @@ function loadById() {
 // 保存
 function saveForm() {
   console.info("addForm ", addForm)
+
   addForm.value.isValue = props.isValue ? props.isValue : addForm.value.isValue
   addForm.value.parentId = props.parentId ? props.parentId : addForm.value.parentId
   addFormRef.value?.validate((valid) => {
@@ -97,10 +99,6 @@ function cancelForm() {
   }
 }
 
-function loadSzm() {
-  pinyin4jSzm(addForm.value.saleName).then(t => addForm.value.saleCode = t)
-}
-
 // 页面加载事件
 onMounted(() => {
   loadById()
@@ -110,10 +108,10 @@ onMounted(() => {
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
     <el-form-item label="名称" prop="saleName">
-      <el-input v-model="addForm.saleName" clearable placeholder="请输入" @change="loadSzm"/>
+      <el-input v-model="addForm.saleName" clearable placeholder="请输入名称"/>
     </el-form-item>
     <el-form-item label="编码" prop="saleCode">
-      <el-input v-model="addForm.saleCode" clearable placeholder="请输入"/>
+      <el-input v-model="addForm.saleCode" clearable placeholder="请输入编码"/>
     </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
