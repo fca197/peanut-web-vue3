@@ -72,7 +72,8 @@ function handleLogin() {
     <Owl :close-eyes="isFocus"/>
     <div class="login-card">
       <div class="title">
-        <img src="@@/assets/images/layouts/logo-text-2.png">
+        <span class="spanAps">APS</span>
+        <span class="spanDesc">高级排产排程系统</span>
       </div>
       <div class="content">
         <el-form ref="loginFormRef" :model="loginFormData" :rules="loginFormRules" @keyup.enter="handleLogin">
@@ -136,10 +137,16 @@ function handleLogin() {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 150px;
-
-      img {
-        height: 100%;
+      font-weight: 600;
+      .spanAps {
+        height: 100px;
+        line-height: 100px;
+        margin: 10px;
+        color: red;
+        font-size: 90px;
+      }
+      .spanDesc {
+        margin-top: 60px;
       }
     }
 
