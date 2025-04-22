@@ -30,7 +30,7 @@ export interface OrderStatus {
   desc: string
 }
 
-export function queryOrderStatusList() {
+export function queryOrderStatusList(): Promise<KVEntity[]> {
   return request<Result<OrderStatusRes>>(
     {
       url: "/apsOrder/statusList",
@@ -38,12 +38,12 @@ export function queryOrderStatusList() {
       data: {}
     }
   ).then((t) => {
-    return t.data.dataList.map<KVEntity>(tt=>{
-      const ttt:KVEntity ={
-       label: tt.desc,
-       value: tt.code
+    return t.data.dataList.map<KVEntity>((tt) => {
+      const ttt: KVEntity = {
+        label: tt.desc,
+        value: tt.code
       }
-      return ttt;
+      return ttt
     })
   })
 }

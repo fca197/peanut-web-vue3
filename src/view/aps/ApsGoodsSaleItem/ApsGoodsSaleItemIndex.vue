@@ -1,24 +1,23 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
-import AddEditFormVue from "./ApsProjectConfigAddEditForm.vue"
+import AddEditFormVue from "./ApsGoodsSaleItemAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from 'element-plus';
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsProjectConfig} from "./ApsProjectConfigType.ts"
+import {type ApsGoodsSaleItem} from "./ApsGoodsSaleItemType.ts"
 
-const dtoUrl = ref<string>("/apsProjectConfig")
-const documentTitle = ref<string>("项目配置表")
+const dtoUrl = ref<string>("/apsGoodsSaleItem")
+const documentTitle = ref<string>("商品销售配置")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格
-const queryForm = ref<ApsProjectConfig>({
-  saleCode: undefined,
-  saleName: undefined,
+const queryForm = ref<ApsGoodsSaleItem>({
+  goodsId: undefined,
+  saleGoodsId: undefined,
+  saleConfigId: undefined,
+  useForecast: undefined,
   supplierStatus: undefined,
-  isValue: undefined,
-  parentId: undefined,
-  id: undefined,
-  children: []
+  id: undefined
 })
 
 // 表格选中的id
@@ -30,40 +29,30 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsProjectConfig[]>([])
-const currentPageNum = ref<number>(1)
-const currentPageSize = ref<number>(10)
+const dataList = ref<ApsGoodsSaleItem[]>([])
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  {fieldName: "parentSaleCode", showName: "制造组编码"},
-  {fieldName: "parentSaleName", showName: "制造组名称"},
-  {fieldName: "saleCode", showName: "制造编码"},
-  {fieldName: "saleName", showName: "制造名称"}
+  {fieldName: "id", showName: "序号"},
+  {fieldName: "goodsId", showName: "商品ID"},
+  {fieldName: "saleGoodsId", showName: ""},
+  {fieldName: "saleConfigId", showName: ""},
+  {fieldName: "useForecast", showName: ""},
+  {fieldName: "supplierStatus", showName: ""},
 ])
-
+const goodsSaleForecastConfig = {}
 
 // 获取表格内数据
 function getDataList() {
   const req = {
-    pageSize: currentPageSize.value,
-    pageNum: currentPageNum.value,
-    data: queryForm.value
+    data: queryForm.value,
+    queryPage: false
   }
   console.info("getDataList {}", req)
   postResultInfo(`${dtoUrl.value}/queryPageList`, req)
     .then((t) => {
+      dataList.value = t.data.dataList
       tableTotal.value = Number.parseInt(t.data.total)
       // headerList.value = t.data.headerList
-      t.data.dataList.forEach((tt) => {
-        tt["parentSaleCode"] = tt.saleCode
-        tt["parentSaleName"] = tt.saleName
-        tt["saleCode"] = ""
-        tt["saleName"] = ""
-        dataList.value.push(tt)
-        tt.children.forEach((ttt) => {
-          dataList.value.push(ttt)
-        })
-      })
     })
 }
 
@@ -86,28 +75,10 @@ function handleCurrentChange(val: number) {
 }
 
 // 表格选中事件
-function handleSelectionChange(val: ApsProjectConfig[]) {
+function handleSelectionChange(val: ApsGoodsSaleItem[]) {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
-
-
-const addSaleConfigDialog = ref<boolean>(false)
-const isValue = ref<number>(0)
-const parentId = ref<string | undefined>(undefined)
-
-function addSaleConfigFun(type: number, parentIdValue: string | undefined) {
-  isValue.value = type
-  parentId.value = parentIdValue
-  addSaleConfigDialog.value = true
-}
-
-function closeAddSaleConfigFun() {
-  getDataList()
-  addSaleConfigDialog.value = false
-
-}
-
 
 // 页面加载事件
 onMounted(() => {
@@ -118,6 +89,31 @@ onMounted(() => {
 
 <template>
   <div class="app-container">
+    <el-card class="search-wrapper" shadow="never">
+      <el-form v-model="queryForm" inline>
+        <el-form-item label="商品ID" prop="goodsId">
+          <el-input v-model="queryForm.goodsId" clearable placeholder="请输入商品ID"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="saleGoodsId">
+          <el-input v-model="queryForm.saleGoodsId" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="saleConfigId">
+          <el-input v-model="queryForm.saleConfigId" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="useForecast">
+          <el-input v-model="queryForm.useForecast" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="supplierStatus">
+          <el-input v-model="queryForm.supplierStatus" clearable placeholder="请输入${column.comment}"/>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" icon="search" @click="getDataList">
+            查询
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+
     <el-card shadow="never">
       <TableBar
         :document-title="documentTitle"
@@ -128,17 +124,11 @@ onMounted(() => {
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
       />
-      <ElTable
-        ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
+      <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn prop="id" label="ID"/>
         <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
-        <ElTableColumn fixed="right" label="操作" width="250px">
+        <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
-            <el-button v-if="scope.row.isValue===0" type="primary" icon="Plus"
-                       @click="addSaleConfigFun(1, scope.row.parentId)">
-              添加
-            </el-button>
             <el-button
               type="warning"
               icon="edit"
@@ -149,11 +139,7 @@ onMounted(() => {
           </template>
         </ElTableColumn>
       </ElTable>
-
     </el-card>
-    <el-dialog v-model="addSaleConfigDialog" title="制造配置" destroy-on-close>
-      <add-edit-form-vue :is-value="1" :save-fun="closeAddSaleConfigFun" :parent-id="parentId"/>
-    </el-dialog>
   </div>
 </template>
 

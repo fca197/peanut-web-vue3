@@ -13,6 +13,15 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsGoodsSaleItem",
+          name: "商品制造配置",
+          component: () => import("@/view/aps/ApsGoodsSaleItem/ApsGoodsSaleItemIndex.vue"),
+          meta: {
+            title: "商品制造配置",
+            elIcon: "MagicStick"
+          }
+        },
+        {
           path: "/aps/ApsProjectConfig",
           name: "制造配置",
           component: () => import("@/view/aps/ApsProjectConfig/ApsProjectConfigIndex.vue"),

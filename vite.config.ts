@@ -9,6 +9,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 import Components from "unplugin-vue-components/vite"
 import { defineConfig, loadEnv } from "vite"
 import svgLoader from "vite-svg-loader"
+import viteCompression from 'vite-plugin-compression';
 
 // Configuring Vite: https://cn.vite.dev/config
 export default defineConfig(({ mode }) => {
@@ -96,6 +97,13 @@ export default defineConfig(({ mode }) => {
     // 插件配置
     plugins: [
       vue(),
+      viteCompression({
+        verbose: true,
+        disable: false,
+        threshold: 10240,
+        algorithm: "gzip",
+        ext: ".gz"
+      }),
       // 支持 JSX、TSX 语法
       vueJsx(),
       // 支持将 SVG 文件导入为 Vue 组件

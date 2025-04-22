@@ -1,6 +1,6 @@
 export interface BaseRoleGroupResource {
-      roleGroupId:  undefined
-      resourceId:  undefined
-      id: string
+  roleGroupId: undefined
+  resourceId: undefined
+  id: string
 }
 

@@ -27,7 +27,7 @@
         :data-batch-delete-url="dataBatchDeleteUrl"
         :dialog-with="1000"
       />
-      <el-table
+      <ElTable
         ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
         <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>

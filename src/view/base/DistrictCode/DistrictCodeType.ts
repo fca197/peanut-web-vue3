@@ -29,7 +29,7 @@ export function queryDistrictByParentCode(data: string) {
   return request<Result<ResultPageInfo<DistrictCode>>>({
     url: "/districtCode/queryList",
     method: "POST",
-    data: {data: {parentCode: data || '0'}}
+    data: {data: {parentCode: data || "0"}}
   }).then(r => {
     return r.data.dataList;
   })

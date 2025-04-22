@@ -14,13 +14,20 @@ export interface ApsGoods {
   id: string
 }
 
-export function queryGoodsList(): ApsGoods[] {
+export function queryGoodsList(): Promise<ApsGoods[]> {
+  return queryGoodsListByFactoryId(undefined)
+}
+
+export function queryGoodsListByFactoryId(factoryId: string | undefined): Promise<ApsGoods[]> {
   return request<Result<ResultPageInfo<ApsGoods>>>(
     {
       url: "/apsGoods/queryPageList",
       method: "post",
       data: {
-        queryPage: false
+        queryPage: false,
+        data: {
+          factoryId
+        }
       }
     }
   ).then((r) => {
