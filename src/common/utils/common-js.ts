@@ -1,6 +1,5 @@
 import {request} from "@/http/axios"
 import {getToken} from "@@/utils/cache/cookies.ts";
-import {DistrictCode} from "@v/base/DistrictCode/DistrictCodeType.ts";
 
 export interface Result<T> {
   code: number
@@ -47,6 +46,16 @@ export function postResultInfo(url: string, data: any) {
     url,
     method: "post",
     data
+  })
+}
+
+export function postResultInfoList(url: string, data: any) {
+  return request<Result<ResultPageInfo<any>>>({
+    url,
+    method: "post",
+    data
+  }).then(r => {
+    return r.data.dataList;
   })
 }
 
