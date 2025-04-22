@@ -13,11 +13,20 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsGoodsSaleProjectConfig",
+          name: "商品销售制造配置",
+          component: () => import("@/view/aps/ApsGoodsSaleProjectConfig/ApsGoodsSaleProjectConfigIndex.vue"),
+          meta: {
+            title: "商品销售制造配置",
+            elIcon: "MagicStick"
+          }
+        },
+        {
           path: "/aps/ApsGoodsSaleItem",
-          name: "商品制造配置",
+          name: "商品销售配置",
           component: () => import("@/view/aps/ApsGoodsSaleItem/ApsGoodsSaleItemIndex.vue"),
           meta: {
-            title: "商品制造配置",
+            title: "商品销售配置",
             elIcon: "MagicStick"
           }
         },
