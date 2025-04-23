@@ -35,3 +35,7 @@
 .hidden{
   display: none !important;
 }
+
+.el-form--inline .el-form-item{
+  margin: 5px 5px 5px 0;
+}

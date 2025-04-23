@@ -22,3 +22,14 @@ export function querySaleConfigList() {
     return r.data.dataList
   })
 }
+export function querySaleConfigByIdList(idList: string[]) {
+  return request<Result<ResultPageInfo<ApsSaleConfig>>>({
+    url: "/apsSaleConfig/queryByIdList",
+    method: "post",
+    data: {
+      idList
+    }
+  }).then((r) => {
+    return r.data.dataList
+  })
+}

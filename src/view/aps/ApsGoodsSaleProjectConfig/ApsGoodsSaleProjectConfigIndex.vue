@@ -19,54 +19,48 @@
       <el-table id="dataTable" :key="dataTableKey" :data="apsSaleConfigList" :default-expand-all="true"
                 :tree-props="{children: 'children', hasChildren: 'hasChildren'}" row-key="id" stripe>
         <el-table-column label="组编码" prop="saleCode" width="170px">
-          <template #scope="scope">
+          <template #default="scope">
             <span v-if="scope.row.isValue!== 1">{{ scope.row.saleCode }}</span>
           </template>
         </el-table-column>
         <el-table-column label="组名称" prop="saleName" width="170px">
-          <template #scope="scope">
+          <template #default="scope">
             <span v-if="scope.row.isValue!== 1">{{ scope.row.saleName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="值编码" prop="saleCode" width="170px">
-          <template #scope="scope">
+          <template #default="scope">
             <span v-if="scope.row.isValue === 1">{{ scope.row.saleCode }}</span>
           </template>
         </el-table-column>
         <el-table-column label="值名称" prop="saleName" width="170px">
-          <template #scope="scope">
+          <template #default="scope">
             <span v-if="scope.row.isValue === 1">{{ scope.row.saleName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="工程特征组" width="170px">
           <template #default="scope">
-          <span v-if="scope.row.isValue!== 1">
-            <el-select v-model="scope.row.projectId" @change="(value) => selectProject(scope.row.id, value)">
-              <el-option
-                v-for="item in apsProjectConfigList" :key="item.id" :label="item.saleName"
-                         :value="item.id"></el-option>
-            </el-select>
-          </span>
+            <span v-if="scope.row.isValue !== 1">
+              <el-select v-model="scope.row.projectId" @change="(value) => selectProject(scope.row.id, value)">
+                <el-option
+                  v-for="item in apsProjectConfigList" :key="item.id" :label="item.saleName"
+                  :value="item.id"></el-option>
+              </el-select>
+            </span>
           </template>
         </el-table-column>
         <el-table-column label="工程特征值">
           <template #default="scope">
-          <span v-if="scope.row.isValue === 1">
-            <el-col
-              :span="12" v-for="(plt, index ) in goodsProjectMap[scope.row.parentId+'-'+scope.row.id]"
-                    :key="index">
-              <el-col :span="24">
-                <el-col :span="12">
-                  <el-input v-model="plt.saleConfigId" disabled style="display: none"/>
-                  <el-input v-model="plt.projectConfigId" disabled style="display: none"/>
-                  <el-input v-model="plt.projectConfigName" disabled/>
-                </el-col>
-                <el-col :span="12">
-                  <el-input v-model="plt.quantity"/>
-                </el-col>
+            <span v-if="scope.row.isValue === 1">
+              <el-col
+                :span="11" v-for="(plt, index) in goodsProjectMap[`${scope.row.parentId}-${scope.row.id}`]"
+                :key="index">
+                <el-input v-model="plt.saleConfigId" disabled style="display: none"/>
+                <el-input v-model="plt.projectConfigId" disabled style="display: none"/>
+                <el-input style="width: 130px" v-model="plt.projectConfigName" disabled/>
+                <el-input style="width: 130px" v-model="plt.quantity"/>
               </el-col>
-            </el-col>
-          </span>
+            </span>
           </template>
         </el-table-column>
       </el-table>
@@ -103,30 +97,12 @@ const goodsProjectMap = ref<any>({})
 // 生命周期钩子，在组件挂载后执行
 onMounted(() => {
 
-  querySaleConfigList()
-    .then(t => {
-      apsSaleConfigList.value = t
-    })
-    .then(() => {
-      apsSaleConfigList.value.forEach(t => {
-        t.children.forEach(t1 => {
-          goodsSaleConfig.value[t1.id] = false
-        })
-        goodsSaleConfig.value[t.id] = false
-      })
-    })
-    .then(() => {
-      postResultInfo("/apsProjectConfig/queryPageList", {queryPage: false}).then(t => {
-        apsProjectConfigList.value = t.data.dataList
-      })
-      queryGoodsList().then(t => {
-        goodsList.value = t
-        form.value.goodsId = goodsList.value[0].id
-        form.value.goods = goodsList.value[0]
-      })
-    })
-})
 
+  queryGoodsList().then((r) => {
+    goodsList.value = r
+    form.value.goodsId = r[0].id
+  })
+});
 // 监听 form.goodsId 的变化
 watch(() => form.value.goodsId, (val) => {
   getList()
@@ -138,11 +114,42 @@ const getList = async () => {
   postResultInfo("/apsProjectConfig/queryPageList", {queryPage: false})
     .then(r => {
       const dataList = r.data.dataList
+      apsProjectConfigList.value = r.data.dataList
       dataTableKey.value = Math.random()
       console.info("dataTableKey.value ", dataTableKey.value, dataList)
-    })
-}
+    }).then(() => {
+    postResultInfo("/apsGoodsSaleItem/queryPageList", {queryPage: false, data: {goodsId: form.value.goodsId}})
+      .then(rr => {
+        const idSet = {}
+        rr.data.dataList.forEach(t => {
+          idSet[t.saleConfigId] = t.saleConfigId
+        })
+        console.info("idSet ", idSet)
+        querySaleConfigList()
+          .then(t => {
+            apsSaleConfigList.value = t //.filter(tt => idSet[tt.id] !== undefined)
+            apsSaleConfigList.value.forEach(t => {
+              t.children = t.children.filter(tt => idSet[tt.id] !== undefined)
+              t.children.forEach(t1 => {
+                goodsSaleConfig.value[t1.id] = false
+              })
+              goodsSaleConfig.value[t.id] = false
+            })
+            apsSaleConfigList.value = apsSaleConfigList.value.filter(tt => tt.children.length > 0)
+          }).then(() => {
+          postResultInfo("/apsGoodsSaleProjectConfig/queryPageList", {
+            queryPage: false,
+            data: {goodsId: form.value.goodsId}
+          })
+            .then(rrr => {
+              console.info("rrr ", rrr.data.dataList)
 
+              // console.info("dataTableKey.value ", dataTableKey.value, dataList)
+            })
+        })
+      })
+  })
+}
 const selectProject = (saleId: string, projectId: string) => {
   const lt = apsProjectConfigList.value.filter(t => t.id === projectId)[0].children || []
   if (lt.length === 0) {

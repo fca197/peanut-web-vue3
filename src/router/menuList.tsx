@@ -18,7 +18,7 @@ export function menuList() {
           component: () => import("@/view/aps/ApsGoodsSaleProjectConfig/ApsGoodsSaleProjectConfigIndex.vue"),
           meta: {
             title: "商品销售制造配置",
-            elIcon: "MagicStick"
+            elIcon: "ScaleToOriginal"
           }
         },
         {
@@ -27,7 +27,7 @@ export function menuList() {
           component: () => import("@/view/aps/ApsGoodsSaleItem/ApsGoodsSaleItemIndex.vue"),
           meta: {
             title: "商品销售配置",
-            elIcon: "MagicStick"
+            elIcon: "SetUp"
           }
         },
         {
@@ -36,7 +36,7 @@ export function menuList() {
           component: () => import("@/view/aps/ApsProjectConfig/ApsProjectConfigIndex.vue"),
           meta: {
             title: "制造配置",
-            elIcon: "MagicStick"
+            elIcon: "Money"
           }
         },
         {
