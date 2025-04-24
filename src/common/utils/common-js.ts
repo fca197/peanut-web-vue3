@@ -54,8 +54,8 @@ export function postResultInfoList(url: string, data: any) {
     url,
     method: "post",
     data
-  }).then(r => {
-    return r.data.dataList;
+  }).then((r) => {
+    return r.data.dataList
   })
 }
 
@@ -63,7 +63,7 @@ export async function downloadFilePost(reqUrl: string, reqData: any) {
   try {
     reqData = reqData || {}
     reqUrl = `/api/peanut${reqUrl}`
-    const token: string = getToken() + ""
+    const token: string = `${getToken()}`
     const response = await fetch(reqUrl, {
       method: "POST",
       headers: {
@@ -86,7 +86,7 @@ export async function downloadFilePost(reqUrl: string, reqData: any) {
       if (match != null && match[1]) {
         fileName = match[1].replace(/['"]/g, "")
       }
-      if (fileName.indexOf("%") !== -1) {
+      if (fileName.includes("%")) {
         fileName = decodeURI(fileName)
       }
     }
@@ -139,8 +139,8 @@ interface pinyin4jSzmData {
 }
 
 export async function pinyin4jSzm(value: string | undefined) {
-  if (value === undefined || value.trim().length == 0) {
-    return Promise.reject("")
+  if (value === undefined || value.trim().length === 0) {
+    return Promise.any("")
   }
   const data: pinyin4jSzmData = {
     str: value
