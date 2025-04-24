@@ -8,6 +8,7 @@ import {loginApi} from "./apis"
 import md5 from "md5-js/md5"
 import Owl from "./components/Owl.vue"
 import {useFocus} from "./composables/useFocus"
+import {setKeyValue} from "@@/utils/cache/cookies.ts";
 
 const router = useRouter()
 
@@ -54,6 +55,7 @@ function handleLogin() {
       pwd: md5(loginFormData.password).toUpperCase()
     }
     loginApi(req).then(({data}) => {
+      setKeyValue("loginPhone", loginFormData.username);
       userStore.setToken(data.token)
       router.push("/")
     }).catch(() => {

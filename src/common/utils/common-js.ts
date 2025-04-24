@@ -135,10 +135,13 @@ export interface KVEntity {
 }
 
 interface pinyin4jSzmData {
-  str: string
+  str: string | undefined
 }
 
-export async function pinyin4jSzm(value: string) {
+export async function pinyin4jSzm(value: string | undefined) {
+  if (value === undefined || value.trim().length == 0) {
+    return Promise.reject("")
+  }
   const data: pinyin4jSzmData = {
     str: value
   }
@@ -147,6 +150,6 @@ export async function pinyin4jSzm(value: string) {
     method: "post",
     data
   }).then((t) => {
-    return t.data.szmUpper
+    return t.data.szmUpper + ""
   })
 }

@@ -13,6 +13,15 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsProcessPath",
+          name: "工艺路径",
+          component: () => import("@/view/aps/ApsProcessPath/ApsProcessPathIndex.vue"),
+          meta: {
+            title: "工艺路径",
+            elIcon: "Paperclip"
+          }
+        },
+        {
           path: "/aps/ApsGoodsSaleProjectConfig",
           name: "商品销售制造配置",
           component: () => import("@/view/aps/ApsGoodsSaleProjectConfig/ApsGoodsSaleProjectConfigIndex.vue"),
