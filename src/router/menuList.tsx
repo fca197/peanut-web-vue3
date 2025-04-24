@@ -13,12 +13,21 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsGoodsForecast",
+          name: "商品预测",
+          component: () => import("@/view/aps/ApsGoodsForecast/ApsGoodsForecastIndex.vue"),
+          meta: {
+            title: "商品预测",
+            elIcon: "DataLine"
+          }
+        },
+        {
           path: "/aps/ApsGoodsBomBuyPlan",
           name: "零件购买计划",
           component: () => import("@/view/aps/ApsGoodsBomBuyPlan/ApsGoodsBomBuyPlanIndex.vue"),
           meta: {
             title: "零件购买计划",
-            elIcon: "Paperclip"
+            elIcon: "ShoppingCart"
           }
         },
         {

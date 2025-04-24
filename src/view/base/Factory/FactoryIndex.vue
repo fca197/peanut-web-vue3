@@ -87,7 +87,7 @@ const queryForm = ref<Factory>({
 })
 
 //  表格选中的id
-const multipleSelection = ref<string []>([])
+const multipleSelection = ref<(string | undefined) []>([])
 
 //  表格
 const dataTableRef = ref({})

@@ -77,7 +77,7 @@ const queryForm = ref({
       id: undefined
 })
 
-const multipleSelection = ref<string []>([])
+const multipleSelection = ref<(string | undefined) []>([])
 
 function handleSelectionChange(val: BaseRole []) {
   multipleSelection.value = val.map(t => t.id)

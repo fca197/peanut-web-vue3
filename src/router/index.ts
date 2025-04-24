@@ -3,7 +3,7 @@ import { routerConfig } from "@/router/config"
 import { registerNavigationGuard } from "@/router/guard"
 import { createRouter } from "vue-router"
 import { flatMultiLevelRoutes } from "./helper"
-import {menuList} from "@/router/menuList.tsx";
+import { menuList } from "@/router/menuList.tsx"
 
 const Layouts = () => import("@/layouts/index.vue")
 

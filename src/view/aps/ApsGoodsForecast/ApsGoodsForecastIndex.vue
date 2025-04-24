@@ -1,25 +1,26 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
-import AddEditFormVue from "./ApsProcessPathAddEditForm.vue"
+import {ref, onMounted} from "vue"
+import AddEditFormVue from "./ApsGoodsForecastAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from 'element-plus';
+import { ElTable } from 'element-plus';
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsProcessPath} from "./ApsProcessPathType.ts"
-import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
+import {type ApsGoodsForecast} from "./ApsGoodsForecastType.ts"
 
-const dtoUrl = ref<string>("/apsProcessPath")
-const documentTitle = ref<string>("流程路径表")
+const dtoUrl = ref<string>("/apsGoodsForecast")
+const documentTitle = ref<string>("预测表")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格
-const queryForm = ref<ApsProcessPath>({
-  processPathCode: undefined,
-  processPathName: undefined,
-  processPathRemark: undefined,
-  isDefault: undefined,
-  factoryId: undefined,
-  id: undefined,
-  pathRoomList: []
+const queryForm = ref<ApsGoodsForecast>({
+  goodsId: undefined,
+  forecastNo: undefined,
+  forecastName: undefined,
+  forecastBeginDate: undefined,
+  forecastEndDate: undefined,
+  month: undefined,
+  months: undefined,
+  forecastStatus: undefined,
+  id: undefined
 })
 
 // 表格选中的id
@@ -31,20 +32,22 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsProcessPath[]>([])
+const dataList = ref<ApsGoodsForecast[] >([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
   {fieldName: "id", showName: "序号"},
-  {fieldName: "processPathCode", showName: ""},
-  {fieldName: "processPathName", showName: ""},
-  {fieldName: "processPathRemark", showName: ""},
-  {fieldName: "isDefault", showName: ""},
-  {fieldName: "factoryId", showName: "工厂ID"},
+  {fieldName: "goodsId", showName: "商品ID"},
+  {fieldName: "forecastNo", showName: "预测编码"},
+  {fieldName: "forecastName", showName: "预测名称"},
+  {fieldName: "forecastBeginDate", showName: "开始时间"},
+  {fieldName: "forecastEndDate", showName: "结束时间"},
+  {fieldName: "month", showName: ""},
+  {fieldName: "months", showName: ""},
+  {fieldName: "forecastStatus", showName: ""},
 ])
 
-const factoryList = ref<Factory[]>([])
 
 // 获取表格内数据
 function getDataList() {
@@ -67,21 +70,18 @@ function editData(data: any) {
   // console.info("data ", data)
   tableBarRef.value?.showEditDialog(data.id)
 }
-
 // 页面条数变更事件
 function handleSizeChange(val: number) {
   currentPageSize.value = val
   getDataList()
 }
-
 // 页面变更事件
 function handleCurrentChange(val: number) {
   currentPageNum.value = val
   getDataList()
 }
-
 // 表格选中事件
-function handleSelectionChange(val: ApsProcessPath[]) {
+function handleSelectionChange(val: ApsGoodsForecast[]) {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
@@ -89,7 +89,6 @@ function handleSelectionChange(val: ApsProcessPath[]) {
 // 页面加载事件
 onMounted(() => {
   getDataList()
-  queryFactoryList().then(r => factoryList.value = r)
 })
 
 </script>
@@ -98,10 +97,11 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="工厂ID" prop="factoryId">
-          <el-select v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" style="width: 200px">
-            <el-option v-for="f in factoryList" :key="f.id" :label="f.factoryName" :value="f.id"></el-option>
-          </el-select>
+        <el-form-item label="预测名称" prop="forecastName">
+          <el-input v-model="queryForm.forecastName" clearable placeholder="请输入预测名称" />
+        </el-form-item>
+        <el-form-item label="预测编码" prop="forecastNo">
+          <el-input v-model="queryForm.forecastNo" clearable placeholder="请输入预测编码" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -120,11 +120,10 @@ onMounted(() => {
         :multiple-selection="multipleSelection"
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
-        :dialog-with="1000"
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button

@@ -86,7 +86,7 @@ const queryForm = ref({
   loginPhone: undefined
 })
 
-const multipleSelection = ref<string []>([])
+const multipleSelection = ref<(string | undefined) []>([])
 
 function handleSelectionChange(val: LoginAccount []) {
   multipleSelection.value = val.map(t => t.id)

@@ -102,7 +102,7 @@ const queryForm = ref<BaseResource>({
 })
 
 // 表格选中的id
-const multipleSelection = ref<string []>([])
+const multipleSelection = ref<(string | undefined) []>([])
 
 // 表格
 // const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)

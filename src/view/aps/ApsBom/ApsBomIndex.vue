@@ -30,7 +30,7 @@ const queryForm = ref({
   id: undefined
 })
 
-const multipleSelection = ref<string []>([])
+const multipleSelection = ref<(string | undefined) []>([])
 const dataTableRef = ref<any>({})
 // const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
