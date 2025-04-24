@@ -58,7 +58,7 @@
                 <el-input v-model="plt.saleConfigId" disabled style="display: none"/>
                 <el-input v-model="plt.projectConfigId" disabled style="display: none"/>
                 <el-input style="width: 130px" v-model="plt.projectConfigName" disabled/>
-                <el-input style="width: 130px" v-model="plt.quantity"/>
+                <el-input-number :min="0" :step="1" :max="100" style="width: 130px" v-model="plt.quantity"/>
               </el-col>
             </span>
           </template>
@@ -72,7 +72,7 @@
 import {onMounted, ref, watch} from 'vue'
 import type {ElForm, ElTable} from 'element-plus'
 import {querySaleConfigList} from "@v/aps/ApsSaleConfig/ApsSaleConfigType.ts"
-import {postResultInfo} from "@@/utils/common-js.ts"
+import {postNoResult, postResultInfo} from "@@/utils/common-js.ts"
 import {queryGoodsList} from "@v/aps/ApsGoods/ApsGoodsType.ts"
 
 // 定义表单引用
@@ -89,15 +89,13 @@ const form = ref({
     factoryId: undefined
   }
 })
-const apsSaleConfigList = ref<any[]>([])
+let apsSaleConfigList = []
 const apsProjectConfigList = ref<any[]>([])
-const saleProjectMap = ref<any>({})
-const goodsProjectMap = ref<any>({})
+const goodsProjectMap = ref<Record<string, any[]>>({})
+
 
 // 生命周期钩子，在组件挂载后执行
 onMounted(() => {
-
-
   queryGoodsList().then((r) => {
     goodsList.value = r
     form.value.goodsId = r[0].id
@@ -115,7 +113,7 @@ const getList = async () => {
     .then(r => {
       const dataList = r.data.dataList
       apsProjectConfigList.value = r.data.dataList
-      dataTableKey.value = Math.random()
+
       console.info("dataTableKey.value ", dataTableKey.value, dataList)
     }).then(() => {
     postResultInfo("/apsGoodsSaleItem/queryPageList", {queryPage: false, data: {goodsId: form.value.goodsId}})
@@ -127,24 +125,48 @@ const getList = async () => {
         console.info("idSet ", idSet)
         querySaleConfigList()
           .then(t => {
-            apsSaleConfigList.value = t //.filter(tt => idSet[tt.id] !== undefined)
-            apsSaleConfigList.value.forEach(t => {
+            apsSaleConfigList = t //.filter(tt => idSet[tt.id] !== undefined)
+            apsSaleConfigList.forEach(t => {
               t.children = t.children.filter(tt => idSet[tt.id] !== undefined)
               t.children.forEach(t1 => {
                 goodsSaleConfig.value[t1.id] = false
               })
               goodsSaleConfig.value[t.id] = false
             })
-            apsSaleConfigList.value = apsSaleConfigList.value.filter(tt => tt.children.length > 0)
+            apsSaleConfigList = apsSaleConfigList.filter(tt => tt.children.length > 0)
           }).then(() => {
           postResultInfo("/apsGoodsSaleProjectConfig/queryPageList", {
             queryPage: false,
             data: {goodsId: form.value.goodsId}
           })
-            .then(rrr => {
-              console.info("rrr ", rrr.data.dataList)
-
-              // console.info("dataTableKey.value ", dataTableKey.value, dataList)
+            .then(res => {
+              console.info("res ", res.data.dataList)
+              goodsProjectMap.value = {}
+              res.data.dataList.forEach(tt => {
+                let key = tt.saleConfigParentId + "-" + tt.saleConfigId;
+                let lt = goodsProjectMap.value[key] || []
+                let parse = {
+                  quantity: parseInt(tt.quantity),
+                  factoryId: tt.factoryId,
+                  saleConfigId: tt.saleConfigId,
+                  saleConfigParentId: tt.saleConfigParentId,
+                  saleConfigName: tt.saleConfigName,
+                  goodsId: tt.goodsId,
+                  projectConfigId: tt.projectConfigId,
+                  projectConfigParentId: tt.projectConfigParentId,
+                  projectConfigName: tt.projectConfigName
+                };
+                lt.push(parse)
+                 goodsProjectMap.value[key]= lt
+                for (let scc in apsSaleConfigList) {
+                  if (apsSaleConfigList[scc].id === tt.saleConfigParentId) {
+                    apsSaleConfigList[scc]["projectId"]= tt.projectConfigParentId
+                    break;
+                  }
+                }
+              })
+              dataTableKey.value = Math.random()
+              console.info("apsSaleConfigList", apsSaleConfigList)
             })
         })
       })
@@ -156,7 +178,7 @@ const selectProject = (saleId: string, projectId: string) => {
     alert('请先添加工程特征值')
     return
   }
-  const saleConfigList = apsSaleConfigList.value.filter(t => t.id === saleId)[0].children || []
+  const saleConfigList = apsSaleConfigList.filter(t => t.id === saleId)[0].children || []
 
   saleConfigList.forEach(sc => {
     const ltt: any[] = []
@@ -176,7 +198,8 @@ const selectProject = (saleId: string, projectId: string) => {
     })
     goodsProjectMap.value[saleId + '-' + sc.id] = ltt
   })
-  console.log("goodsSaleConfig", saleId, projectId, goodsProjectMap.value)
+  console.log("goodsSaleConfig", saleId, projectId, goodsProjectMap)
+  dataTableKey.value = Math.random()
 }
 
 const saveConfig = () => {
@@ -188,10 +211,10 @@ const saveConfig = () => {
     })
   }
   if (f.length === 0) {
-    alert('请先选择工程特征值')
+    ElMessage.error("请先选择工程特征值")
     return
   }
-  // post("/apsGoodsSaleProjectConfig/insertBatch", f)
+   postNoResult("/apsGoodsSaleProjectConfig/insertBatch", f,"保存成功", getList)
 }
 
 </script>
