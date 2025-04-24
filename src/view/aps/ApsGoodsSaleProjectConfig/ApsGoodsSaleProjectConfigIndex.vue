@@ -214,9 +214,8 @@ const saveConfig = () => {
     ElMessage.error("请先选择工程特征值")
     return
   }
-   postNoResult("/apsGoodsSaleProjectConfig/insertBatch", f,"保存成功", getList)
+  postNoResult("/apsGoodsSaleProjectConfig/insertBatch", f,"保存成功", getList)
 }
-
 </script>
 
 <style lang="scss" scoped>
