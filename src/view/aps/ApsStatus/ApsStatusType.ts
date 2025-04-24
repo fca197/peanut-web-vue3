@@ -10,7 +10,7 @@ export interface ApsStatus {
 }
 
 export function queryApsStatusList() {
-  return request<Result<ResultPageInfo<ApsStatus[]>>>(
+  return request<Result<ResultPageInfo<ApsStatus>>>(
     {
       url: "/apsStatus/queryPageList",
       method: "post",

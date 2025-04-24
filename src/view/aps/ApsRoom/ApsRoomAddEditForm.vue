@@ -120,7 +120,6 @@ onMounted(() => {
   querySectionList().then(r => sectionList.value = r)
   queryStationList().then(r => stationList.value = r)
   queryApsStatusList().then(r => statusList.value = r)
-
 })
 // 添加对象
 const addForm = ref<ApsRoom>({
