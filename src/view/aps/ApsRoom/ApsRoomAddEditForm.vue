@@ -11,6 +11,50 @@
         <el-option v-for="f in factoryList" :key="f.id" :value="f.id" :label="f.factoryName"/>
       </el-select>
     </el-form-item>
+    <el-form-item label="车间配置">
+
+      <el-col :span="24">
+        <el-button icon="plus" type="primary" @click="addConfig"></el-button>
+      </el-col>
+      <el-col :span="5">
+        工段
+      </el-col>
+      <el-col :span="5">
+        工位
+      </el-col>
+      <el-col :span="5">
+        状态
+      </el-col>
+      <el-col :span="5">
+        耗时(秒)
+      </el-col>
+      <el-row v-for="(item,index) in addForm.configList">
+        <el-col :span="5">
+          <el-select v-model="item.sectionId" clearable placeholder="请选择工段" filterable>
+            <el-option v-for="item in sectionList" :key="item.id" :label="item.sectionName"
+                       :value="item.id"></el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="5">
+          <el-select v-model="item.stationId" clearable placeholder="请选择工位" filterable>
+            <el-option v-for="item in stationList" :key="item.id" :label="item.stationName"
+                       :value="item.id"></el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="5">
+          <el-select v-model="item.statusId" clearable placeholder="请选择状态" filterable>
+            <el-option v-for="item in statusList" :key="item.id" :label="item.statusName" :value="item.id"></el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="5">
+          <el-input v-model="item.executeTime" placeholder="请输入"/>
+        </el-col>
+        <el-col :span="4">
+          <el-button icon="delete" type="danger"
+                     @click="deleteConfig(addForm.configList, index)"></el-button>
+        </el-col>
+      </el-row>
+    </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
     <el-button @click="cancelForm" type="info" icon="close">
@@ -28,6 +72,9 @@ import {type ApsRoom} from "./ApsRoomType.ts"
 import {getById, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
+import {ApsWorkshopSection, querySectionList} from "@v/aps/ApsWorkshopSection/ApsWorkshopSectionType.ts";
+import {ApsWorkshopStation, queryStationList} from "@v/aps/ApsWorkshopStation/ApsWorkshopStationType.ts";
+import {ApsStatus, queryApsStatusList} from "@v/aps/ApsStatus/ApsStatusType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -63,17 +110,25 @@ const checkRules = ref<FormRules>({
 
 })
 const factoryList = ref<Factory[]>([])
+const sectionList = ref<ApsWorkshopSection[]>([])
+const stationList = ref<ApsWorkshopStation[]>([])
+const statusList = ref<ApsStatus[]>([])
 // 页面加载事件
 onMounted(() => {
   loadById()
   queryFactoryList().then(r => factoryList.value = r)
+  querySectionList().then(r => sectionList.value = r)
+  queryStationList().then(r => stationList.value = r)
+  queryApsStatusList().then(r => statusList.value = r)
+
 })
 // 添加对象
 const addForm = ref<ApsRoom>({
   roomCode: "",
   roomName: "",
   factoryId: "",
-  id: ""
+  id: "",
+  configList: []
 })
 
 function loadById() {
@@ -119,6 +174,22 @@ function cancelForm() {
 
 function loadSzm() {
   pinyin4jSzm(addForm.value.roomName).then(t => addForm.value.roomCode = t)
+}
+
+function addConfig() {
+  addForm.value.configList.push({
+    roomId: "",
+    sectionId: "",
+    stationId: "",
+    executeTime: "",
+    factoryId: "",
+    statusId: "",
+    id: ""
+  })
+}
+
+function deleteConfig(index) {
+  addForm.value.configList.splice(index, 1)
 }
 </script>
 

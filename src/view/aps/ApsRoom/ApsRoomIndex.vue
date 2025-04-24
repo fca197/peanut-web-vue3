@@ -28,6 +28,7 @@
         :document-title="documentTitle"
         :multiple-selection="multipleSelection"
         :refresh-list="getDataList"
+        :dialog-with="1000"
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
