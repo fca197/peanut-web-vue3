@@ -126,13 +126,20 @@ onMounted(() => {
         <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
-            <el-button
-              type="warning"
-              icon="edit"
-              @click="editData(scope.row)"
-            >
-              编辑
-            </el-button>
+            <el-dropdown type="primary" split-button>
+              操作
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="editData(scope.row)">
+                    编辑
+                  </el-dropdown-item>
+                  <el-dropdown-item>Action 2</el-dropdown-item>
+                  <el-dropdown-item>Action 3</el-dropdown-item>
+                  <el-dropdown-item>Action 4</el-dropdown-item>
+                  <el-dropdown-item>Action 5</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </template>
         </ElTableColumn>
       </ElTable>
