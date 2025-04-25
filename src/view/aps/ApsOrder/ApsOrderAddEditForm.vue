@@ -83,82 +83,82 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     //
     orderNo: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     orderRemark: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 订单状态
     orderStatus: [
-      {required: true, message: "请输入订单状态", trigger: "blur"},
+      {required: true, message: "请输入订单状态", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 成本价
     orderTotalPrice: [
-      {required: true, message: "请输入成本价", trigger: "blur"},
+      {required: true, message: "请输入成本价", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 商品ID
     goodsId: [
-      {required: true, message: "请输入商品ID", trigger: "blur"},
+      {required: true, message: "请输入商品ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 总价
     reserveAmount: [
-      {required: true, message: "请输入总价", trigger: "blur"},
+      {required: true, message: "请输入总价", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     reserveDatetime: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 总价
     finishPayedAmount: [
-      {required: true, message: "请输入总价", trigger: "blur"},
+      {required: true, message: "请输入总价", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     finishPayedDatetime: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     makeFinishDate: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 实际完成时间
     actMakeFinishDate: [
-      {required: true, message: "请输入实际完成时间", trigger: "blur"},
+      {required: true, message: "请输入实际完成时间", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     deliveryDate: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 工厂ID
     factoryId: [
-      {required: true, message: "请输入工厂ID", trigger: "blur"},
+      {required: true, message: "请输入工厂ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 紧急度0最小,越大越紧急
     urgencyLevel: [
-      {required: true, message: "请输入紧急度0最小,越大越紧急", trigger: "blur"},
+      {required: true, message: "请输入紧急度0最小,越大越紧急", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 排产时间
     schedulingDate: [
-      {required: true, message: "请输入排产时间", trigger: "blur"},
+      {required: true, message: "请输入排产时间", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 父订单号
     orderNoParent: [
-      {required: true, message: "请输入父订单号", trigger: "blur"},
+      {required: true, message: "请输入父订单号", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

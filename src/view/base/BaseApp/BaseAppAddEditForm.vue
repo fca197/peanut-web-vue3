@@ -38,11 +38,11 @@ const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
   appCode: [
-    {required: true, message: "请输入app编码", trigger: "blur"},
+    {required: true, message: "请输入app编码", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   appName: [
-    {required: true, message: "请输入app名称", trigger: "blur"},
+    {required: true, message: "请输入app名称", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
 

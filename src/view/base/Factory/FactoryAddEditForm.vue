@@ -45,15 +45,15 @@ const addFormRef = ref<FormInstance>()
 //  表单校验规则
 const checkRules = ref<FormRules>({
   factoryName: [
-    {required: true, message: "请输入工厂名称", trigger: "blur"},
+    {required: true, message: "请输入工厂名称", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   factoryCode: [
-    {required: true, message: "请输入工厂编码", trigger: "blur"},
+    {required: true, message: "请输入工厂编码", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   factoryStatus: [
-    {required: true, message: "请输入状态", trigger: "blur"},
+    {required: true, message: "请输入状态", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ]
 })

@@ -35,10 +35,10 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  {fieldName: "parentSaleCode", showName: "销售组编码"},
-  {fieldName: "parentSaleName", showName: "销售组名称"},
-  {fieldName: "saleCode", showName: "销售编码"},
-  {fieldName: "saleName", showName: "销售名称"}
+  { fieldName: "parentSaleCode", showName: "销售组编码" },
+  { fieldName: "parentSaleName", showName: "销售组名称" },
+  { fieldName: "saleCode", showName: "销售编码" },
+  { fieldName: "saleName", showName: "销售名称"}
 ])
 
 // 获取表格内数据

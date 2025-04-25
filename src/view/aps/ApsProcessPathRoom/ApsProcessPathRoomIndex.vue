@@ -2,7 +2,7 @@
 import {ref, onMounted} from "vue"
 import AddEditFormVue from "./ApsProcessPathRoomAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from 'element-plus';
+import { ElTable } from "element-plus"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsProcessPathRoom} from "./ApsProcessPathRoomType.ts"
 
@@ -32,10 +32,10 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
- {fieldName: "id", showName: "序号"},
-  {fieldName: "processPathId", showName: ""},
-  {fieldName: "roomId", showName: ""},
-  {fieldName: "factoryId", showName: "工厂ID"},
+ { fieldName: "id", showName: "序号" },
+  { fieldName: "processPathId", showName: "" },
+  { fieldName: "roomId", showName: "" },
+  { fieldName: "factoryId", showName: "工厂ID" },
 ])
 
 

@@ -60,7 +60,7 @@
 import {onMounted, ref} from "vue"
 import AddEditFormVue from "./DictionaryAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from 'element-plus';
+import {ElTable} from "element-plus"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type Dictionary} from "./DictionaryType.ts"
 

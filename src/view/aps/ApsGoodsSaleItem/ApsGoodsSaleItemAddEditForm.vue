@@ -22,27 +22,27 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 商品ID
     goodsId: [
-      {required: true, message: "请输入商品ID", trigger: "blur"},
+      {required: true, message: "请输入商品ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     saleGoodsId: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     saleConfigId: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     useForecast: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     supplierStatus: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

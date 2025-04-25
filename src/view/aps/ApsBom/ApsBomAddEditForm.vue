@@ -82,51 +82,51 @@ const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
   bomCode: [
-    {required: true, message: "请输入bom 编码", trigger: "blur"},
+    {required: true, message: "请输入bom 编码", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   bomName: [
-    {required: true, message: "请输入bom 名称", trigger: "blur"},
+    {required: true, message: "请输入bom 名称", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   bomCostPrice: [
-    {required: true, message: "请输入成本价", trigger: "blur"},
+    {required: true, message: "请输入成本价", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   bomCostPriceUnit: [
-    {required: true, message: "请输入单位", trigger: "blur"},
+    {required: true, message: "请输入单位", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   bomInventory: [
-    {required: true, message: "请输入库存", trigger: "blur"},
+    {required: true, message: "请输入库存", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   groupId: [
-    {required: true, message: "请输入组ID", trigger: "blur"},
+    {required: true, message: "请输入组ID", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   supplyMode: [
-    {required: true, message: "请输入供给方式 make, buy", trigger: "blur"},
+    {required: true, message: "请输入供给方式 make, buy", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   useUnit: [
-    {required: true, message: "请输入使用单位", trigger: "blur"},
+    {required: true, message: "请输入使用单位", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   bomUnit: [
-    {required: true, message: "请输入零件单位", trigger: "blur"},
+    {required: true, message: "请输入零件单位", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   produceProcessId: [
-    {required: true, message: "请输入制造路径", trigger: "blur"},
+    {required: true, message: "请输入制造路径", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   deliveryCycleDay: [
-    {required: true, message: "请输入到货周期", trigger: "blur"},
+    {required: true, message: "请输入到货周期", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   apsBomSupplierId: [
-    {required: true, message: "请输入供应商ID", trigger: "blur"},
+    {required: true, message: "请输入供应商ID", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ]
 

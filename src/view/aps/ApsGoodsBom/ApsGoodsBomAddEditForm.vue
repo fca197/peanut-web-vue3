@@ -93,22 +93,22 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
   // 商品ID
   goodsId: [
-    {required: true, message: "请输入商品ID", trigger: "blur"},
+    {required: true, message: "请输入商品ID", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 零件组ID
   groupId: [
-    {required: true, message: "请输入零件组ID", trigger: "blur"},
+    {required: true, message: "请输入零件组ID", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 商品ID
   bomId: [
-    {required: true, message: "请输入商品ID", trigger: "blur"},
+    {required: true, message: "请输入商品ID", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 单位
   bomUnit: [
-    {required: true, message: "请输入单位", trigger: "blur"},
+    {required: true, message: "请输入单位", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 成本价
@@ -117,12 +117,12 @@ const checkRules = ref<FormRules>({
   ],
   // 用量
   bomUsage: [
-    {required: true, message: "请输入用量", trigger: "blur"},
+    {required: true, message: "请输入用量", trigger: "blur" },
     {min: 1, max: 20, message: "长度在 1 到 20 个字符", trigger: "blur"}
   ],
   // 使用工位
   bomUseWorkStation: [
-    {required: true, message: "请输入使用工位", trigger: "blur"},
+    {required: true, message: "请输入使用工位", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 使用表达式
@@ -131,12 +131,12 @@ const checkRules = ref<FormRules>({
   ],
   // 库存
   bomInventory: [
-    {required: true, message: "请输入库存", trigger: "blur"},
+    {required: true, message: "请输入库存", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 工厂ID
   factoryId: [
-    {required: true, message: "请输入工厂ID", trigger: "blur"},
+    {required: true, message: "请输入工厂ID", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ]
 })

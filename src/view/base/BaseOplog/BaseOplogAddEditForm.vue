@@ -89,92 +89,92 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 操作内容
     content: [
-      {required: true, message: "请输入操作内容", trigger: "blur"},
+      {required: true, message: "请输入操作内容", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 业务Key
     businessKey: [
-      {required: true, message: "请输入业务Key", trigger: "blur"},
+      {required: true, message: "请输入业务Key", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 方法名称
     methodName: [
-      {required: true, message: "请输入方法名称", trigger: "blur"},
+      {required: true, message: "请输入方法名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 业务类型
     businessType: [
-      {required: true, message: "请输入业务类型", trigger: "blur"},
+      {required: true, message: "请输入业务类型", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 业务类型
     businessType0: [
-      {required: true, message: "请输入业务类型", trigger: "blur"},
+      {required: true, message: "请输入业务类型", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 业务类型
     businessType1: [
-      {required: true, message: "请输入业务类型", trigger: "blur"},
+      {required: true, message: "请输入业务类型", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 业务类型
     businessType2: [
-      {required: true, message: "请输入业务类型", trigger: "blur"},
+      {required: true, message: "请输入业务类型", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 业务类型
     businessType3: [
-      {required: true, message: "请输入业务类型", trigger: "blur"},
+      {required: true, message: "请输入业务类型", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 业务类型
     businessType4: [
-      {required: true, message: "请输入业务类型", trigger: "blur"},
+      {required: true, message: "请输入业务类型", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 请求地址
     url: [
-      {required: true, message: "请输入请求地址", trigger: "blur"},
+      {required: true, message: "请输入请求地址", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 耗时
     useTime: [
-      {required: true, message: "请输入耗时", trigger: "blur"},
+      {required: true, message: "请输入耗时", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 参数名 参数1,参数2
     paramName: [
-      {required: true, message: "请输入参数名 参数1,参数2", trigger: "blur"},
+      {required: true, message: "请输入参数名 参数1,参数2", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 请求入参
     reqBody: [
-      {required: true, message: "请输入请求入参", trigger: "blur"},
+      {required: true, message: "请输入请求入参", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 是否成功
     isSuccess: [
-      {required: true, message: "请输入是否成功", trigger: "blur"},
+      {required: true, message: "请输入是否成功", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 请求入参
     resultStr: [
-      {required: true, message: "请输入请求入参", trigger: "blur"},
+      {required: true, message: "请输入请求入参", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 备注
     remark: [
-      {required: true, message: "请输入备注", trigger: "blur"},
+      {required: true, message: "请输入备注", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 创建人
     createUserName: [
-      {required: true, message: "请输入创建人", trigger: "blur"},
+      {required: true, message: "请输入创建人", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 登录手机号
     loginPhone: [
-      {required: true, message: "请输入登录手机号", trigger: "blur"},
+      {required: true, message: "请输入登录手机号", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

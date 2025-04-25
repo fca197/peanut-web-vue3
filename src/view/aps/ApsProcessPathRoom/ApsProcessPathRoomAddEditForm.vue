@@ -22,17 +22,17 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     //
     processPathId: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     roomId: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 工厂ID
     factoryId: [
-      {required: true, message: "请输入工厂ID", trigger: "blur"},
+      {required: true, message: "请输入工厂ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

@@ -41,12 +41,12 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 报表名称
     reportName: [
-      {required: true, message: "请输入报表名称", trigger: "blur"},
+      {required: true, message: "请输入报表名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 报表路径
     reportUrl: [
-      {required: true, message: "请输入报表路径", trigger: "blur"},
+      {required: true, message: "请输入报表路径", trigger: "blur" },
       {min: 2, max: 200, message: "长度在 2 到 200 个字符", trigger: "blur"}
     ],
 

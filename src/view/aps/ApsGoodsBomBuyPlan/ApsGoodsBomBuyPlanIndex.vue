@@ -2,7 +2,7 @@
 import {ref, onMounted} from "vue"
 import AddEditFormVue from "./ApsGoodsBomBuyPlanAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from 'element-plus';
+import { ElTable } from "element-plus"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsGoodsBomBuyPlan} from "./ApsGoodsBomBuyPlanType.ts"
 
@@ -36,14 +36,14 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
- {fieldName: "id", showName: "序号"},
-  {fieldName: "planName", showName: "计划名称"},
-  {fieldName: "planTotalAmount", showName: "总价"},
-  {fieldName: "planSource", showName: "计划来源"},
-  {fieldName: "planRemark", showName: "计划备注"},
-  {fieldName: "buyPlanType", showName: "购买类型"},
-  {fieldName: "isFollow", showName: "是否关注"},
-  {fieldName: "bomUseDate", showName: "日期"},
+ { fieldName: "id", showName: "序号" },
+  { fieldName: "planName", showName: "计划名称" },
+  { fieldName: "planTotalAmount", showName: "总价" },
+  { fieldName: "planSource", showName: "计划来源" },
+  { fieldName: "planRemark", showName: "计划备注" },
+  { fieldName: "buyPlanType", showName: "购买类型" },
+  { fieldName: "isFollow", showName: "是否关注" },
+  { fieldName: "bomUseDate", showName: "日期" },
 ])
 
 

@@ -83,31 +83,31 @@ const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
   bomSupplierName: [
-    {required: true, message: "请输入名称", trigger: "blur"},
+    {required: true, message: "请输入名称", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   bomSupplierCode: [
-    {required: true, message: "请输入编号", trigger: "blur"},
+    {required: true, message: "请输入编号", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   bomSupplierPhone: [
-    {required: true, message: "请输入手机", trigger: "blur"},
+    {required: true, message: "请输入手机", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   provinceCode: [
-    {required: true, message: "请输入省", trigger: "blur"},
+    {required: true, message: "请输入省", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   cityCode: [
-    {required: true, message: "请输入市", trigger: "blur"},
+    {required: true, message: "请输入市", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   areaCode: [
-    {required: true, message: "请输入县", trigger: "blur"},
+    {required: true, message: "请输入县", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   bomSupplierAddr: [
-    {required: true, message: "请输入地址", trigger: "blur"},
+    {required: true, message: "请输入地址", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ]
 

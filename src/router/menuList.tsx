@@ -13,6 +13,15 @@ export function menuList() {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsGoodsForecast/:id",
+          name: "商品预测结果",
+          component: () => import("@/view/aps/ApsGoodsForecast/ApsGoodsForecastResult.vue"),
+          meta: {
+            title: "商品预测结果",
+            elIcon: "DataLine"
+          }
+        },
+        {
           path: "/aps/ApsGoodsForecast",
           name: "商品预测",
           component: () => import("@/view/aps/ApsGoodsForecast/ApsGoodsForecastIndex.vue"),

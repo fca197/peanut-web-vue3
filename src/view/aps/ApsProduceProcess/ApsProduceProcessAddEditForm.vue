@@ -47,22 +47,22 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 生产路径编码
     produceProcessNo: [
-      {required: true, message: "请输入生产路径编码", trigger: "blur"},
+      {required: true, message: "请输入生产路径编码", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 生产路径名称
     produceProcessName: [
-      {required: true, message: "请输入生产路径名称", trigger: "blur"},
+      {required: true, message: "请输入生产路径名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 工厂ID
     factoryId: [
-      {required: true, message: "请输入工厂ID", trigger: "blur"},
+      {required: true, message: "请输入工厂ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 是否默认
     isDefault: [
-      {required: true, message: "请输入是否默认", trigger: "blur"},
+      {required: true, message: "请输入是否默认", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

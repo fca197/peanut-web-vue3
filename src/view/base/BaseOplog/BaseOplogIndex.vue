@@ -108,7 +108,7 @@
 import {ref, onMounted} from "vue"
 import AddEditFormVue from "./BaseOplogAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from 'element-plus';
+import { ElTable } from "element-plus"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type BaseOplog} from "./BaseOplogType.ts"
 

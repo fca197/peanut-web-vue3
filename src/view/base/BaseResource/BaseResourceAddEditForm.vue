@@ -71,62 +71,62 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 菜单编码
     resourceCode: [
-      {required: true, message: "请输入菜单编码", trigger: "blur"},
+      {required: true, message: "请输入菜单编码", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 菜单名称
     resourceName: [
-      {required: true, message: "请输入菜单名称", trigger: "blur"},
+      {required: true, message: "请输入菜单名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 菜单URL
     resourceUrl: [
-      {required: true, message: "请输入菜单URL", trigger: "blur"},
+      {required: true, message: "请输入菜单URL", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 下个版本
     nextLevelResourceUrl: [
-      {required: true, message: "请输入下个版本", trigger: "blur"},
+      {required: true, message: "请输入下个版本", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 组建路径
     resourceComment: [
-      {required: true, message: "请输入组建路径", trigger: "blur"},
+      {required: true, message: "请输入组建路径", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 菜单图标
     resourceIcon: [
-      {required: true, message: "请输入菜单图标", trigger: "blur"},
+      {required: true, message: "请输入菜单图标", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 菜单类型
     resourceType: [
-      {required: true, message: "请输入菜单类型", trigger: "blur"},
+      {required: true, message: "请输入菜单类型", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 是否按钮 0 否,1 是
     isButton: [
-      {required: true, message: "请输入是否按钮 0 否,1 是", trigger: "blur"},
+      {required: true, message: "请输入是否按钮 0 否,1 是", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 是否因此 0否,1是
     isHidden: [
-      {required: true, message: "请输入是否因此 0否,1是", trigger: "blur"},
+      {required: true, message: "请输入是否因此 0否,1是", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 父菜单ID
     parentId: [
-      {required: true, message: "请输入父菜单ID", trigger: "blur"},
+      {required: true, message: "请输入父菜单ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 菜单路径
     path: [
-      {required: true, message: "请输入菜单路径", trigger: "blur"},
+      {required: true, message: "请输入菜单路径", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 排序
     sortIndex: [
-      {required: true, message: "请输入排序", trigger: "blur"},
+      {required: true, message: "请输入排序", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

@@ -236,337 +236,337 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 工厂ID
     factoryId: [
-      {required: true, message: "请输入工厂ID", trigger: "blur"},
+      {required: true, message: "请输入工厂ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 商品ID
     goodsId: [
-      {required: true, message: "请输入商品ID", trigger: "blur"},
+      {required: true, message: "请输入商品ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     makeCapacityQuantity: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     year: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     month: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin1: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax1: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin2: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax2: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin3: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax3: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin4: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax4: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin5: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax5: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin6: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax6: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin7: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax7: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin8: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax8: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin9: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax9: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin10: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax10: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin11: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax11: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin12: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax12: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin13: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax13: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin14: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax14: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin15: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax15: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin16: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax16: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin17: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax17: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin18: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax18: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin19: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax19: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin20: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax20: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin21: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax21: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin22: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax22: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin23: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax23: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin24: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax24: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin25: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax25: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin26: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax26: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin27: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax27: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin28: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax28: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin29: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax29: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin30: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax30: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMin31: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 制造数
     dayMax31: [
-      {required: true, message: "请输入制造数", trigger: "blur"},
+      {required: true, message: "请输入制造数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

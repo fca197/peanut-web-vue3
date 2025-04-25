@@ -53,32 +53,32 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 报表ID
     reportConfigId: [
-      {required: true, message: "请输入报表ID", trigger: "blur"},
+      {required: true, message: "请输入报表ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 排序
     sortIndex: [
-      {required: true, message: "请输入排序", trigger: "blur"},
+      {required: true, message: "请输入排序", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 宽度 安el-col span 计算
     colSpan: [
-      {required: true, message: "请输入宽度 安el-col span 计算", trigger: "blur"},
+      {required: true, message: "请输入宽度 安el-col span 计算", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 高度
     height: [
-      {required: true, message: "请输入高度", trigger: "blur"},
+      {required: true, message: "请输入高度", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 报表名称
     reportName: [
-      {required: true, message: "请输入报表名称", trigger: "blur"},
+      {required: true, message: "请输入报表名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 报表路径
     reportUrl: [
-      {required: true, message: "请输入报表路径", trigger: "blur"},
+      {required: true, message: "请输入报表路径", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

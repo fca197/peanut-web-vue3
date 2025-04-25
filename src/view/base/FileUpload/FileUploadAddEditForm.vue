@@ -56,37 +56,37 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
   //
   fileName: [
-    {required: true, message: "请输入${column.comment}", trigger: "blur"},
+    {required: true, message: "请输入${column.comment}", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   //
   fileSize: [
-    {required: true, message: "请输入${column.comment}", trigger: "blur"},
+    {required: true, message: "请输入${column.comment}", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   //
   localFilePath: [
-    {required: true, message: "请输入${column.comment}", trigger: "blur"},
+    {required: true, message: "请输入${column.comment}", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   //
   cloudFilePath: [
-    {required: true, message: "请输入${column.comment}", trigger: "blur"},
+    {required: true, message: "请输入${column.comment}", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   //
   expireTime: [
-    {required: true, message: "请输入${column.comment}", trigger: "blur"},
+    {required: true, message: "请输入${column.comment}", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   //
   fileType: [
-    {required: true, message: "请输入${column.comment}", trigger: "blur"},
+    {required: true, message: "请输入${column.comment}", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   //
   fileSuffix: [
-    {required: true, message: "请输入${column.comment}", trigger: "blur"},
+    {required: true, message: "请输入${column.comment}", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
 

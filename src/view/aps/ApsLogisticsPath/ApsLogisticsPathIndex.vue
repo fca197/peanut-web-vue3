@@ -61,7 +61,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
 import AddEditFormVue from "./ApsLogisticsPathAddEditForm.vue"
-import {ElTable} from 'element-plus';
+import {ElTable} from "element-plus"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsLogisticsPath} from "./ApsLogisticsPathType.ts"

@@ -52,17 +52,17 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
   // 工厂ID
   factoryId: [
-    {required: true, message: "请输入工厂ID", trigger: "blur"},
+    {required: true, message: "请输入工厂ID", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   //
   calendarName: [
-    {required: true, message: "请输入名称", trigger: "blur"},
+    {required: true, message: "请输入名称", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   //
   calendarCode: [
-    {required: true, message: "请输入编码", trigger: "blur"},
+    {required: true, message: "请输入编码", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ]
 

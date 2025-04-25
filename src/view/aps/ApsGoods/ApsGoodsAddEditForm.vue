@@ -53,27 +53,27 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
   // 商品名称
   goodsName: [
-    {required: true, message: "请输入商品名称", trigger: "blur"},
+    {required: true, message: "请输入商品名称", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 商品备注
   goodsRemark: [
-    {required: true, message: "请输入商品备注", trigger: "blur"},
+    {required: true, message: "请输入商品备注", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 工厂ID
   factoryId: [
-    {required: true, message: "请输入工厂ID", trigger: "blur"},
+    {required: true, message: "请输入工厂ID", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 工艺路线
   processPathId: [
-    {required: true, message: "请输入工艺路线", trigger: "blur"},
+    {required: true, message: "请输入工艺路线", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 制造流水线ID produceProcess
   produceProcessId: [
-    {required: true, message: "请输入制造流水线ID produceProcess", trigger: "blur"},
+    {required: true, message: "请输入制造流水线ID produceProcess", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
 

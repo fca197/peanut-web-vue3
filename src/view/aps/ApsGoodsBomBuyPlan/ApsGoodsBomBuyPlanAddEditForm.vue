@@ -22,37 +22,37 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 计划名称
     planName: [
-      {required: true, message: "请输入计划名称", trigger: "blur"},
+      {required: true, message: "请输入计划名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 总价
     planTotalAmount: [
-      {required: true, message: "请输入总价", trigger: "blur"},
+      {required: true, message: "请输入总价", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 计划来源
     planSource: [
-      {required: true, message: "请输入计划来源", trigger: "blur"},
+      {required: true, message: "请输入计划来源", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 计划备注
     planRemark: [
-      {required: true, message: "请输入计划备注", trigger: "blur"},
+      {required: true, message: "请输入计划备注", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 购买类型
     buyPlanType: [
-      {required: true, message: "请输入购买类型", trigger: "blur"},
+      {required: true, message: "请输入购买类型", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 是否关注
     isFollow: [
-      {required: true, message: "请输入是否关注", trigger: "blur"},
+      {required: true, message: "请输入是否关注", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 日期
     bomUseDate: [
-      {required: true, message: "请输入日期", trigger: "blur"},
+      {required: true, message: "请输入日期", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

@@ -59,42 +59,42 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 物流路径id
     logisticsPathId: [
-      {required: true, message: "请输入物流路径id", trigger: "blur"},
+      {required: true, message: "请输入物流路径id", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 省编码
     provinceCode: [
-      {required: true, message: "请输入省编码", trigger: "blur"},
+      {required: true, message: "请输入省编码", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 省名称
     provinceName: [
-      {required: true, message: "请输入省名称", trigger: "blur"},
+      {required: true, message: "请输入省名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 市编码
     cityCode: [
-      {required: true, message: "请输入市编码", trigger: "blur"},
+      {required: true, message: "请输入市编码", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 市名称
     cityName: [
-      {required: true, message: "请输入市名称", trigger: "blur"},
+      {required: true, message: "请输入市名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 运输天数
     transportDay: [
-      {required: true, message: "请输入运输天数", trigger: "blur"},
+      {required: true, message: "请输入运输天数", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 是否默认 0 否,1 是
     isDefault: [
-      {required: true, message: "请输入是否默认 0 否,1 是", trigger: "blur"},
+      {required: true, message: "请输入是否默认 0 否,1 是", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 工厂ID
     factoryId: [
-      {required: true, message: "请输入工厂ID", trigger: "blur"},
+      {required: true, message: "请输入工厂ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

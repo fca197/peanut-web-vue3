@@ -22,52 +22,52 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 商品ID
     goodsId: [
-      {required: true, message: "请输入商品ID", trigger: "blur"},
+      {required: true, message: "请输入商品ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     factoryId: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     projectConfigId: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     projectConfigName: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     projectConfigParentId: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     quantity: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     saleConfigId: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     saleConfigName: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     saleConfigParentId: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     //
     currentIndex: [
-      {required: true, message: "请输入${column.comment}", trigger: "blur"},
+      {required: true, message: "请输入${column.comment}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

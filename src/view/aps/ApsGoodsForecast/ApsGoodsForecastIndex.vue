@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
+import { onMounted, ref } from "vue"
 import AddEditFormVue from "./ApsGoodsForecastAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from 'element-plus';
-import {downloadFilePost, HeaderInfo, postNoResult, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsGoodsForecast} from "./ApsGoodsForecastType.ts"
-import {UploadFilled} from "@element-plus/icons-vue";
-import {getToken} from "@@/utils/cache/cookies.ts";
+import { ElTable } from "element-plus"
+import { downloadFilePost, HeaderInfo, postNoResult, postResultInfo } from "@@/utils/common-js.ts"
+import { type ApsGoodsForecast } from "./ApsGoodsForecastType.ts"
+import { UploadFilled } from "@element-plus/icons-vue"
+import { getToken } from "@@/utils/cache/cookies.ts"
 
 const dtoUrl = ref<string>("/apsGoodsForecast")
 const documentTitle = ref<string>("预测表")
@@ -39,22 +39,22 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  {fieldName: "id", showName: "序号"},
-  {fieldName: "goodsId", showName: "商品ID"},
-  {fieldName: "forecastNo", showName: "预测编码"},
-  {fieldName: "forecastName", showName: "预测名称"},
-  {fieldName: "forecastBeginDate", showName: "开始时间"},
-  {fieldName: "forecastEndDate", showName: "结束时间"},
-  {fieldName: "month", showName: ""},
-  {fieldName: "months", showName: ""},
-  {fieldName: "forecastStatus", showName: ""},
+  { fieldName: "id", showName: "序号" },
+  { fieldName: "goodsId", showName: "商品ID" },
+  { fieldName: "forecastNo", showName: "预测编码" },
+  { fieldName: "forecastName", showName: "预测名称" },
+  { fieldName: "forecastBeginDate", showName: "开始时间" },
+  { fieldName: "forecastEndDate", showName: "结束时间" },
+  { fieldName: "month", showName: "" },
+  { fieldName: "months", showName: "" },
+  { fieldName: "forecastStatus", showName: "" }
 ])
 
 const uploadShow = ref<boolean>(false)
 const uploadUrl = ref<string>("")
 
 // 获取表格内数据
-function getDataList() {
+const getDataList = () => {
   const req = {
     pageSize: currentPageSize.value,
     pageNum: currentPageNum.value,
@@ -62,59 +62,65 @@ function getDataList() {
   }
   console.info("getDataList {}", req)
   postResultInfo(`${dtoUrl.value}/queryPageList`, req)
-    .then((t) => {
-      dataList.value = t.data.dataList
-      tableTotal.value = Number.parseInt(t.data.total)
-      headerList.value = t.data.headerList
-    })
+  .then((t) => {
+    dataList.value = t.data.dataList
+    tableTotal.value = Number.parseInt(t.data.total)
+    headerList.value = t.data.headerList
+  })
 }
 
 // table点击事件
-function editData(data: any) {
+const editData = (data: any) => {
   // console.info("data ", data)
   tableBarRef.value?.showEditDialog(data.id)
 }
 
 // 页面条数变更事件
-function handleSizeChange(val: number) {
+const handleSizeChange = (val: number) => {
   currentPageSize.value = val
   getDataList()
 }
 
 // 页面变更事件
-function handleCurrentChange(val: number) {
+const handleCurrentChange = (val: number) => {
   currentPageNum.value = val
   getDataList()
 }
 
 // 表格选中事件
-function handleSelectionChange(val: ApsGoodsForecast[]) {
+const handleSelectionChange = (val: ApsGoodsForecast[]) => {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
 
-function uploadShowFun(val: ApsGoodsForecast) {
+const uploadShowFun = (val: ApsGoodsForecast) => {
   uploadUrl.value = `${import.meta.env.VITE_BASE_URL}/apsGoodsForecast/uploadTemplate/${val.id}`
   uploadShow.value = true
 }
 
-function uploadShowCloseFun(res: any) {
+const uploadShowCloseFun = (res: any) => {
   console.info("uploadShowCloseFun ", res)
-  if (res.code !== 200) {
+  if(res.code !== 200) {
     ElMessage.error("文件上传失败，请检查文件")
     return
   }
   uploadShow.value = false
 }
-function downloadTemplate(row: ApsGoodsForecast) {
+const downloadTemplate = (row: ApsGoodsForecast) => {
   downloadFilePost(`/apsGoodsForecast/downloadTemplate/${row.id}`, {}, "模板.xlsx")
 }
-function compute(row: ApsGoodsForecast) {
+const compute = (row: ApsGoodsForecast) => {
   postNoResult("/apsGoodsForecast/compute", row, "开始计算", undefined)
 }
-function deployData(row: ApsGoodsForecast) {
+const deployData = (row: ApsGoodsForecast) => {
   postNoResult("/apsGoodsForecast/deploy", row, "发布成功", undefined)
 }
+const router = useRouter()
+
+const showData = (row: ApsGoodsForecast) => {
+  router.push("/aps/ApsGoodsForecast/"+row.id)
+}
+
 // 页面加载事件
 onMounted(() => {
   getDataList()
@@ -176,7 +182,7 @@ onMounted(() => {
                   <el-dropdown-item icon="DataAnalysis" @click="deployData(scope.row)">
                     发布
                   </el-dropdown-item>
-                  <el-dropdown-item icon="Histogram">
+                  <el-dropdown-item icon="Histogram" @click="showData(scope.row)">
                     计算结果
                   </el-dropdown-item>
                 </el-dropdown-menu>
@@ -204,15 +210,15 @@ onMounted(() => {
         :action="uploadUrl"
         multiple
         :headers="{
-          'j-token': getToken()
+         'j-token': getToken()
         }"
         :on-success=uploadShowCloseFun
       >
         <el-icon class="el-icon--upload">
-          <upload-filled />
+          <upload-filled/>
         </el-icon>
         <div class="el-upload__text">
-          拖入文件  或 <em>点此上传</em>
+          拖入文件 或 <em>点此上传</em>
         </div>
         <template #tip>
           <div class="el-upload__tip">
@@ -227,4 +233,3 @@ onMounted(() => {
 <style scoped lang="scss">
 
 </style>
-

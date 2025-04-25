@@ -71,7 +71,7 @@
 import {ref} from "vue"
 import AddEditFormVue from "./ApsGoodsAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from 'element-plus';
+import { ElTable } from "element-plus"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsGoods} from "./ApsGoodsType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";

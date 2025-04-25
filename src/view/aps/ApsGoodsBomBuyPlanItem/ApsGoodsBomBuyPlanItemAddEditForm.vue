@@ -22,1897 +22,1897 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 购买计划ID
     buyPlanId: [
-      {required: true, message: "请输入购买计划ID", trigger: "blur"},
+      {required: true, message: "请输入购买计划ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 年
     year: [
-      {required: true, message: "请输入年", trigger: "blur"},
+      {required: true, message: "请输入年", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 零件ID
     bomId: [
-      {required: true, message: "请输入零件ID", trigger: "blur"},
+      {required: true, message: "请输入零件ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 商品零件ID
     goodsBomId: [
-      {required: true, message: "请输入商品零件ID", trigger: "blur"},
+      {required: true, message: "请输入商品零件ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // bom 编码
     bomCode: [
-      {required: true, message: "请输入bom 编码", trigger: "blur"},
+      {required: true, message: "请输入bom 编码", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // bom 名称
     bomName: [
-      {required: true, message: "请输入bom 名称", trigger: "blur"},
+      {required: true, message: "请输入bom 名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用量
     bomUsage: [
-      {required: true, message: "请输入使用量", trigger: "blur"},
+      {required: true, message: "请输入使用量", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 规格
     bomUnit: [
-      {required: true, message: "请输入规格", trigger: "blur"},
+      {required: true, message: "请输入规格", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 成本价
     bomCostPrice: [
-      {required: true, message: "请输入成本价", trigger: "blur"},
+      {required: true, message: "请输入成本价", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 规格
     bomCostPriceUnit: [
-      {required: true, message: "请输入规格", trigger: "blur"},
+      {required: true, message: "请输入规格", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用工位
     bomUseWorkStation: [
-      {required: true, message: "请输入使用工位", trigger: "blur"},
+      {required: true, message: "请输入使用工位", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay1: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay2: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay3: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay4: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay5: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay6: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay7: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay8: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay9: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay10: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay11: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay12: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay13: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay14: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay15: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay16: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay17: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay18: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay19: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay20: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay21: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay22: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay23: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay24: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay25: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay26: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay27: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay28: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay29: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay30: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay31: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay32: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay33: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay34: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay35: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay36: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay37: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay38: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay39: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay40: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay41: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay42: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay43: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay44: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay45: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay46: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay47: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay48: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay49: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay50: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay51: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay52: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay53: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay54: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay55: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay56: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay57: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay58: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay59: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay60: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay61: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay62: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay63: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay64: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay65: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay66: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay67: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay68: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay69: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay70: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay71: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay72: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay73: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay74: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay75: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay76: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay77: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay78: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay79: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay80: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay81: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay82: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay83: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay84: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay85: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay86: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay87: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay88: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay89: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay90: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay91: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay92: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay93: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay94: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay95: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay96: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay97: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay98: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay99: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay100: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay101: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay102: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay103: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay104: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay105: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay106: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay107: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay108: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay109: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay110: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay111: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay112: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay113: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay114: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay115: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay116: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay117: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay118: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay119: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay120: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay121: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay122: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay123: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay124: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay125: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay126: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay127: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay128: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay129: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay130: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay131: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay132: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay133: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay134: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay135: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay136: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay137: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay138: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay139: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay140: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay141: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay142: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay143: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay144: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay145: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay146: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay147: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay148: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay149: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay150: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay151: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay152: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay153: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay154: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay155: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay156: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay157: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay158: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay159: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay160: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay161: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay162: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay163: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay164: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay165: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay166: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay167: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay168: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay169: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay170: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay171: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay172: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay173: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay174: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay175: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay176: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay177: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay178: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay179: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay180: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay181: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay182: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay183: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay184: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay185: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay186: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay187: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay188: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay189: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay190: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay191: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay192: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay193: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay194: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay195: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay196: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay197: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay198: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay199: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay200: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay201: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay202: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay203: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay204: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay205: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay206: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay207: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay208: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay209: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay210: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay211: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay212: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay213: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay214: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay215: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay216: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay217: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay218: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay219: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay220: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay221: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay222: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay223: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay224: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay225: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay226: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay227: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay228: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay229: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay230: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay231: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay232: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay233: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay234: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay235: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay236: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay237: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay238: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay239: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay240: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay241: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay242: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay243: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay244: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay245: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay246: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay247: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay248: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay249: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay250: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay251: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay252: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay253: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay254: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay255: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay256: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay257: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay258: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay259: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay260: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay261: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay262: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay263: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay264: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay265: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay266: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay267: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay268: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay269: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay270: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay271: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay272: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay273: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay274: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay275: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay276: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay277: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay278: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay279: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay280: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay281: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay282: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay283: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay284: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay285: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay286: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay287: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay288: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay289: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay290: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay291: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay292: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay293: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay294: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay295: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay296: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay297: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay298: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay299: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay300: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay301: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay302: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay303: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay304: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay305: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay306: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay307: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay308: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay309: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay310: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay311: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay312: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay313: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay314: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay315: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay316: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay317: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay318: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay319: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay320: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay321: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay322: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay323: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay324: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay325: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay326: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay327: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay328: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay329: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay330: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay331: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay332: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay333: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay334: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay335: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay336: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay337: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay338: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay339: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay340: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay341: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay342: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay343: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay344: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay345: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay346: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay347: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay348: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay349: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay350: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay351: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay352: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay353: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay354: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay355: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay356: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay357: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay358: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay359: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay360: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay361: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay362: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay363: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay364: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay365: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 使用信息 {lack:1, quantity:3}
     bomUseDay366: [
-      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur"},
+      {required: true, message: "请输入使用信息 {lack:1, quantity:3}", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 工厂ID
     factoryId: [
-      {required: true, message: "请输入工厂ID", trigger: "blur"},
+      {required: true, message: "请输入工厂ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 是否关注
     isFollow: [
-      {required: true, message: "请输入是否关注", trigger: "blur"},
+      {required: true, message: "请输入是否关注", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

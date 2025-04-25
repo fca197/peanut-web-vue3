@@ -78,7 +78,7 @@
 import {ref, onMounted} from "vue"
 import AddEditFormVue from "./ApsLogisticsPathItemAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from 'element-plus';
+import { ElTable } from "element-plus"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsLogisticsPathItem} from "./ApsLogisticsPathItemType.ts"
 

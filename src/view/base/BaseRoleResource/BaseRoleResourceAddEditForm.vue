@@ -38,11 +38,11 @@ const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
     roleId: [
-      {required: true, message: "请输入角色ID", trigger: "blur"},
+      {required: true, message: "请输入角色ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     resourceId: [
-      {required: true, message: "请输入菜单ID", trigger: "blur"},
+      {required: true, message: "请输入菜单ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

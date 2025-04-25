@@ -47,22 +47,22 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 生产路径 Id aps_produce_process
     produceProcessId: [
-      {required: true, message: "请输入生产路径 Id aps_produce_process", trigger: "blur"},
+      {required: true, message: "请输入生产路径 Id aps_produce_process", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 机器ID
     machineId: [
-      {required: true, message: "请输入机器ID", trigger: "blur"},
+      {required: true, message: "请输入机器ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 状态ID
     statusId: [
-      {required: true, message: "请输入状态ID", trigger: "blur"},
+      {required: true, message: "请输入状态ID", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     // 耗时（秒）
     machineUseTimeSecond: [
-      {required: true, message: "请输入耗时（秒）", trigger: "blur"},
+      {required: true, message: "请输入耗时（秒）", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

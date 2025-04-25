@@ -24,17 +24,17 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
   // 商品ID
   goodsId: [
-    {required: true, message: "请输入商品ID", trigger: "blur"},
+    {required: true, message: "请输入商品ID", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 预测编码
   forecastNo: [
-    {required: true, message: "请输入预测编码", trigger: "blur"},
+    {required: true, message: "请输入预测编码", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 预测名称
   forecastName: [
-    {required: true, message: "请输入预测名称", trigger: "blur"},
+    {required: true, message: "请输入预测名称", trigger: "blur" },
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 开始时间

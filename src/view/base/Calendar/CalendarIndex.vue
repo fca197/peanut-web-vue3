@@ -70,7 +70,7 @@ import {ref} from "vue"
 import CalendarDaySetting from "./CalendarDaySetting.vue"
 import AddEditFormVue from "./CalendarAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from 'element-plus';
+import {ElTable} from "element-plus"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type Calendar} from "./CalendarType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
@@ -104,9 +104,9 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  {fieldName: "factoryName", showName: "工厂"},
-  {fieldName: "calendarCode", showName: "编码"},
-  {fieldName: "calendarName", showName: "名称"}
+  { fieldName: "factoryName", showName: "工厂" },
+  { fieldName: "calendarCode", showName: "编码" },
+  { fieldName: "calendarName", showName: "名称"}
 ])
 
 const factoryList = ref<Factory []>([])

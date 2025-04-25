@@ -20,6 +20,11 @@ export default antfu(
   {
     // 对所有文件都生效的规则
     rules: {
+      "style/indent": "off",
+      "ts/no-import-type-side-effects": "off",
+      "perfectionist/sort-imports": "off",
+      "import/consistent-type-specifier-style": "off",
+      "antfu/top-level-function": "off",
       "@typescript-eslint/consistent-type-imports": "off",
       // vue
       "vue/block-order": ["error", { order: ["script", "template", "style"] }],

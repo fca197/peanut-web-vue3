@@ -41,15 +41,15 @@ const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
     roleCode: [
-      {required: true, message: "请输入角色编码", trigger: "blur"},
+      {required: true, message: "请输入角色编码", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     roleName: [
-      {required: true, message: "请输入角色名称", trigger: "blur"},
+      {required: true, message: "请输入角色名称", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
     roleGroupId: [
-      {required: true, message: "请输入角色组", trigger: "blur"},
+      {required: true, message: "请输入角色组", trigger: "blur" },
       {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
     ],
 

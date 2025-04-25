@@ -2,7 +2,7 @@
 import {onMounted, ref} from "vue"
 import AddEditFormVue from "./ApsProjectConfigAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from 'element-plus';
+import {ElTable} from "element-plus"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsProjectConfig} from "./ApsProjectConfigType.ts"
 
@@ -35,10 +35,10 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  {fieldName: "parentSaleCode", showName: "制造组编码"},
-  {fieldName: "parentSaleName", showName: "制造组名称"},
-  {fieldName: "saleCode", showName: "制造编码"},
-  {fieldName: "saleName", showName: "制造名称"}
+  { fieldName: "parentSaleCode", showName: "制造组编码" },
+  { fieldName: "parentSaleName", showName: "制造组名称" },
+  { fieldName: "saleCode", showName: "制造编码" },
+  { fieldName: "saleName", showName: "制造名称"}
 ])
 
 

@@ -68,7 +68,7 @@
 import {ref} from "vue"
 import AddEditFormVue from "./DistrictCodeAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from 'element-plus';
+import {ElTable} from "element-plus"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type DistrictCode, districtCodeLevel} from "./DistrictCodeType.ts"
 
@@ -100,9 +100,9 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  {fieldName: "code", showName: "编码"},
-  {fieldName: "name", showName: "名称"},
-  {fieldName: "parentCode", showName: "上级编码"}
+  { fieldName: "code", showName: "编码" },
+  { fieldName: "name", showName: "名称" },
+  { fieldName: "parentCode", showName: "上级编码"}
 ])
 
 
