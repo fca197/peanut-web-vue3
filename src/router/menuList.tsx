@@ -1,6 +1,8 @@
+import type { RouteRecordRaw } from "vue-router";
+
 const Layouts = () => import("@/layouts/index.vue")
 
-export function menuList() {
+export function menuList(): RouteRecordRaw[] {
   return [
     {
       path: "/base/config",
@@ -8,12 +10,22 @@ export function menuList() {
       redirect: "",
       meta: {
         title: "基本配置",
-        elIcon: "setting"
+        elIcon: "Setting"
       },
       component: Layouts,
       children: [
         {
-          path: "/aps/ApsGoodsForecast/:id",
+          path: "/aps/ApsGoodsForecast/forecast/:id",
+          name: "商品预测数据",
+          component: () => import("@/view/aps/ApsGoodsForecast/ApsGoodsForecastData.vue"),
+          meta: {
+            title: "商品预测数据",
+            elIcon: "DataLine",
+            hidden: true
+          }
+        },
+        {
+          path: "/aps/ApsGoodsForecast/result/:id",
           name: "商品预测结果",
           component: () => import("@/view/aps/ApsGoodsForecast/ApsGoodsForecastResult.vue"),
           meta: {
@@ -208,7 +220,7 @@ export function menuList() {
           component: () => import("@/view/base/LoginAccount/index.vue"),
           meta: {
             title: "登录账户",
-            elIcon: "user"
+            elIcon: "User"
           }
         },
         {
@@ -244,7 +256,7 @@ export function menuList() {
           component: () => import("@v/aps/ApsBom/ApsBomIndex.vue"),
           meta: {
             title: "零件",
-            elIcon: "setting"
+            elIcon: "Setting"
           }
         },
         {

@@ -117,8 +117,11 @@ const deployData = (row: ApsGoodsForecast) => {
 }
 const router = useRouter()
 
-const showData = (row: ApsGoodsForecast) => {
-  router.push("/aps/ApsGoodsForecast/"+row.id)
+const showResultData = (row: ApsGoodsForecast) => {
+  router.push(`/aps/ApsGoodsForecast/result/${row.id}`)
+}
+ const showForecastData = (row: ApsGoodsForecast) => {
+  router.push(`/aps/ApsGoodsForecast/forecast/${row.id}`)
 }
 
 // 页面加载事件
@@ -170,7 +173,7 @@ onMounted(() => {
                   <el-dropdown-item icon="upload" @click="uploadShowFun(scope.row)">
                     上传
                   </el-dropdown-item>
-                  <el-dropdown-item icon="Grid">
+                  <el-dropdown-item icon="Grid" @click="showForecastData(scope.row)">
                     上传数据
                   </el-dropdown-item>
                   <el-dropdown-item icon="download" @click="downloadTemplate(scope.row)">
@@ -182,7 +185,7 @@ onMounted(() => {
                   <el-dropdown-item icon="DataAnalysis" @click="deployData(scope.row)">
                     发布
                   </el-dropdown-item>
-                  <el-dropdown-item icon="Histogram" @click="showData(scope.row)">
+                  <el-dropdown-item icon="Histogram" @click="showResultData(scope.row)">
                     计算结果
                   </el-dropdown-item>
                 </el-dropdown-menu>
