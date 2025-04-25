@@ -25,7 +25,7 @@ export interface ResultInfo<T> {
 }
 
 /** 增 */
-export function postNoResult(url: string, data: any, suMsg: string, suFun: ((data: any) => void | undefined)) {
+export function postNoResult(url: string, data: any, suMsg: string, suFun: (((data: any) => void) | undefined)) {
   request<Result<ResultInfo<any>>>({
     url,
     method: "post",
