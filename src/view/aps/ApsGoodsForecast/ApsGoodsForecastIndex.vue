@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
+import {onMounted, ref} from "vue"
 import AddEditFormVue from "./ApsGoodsForecastAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from 'element-plus';
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
+import {ElTable} from 'element-plus';
+import {downloadFilePost, HeaderInfo, postNoResult, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsGoodsForecast} from "./ApsGoodsForecastType.ts"
+import {UploadFilled} from "@element-plus/icons-vue";
+import {getToken} from "@@/utils/cache/cookies.ts";
 
 const dtoUrl = ref<string>("/apsGoodsForecast")
 const documentTitle = ref<string>("预测表")
@@ -32,7 +34,7 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsGoodsForecast[] >([])
+const dataList = ref<ApsGoodsForecast[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
@@ -48,6 +50,8 @@ const headerList = ref<HeaderInfo[]>([
   {fieldName: "forecastStatus", showName: ""},
 ])
 
+const uploadShow = ref<boolean>(false)
+const uploadUrl = ref<string>("")
 
 // 获取表格内数据
 function getDataList() {
@@ -70,27 +74,51 @@ function editData(data: any) {
   // console.info("data ", data)
   tableBarRef.value?.showEditDialog(data.id)
 }
+
 // 页面条数变更事件
 function handleSizeChange(val: number) {
   currentPageSize.value = val
   getDataList()
 }
+
 // 页面变更事件
 function handleCurrentChange(val: number) {
   currentPageNum.value = val
   getDataList()
 }
+
 // 表格选中事件
 function handleSelectionChange(val: ApsGoodsForecast[]) {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
 
+function uploadShowFun(val: ApsGoodsForecast) {
+  uploadUrl.value = `${import.meta.env.VITE_BASE_URL}/apsGoodsForecast/uploadTemplate/${val.id}`
+  uploadShow.value = true
+}
+
+function uploadShowCloseFun(res: any) {
+  console.info("uploadShowCloseFun ", res)
+  if (res.code !== 200) {
+    ElMessage.error("文件上传失败，请检查文件")
+    return
+  }
+  uploadShow.value = false
+}
+function downloadTemplate(row: ApsGoodsForecast) {
+  downloadFilePost(`/apsGoodsForecast/downloadTemplate/${row.id}`, {}, "模板.xlsx")
+}
+function compute(row: ApsGoodsForecast) {
+  postNoResult("/apsGoodsForecast/compute", row, "开始计算", undefined)
+}
+function deployData(row: ApsGoodsForecast) {
+  postNoResult("/apsGoodsForecast/deploy", row, "发布成功", undefined)
+}
 // 页面加载事件
 onMounted(() => {
   getDataList()
 })
-
 </script>
 
 <template>
@@ -98,10 +126,10 @@ onMounted(() => {
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
         <el-form-item label="预测名称" prop="forecastName">
-          <el-input v-model="queryForm.forecastName" clearable placeholder="请输入预测名称" />
+          <el-input v-model="queryForm.forecastName" clearable placeholder="请输入预测名称"/>
         </el-form-item>
         <el-form-item label="预测编码" prop="forecastNo">
-          <el-input v-model="queryForm.forecastNo" clearable placeholder="请输入预测编码" />
+          <el-input v-model="queryForm.forecastNo" clearable placeholder="请输入预测编码"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -123,20 +151,34 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-dropdown type="primary" split-button>
               操作
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item @click="editData(scope.row)">
+                  <el-dropdown-item icon="edit" @click="editData(scope.row)">
                     编辑
                   </el-dropdown-item>
-                  <el-dropdown-item>Action 2</el-dropdown-item>
-                  <el-dropdown-item>Action 3</el-dropdown-item>
-                  <el-dropdown-item>Action 4</el-dropdown-item>
-                  <el-dropdown-item>Action 5</el-dropdown-item>
+                  <el-dropdown-item icon="upload" @click="uploadShowFun(scope.row)">
+                    上传
+                  </el-dropdown-item>
+                  <el-dropdown-item icon="Grid">
+                    上传数据
+                  </el-dropdown-item>
+                  <el-dropdown-item icon="download" @click="downloadTemplate(scope.row)">
+                    下载
+                  </el-dropdown-item>
+                  <el-dropdown-item icon="Notification" @click="compute(scope.row)">
+                    计算
+                  </el-dropdown-item>
+                  <el-dropdown-item icon="DataAnalysis" @click="deployData(scope.row)">
+                    发布
+                  </el-dropdown-item>
+                  <el-dropdown-item icon="Histogram">
+                    计算结果
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -155,6 +197,30 @@ onMounted(() => {
         />
       </el-row>
     </el-card>
+    <el-dialog v-model="uploadShow">
+      <el-upload
+        class="upload-demo"
+        drag
+        :action="uploadUrl"
+        multiple
+        :headers="{
+          'j-token': getToken()
+        }"
+        :on-success=uploadShowCloseFun
+      >
+        <el-icon class="el-icon--upload">
+          <upload-filled />
+        </el-icon>
+        <div class="el-upload__text">
+          拖入文件  或 <em>点此上传</em>
+        </div>
+        <template #tip>
+          <div class="el-upload__tip">
+            文件格式: xlsx
+          </div>
+        </template>
+      </el-upload>
+    </el-dialog>
   </div>
 </template>
 

@@ -25,7 +25,7 @@ export interface ResultInfo<T> {
 }
 
 /** 增 */
-export function postNoResult(url: string, data: any, suMsg: string, suFun: (data: any) => void) {
+export function postNoResult(url: string, data: any, suMsg: string, suFun: ((data: any) => void | undefined)) {
   request<Result<ResultInfo<any>>>({
     url,
     method: "post",
@@ -59,7 +59,7 @@ export function postResultInfoList(url: string, data: any) {
   })
 }
 
-export async function downloadFilePost(reqUrl: string, reqData: any) {
+export async function downloadFilePost(reqUrl: string, reqData: any, saveFileName: string) {
   try {
     reqData = reqData || {}
     reqUrl = `/api/peanut${reqUrl}`
@@ -79,7 +79,7 @@ export async function downloadFilePost(reqUrl: string, reqData: any) {
     const link = document.createElement("a")
 
     // 提取文件名
-    let fileName = "未命名.xlsx"
+    let fileName = saveFileName || "未命名.xlsx"
     const contentDisposition = response.headers.get("Content-Disposition")
     if (contentDisposition) {
       const match = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)
