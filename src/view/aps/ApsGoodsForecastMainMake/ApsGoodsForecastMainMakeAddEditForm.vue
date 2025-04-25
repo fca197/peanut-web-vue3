@@ -1,0 +1,151 @@
+<script setup lang="ts">
+import {onMounted, ref} from "vue"
+import {type ApsGoodsForecastMainMake} from "./ApsGoodsForecastMainMakeType.ts"
+import {getById, postNoResult} from "@/common/utils/common-js.ts"
+import {type FormInstance, FormRules} from "element-plus"
+
+const props = defineProps({
+  saveFun: {
+    type: Function
+  },
+  editId: {
+    type: String,
+    required: false
+  }
+})
+
+// 对象URL
+const dtoUrl = ref<string>("/apsGoodsForecastMainMake")
+// 表单引用
+const addFormRef = ref<FormInstance>()
+// 表单校验规则
+const checkRules = ref<FormRules>({
+    // 商品ID
+    goodsId: [
+      {required: true, message: "请输入商品ID", trigger: "blur"},
+      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+    ],
+    // 编码
+    forecastMakeMainNo: [
+      {required: true, message: "请输入编码", trigger: "blur"},
+      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+    ],
+    // 名称
+    forecastMakeMainName: [
+      {required: true, message: "请输入名称", trigger: "blur"},
+      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+    ],
+    // 开始时间
+    forecastMakeMainBeginDate: [
+      {required: true, message: "请输入开始时间", trigger: "blur"},
+      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+    ],
+    // 结束时间
+    forecastMakeMainEndDate: [
+      {required: true, message: "请输入结束时间", trigger: "blur"},
+      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+    ],
+    // 工厂ID
+    factoryId: [
+      {required: true, message: "请输入工厂ID", trigger: "blur"},
+      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+    ],
+
+})
+
+
+// 添加对象
+const addForm = ref<ApsGoodsForecastMainMake>({
+      goodsId: "",
+      forecastMakeMainNo: "",
+      forecastMakeMainName: "",
+      forecastMakeMainBeginDate: "",
+      forecastMakeMainEndDate: "",
+      factoryId: "",
+      id: "" 
+})
+
+const  loadById = () => {
+  if (!props.editId) {
+    return
+  }
+  console.info("props.editId ", props.editId)
+  getById(`${dtoUrl.value}/queryByIdList`, props.editId).then((t) => {
+    addForm.value = t
+    console.info(" addForm.value ", addForm.value)
+  })
+}
+
+// 保存
+const saveForm = () => {
+  console.info("addForm ", addForm)
+  addFormRef.value?.validate((valid) => {
+    if (valid) {
+      // 存在ID ，调用更新
+      if (props.editId) {
+        postNoResult(`${dtoUrl.value}/updateById`, addForm.value, "修改成功", saveFormAfter)
+      } else {
+        // 调用保存
+        postNoResult(`${dtoUrl.value}/insert`, addForm.value, "保存成功", saveFormAfter)
+      }
+    } else {
+      ElMessage.error("表单校验失败，请检查必填项")
+    }
+  })
+}
+
+// 保存成功后，方法， 目前关闭弹窗
+const saveFormAfter = () => {
+  cancelForm()
+}
+
+// 取消方法
+const cancelForm = () => {
+  if (props.saveFun) {
+    props.saveFun()
+  }
+}
+
+// 页面加载事件
+onMounted(() => {
+  loadById()
+})
+</script>
+
+<template>
+  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
+    <el-form-item label="商品ID" prop="goodsId">
+      <el-input v-model="addForm.goodsId" clearable placeholder="请输入商品ID"/>
+    </el-form-item>
+    <el-form-item label="编码" prop="forecastMakeMainNo">
+      <el-input v-model="addForm.forecastMakeMainNo" clearable placeholder="请输入编码"/>
+    </el-form-item>
+    <el-form-item label="名称" prop="forecastMakeMainName">
+      <el-input v-model="addForm.forecastMakeMainName" clearable placeholder="请输入名称"/>
+    </el-form-item>
+    <el-form-item label="开始时间" prop="forecastMakeMainBeginDate">
+      <el-input v-model="addForm.forecastMakeMainBeginDate" clearable placeholder="请输入开始时间"/>
+    </el-form-item>
+    <el-form-item label="结束时间" prop="forecastMakeMainEndDate">
+      <el-input v-model="addForm.forecastMakeMainEndDate" clearable placeholder="请输入结束时间"/>
+    </el-form-item>
+    <el-form-item label="工厂ID" prop="factoryId">
+      <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
+    </el-form-item>
+  </el-form>
+  <el-row class="addFormBtnRow">
+    <el-button @click="cancelForm" type="info" icon="close">
+      取消
+    </el-button>
+    <el-button @click="saveForm" type="primary" icon="check">
+      确定
+    </el-button>
+  </el-row>
+</template>
+
+
+
+<style scoped lang="scss">
+
+</style>
+

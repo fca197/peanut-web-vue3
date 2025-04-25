@@ -15,6 +15,15 @@ export function menuList(): RouteRecordRaw[] {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsGoodsForecastMain",
+          name: "预测主版本",
+          component: () => import("@/view/aps/ApsGoodsForecastMain/ApsGoodsForecastMainIndex.vue"),
+          meta: {
+            title: "预测主版本",
+            elIcon: "Monitor"
+          }
+        },
+        {
           path: "/aps/ApsGoodsForecast/forecast/:id",
           name: "商品预测数据",
           component: () => import("@/view/aps/ApsGoodsForecast/ApsGoodsForecastData.vue"),
