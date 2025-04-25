@@ -68,11 +68,12 @@ const getDataList = () => {
     })
 }
 
-
+const router = useRouter()
 // table点击事件
 const editData = (data: any) => {
   // console.info("data ", data)
-  tableBarRef.value?.showEditDialog(data.id)
+  // tableBarRef.value?.showEditDialog(data.id)
+  router.push(`/aps/ApsGoodsForecastMain/result/${data.id}`)
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
@@ -116,9 +117,6 @@ onMounted(() => {
               :value="g.id" :key="g.id"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="预测编码" prop="forecastNo">
-          <el-input v-model="queryForm.forecastNo" clearable placeholder="请输入预测编码"/>
-        </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
             查询
@@ -145,10 +143,10 @@ onMounted(() => {
           <template #default="scope">
             <el-button
               type="warning"
-              icon="edit"
+              icon="Histogram"
               @click="editData(scope.row)"
             >
-              编辑
+              数据
             </el-button>
           </template>
         </ElTableColumn>

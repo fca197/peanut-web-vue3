@@ -24,6 +24,16 @@ export function menuList(): RouteRecordRaw[] {
           }
         },
         {
+          path: "/aps/ApsGoodsForecastMain/result/:id",
+          name: "预测主版本结果",
+          component: () => import("@/view/aps/ApsGoodsForecastMain/ApsGoodsForecastMainData.vue"),
+          meta: {
+            title: "预测主版本结果",
+            elIcon: "DataLine",
+            hidden: true
+          }
+        },
+        {
           path: "/aps/ApsGoodsForecast/forecast/:id",
           name: "商品预测数据",
           component: () => import("@/view/aps/ApsGoodsForecast/ApsGoodsForecastData.vue"),
