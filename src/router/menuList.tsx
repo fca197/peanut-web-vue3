@@ -18,7 +18,8 @@ export function menuList() {
           component: () => import("@/view/aps/ApsGoodsForecast/ApsGoodsForecastResult.vue"),
           meta: {
             title: "商品预测结果",
-            elIcon: "DataLine"
+            elIcon: "DataLine",
+            hidden: true
           }
         },
         {
