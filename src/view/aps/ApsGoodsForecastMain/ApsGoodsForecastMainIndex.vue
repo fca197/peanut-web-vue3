@@ -70,7 +70,7 @@ const getDataList = () => {
 
 const router = useRouter()
 // table点击事件
-const editData = (data: any) => {
+const showData = (data: any) => {
   // console.info("data ", data)
   // tableBarRef.value?.showEditDialog(data.id)
   router.push(`/aps/ApsGoodsForecastMain/result/${data.id}`)
@@ -144,7 +144,7 @@ onMounted(() => {
             <el-button
               type="warning"
               icon="Histogram"
-              @click="editData(scope.row)"
+              @click="showData(scope.row)"
             >
               数据
             </el-button>

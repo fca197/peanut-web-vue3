@@ -15,6 +15,24 @@ export function menuList(): RouteRecordRaw[] {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsGoodsForecastMainMake",
+          name: "制造主版本",
+          component: () => import("@/view/aps/ApsGoodsForecastMainMake/ApsGoodsForecastMainMakeIndex.vue"),
+          meta: {
+            title: "制造主版本",
+            elIcon: "SuitcaseLine"
+          }
+        },
+        {
+          path: "/aps/ApsGoodsForecastMainMake/result/:id",
+          name: "制造主版本数据",
+          component: () => import("@/view/aps/ApsGoodsForecastMainMake/ApsGoodsForecastMainMakeData.vue"),
+          meta: {
+            title: "制造主版本数据",
+            elIcon: "SuitcaseLine"
+          }
+        },
+        {
           path: "/aps/ApsGoodsForecastMain",
           name: "预测主版本",
           component: () => import("@/view/aps/ApsGoodsForecastMain/ApsGoodsForecastMainIndex.vue"),

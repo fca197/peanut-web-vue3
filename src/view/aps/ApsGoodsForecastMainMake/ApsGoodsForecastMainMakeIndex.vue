@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
+import { onMounted, ref } from "vue"
 import AddEditFormVue from "./ApsGoodsForecastMainMakeAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import { ElTable } from "element-plus";
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsGoodsForecastMainMake} from "./ApsGoodsForecastMainMakeType.ts"
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import { type ApsGoodsForecastMainMake } from "./ApsGoodsForecastMainMakeType.ts"
+import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
+import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
 
 const dtoUrl = ref<string>("/apsGoodsForecastMainMake")
 const documentTitle = ref<string>("预测生产主表")
@@ -30,12 +32,12 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsGoodsForecastMainMake[] >([])
+const dataList = ref<ApsGoodsForecastMainMake[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
- {fieldName: "id", showName: "序号"},
+  { fieldName: "id", showName: "序号" },
   { fieldName: "goodsId", showName: "商品ID" },
   { fieldName: "forecastMakeMainNo", showName: "编码" },
   { fieldName: "forecastMakeMainName", showName: "名称" },
@@ -44,7 +46,8 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "factoryId", showName: "工厂ID" },
 ])
 
-
+const factoryList = ref<Factory[]>([])
+const goodsList = ref<ApsGoods []>([])
 // 获取表格内数据
 const getDataList = () => {
   const req = {
@@ -61,10 +64,12 @@ const getDataList = () => {
     })
 }
 
+const router = useRouter()
 // table点击事件
-const editData = (data: any) => {
+const showData = (data: any) => {
   // console.info("data ", data)
-  tableBarRef.value?.showEditDialog(data.id)
+  // tableBarRef.value?.showEditDialog(data.id)
+  router.push(`/aps/ApsGoodsForecastMainMake/result/${data.id}`)
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
@@ -85,6 +90,8 @@ const handleSelectionChange = (val: ApsGoodsForecastMainMake[]) => {
 // 页面加载事件
 onMounted(() => {
   getDataList()
+  queryFactoryList().then(r => factoryList.value = r)
+  queryGoodsList().then(r => goodsList.value = r)
 })
 
 </script>
@@ -93,23 +100,17 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="商品ID" prop="goodsId">
-          <el-input v-model="queryForm.goodsId" clearable placeholder="请输入商品ID" />
-        </el-form-item>
-        <el-form-item label="编码" prop="forecastMakeMainNo">
-          <el-input v-model="queryForm.forecastMakeMainNo" clearable placeholder="请输入编码" />
-        </el-form-item>
-        <el-form-item label="名称" prop="forecastMakeMainName">
-          <el-input v-model="queryForm.forecastMakeMainName" clearable placeholder="请输入名称" />
-        </el-form-item>
-        <el-form-item label="开始时间" prop="forecastMakeMainBeginDate">
-          <el-input v-model="queryForm.forecastMakeMainBeginDate" clearable placeholder="请输入开始时间" />
-        </el-form-item>
-        <el-form-item label="结束时间" prop="forecastMakeMainEndDate">
-          <el-input v-model="queryForm.forecastMakeMainEndDate" clearable placeholder="请输入结束时间" />
-        </el-form-item>
+
         <el-form-item label="工厂ID" prop="factoryId">
-          <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
+          <el-select v-model="queryForm.factoryId" clearable style="width: 200px" @change="queryForm.goodsId=undefined">
+            <el-option v-for="f in factoryList" :key="f.id" :value="f.id" :label="f.factoryName"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="商品ID" prop="goodsId">
+          <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
+            <el-option v-for="g in goodsList.filter(g=>g.factoryId ===queryForm.factoryId)" :key="g.id"
+                       :label="g.goodsName" :value="g.id"/>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -131,15 +132,15 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
               type="warning"
-              icon="edit"
-              @click="editData(scope.row)"
+              icon="Histogram"
+              @click="showData(scope.row)"
             >
-              编辑
+              数据
             </el-button>
           </template>
         </ElTableColumn>
