@@ -93,7 +93,7 @@ const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
 const dataList = ref<ApsMakeCapacityFactory[]>([])
 const currentPageNum = ref<number>(1)
-const currentPageSize = ref<number>(10)
+const currentPageSize = ref<number>(12)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([])
 
@@ -198,6 +198,7 @@ onMounted(() => {
           v-model:current-page="currentPageNum"
           v-model:page-size="currentPageSize"
           layout="total, sizes, prev, pager, next"
+          :page-sizes="[12,24,36]"
           :total="tableTotal"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
