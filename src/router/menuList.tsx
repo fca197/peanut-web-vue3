@@ -20,7 +20,7 @@ export function menuList(): RouteRecordRaw[] {
           component: () => import("@/view/aps/ApsMakeCapacitySaleConfig/ApsMakeCapacitySaleConfigIndex.vue"),
           meta: {
             title: "销售产能",
-            elIcon: "List"
+            elIcon: "SetUp"
           }
         },
         {

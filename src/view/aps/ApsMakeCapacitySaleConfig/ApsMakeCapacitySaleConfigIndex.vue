@@ -6,6 +6,7 @@ import { ElTable } from "element-plus"
 import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
 import { type ApsMakeCapacitySaleConfig } from "./ApsMakeCapacitySaleConfigType.ts"
 import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
+import { ApsSaleConfig, querySaleConfigList } from "@v/aps/ApsSaleConfig/ApsSaleConfigType.ts";
 
 const dtoUrl = ref<string>("/apsMakeCapacitySaleConfig")
 const documentTitle = ref<string>("工厂产能")
@@ -114,6 +115,7 @@ function getDataList() {
     })
 }
 
+const saleConfigList = ref<ApsSaleConfig[]>([])
 // table点击事件
 function editData(data: any) {
   // console.info("data ", data)
@@ -140,7 +142,10 @@ const handleDelete = (val: ApsMakeCapacitySaleConfig) => {
 // 页面加载事件
 onMounted(() => {
   getDataList()
-  queryFactoryList().then(r => factoryList.value = r)
+
+  querySaleConfigList().then(r => {
+    saleConfigList.value = r
+  })
 })
 
 </script>
@@ -149,9 +154,12 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="工厂" prop="factoryId">
-          <el-select v-model="queryForm.factoryId" clearable style="width: 200px">
-            <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id"/>
+        <el-form-item label="销售配置" prop="factoryId">
+          <el-select v-model="queryForm.saleConfigId" clearable style="width: 200px">
+            <el-option-group v-for="f in saleConfigList" :value="f.id" :label="f.saleName" :key="f.id">
+              <el-option v-for="option in f.children" :key="option.saleName" :label="option.saleName" :value="option.id">
+              </el-option>
+            </el-option-group>
           </el-select>
         </el-form-item>
         <el-form-item label="年份" prop="factoryId">
