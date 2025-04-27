@@ -28,7 +28,7 @@
           style="width: 45%"
           v-model="item.date" end-placeholder="结束日期"
           range-separator="-" start-placeholder="开始日期"
-          type="daterange" value-format="yyyy-MM-dd"
+          type="daterange" value-format="yyyy-MM-DD"
 
         />
 
@@ -47,7 +47,7 @@
           style="width: 30%"
           v-model="item.date" end-placeholder="结束日期"
           range-separator="-" start-placeholder="开始日期"
-          type="daterange" value-format="yyyy-MM-dd"
+          type="daterange" value-format="yyyy-MM-DD"
         />
         <el-button type="danger" icon="Minus" @click="deleteNoWorkDay(index)">
           <delete/>

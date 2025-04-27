@@ -1,70 +1,70 @@
 export interface ApsMakeCapacityFactory {
-  factoryId: string
-  makeCapacityQuantity: string
-  year: string
-  month: string
-  dayMin1: string
-  dayMax1: string
-  dayMin2: string
-  dayMax2: string
-  dayMin3: string
-  dayMax3: string
-  dayMin4: string
-  dayMax4: string
-  dayMin5: string
-  dayMax5: string
-  dayMin6: string
-  dayMax6: string
-  dayMin7: string
-  dayMax7: string
-  dayMin8: string
-  dayMax8: string
-  dayMin9: string
-  dayMax9: string
-  dayMin10: string
-  dayMax10: string
-  dayMin11: string
-  dayMax11: string
-  dayMin12: string
-  dayMax12: string
-  dayMin13: string
-  dayMax13: string
-  dayMin14: string
-  dayMax14: string
-  dayMin15: string
-  dayMax15: string
-  dayMin16: string
-  dayMax16: string
-  dayMin17: string
-  dayMax17: string
-  dayMin18: string
-  dayMax18: string
-  dayMin19: string
-  dayMax19: string
-  dayMin20: string
-  dayMax20: string
-  dayMin21: string
-  dayMax21: string
-  dayMin22: string
-  dayMax22: string
-  dayMin23: string
-  dayMax23: string
-  dayMin24: string
-  dayMax24: string
-  dayMin25: string
-  dayMax25: string
-  dayMin26: string
-  dayMax26: string
-  dayMin27: string
-  dayMax27: string
-  dayMin28: string
-  dayMax28: string
-  dayMin29: string
-  dayMax29: string
-  dayMin30: string
-  dayMax30: string
-  dayMin31: string
-  dayMax31: string
-  id: string
+  factoryId: undefined | string
+  makeCapacityQuantity: undefined | string
+  year: undefined | string
+  month: undefined | string
+  dayMin1: undefined | string
+  dayMax1: undefined | string
+  dayMin2: undefined | string
+  dayMax2: undefined | string
+  dayMin3: undefined | string
+  dayMax3: undefined | string
+  dayMin4: undefined | string
+  dayMax4: undefined | string
+  dayMin5: undefined | string
+  dayMax5: undefined | string
+  dayMin6: undefined | string
+  dayMax6: undefined | string
+  dayMin7: undefined | string
+  dayMax7: undefined | string
+  dayMin8: undefined | string
+  dayMax8: undefined | string
+  dayMin9: undefined | string
+  dayMax9: undefined | string
+  dayMin10: undefined | string
+  dayMax10: undefined | string
+  dayMin11: undefined | string
+  dayMax11: undefined | string
+  dayMin12: undefined | string
+  dayMax12: undefined | string
+  dayMin13: undefined | string
+  dayMax13: undefined | string
+  dayMin14: undefined | string
+  dayMax14: undefined | string
+  dayMin15: undefined | string
+  dayMax15: undefined | string
+  dayMin16: undefined | string
+  dayMax16: undefined | string
+  dayMin17: undefined | string
+  dayMax17: undefined | string
+  dayMin18: undefined | string
+  dayMax18: undefined | string
+  dayMin19: undefined | string
+  dayMax19: undefined | string
+  dayMin20: undefined | string
+  dayMax20: undefined | string
+  dayMin21: undefined | string
+  dayMax21: undefined | string
+  dayMin22: undefined | string
+  dayMax22: undefined | string
+  dayMin23: undefined | string
+  dayMax23: undefined | string
+  dayMin24: undefined | string
+  dayMax24: undefined | string
+  dayMin25: undefined | string
+  dayMax25: undefined | string
+  dayMin26: undefined | string
+  dayMax26: undefined | string
+  dayMin27: undefined | string
+  dayMax27: undefined | string
+  dayMin28: undefined | string
+  dayMax28: undefined | string
+  dayMin29: undefined | string
+  dayMax29: undefined | string
+  dayMin30: undefined | string
+  dayMax30: undefined | string
+  dayMin31: undefined | string
+  dayMax31: undefined | string
+  id: undefined | string
 }
 
