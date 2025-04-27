@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
+import { onMounted, ref } from "vue"
 import AddEditFormVue from "./ApsGoodsForecastMakeAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import { ElTable } from "element-plus";
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsGoodsForecastMake} from "./ApsGoodsForecastMakeType.ts"
+import { HeaderInfo, postNoResult, postResultInfo } from "@@/utils/common-js.ts"
+import { type ApsGoodsForecastMake } from "./ApsGoodsForecastMakeType.ts"
+import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
 
 const dtoUrl = ref<string>("/apsGoodsForecastMake")
 const documentTitle = ref<string>("商品预测-制造")
@@ -36,12 +37,12 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsGoodsForecastMake[] >([])
+const dataList = ref<ApsGoodsForecastMake[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
- {fieldName: "id", showName: "序号"},
+  { fieldName: "id", showName: "序号" },
   { fieldName: "goodsId", showName: "商品ID" },
   { fieldName: "forecastMakeMonthNo", showName: "" },
   { fieldName: "forecastMakeMonthName", showName: "" },
@@ -56,6 +57,8 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "bomUseEndDate", showName: "" },
 ])
 
+const goodsList = ref<ApsGoods []>([])
+const router = useRouter()
 
 // 获取表格内数据
 const getDataList = () => {
@@ -74,9 +77,10 @@ const getDataList = () => {
 }
 
 // table点击事件
-const editData = (data: any) => {
+const showData = (data: any) => {
   // console.info("data ", data)
-  tableBarRef.value?.showEditDialog(data.id)
+  // tableBarRef.value?.showEditDialog(data.id)
+  router.push(`/aps/ApsGoodsForecastMake/result/${data.id}`)
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
@@ -94,9 +98,15 @@ const handleSelectionChange = (val: ApsGoodsForecastMake[]) => {
   console.info("multipleSelection ", multipleSelection)
 }
 
+const deployData = (val: ApsGoodsForecastMake) => {
+  console.info("deployData ", val)
+  postNoResult("/apsGoodsForecastMake/deploy", val, "发布成功", undefined)
+}
+
 // 页面加载事件
 onMounted(() => {
   getDataList()
+  queryGoodsList().then(r => goodsList.value = r)
 })
 
 </script>
@@ -106,40 +116,9 @@ onMounted(() => {
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
         <el-form-item label="商品ID" prop="goodsId">
-          <el-input v-model="queryForm.goodsId" clearable placeholder="请输入商品ID" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="forecastMakeMonthNo">
-          <el-input v-model="queryForm.forecastMakeMonthNo" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="forecastMakeMonthName">
-          <el-input v-model="queryForm.forecastMakeMonthName" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="forecastMakeMonthBeginDate">
-          <el-input v-model="queryForm.forecastMakeMonthBeginDate" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="forecastMakeMonthEndDate">
-          <el-input v-model="queryForm.forecastMakeMonthEndDate" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="factoryId">
-          <el-input v-model="queryForm.factoryId" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="month">
-          <el-input v-model="queryForm.month" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="weeks">
-          <el-input v-model="queryForm.weeks" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="forecastMainId">
-          <el-input v-model="queryForm.forecastMainId" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="isDeploy">
-          <el-input v-model="queryForm.isDeploy" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="bomUseBeginDate">
-          <el-input v-model="queryForm.bomUseBeginDate" clearable placeholder="请输入${column.comment}" />
-        </el-form-item>
-        <el-form-item label="${column.comment}" prop="bomUseEndDate">
-          <el-input v-model="queryForm.bomUseEndDate" clearable placeholder="请输入${column.comment}" />
+          <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
+            <el-option v-for="g in goodsList" :key="g.id" :value="g.id" :label="g.goodsName"/>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -161,15 +140,22 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">
             <el-button
               type="warning"
-              icon="edit"
-              @click="editData(scope.row)"
+              icon="Histogram"
+              @click="showData(scope.row)"
             >
-              编辑
+              数据
+            </el-button>
+            <el-button
+              type="primary"
+              icon="DataAnalysis" v-if="scope.row.isDeploy===false"
+              @click="deployData(scope.row)"
+            >
+              发布
             </el-button>
           </template>
         </ElTableColumn>

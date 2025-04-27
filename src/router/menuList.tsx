@@ -20,7 +20,7 @@ export function menuList(): RouteRecordRaw[] {
           component: () => import("@/view/aps/ApsGoodsForecastMainMake/ApsGoodsForecastMainMakeIndex.vue"),
           meta: {
             title: "制造主版本",
-            elIcon: "SuitcaseLine"
+            elIcon: "Film"
           }
         },
         {
@@ -29,6 +29,25 @@ export function menuList(): RouteRecordRaw[] {
           component: () => import("@/view/aps/ApsGoodsForecastMainMake/ApsGoodsForecastMainMakeData.vue"),
           meta: {
             title: "制造主版本数据",
+            elIcon: "SuitcaseLine",
+            hidden: true
+          }
+        },
+        {
+          path: "/aps/ApsGoodsForecastMake",
+          name: "制造版本",
+          component: () => import("@/view/aps/ApsGoodsForecastMake/ApsGoodsForecastMakeIndex.vue"),
+          meta: {
+            title: "制造版本",
+            elIcon: "SuitcaseLine"
+          }
+        },
+        {
+          path: "/aps/ApsGoodsForecastMake/result/:id",
+          name: "制造版本数据",
+          component: () => import("@/view/aps/ApsGoodsForecastMake/ApsGoodsForecastMakeData.vue"),
+          meta: {
+            title: "制造版本数据",
             elIcon: "SuitcaseLine",
             hidden: true
           }
