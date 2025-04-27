@@ -43,7 +43,7 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "forecastMakeMainName", showName: "名称" },
   { fieldName: "forecastMakeMainBeginDate", showName: "开始时间" },
   { fieldName: "forecastMakeMainEndDate", showName: "结束时间" },
-  { fieldName: "factoryId", showName: "工厂ID" },
+  { fieldName: "factoryId", showName: "工厂ID" }
 ])
 
 const factoryList = ref<Factory[]>([])
@@ -108,8 +108,10 @@ onMounted(() => {
         </el-form-item>
         <el-form-item label="商品ID" prop="goodsId">
           <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
-            <el-option v-for="g in goodsList.filter(g=>g.factoryId ===queryForm.factoryId)" :key="g.id"
-                       :label="g.goodsName" :value="g.id"/>
+            <el-option
+              v-for="g in goodsList.filter(g => g.factoryId === queryForm.factoryId)" :key="g.id"
+              :label="g.goodsName" :value="g.id"
+            />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -122,6 +124,7 @@ onMounted(() => {
 
     <el-card shadow="never">
       <TableBar
+        :show-add-btn="false"
         :document-title="documentTitle"
         :add-component="AddEditFormVue"
         :refresh-list="getDataList"
@@ -132,7 +135,7 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn v-for="h in headerList" :label="h.showName" :prop="h.fieldName"/>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button

@@ -1,26 +1,6 @@
 <template>
   <div class="app-container">
-    <el-card class="search-wrapper" shadow="never">
-      <el-form ref="queryForm" :inline="true" :model="queryParams" label-width="100px" size="small">
 
-        <el-form-item label="预测时间" prop="dataRange">
-          <el-date-picker v-model="queryParams.dateRange"
-                          :value="new Date()"
-                          clearable
-                          end-placeholder="结束日期"
-                          range-separator="至"
-                          start-placeholder="开始日期"
-                          type="monthrange"
-                          value-format="yyyy-MM"
-          ></el-date-picker>
-        </el-form-item>
-        <el-form-item>
-          <el-button icon="el-icon-search" type="primary" @click="getData">
-            搜索
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
     <el-card class="search-wrapper" shadow="never">
 
       <el-divider>制造主版本结果</el-divider>
@@ -61,13 +41,11 @@ const getData = () => {
     tableData.value = t.data
     tableData.value.headerList [0].width = 600
 
-    const headerList = t.data.headerList.slice(3)
-    for (let i = 1; i < t.data.dataList.length; i ++) {
-      const item = t.data.dataList[i]
-      headerList.forEach(header => {
-        item[header.fieldName] = item[header.fieldName] * 100 + '%'
-      })
-    }
+    const headerList = t.data.headerList.slice(1)
+    headerList.forEach(h=>{
+      h.width = 100
+    })
+
     // tableData.value.headerList.slice(1).forEach(h => h.width = 180)
     console.log("tableData.value = t ", t)
   })

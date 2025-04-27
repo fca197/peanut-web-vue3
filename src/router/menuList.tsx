@@ -29,7 +29,8 @@ export function menuList(): RouteRecordRaw[] {
           component: () => import("@/view/aps/ApsGoodsForecastMainMake/ApsGoodsForecastMainMakeData.vue"),
           meta: {
             title: "制造主版本数据",
-            elIcon: "SuitcaseLine"
+            elIcon: "SuitcaseLine",
+            hidden: true
           }
         },
         {

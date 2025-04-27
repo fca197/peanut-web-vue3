@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
-import {type ApsGoodsForecastMainMake} from "./ApsGoodsForecastMainMakeType.ts"
-import {getById, postNoResult} from "@/common/utils/common-js.ts"
-import {type FormInstance, FormRules} from "element-plus"
+import { onMounted, ref } from "vue"
+import { type ApsGoodsForecastMainMake } from "./ApsGoodsForecastMainMakeType.ts"
+import { getById, pinyin4jSzm, postNoResult, postResultInfoList } from "@/common/utils/common-js.ts"
+import { type FormInstance, FormRules } from "element-plus"
+import { ApsGoodsForecastMain } from "@v/aps/ApsGoodsForecastMain/ApsGoodsForecastMainType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -15,58 +16,52 @@ const props = defineProps({
 })
 
 // 对象URL
-const dtoUrl = ref<string>("/apsGoodsForecastMainMake")
+const dtoUrl = ref<string>("/apsGoodsForecastMake")
 // 表单引用
 const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
-    // 商品ID
-    goodsId: [
-      {required: true, message: "请输入商品ID", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 编码
-    forecastMakeMainNo: [
-      {required: true, message: "请输入编码", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 名称
-    forecastMakeMainName: [
-      {required: true, message: "请输入名称", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 开始时间
-    forecastMakeMainBeginDate: [
-      {required: true, message: "请输入开始时间", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 结束时间
-    forecastMakeMainEndDate: [
-      {required: true, message: "请输入结束时间", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 工厂ID
-    factoryId: [
-      {required: true, message: "请输入工厂ID", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-
+  // 商品ID
+  forecastMainId: [
+    { required: true, message: "请选择版本", trigger: "blur" }
+  ],
+  // 编码
+  forecastMakeMonthNo: [
+    { required: true, message: "请输入编码", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 名称
+  forecastMakeMonthName: [
+    { required: true, message: "请输入名称", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 开始时间
+  forecastMakeMonthBeginDate: [
+    { required: true, message: "请输入开始时间", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 结束时间
+  forecastMakeMonthEndDate: [
+    { required: true, message: "请输入结束时间", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ]
 })
-
 
 // 添加对象
 const addForm = ref<ApsGoodsForecastMainMake>({
-      goodsId: "",
-      forecastMakeMainNo: "",
-      forecastMakeMainName: "",
-      forecastMakeMainBeginDate: "",
-      forecastMakeMainEndDate: "",
-      factoryId: "",
-      id: "" 
+  goodsId: undefined,
+  forecastMakeMonthName: undefined,
+  forecastMakeMonthNo: undefined,
+  forecastMakeMonthBeginDate: undefined,
+  forecastMakeMonthEndDate: undefined,
+  factoryId: undefined,
+  id: undefined
 })
 
-const  loadById = () => {
-  if (!props.editId) {
+const forecastMainList = ref<ApsGoodsForecastMain[]>([])
+
+const loadById = () => {
+  if(!props.editId) {
     return
   }
   console.info("props.editId ", props.editId)
@@ -80,9 +75,9 @@ const  loadById = () => {
 const saveForm = () => {
   console.info("addForm ", addForm)
   addFormRef.value?.validate((valid) => {
-    if (valid) {
+    if(valid) {
       // 存在ID ，调用更新
-      if (props.editId) {
+      if(props.editId) {
         postNoResult(`${dtoUrl.value}/updateById`, addForm.value, "修改成功", saveFormAfter)
       } else {
         // 调用保存
@@ -101,36 +96,46 @@ const saveFormAfter = () => {
 
 // 取消方法
 const cancelForm = () => {
-  if (props.saveFun) {
+  if(props.saveFun) {
     props.saveFun()
   }
 }
-
+const loadSzm = () => {
+  pinyin4jSzm(addForm.value.forecastMakeMonthName).then(r => addForm.value.forecastMakeMonthNo = r)
+}
 // 页面加载事件
 onMounted(() => {
   loadById()
+
+  postResultInfoList("/apsGoodsForecastMain/queryList", { queryPage: false }).then((r) => {
+    forecastMainList.value = r
+  })
 })
 </script>
 
 <template>
-  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="商品ID" prop="goodsId">
-      <el-input v-model="addForm.goodsId" clearable placeholder="请输入商品ID"/>
+  <el-form label-width="150px" :model="addForm" ref="addFormRef" :rules="checkRules">
+
+    <el-form-item label="预测主版本" prop="goodsId">
+      <el-select v-model="addForm.forecastMainId" placeholder="请选择预测主版本">
+        <el-option v-for="item in forecastMainList" :key="item.id" :label="item.forecastName"
+                   :value="item.id"></el-option>
+      </el-select>
     </el-form-item>
-    <el-form-item label="编码" prop="forecastMakeMainNo">
-      <el-input v-model="addForm.forecastMakeMainNo" clearable placeholder="请输入编码"/>
+
+    <el-form-item label="(预)周生产版本名称" prop="forecastMakeMonthName">
+      <el-input v-model="addForm.forecastMakeMonthName" clearable placeholder="请输入(预)周生产名称" @blur="loadSzm"/>
     </el-form-item>
-    <el-form-item label="名称" prop="forecastMakeMainName">
-      <el-input v-model="addForm.forecastMakeMainName" clearable placeholder="请输入名称"/>
+    <el-form-item label="(预)周生产版本编码" prop="forecastMakeMonthNo">
+      <el-input v-model="addForm.forecastMakeMonthNo" clearable placeholder="请输入(预)周生产编码"/>
     </el-form-item>
-    <el-form-item label="开始时间" prop="forecastMakeMainBeginDate">
-      <el-input v-model="addForm.forecastMakeMainBeginDate" clearable placeholder="请输入开始时间"/>
+    <el-form-item label="(预)周生产开始时间" prop="forecastMakeMonthBeginDate">
+      <el-date-picker v-model="addForm.forecastMakeMonthBeginDate" clearable format="YYYY-MM"
+                      placeholder="请选择(预)周生产开始时间" type="month" value-format="YYYY-MM"/>
     </el-form-item>
-    <el-form-item label="结束时间" prop="forecastMakeMainEndDate">
-      <el-input v-model="addForm.forecastMakeMainEndDate" clearable placeholder="请输入结束时间"/>
-    </el-form-item>
-    <el-form-item label="工厂ID" prop="factoryId">
-      <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
+    <el-form-item label="(预)周生产结束时间" prop="forecastMakeMonthEndDate">
+      <el-date-picker v-model="addForm.forecastMakeMonthEndDate" clearable format="YYYY-MM"
+                      placeholder="请选择(预)周生产结束时间" type="month" value-format="YYYY-MM"/>
     </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
@@ -142,7 +147,6 @@ onMounted(() => {
     </el-button>
   </el-row>
 </template>
-
 
 
 <style scoped lang="scss">
