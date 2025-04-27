@@ -15,6 +15,15 @@ export function menuList(): RouteRecordRaw[] {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsSchedulingConstraints",
+          name: "排产约束",
+          component: () => import("@/view/aps/ApsSchedulingConstraints/ApsSchedulingConstraintsIndex.vue"),
+          meta: {
+            title: "排产约束",
+            elIcon: "ShoppingBag"
+          }
+        },
+        {
           path: "/aps/ApsMakeCapacitySaleConfig",
           name: "销售产能",
           component: () => import("@/view/aps/ApsMakeCapacitySaleConfig/ApsMakeCapacitySaleConfigIndex.vue"),

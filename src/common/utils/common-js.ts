@@ -1,5 +1,5 @@
-import {request} from "@/http/axios"
-import {getToken} from "@@/utils/cache/cookies.ts";
+import { request } from "@/http/axios"
+import { getToken } from "@@/utils/cache/cookies.ts";
 
 export interface Result<T> {
   code: number
@@ -32,10 +32,26 @@ export function postNoResult(url: string, data: any, suMsg: string, suFun: (((da
     data
   }).then((r) => {
     console.info("r ", r)
-    if (r.code === 200) {
+    if(r.code === 200) {
       ElMessage.success(suMsg || "操作成功")
-      if (suFun) {
+      if(suFun) {
         suFun(r.data)
+      }
+    }
+  })
+}
+
+export function getResult(url: string, suMsg: string | undefined, suFun: (((data: any) => void) | undefined)) {
+  request<Result<any>>({
+    url,
+    method: "get"
+  }).then((r) => {
+    if(r.code === 200) {
+      if(suMsg !== undefined) {
+        ElMessage.success(suMsg)
+      }
+      if(suFun !== undefined) {
+        suFun(r)
       }
     }
   })
@@ -77,16 +93,16 @@ export async function downloadFilePost(reqUrl: string, reqData: any, saveFileNam
     const blob = await response.blob()
     const url = URL.createObjectURL(blob)
     const link = document.createElement("a")
-
+    
     // 提取文件名
     let fileName = saveFileName || "未命名.xlsx"
     const contentDisposition = response.headers.get("Content-Disposition")
-    if (contentDisposition) {
+    if(contentDisposition) {
       const match = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)
-      if (match != null && match[1]) {
+      if(match != null && match[1]) {
         fileName = match[1].replace(/['"]/g, "")
       }
-      if (fileName.includes("%")) {
+      if(fileName.includes("%")) {
         fileName = decodeURI(fileName)
       }
     }
@@ -110,7 +126,7 @@ export async function getById(url: string, id: string) {
     url,
     method: "post",
     data: {
-      idList: [id]
+      idList: [ id ]
     }
   }).then((t) => {
     return t.data.dataList[0]
@@ -139,7 +155,7 @@ interface pinyin4jSzmData {
 }
 
 export async function pinyin4jSzm(value: string | undefined) {
-  if (value === undefined || value.trim().length === 0) {
+  if(value === undefined || value.trim().length === 0) {
     return Promise.any("")
   }
   const data: pinyin4jSzmData = {
