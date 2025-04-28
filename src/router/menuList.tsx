@@ -15,6 +15,25 @@ export function menuList(): RouteRecordRaw[] {
       component: Layouts,
       children: [
         {
+          path: "/aps/CreateScheduling/:id/:isUpdate",
+          name: "排产创建",
+          component: () => import("@/view/aps/ApsSchedulingVersion/CreateScheduling.vue"),
+          meta: {
+            title: "排产创建",
+            elIcon: "Refrigerator",
+            hidden: true
+          }
+        },
+        {
+          path: "/aps/ApsSchedulingVersion",
+          name: "排产",
+          component: () => import("@/view/aps/ApsSchedulingVersion/ApsSchedulingVersionIndex.vue"),
+          meta: {
+            title: "排产",
+            elIcon: "Refrigerator"
+          }
+        },
+        {
           path: "/aps/ApsSchedulingConstraints",
           name: "排产约束",
           component: () => import("@/view/aps/ApsSchedulingConstraints/ApsSchedulingConstraintsIndex.vue"),
