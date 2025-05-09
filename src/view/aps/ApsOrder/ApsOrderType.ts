@@ -1,4 +1,4 @@
-import {KVEntity, Result} from "@@/utils/common-js.ts";
+import { KVEntity, postResultInfoList, Result } from "@@/utils/common-js.ts";
 import {request} from "@/http/axios.ts";
 
 export interface ApsOrder {
@@ -46,4 +46,8 @@ export function queryOrderStatusList(): Promise<KVEntity[]> {
       return ttt
     })
   })
+}
+
+export function queryOrderFieldList() {
+  return postResultInfoList("/apsOrder/orderFieldList", {}) as Promise<KVEntity []>
 }

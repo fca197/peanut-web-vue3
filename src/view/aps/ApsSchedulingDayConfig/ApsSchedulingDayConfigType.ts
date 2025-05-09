@@ -1,4 +1,4 @@
-import { KVEntity } from "@@/utils/common-js.ts";
+import { KVEntity, postResultInfoList } from "@@/utils/common-js.ts";
 
 export interface ApsSchedulingDayConfig {
   schedulingDayConfigId: string | undefined
@@ -17,3 +17,7 @@ export const isDefaultList: KVEntity[] = [
   { label: "是", value: true },
   { label: "否", value: false }
 ]
+
+export function queryApsSchedulingDayConfigList(): Promise<ApsSchedulingDayConfig[]> {
+  return postResultInfoList("/apsSchedulingDayConfig/queryPageList", { queryPage: false }) as Promise<ApsSchedulingDayConfig[]>
+}

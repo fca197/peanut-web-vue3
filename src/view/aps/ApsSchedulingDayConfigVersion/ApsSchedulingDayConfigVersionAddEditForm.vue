@@ -1,8 +1,17 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
-import { type ApsSchedulingDayConfigVersion } from "./ApsSchedulingDayConfigVersionType.ts"
-import { getById, postNoResult } from "@/common/utils/common-js.ts"
+import { type ApsSchedulingDayConfigVersion, boolArr } from "./ApsSchedulingDayConfigVersionType.ts"
+import { getById, KVEntity, postNoResult } from "@/common/utils/common-js.ts"
 import { type FormInstance, FormRules } from "element-plus"
+import {
+  ApsSchedulingDayConfig,
+  queryApsSchedulingDayConfigList
+} from "@v/aps/ApsSchedulingDayConfig/ApsSchedulingDayConfigType.ts";
+import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
+import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
+import { queryOrderFieldList } from "@v/aps/ApsOrder/ApsOrderType.ts";
+import { queryOrderUserFieldList } from "@v/aps/ApsOrderUser/ApsOrderUserType.ts";
+import { ApsSaleConfig, querySaleConfigList } from "@v/aps/ApsSaleConfig/ApsSaleConfigType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -39,58 +48,7 @@ const checkRules = ref<FormRules>({
   schedulingDay: [
     { required: true, message: "请输入排程日期", trigger: "blur" },
     { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 是否查询历史订单 0否， 1是
-  searchOld: [
-    { required: true, message: "请输入是否查询历史订单 0否， 1是", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 是否下发 0 否,1 是
-  isIssuedThird: [
-    { required: true, message: "请输入是否下发 0 否,1 是", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 工艺路径id
-  processId: [
-    { required: true, message: "请输入工艺路径id", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 排产日配置版本表头
-  headerList: [
-    { required: true, message: "请输入排产日配置版本表头", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 排产生产类型
-  productType: [
-    { required: true, message: "请输入排产生产类型", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 商品列表
-  goodsIdList: [
-    { required: true, message: "请输入商品列表", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 销售配置ID
-  saleConfigIdList: [
-    { required: true, message: "请输入销售配置ID", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 当前步骤
-  stepIndex: [
-    { required: true, message: "请输入当前步骤", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 订单字段
-  orderFieldList: [
-    { required: true, message: "请输入订单字段", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-  // 订单用户字段
-  orderUserFieldList: [
-    { required: true, message: "请输入订单用户字段", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
-  ],
-
+  ]
 })
 
 
@@ -100,7 +58,7 @@ const addForm = ref<ApsSchedulingDayConfigVersion>({
   factoryId: "",
   schedulingDayVersionNo: "",
   schedulingDay: "",
-  searchOld: "",
+  searchOld: true,
   isIssuedThird: "",
   processId: "",
   headerList: "",
@@ -154,55 +112,89 @@ const cancelForm = () => {
   }
 }
 
+const apsSchedulingDayConfigList = ref<ApsSchedulingDayConfig[]>([])
+
+const factoryList = ref<Factory []>([])
+const apsGoodsList = ref<ApsGoods[]>([])
+const orderFieldList = ref<KVEntity[]>([])
+const orderUserFieldList = ref<KVEntity[]>([])
+const apsSaleConfigList = ref<ApsSaleConfig[]>([])
+
+watch(() => addForm.value.factoryId, (n) => {
+  console.info("addForm.factoryId", n)
+  addForm.value.schedulingDayConfigId = undefined
+  addForm.value.goodsIdList = undefined
+})
 // 页面加载事件
 onMounted(() => {
   loadById()
+  queryApsSchedulingDayConfigList().then(r => apsSchedulingDayConfigList.value = r)
+  queryFactoryList().then((r) => {
+    factoryList.value = r
+    console.info("props.editId", props.editId)
+    if(props.editId === "") {
+      addForm.value.factoryId = r[0].id
+    }
+  })
+  queryGoodsList().then(t => apsGoodsList.value = t)
+  queryOrderFieldList().then(r => orderFieldList.value = r)
+  queryOrderUserFieldList().then(r => orderUserFieldList.value = r)
+  querySaleConfigList().then(r => apsSaleConfigList.value = r.filter(t=>t.isValue === 0 ))
 })
 </script>
 
 <template>
-  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="配置ID" prop="schedulingDayConfigId">
-      <el-input v-model="addForm.schedulingDayConfigId" clearable placeholder="请输入配置ID"/>
+  <el-form label-width="120px" :model="addForm" ref="addFormRef" :rules="checkRules">
+
+    <el-form-item label="工厂" prop="factoryId">
+      <el-select v-model="addForm.factoryId">
+        <el-option v-for="f in factoryList" :value="f.id" :label="f.factoryName" :key="f.id"/>
+      </el-select>
     </el-form-item>
-    <el-form-item label="工厂ID" prop="factoryId">
-      <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
+    <el-form-item label="排程配置" prop="schedulingDayConfigId">
+      <el-select v-model="addForm.schedulingDayConfigId">
+        <el-option
+          v-for="c in apsSchedulingDayConfigList.filter(t=> t.factoryId === addForm.factoryId)" :key="c.id"
+          :value="c.id as string"
+          :label="c.schedulingDayName"/>
+      </el-select>
     </el-form-item>
     <el-form-item label="排程版本号" prop="schedulingDayVersionNo">
       <el-input v-model="addForm.schedulingDayVersionNo" clearable placeholder="请输入排程版本号"/>
     </el-form-item>
     <el-form-item label="排程日期" prop="schedulingDay">
-      <el-input v-model="addForm.schedulingDay" clearable placeholder="请输入排程日期"/>
+      <el-date-picker
+        value-format="YYYY-MM-DD" style="width: 100%" v-model="addForm.schedulingDay"
+        placeholder="请输入排程日期"/>
     </el-form-item>
-    <el-form-item label="是否查询历史订单 0否， 1是" prop="searchOld">
-      <el-input v-model="addForm.searchOld" clearable placeholder="请输入是否查询历史订单 0否， 1是"/>
-    </el-form-item>
-    <el-form-item label="是否下发 0 否,1 是" prop="isIssuedThird">
-      <el-input v-model="addForm.isIssuedThird" clearable placeholder="请输入是否下发 0 否,1 是"/>
-    </el-form-item>
-    <el-form-item label="工艺路径id" prop="processId">
-      <el-input v-model="addForm.processId" clearable placeholder="请输入工艺路径id"/>
-    </el-form-item>
-    <el-form-item label="排产日配置版本表头" prop="headerList">
-      <el-input v-model="addForm.headerList" clearable placeholder="请输入排产日配置版本表头"/>
-    </el-form-item>
-    <el-form-item label="排产生产类型" prop="productType">
-      <el-input v-model="addForm.productType" clearable placeholder="请输入排产生产类型"/>
+    <el-form-item label="查询历史订单" prop="searchOld">
+      <el-select v-model="addForm.searchOld" style="width: 100%">
+        <el-option v-for="b in boolArr" :label="b.label" :value="b.value" :key="b.value"></el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="商品列表" prop="goodsIdList">
-      <el-input v-model="addForm.goodsIdList" clearable placeholder="请输入商品列表"/>
+      <el-select v-model="addForm.goodsIdList" clearable placeholder="请选择商品列表" multiple>
+        <el-option
+          v-for="g in apsGoodsList.filter(t => t.factoryId === addForm.factoryId)" :key="g.id"
+          :label="g.goodsName" :value="g.id"
+        />
+      </el-select>
     </el-form-item>
-    <el-form-item label="销售配置ID" prop="saleConfigIdList">
-      <el-input v-model="addForm.saleConfigIdList" clearable placeholder="请输入销售配置ID"/>
-    </el-form-item>
-    <el-form-item label="当前步骤" prop="stepIndex">
-      <el-input v-model="addForm.stepIndex" clearable placeholder="请输入当前步骤"/>
+
+    <el-form-item label="销售配置" prop="saleConfigIdList">
+      <el-select v-model="addForm.saleConfigIdList" clearable placeholder="请选择销售配置" multiple>
+        <el-option v-for="s in apsSaleConfigList" :value="s.id" :label="s.saleName" :key="s.id" />
+      </el-select>
     </el-form-item>
     <el-form-item label="订单字段" prop="orderFieldList">
-      <el-input v-model="addForm.orderFieldList" clearable placeholder="请输入订单字段"/>
+      <el-select v-model="addForm.orderFieldList" clearable placeholder="请选择订单字段" multiple>
+        <el-option v-for="k in orderFieldList" :value="k.value" :key="k.value" :label="k.label"/>
+      </el-select>
     </el-form-item>
     <el-form-item label="订单用户字段" prop="orderUserFieldList">
-      <el-input v-model="addForm.orderUserFieldList" clearable placeholder="请输入订单用户字段"/>
+      <el-select v-model="addForm.orderUserFieldList" clearable placeholder="请选择订单用户字段" multiple>
+        <el-option v-for="k in orderUserFieldList" :value="k.value" :key="k.value" :label="k.label"/>
+      </el-select>
     </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
@@ -219,4 +211,3 @@ onMounted(() => {
 <style scoped lang="scss">
 
 </style>
-

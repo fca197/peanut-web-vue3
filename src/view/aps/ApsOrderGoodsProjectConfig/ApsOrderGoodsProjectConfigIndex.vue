@@ -1,32 +1,21 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
-import AddEditFormVue from "./ApsSchedulingDayConfigVersionAddEditForm.vue"
+import {ref, onMounted} from "vue"
+import AddEditFormVue from "./ApsOrderGoodsProjectConfigAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import { ElTable } from "element-plus";
-import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
-import { type ApsSchedulingDayConfigVersion } from "./ApsSchedulingDayConfigVersionType.ts"
-import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
+import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
+import {type ApsOrderGoodsProjectConfig} from "./ApsOrderGoodsProjectConfigType.ts"
 
-const dtoUrl = ref<string>("/apsSchedulingDayConfigVersion")
-const documentTitle = ref<string>("排程版本")
+const dtoUrl = ref<string>("/apsOrderGoodsProjectConfig")
+const documentTitle = ref<string>("订单商品项目配置表")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格
-const queryForm = ref<ApsSchedulingDayConfigVersion>({
-  schedulingDayConfigId: undefined,
+const queryForm = ref<ApsOrderGoodsProjectConfig>({
+  orderId: undefined,
+  goodsId: undefined,
+  configId: undefined,
   factoryId: undefined,
-  schedulingDayVersionNo: undefined,
-  schedulingDay: undefined,
-  searchOld: undefined,
-  isIssuedThird: undefined,
-  processId: undefined,
-  headerList: undefined,
-  productType: undefined,
-  goodsIdList: undefined,
-  saleConfigIdList: undefined,
-  stepIndex: undefined,
-  orderFieldList: undefined,
-  orderUserFieldList: undefined,
   id: undefined
 })
 
@@ -39,26 +28,16 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsSchedulingDayConfigVersion[]>([])
+const dataList = ref<ApsOrderGoodsProjectConfig[] >([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  { fieldName: "id", showName: "序号" },
-  { fieldName: "schedulingDayConfigId", showName: "配置" },
-  { fieldName: "factoryId", showName: "工厂" },
-  { fieldName: "schedulingDayVersionNo", showName: "排程版本号" },
-  { fieldName: "schedulingDay", showName: "排程日期" },
-  // { fieldName: "searchOld", showName: "是否查询历史订单 0否， 1是" },
-  // { fieldName: "isIssuedThird", showName: "是否下发 0 否,1 是" },
-  // { fieldName: "processId", showName: "工艺路径id" },
-  // { fieldName: "headerList", showName: "排产日配置版本表头" },
-  // { fieldName: "productType", showName: "排产生产类型" },
-  // { fieldName: "goodsIdList", showName: "商品列表" },
-  // { fieldName: "saleConfigIdList", showName: "销售配置ID" },
-  // { fieldName: "stepIndex", showName: "当前步骤" },
-  // { fieldName: "orderFieldList", showName: "订单字段" },
-  // { fieldName: "orderUserFieldList", showName: "订单用户字段" },
+ {fieldName: "id", showName: "序号"},
+  { fieldName: "orderId", showName: "" },
+  { fieldName: "goodsId", showName: "商品ID" },
+  { fieldName: "configId", showName: "" },
+  { fieldName: "factoryId", showName: "工厂ID" },
 ])
 
 
@@ -94,16 +73,14 @@ const handleCurrentChange = (val: number) => {
   getDataList()
 }
 // 表格选中事件
-const handleSelectionChange = (val: ApsSchedulingDayConfigVersion[]) => {
+const handleSelectionChange = (val: ApsOrderGoodsProjectConfig[]) => {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
 
-const factoryList = ref<Factory[]>([])
 // 页面加载事件
 onMounted(() => {
   getDataList()
-  queryFactoryList().then(r => factoryList.value = r)
 })
 
 </script>
@@ -112,14 +89,17 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="工厂ID" prop="factoryId">
-          <el-select v-model="queryForm.factoryId" clearable style="width: 200px">
-            <el-option v-for="f in factoryList" :value="f.id" :key="f.id" :label="f.factoryName"/>
-          </el-select>
+        <el-form-item label="${column.comment}" prop="orderId">
+          <el-input v-model="queryForm.orderId" clearable placeholder="请输入${column.comment}" />
         </el-form-item>
-        <el-form-item label="排程日期" prop="schedulingDay">
-          <el-date-picker type="date" value-format="YYYY-MM-DD" v-model="queryForm.schedulingDay" clearable
-                          placeholder="请输入排程日期"/>
+        <el-form-item label="商品ID" prop="goodsId">
+          <el-input v-model="queryForm.goodsId" clearable placeholder="请输入商品ID" />
+        </el-form-item>
+        <el-form-item label="${column.comment}" prop="configId">
+          <el-input v-model="queryForm.configId" clearable placeholder="请输入${column.comment}" />
+        </el-form-item>
+        <el-form-item label="工厂ID" prop="factoryId">
+          <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -138,11 +118,10 @@ onMounted(() => {
         :multiple-selection="multipleSelection"
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
-        :dialog-with="800"
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
@@ -173,3 +152,4 @@ onMounted(() => {
 <style scoped lang="scss">
 
 </style>
+
