@@ -16,12 +16,12 @@
 
       <el-col v-for=" (item ,index) in addForm.shiftItemDtoList" :key="index" :span="24">
         <el-time-picker
-          style="width: 100px"
+          style="width: 200px"
           v-model="item.beginTime" end-placeholder="下班时间" format="HH:mm"
           start-placeholder="上班时间" value-format="HH:mm"/>
         -
         <el-time-picker
-          style="width: 100px"
+          style="width: 200px"
           v-model="item.endTime" end-placeholder="下班时间" format="HH:mm"
           start-placeholder="上班时间" value-format="HH:mm"/>
 

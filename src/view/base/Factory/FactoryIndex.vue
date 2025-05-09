@@ -9,7 +9,7 @@
           <el-input v-model="queryForm.factoryCode" clearable placeholder="请输入编码"/>
         </el-form-item>
         <el-form-item label="状态" prop="factoryStatus">
-          <el-select v-model="queryForm.factoryStatus" clearable style="width: 100px">
+          <el-select v-model="queryForm.factoryStatus" clearable style="width: 200px">
             <el-option v-for="s in factoryStatusList" :label="s.label" :value="s.value" :key="s.value"></el-option>
           </el-select>
         </el-form-item>

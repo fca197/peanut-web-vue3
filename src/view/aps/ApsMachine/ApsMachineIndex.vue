@@ -9,7 +9,7 @@
           <el-input v-model="queryForm.machineName" clearable placeholder="请输入机器名称"/>
         </el-form-item>
         <el-form-item label="工厂" prop="factoryId">
-          <el-select v-model="queryForm.factoryId" clearable style="width: 150px">
+          <el-select v-model="queryForm.factoryId" clearable style="width: 200px">
             <el-option v-for="f in factoryList" :value="f.id" :label="f.factoryName" :key="f.id"/>
           </el-select>
         </el-form-item>

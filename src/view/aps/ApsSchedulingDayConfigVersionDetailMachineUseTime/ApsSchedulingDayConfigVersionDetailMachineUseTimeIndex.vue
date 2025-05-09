@@ -1,55 +1,52 @@
 <script setup lang="ts">
-import type {HeaderInfo} from "@@/utils/common-js.ts"
-import type {ApsBom} from "./ApsBomType.ts"
+import { ref, onMounted } from "vue"
+import AddEditFormVue from "./ApsSchedulingDayConfigVersionDetailMachineUseTimeAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {postResultInfo} from "@@/utils/common-js.ts"
-import { ElTable } from "element-plus"
-import {ref} from "vue"
-import {supplyModeList} from "./ApsBomType.ts"
-import {ApsBomGroup, apsGroupDefaultProps, queryApsBomGroupTree} from "@v/aps/ApsBomGroup/ApsBomGroupType.ts"
-import AddEditFormVue from "./ApsBomAddEditForm.vue"
+import { ElTable } from "element-plus";
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import {
+  type ApsSchedulingDayConfigVersionDetailMachineUseTime
+} from "./ApsSchedulingDayConfigVersionDetailMachineUseTimeType.ts"
 
-
-const dtoUrl = ref<string>("/apsBom")
-const documentTitle = ref<string>("BOM 清单")
+const dtoUrl = ref<string>("/apsSchedulingDayConfigVersionDetailMachineUseTime")
+const documentTitle = ref<string>("排程结果机器使用率")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
-const queryForm = ref({
-  bomCode: undefined,
-  bomName: undefined,
-  bomCostPrice: undefined,
-  bomCostPriceUnit: undefined,
-  bomInventory: undefined,
-  groupId: undefined,
-  supplyMode: undefined,
-  useUnit: undefined,
-  bomUnit: undefined,
-  produceProcessId: undefined,
-  deliveryCycleDay: undefined,
-  apsBomSupplierId: undefined,
+// 查询表格
+const queryForm = ref<ApsSchedulingDayConfigVersionDetailMachineUseTime>({
+  schedulingDayId: undefined,
+  machineId: undefined,
+  useTime: undefined,
+  useUsageRate: undefined,
+  makeProduceCount: undefined,
   id: undefined
 })
 
-const multipleSelection = ref<(string | undefined) []>([])
-const dataTableRef = ref<any>({})
-// const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
-const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
+// 表格选中的id
+const multipleSelection = ref<(string | undefined)[]>([])
 
+// 表格
+// const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
+const dataTableRef = ref({})
+// 表格操作头
+const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
+// 表格相关
+const dataList = ref<ApsSchedulingDayConfigVersionDetailMachineUseTime[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
-const headerList = ref<HeaderInfo[]>([])
+const headerList = ref<HeaderInfo[]>([
+  { fieldName: "id", showName: "序号" },
+  { fieldName: "schedulingDayId", showName: "排程ID" },
+  { fieldName: "machineId", showName: "机器ID" },
+  { fieldName: "useTime", showName: "耗时" },
+  { fieldName: "useUsageRate", showName: "使用率" },
+  { fieldName: "makeProduceCount", showName: "商品数" },
+])
 
-const dataList = ref<ApsBom[]>([])
 
-
-function handleSelectionChange(val: ApsBom []) {
-  multipleSelection.value = val.map(t => t.id)
-  console.info("multipleSelection ", multipleSelection)
-}
-
-
-function getDataList() {
+// 获取表格内数据
+const getDataList = () => {
   const req = {
     pageSize: currentPageSize.value,
     pageNum: currentPageNum.value,
@@ -64,49 +61,52 @@ function getDataList() {
     })
 }
 
-const apsBomGroupList = ref<ApsBomGroup[]>([])
-
-onMounted(() => {
-  getDataList()
-  queryApsBomGroupTree().then(t => apsBomGroupList.value = t)
-})
-
-function editData(data: any) {
+// table点击事件
+const editData = (data: any) => {
   // console.info("data ", data)
   tableBarRef.value?.showEditDialog(data.id)
 }
-
-function handleSizeChange(val: number) {
+// 页面条数变更事件
+const handleSizeChange = (val: number) => {
   currentPageSize.value = val
   getDataList()
 }
-
-function handleCurrentChange(val: number) {
+// 页面变更事件
+const handleCurrentChange = (val: number) => {
   currentPageNum.value = val
   getDataList()
 }
+// 表格选中事件
+const handleSelectionChange = (val: ApsSchedulingDayConfigVersionDetailMachineUseTime[]) => {
+  multipleSelection.value = val.map(t => t.id)
+  console.info("multipleSelection ", multipleSelection)
+}
+
+// 页面加载事件
+onMounted(() => {
+  getDataList()
+})
+
 </script>
 
 <template>
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="bom 编码" prop="bomCode">
-          <el-input v-model="queryForm.bomCode" clearable placeholder="请输入bom 编码"/>
+        <el-form-item label="排程ID" prop="schedulingDayId">
+          <el-input v-model="queryForm.schedulingDayId" clearable placeholder="请输入排程ID"/>
         </el-form-item>
-        <el-form-item label="bom 名称" prop="bomName">
-          <el-input v-model="queryForm.bomName" clearable placeholder="请输入bom 名称"/>
+        <el-form-item label="机器ID" prop="machineId">
+          <el-input v-model="queryForm.machineId" clearable placeholder="请输入机器ID"/>
         </el-form-item>
-        <el-form-item label="组ID" prop="groupId">
-          <el-tree-select
-            :props="apsGroupDefaultProps" style="width: 200px"
-            node-key="id" :data="apsBomGroupList" v-model="queryForm.groupId" clearable placeholder="请输入组ID"
-          />
+        <el-form-item label="耗时" prop="useTime">
+          <el-input v-model="queryForm.useTime" clearable placeholder="请输入耗时"/>
         </el-form-item>
-        <el-form-item label="供给方式" prop="supplyMode">
-          <el-select v-model="queryForm.supplyMode" clearable style="width: 200px">
-            <el-option v-for="s in supplyModeList" :label="s.label" :value="s.value" :key="s.value"/>
-          </el-select>
+        <el-form-item label="使用率" prop="useUsageRate">
+          <el-input v-model="queryForm.useUsageRate" clearable placeholder="请输入使用率"/>
+        </el-form-item>
+        <el-form-item label="商品数" prop="makeProduceCount">
+          <el-input v-model="queryForm.makeProduceCount" clearable placeholder="请输入商品数"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -125,10 +125,6 @@ function handleCurrentChange(val: number) {
         :multiple-selection="multipleSelection"
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
-
-        down-load-url="/apsBom/exportQueryPageList"
-
-        upload-url="/upload"
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
@@ -159,6 +155,8 @@ function handleCurrentChange(val: number) {
     </el-card>
   </div>
 </template>
+
 <style scoped lang="scss">
 
 </style>
+

@@ -12,7 +12,7 @@
           <el-input v-model="queryForm.bomSupplierPhone" clearable placeholder="请输入手机"/>
         </el-form-item>
         <el-form-item label="状态" prop="supplierStatus">
-          <el-select v-model="queryForm.supplierStatus" style="width: 130px">
+          <el-select v-model="queryForm.supplierStatus" style="width: 200px">
             <el-option
               v-for="kv in supplierStatusList" :label="kv.label" :value="kv.value" :key="kv.value"
             />

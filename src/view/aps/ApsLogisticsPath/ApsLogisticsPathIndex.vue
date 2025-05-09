@@ -4,7 +4,7 @@
       <el-form v-model="queryForm" inline>
 
         <el-form-item label="工厂" prop="factoryId">
-          <el-select v-model="queryForm.factoryId" clearable style="width: 190px">
+          <el-select v-model="queryForm.factoryId" clearable style="width: 200px">
             <el-option v-for="f in factoryList" :value="f.id" :key="f.id" :label="f.factoryName"/>
           </el-select>
         </el-form-item>

@@ -15,6 +15,15 @@ export function menuList(): RouteRecordRaw[] {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsSchedulingDayConfigVersion",
+          name: "排程版本",
+          component: () => import("@/view/aps/ApsSchedulingDayConfigVersion/ApsSchedulingDayConfigVersionIndex.vue"),
+          meta: {
+            title: "排程版本",
+            elIcon: "Files"
+          }
+        },
+        {
           path: "/aps/ApsSchedulingDayConfig",
           name: "排程配置",
           component: () => import("@/view/aps/ApsSchedulingDayConfig/ApsSchedulingDayConfigIndex.vue"),

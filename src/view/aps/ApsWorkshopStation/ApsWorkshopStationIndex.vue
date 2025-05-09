@@ -3,7 +3,7 @@
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
         <el-form-item label="工厂" prop="factoryId">
-          <el-select v-model="queryForm.factoryId" clearable  style="width: 190px" >
+          <el-select v-model="queryForm.factoryId" clearable  style="width: 200px" >
             <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id" />
           </el-select>
         </el-form-item>

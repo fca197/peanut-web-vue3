@@ -43,7 +43,7 @@
       <el-input v-model="addForm.bomSupplierRemark" clearable placeholder="请输入备注"/>
     </el-form-item>
     <el-form-item label="状态" prop="supplierStatus">
-      <el-select v-model="addForm.supplierStatus" style="width: 130px">
+      <el-select v-model="addForm.supplierStatus" style="width: 200px">
         <el-option
           v-for="kv in supplierStatusList" :label="kv.label" :value="kv.value" :key="kv.value"
         />

@@ -57,8 +57,8 @@
                 :key="index">
                 <el-input v-model="plt.saleConfigId" disabled style="display: none"/>
                 <el-input v-model="plt.projectConfigId" disabled style="display: none"/>
-                <el-input style="width: 130px" v-model="plt.projectConfigName" disabled/>
-                <el-input-number :min="0" :step="1" :max="100" style="width: 130px" v-model="plt.quantity"/>
+                <el-input style="width: 200px" v-model="plt.projectConfigName" disabled/>
+                <el-input-number :min="0" :step="1" :max="100" style="width: 200px" v-model="plt.quantity"/>
               </el-col>
             </span>
           </template>

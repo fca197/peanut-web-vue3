@@ -10,7 +10,7 @@
       <el-input v-model="addForm.parentCode" clearable placeholder="请输入上级编码"/>
     </el-form-item>
     <el-form-item label="层级" prop="level">
-      <el-select v-model="addForm.level" clearable placeholder="请输入层级" style="width: 100px">
+      <el-select v-model="addForm.level" clearable placeholder="请输入层级" style="width: 200px">
         <el-option v-for="kv in districtCodeLevel" :label="kv.label" :value="kv.value" :key="kv.value" />
       </el-select>
     </el-form-item>
