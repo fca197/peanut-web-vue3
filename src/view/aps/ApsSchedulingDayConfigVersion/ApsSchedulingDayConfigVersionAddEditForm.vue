@@ -12,6 +12,7 @@ import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
 import { queryOrderFieldList } from "@v/aps/ApsOrder/ApsOrderType.ts";
 import { queryOrderUserFieldList } from "@v/aps/ApsOrderUser/ApsOrderUserType.ts";
 import { ApsSaleConfig, querySaleConfigList } from "@v/aps/ApsSaleConfig/ApsSaleConfigType.ts";
+import dayjs from "dayjs"
 
 const props = defineProps({
   saveFun: {
@@ -42,7 +43,7 @@ const checkRules = ref<FormRules>({
   // 排程版本号
   schedulingDayVersionNo: [
     { required: true, message: "请输入排程版本号", trigger: "blur" },
-    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+    { min: 2, max: 30, message: "长度在 2 到 30 个字符", trigger: "blur" }
   ],
   // 排程日期
   schedulingDay: [
@@ -54,21 +55,21 @@ const checkRules = ref<FormRules>({
 
 // 添加对象
 const addForm = ref<ApsSchedulingDayConfigVersion>({
-  schedulingDayConfigId: "",
-  factoryId: "",
-  schedulingDayVersionNo: "",
-  schedulingDay: "",
+  schedulingDayConfigId: undefined,
+  factoryId: undefined,
+  schedulingDayVersionNo: "PC-" + dayjs().format("YYYYMMDDHHmmss") + "-" + Math.floor(Math.random() * 10000 + 1),
+  schedulingDay: undefined,
   searchOld: true,
-  isIssuedThird: "",
-  processId: "",
-  headerList: "",
-  productType: "",
-  goodsIdList: "",
-  saleConfigIdList: "",
-  stepIndex: "",
-  orderFieldList: "",
-  orderUserFieldList: "",
-  id: ""
+  isIssuedThird: undefined,
+  processId: undefined,
+  headerList: undefined,
+  productType: undefined,
+  goodsIdList: undefined,
+  saleConfigIdList: undefined,
+  stepIndex: undefined,
+  orderFieldList: undefined,
+  orderUserFieldList: undefined,
+  id: undefined
 })
 
 const loadById = () => {
@@ -112,6 +113,21 @@ const cancelForm = () => {
   }
 }
 
+const schedulingDayConfigChange = (id) => {
+  const ll = apsSchedulingDayConfigList.value.filter(t => t.id === id);
+  if(ll.length === 0) {
+    addForm.value.productType = undefined
+    return
+  }
+  const t = ll[0]
+  addForm.value.processId = t.processId
+  if(t.schedulingType === "make") {
+    addForm.value.productType = "MAKE"
+  } else {
+    addForm.value.productType = "PROCESS"
+  }
+}
+
 const apsSchedulingDayConfigList = ref<ApsSchedulingDayConfig[]>([])
 
 const factoryList = ref<Factory []>([])
@@ -125,6 +141,7 @@ watch(() => addForm.value.factoryId, (n) => {
   addForm.value.schedulingDayConfigId = undefined
   addForm.value.goodsIdList = undefined
 })
+
 // 页面加载事件
 onMounted(() => {
   loadById()
@@ -139,7 +156,12 @@ onMounted(() => {
   queryGoodsList().then(t => apsGoodsList.value = t)
   queryOrderFieldList().then(r => orderFieldList.value = r)
   queryOrderUserFieldList().then(r => orderUserFieldList.value = r)
-  querySaleConfigList().then(r => apsSaleConfigList.value = r.filter(t=>t.isValue === 0 ))
+  querySaleConfigList().then(r => apsSaleConfigList.value = r.filter(t => t.isValue === 0).map(t => {
+    return {
+      label: t.saleName,
+      value: t.id
+    }
+  }))
 })
 </script>
 
@@ -152,7 +174,7 @@ onMounted(() => {
       </el-select>
     </el-form-item>
     <el-form-item label="排程配置" prop="schedulingDayConfigId">
-      <el-select v-model="addForm.schedulingDayConfigId">
+      <el-select v-model="addForm.schedulingDayConfigId" @change="schedulingDayConfigChange">
         <el-option
           v-for="c in apsSchedulingDayConfigList.filter(t=> t.factoryId === addForm.factoryId)" :key="c.id"
           :value="c.id as string"
@@ -183,17 +205,17 @@ onMounted(() => {
 
     <el-form-item label="销售配置" prop="saleConfigIdList">
       <el-select v-model="addForm.saleConfigIdList" clearable placeholder="请选择销售配置" multiple>
-        <el-option v-for="s in apsSaleConfigList" :value="s.id" :label="s.saleName" :key="s.id" />
+        <el-option v-for="s in apsSaleConfigList" :value="s" :label="s.label" :key="s.label"/>
       </el-select>
     </el-form-item>
     <el-form-item label="订单字段" prop="orderFieldList">
       <el-select v-model="addForm.orderFieldList" clearable placeholder="请选择订单字段" multiple>
-        <el-option v-for="k in orderFieldList" :value="k.value" :key="k.value" :label="k.label"/>
+        <el-option v-for="k in orderFieldList" :value="k" :key="k.value" :label="k.label"/>
       </el-select>
     </el-form-item>
     <el-form-item label="订单用户字段" prop="orderUserFieldList">
       <el-select v-model="addForm.orderUserFieldList" clearable placeholder="请选择订单用户字段" multiple>
-        <el-option v-for="k in orderUserFieldList" :value="k.value" :key="k.value" :label="k.label"/>
+        <el-option v-for="k in orderUserFieldList" :value="k" :key="k.value" :label="k.label"/>
       </el-select>
     </el-form-item>
   </el-form>

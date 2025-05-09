@@ -169,3 +169,17 @@ export async function pinyin4jSzm(value: string | undefined) {
     return t.data.szmUpper + ""
   })
 }
+
+export function listGroupBy(array: any[], key: string) {
+  return array.reduce((result, currentItem) => {
+    // 使用 key 函数如果提供的话
+    const groupKey = typeof key === 'function' ? key(currentItem) : currentItem[key];
+    // 初始化分组数组
+    if(!result[groupKey]) {
+      result[groupKey] = []
+    }
+    // 将当前项添加到分组数组
+    result[groupKey].push(currentItem)
+    return result;
+  }, {});
+}

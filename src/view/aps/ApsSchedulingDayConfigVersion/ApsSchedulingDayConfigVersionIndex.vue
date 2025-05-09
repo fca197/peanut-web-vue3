@@ -79,15 +79,21 @@ const getDataList = () => {
 }
 
 // table点击事件
-const editData = (data: any) => {
-  // console.info("data ", data)
-  tableBarRef.value?.showEditDialog(data.id)
+const showData = (data: ApsSchedulingDayConfigVersion) => {
+   console.info("data ", data)
+  // tableBarRef.value?.showEditDialog(data.id)
+  if (data.productType === "MAKE") {
+    router.push(`/aps/ApsSchedulingDayConfigVersion/MachineResult/${data.id}`)
+  }else{
+    router.push(`/aps/ApsSchedulingDayConfigVersion/ProcessLineResult/${data.id}`)
+  }
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
   currentPageSize.value = val
   getDataList()
 }
+const router = useRouter();
 // 页面变更事件
 const handleCurrentChange = (val: number) => {
   currentPageNum.value = val
@@ -146,11 +152,11 @@ onMounted(() => {
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
-              type="warning"
-              icon="edit"
-              @click="editData(scope.row)"
+              type="primary"
+              icon="Histogram"
+              @click="showData(scope.row)"
             >
-              编辑
+              详情
             </el-button>
           </template>
         </ElTableColumn>
