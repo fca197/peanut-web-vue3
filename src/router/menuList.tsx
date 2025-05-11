@@ -15,12 +15,13 @@ export function menuList(): RouteRecordRaw[] {
       component: Layouts,
       children: [
         {
-          path: "/aps/ApsSchedulingDayConfigVersion/MachineResult/:id",
+          path: "/aps/ApsSchedulingDayConfigVersion/MachineResult/:id/:factoryId",
           name: "机器排程版本结果",
           component: () => import("@/view/aps/ApsSchedulingDayConfigVersion/MachineResult.vue"),
           meta: {
             title: "机器排程版本结果",
-            elIcon: "Files"
+            elIcon: "Files",
+            hidden: true
           }
         },
         {
@@ -29,7 +30,8 @@ export function menuList(): RouteRecordRaw[] {
           component: () => import("@/view/aps/ApsSchedulingDayConfigVersion/ProcessLineResult.vue"),
           meta: {
             title: "工艺路径排程版本结果",
-            elIcon: "Files"
+            elIcon: "Files",
+            hidden: true
           }
         },
         {

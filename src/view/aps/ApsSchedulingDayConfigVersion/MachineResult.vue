@@ -1,7 +1,13 @@
 <template>
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
-
+      <el-form :inline="true" size="small">
+        <el-form-item label="时间间隔">
+          <el-select style="width: 200px" v-model="timeInterval" @change="timeSpanChange">
+            <el-option v-for="t in timeIntervalArr" :key="t.value" :value="t.value" :label="t.label"/>
+          </el-select>
+        </el-form-item>
+      </el-form>
       <el-divider>
         概览
       </el-divider>
@@ -16,7 +22,7 @@
       <el-divider>
         机器生产顺序
       </el-divider>
-      <div :style="{'width':((zzljEnd-zzljStart)*130+100 )+'px'}" :key="reloadZZLJKey">
+      <el-row :style="{'width':((zzljEnd-zzljStart)*130+100 )+'px'}" id="jqscsxDivId" :key="reloadZZLJKey">
         <div class="headerItem " style="width: 100px"> 机器名称</div>
         <span class="headerItem  header" v-for="(index,i) in zzljEnd-zzljStart" style="width: 130px;text-align: center">
         {{ formatDate(new Date((zzljStart * 1000 * timeInterval) + index * 1000 * timeInterval)).substr(0, 10) }}
@@ -25,22 +31,21 @@
       </span>
 
         <div v-for="(m,i) in machineList">
-          <div class="headerItem  orderNoDiv" style="width: 100px">{{ m.machineName }}</div>
-          <div class="headerItem orderNoDiv" :id="m.machineId + '_' + i" v-for="(index,i) in zzljEnd-zzljStart"
-               style="width: 130px;text-align: left">
-            <div v-if="orderNoTimeMap[m.machineId + '_' + index] && orderNoTimeMap[m.machineId + '_' + index].length>0">
-              <div class="orderNoInfo"
-                   :style="{'z-index': index,'width': o.colSpan*130 +'px','backgroundColor':colorMap[o.orderNo]}"
-                   v-for="(o,i) in  ( orderNoTimeMap[m.machineId + '_' + index])"
-              >{{
-                  o.orderNo
-                }}
-              </div>
-            </div>
-          </div>
+          <el-row class="headerItem  orderNoDiv" style="width: 100px">{{ m.machineName }}</el-row>
+          <el-row class="headerItem orderNoDiv" :id="m.id + '_' + i" v-for="(index,i) in zzljEnd-zzljStart"
+                  style="width: 130px;text-align: left">
+            <el-row
+              v-if="orderNoTimeMap[m.id + '_' + index] && orderNoTimeMap[m.id + '_' + index].length>0">
+              <el-row class="orderNoInfo"
+                      :style="{'z-index': index,'width': o.colSpan*130 +'px','backgroundColor':colorMap[o.orderNo]}"
+                      v-for="(o,i) in  ( orderNoTimeMap[m.id + '_' + index])"
+              >{{ o.orderNo }}
+              </el-row>
+            </el-row>
+          </el-row>
           <hr/>
         </div>
-      </div>
+      </el-row>
     </el-card>
   </div>
 </template>
@@ -48,15 +53,28 @@
 <script setup lang="ts">
 
 import { useRoute } from "vue-router";
-import { ApsMachine } from "@v/aps/ApsMachine/ApsMachineType.ts";
-import { listGroupBy, postResultInfo } from "@@/utils/common-js.ts";
+import { ApsMachine, queryApsMachineList } from "@v/aps/ApsMachine/ApsMachineType.ts";
+import { KVEntity, listGroupBy, postResultInfo } from "@@/utils/common-js.ts";
 
 const beginDateTime = ref<string>(null)
 const endDateTime = ref<string>(null)
 const reloadZZLJKey = ref<string>(Math.random() * 100000 + "")
 const zzljEnd = ref<number>(0)
 const zzljStart = ref<number>(0)
-const timeInterval = ref<number>(1)
+const jqscsxDivRef = ref<any>(null)
+
+const timeIntervalArr = ref<KVEntity []>([
+  { label: "10分钟", value: 600 },
+  { label: "15分钟", value: 900 },
+  { label: "30分钟", value: 1800 },
+  { label: "1小时", value: 3600 },
+  { label: "3小时", value: 10800 },
+  { label: "6小时", value: 21600 },
+  { label: "12小时", value: 43200 },
+  { label: "24小时", value: 86400 }
+])
+
+const timeInterval = ref<number>(timeIntervalArr.value[0].value)
 const machineList = ref<ApsMachine[]>([])
 const orderNoTimeMap = ref<any>({})
 const colorMap = ref<any>({})
@@ -66,7 +84,8 @@ const route = useRoute();
 // 从路由参数中获取id
 const id = route.params.id as string;
 console.info("id ", id)
-
+const factoryId = route.params.factoryId as string;
+console.info("factoryId ", factoryId)
 
 const formatDate = (val) => {
   var date = new Date(Number(val)); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -84,50 +103,68 @@ const padLeftZero = (str) => {
   return str <= 9 ? '0' + str : str;
 }
 
-onMounted(() => {
-  postResultInfo("/apsSchedulingDayConfigVersionDetailMachine/queryList", {
-    data: {
-      schedulingDayId: id
-    }
-  }).then(r => {
-    let ll = r.data.dataList.sort((a, b) => a.beginDateTime.localeCompare(b.beginDateTime))
-    ll.forEach(o => {
-      let t = colorMap.value[o.orderNo]
-      if(t === undefined) {
-        colorMap.value[o.orderNo] = getRandomShallowColor()
-      }
+const timeSpanChange = () => {
+  queryDetailList()
+}
+const queryDetailList = () => {
+  orderNoTimeMap.value = {}
+
+  return queryApsMachineList(factoryId).then(r => {
+    r = r.sort((a, b) => {
+      return parseInt(a.sortIndex) - parseInt(b.sortIndex)
     })
-    let apsSchedulingDayConfigVersionDetailMachineList = listGroupBy(ll, 'machineName')
-    beginDateTime.value = ll.map(t => t.beginDateTime).sort()[0]
-    endDateTime.value = ll.map(t => t.beginDateTime).sort()[ll.length - 1]
-    zzljStart.value = getTimeInterval(beginDateTime.value) - 1
-    zzljEnd.value = getTimeInterval(endDateTime.value) - 1
-
-    for (let k in apsSchedulingDayConfigVersionDetailMachineList) {
-
-      let orderList = apsSchedulingDayConfigVersionDetailMachineList[k]
-      let tm = {}
-      console.info("k ", k, orderList)
-      orderList.forEach(o => {
-        let obI = getTimeInterval(o.beginDateTime)
-        let ebI = getTimeInterval(o.endDateTime)
-        let elementId = o.machineId + '_' + (obI - zzljStart.value)
-        let t = tm[elementId]
-        o.colSpan = ebI - obI + 1
-        if(t) {
-          tm[elementId].push(o)
-        } else {
-          tm[elementId] = [ o ]
-        }
-        // this.orderNoTimeMap [elementId]=  this.orderNoTimeMap [elementId].sort(function(o1, o2) {return  o1.beginDateTime > o2.beginDateTime})
-      })
-      for (const tmKey in tm) {
-        orderNoTimeMap.value[tmKey] = tm[tmKey]
+    machineList.value = r
+    console.info("queryApsMachineList", machineList.value, factoryId)
+  }).then(() => {
+    postResultInfo("/apsSchedulingDayConfigVersionDetailMachine/queryList", {
+      data: {
+        schedulingDayId: id
       }
-    }
-    reloadZZLJKey.value = Math.random() + ""
-    console.info("reloadZZLJKey ", reloadZZLJKey.value, orderNoTimeMap)
+    }).then(r => {
+      let ll = r.data.dataList.sort((a, b) => a.beginDateTime.localeCompare(b.beginDateTime))
+      ll.forEach(o => {
+        let t = colorMap.value[o.orderNo]
+        if(t === undefined) {
+          colorMap.value[o.orderNo] = getRandomShallowColor()
+        }
+      })
+      let apsSchedulingDayConfigVersionDetailMachineList = listGroupBy(ll, 'machineName')
+      beginDateTime.value = ll.map(t => t.beginDateTime).sort()[0]
+      endDateTime.value = ll.map(t => t.beginDateTime).sort()[ll.length - 1]
+      zzljStart.value = getTimeInterval(beginDateTime.value) - 1
+      zzljEnd.value = getTimeInterval(endDateTime.value) - 1
+      for (let k in apsSchedulingDayConfigVersionDetailMachineList) {
+        let orderList = apsSchedulingDayConfigVersionDetailMachineList[k]
+        let tm = {}
+        console.info("k ", k, orderList)
+        orderList.forEach(o => {
+          let obI = getTimeInterval(o.beginDateTime)
+          let ebI = getTimeInterval(o.endDateTime)
+          let elementId = o.machineId + '_' + (obI - zzljStart.value)
+          let t = tm[elementId]
+          o.colSpan = ebI - obI + 1
+          if(t) {
+            tm[elementId].push(o)
+          } else {
+            tm[elementId] = [ o ]
+          }
+          // this.orderNoTimeMap [elementId]=  this.orderNoTimeMap [elementId].sort(function(o1, o2) {return  o1.beginDateTime > o2.beginDateTime})
+        })
+        for (const tmKey in tm) {
+          orderNoTimeMap.value[tmKey] = tm[tmKey]
+        }
+      }
+      reloadZZLJKey.value = Math.random() + ""
+      console.info("reloadZZLJKey ", reloadZZLJKey.value, "orderNoTimeMap", orderNoTimeMap, machineList.value, "jqscsxDivRef", jqscsxDivRef.value)
+
+    }).then(() => {
+      console.info("      document.getElementById(\"jqscsxDivId\") ", document.getElementById("jqscsxDivId"))
+      document.getElementById("jqscsxDivId").className = "scrollDiv"
+    })
   })
+}
+onMounted(() => {
+  queryDetailList()
 })
 const getRandomShallowColor = () => {
   const maxValue = 255
@@ -163,5 +200,9 @@ div.orderNoInfo {
 
 div.orderNoDiv {
   line-height: 30px;
+}
+
+.scrollDiv {
+  overflow-x: scroll;
 }
 </style>

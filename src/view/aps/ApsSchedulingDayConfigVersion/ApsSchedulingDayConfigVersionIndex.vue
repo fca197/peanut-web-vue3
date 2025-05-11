@@ -83,7 +83,7 @@ const showData = (data: ApsSchedulingDayConfigVersion) => {
    console.info("data ", data)
   // tableBarRef.value?.showEditDialog(data.id)
   if (data.productType === "MAKE") {
-    router.push(`/aps/ApsSchedulingDayConfigVersion/MachineResult/${data.id}`)
+    router.push(`/aps/ApsSchedulingDayConfigVersion/MachineResult/${data.id}/${data.factoryId}`)
   }else{
     router.push(`/aps/ApsSchedulingDayConfigVersion/ProcessLineResult/${data.id}`)
   }
