@@ -7,6 +7,12 @@
             <el-option v-for="t in timeIntervalArr" :key="t.value" :value="t.value" :label="t.label"/>
           </el-select>
         </el-form-item>
+        <el-form-item>
+
+          <el-button type="primary" icon="download" @click="downloadDataList">
+            下载
+          </el-button>
+        </el-form-item>
       </el-form>
       <el-divider>
         概览
@@ -47,6 +53,29 @@
         </div>
       </el-row>
     </el-card>
+
+    <el-card class="search-wrapper" shadow="never">
+      <h2>机器使用率</h2>
+      <el-table :data="machineList">
+        <el-table-column label="机器名称" prop="machineName"></el-table-column>
+        <el-table-column label="制造数量">
+          <template #default="scope">
+            {{ machineUseRate[scope.row.id]["makeProduceCount"] }}
+          </template>
+        </el-table-column>
+        <el-table-column label="制造耗时">
+          <template #default="scope">
+            {{ machineUseRate[scope.row.id]["useTime"] }}
+          </template>
+        </el-table-column>
+        <el-table-column label="使用率">
+          <template #default="scope">
+            {{ machineUseRate[scope.row.id]["useUsageRate"] }}%
+          </template>
+        </el-table-column>
+
+      </el-table>
+    </el-card>
   </div>
 </template>
 
@@ -54,7 +83,7 @@
 
 import { useRoute } from "vue-router";
 import { ApsMachine, queryApsMachineList } from "@v/aps/ApsMachine/ApsMachineType.ts";
-import { KVEntity, listGroupBy, postResultInfo } from "@@/utils/common-js.ts";
+import { downloadFilePost, KVEntity, listGroupBy, postResultInfo, postResultInfoList } from "@@/utils/common-js.ts";
 
 const beginDateTime = ref<string>(null)
 const endDateTime = ref<string>(null)
@@ -78,6 +107,7 @@ const timeInterval = ref<number>(timeIntervalArr.value[0].value)
 const machineList = ref<ApsMachine[]>([])
 const orderNoTimeMap = ref<any>({})
 const colorMap = ref<any>({})
+const machineUseRate = ref<any>({})
 // 获取当前路由信息
 const route = useRoute();
 
@@ -163,8 +193,20 @@ const queryDetailList = () => {
     })
   })
 }
+
+const queryMachineUserRate = () => {
+
+  postResultInfoList("/apsSchedulingDayConfigVersionDetailMachineUseTime/queryList", { data: { schedulingDayId: id } })
+    .then(r => {
+      // log(t)
+      r.forEach(tt => {
+        machineUseRate.value[tt.machineId] = tt
+      })
+    })
+}
 onMounted(() => {
   queryDetailList()
+  queryMachineUserRate()
 })
 const getRandomShallowColor = () => {
   const maxValue = 255
@@ -174,6 +216,15 @@ const getRandomShallowColor = () => {
 }
 const getTimeInterval = (time) => {
   return parseInt(new Date(Date.parse(time)).getTime() / 1000 / timeInterval.value + '')
+}
+
+const downloadDataList = () => {
+  downloadFilePost("/apsSchedulingDayConfigVersionDetailMachine/exportQueryPageList", {
+    timeSpan: timeInterval.value,
+    data: {
+      schedulingDayId: id
+    }
+  }, "排程结果.xlsx")
 }
 </script>
 
