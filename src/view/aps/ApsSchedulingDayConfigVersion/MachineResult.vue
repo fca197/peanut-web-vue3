@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
-      <el-form :inline="true" size="small">
+      <el-form :inline="true" >
         <el-form-item label="时间间隔">
           <el-select style="width: 200px" v-model="timeInterval" @change="timeSpanChange">
             <el-option v-for="t in timeIntervalArr" :key="t.value" :value="t.value" :label="t.label"/>
@@ -56,7 +56,7 @@
 
     <el-card class="search-wrapper" shadow="never">
       <h2>机器使用率</h2>
-      <el-table :data="machineList">
+      <el-table :data="machineList" :key="reloadZZLJKey">
         <el-table-column label="机器名称" prop="machineName"></el-table-column>
         <el-table-column label="制造数量">
           <template #default="scope">

@@ -9,6 +9,7 @@ export interface Result<T> {
 export interface HeaderInfo {
   fieldName: string
   showName: string
+  width: number
 }
 
 export interface ResultPageInfo<T> {
@@ -93,7 +94,6 @@ export async function downloadFilePost(reqUrl: string, reqData: any, saveFileNam
     const blob = await response.blob()
     const url = URL.createObjectURL(blob)
     const link = document.createElement("a")
-    
     // 提取文件名
     let fileName = saveFileName || "未命名.xlsx"
     const contentDisposition = response.headers.get("Content-Disposition")

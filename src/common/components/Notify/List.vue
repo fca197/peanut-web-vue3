@@ -16,7 +16,7 @@ const props = defineProps<Props>()
         <div>
           <span>
             <span class="card-title">{{ item.title }}</span>
-            <el-tag v-if="item.extra" :type="item.status" effect="plain" size="small">{{ item.extra }}</el-tag>
+            <el-tag v-if="item.extra" :type="item.status" effect="plain" >{{ item.extra }}</el-tag>
           </span>
           <div class="card-time">
             {{ item.datetime }}

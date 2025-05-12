@@ -182,10 +182,10 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
           <ElTableColumn prop="createTime" label="创建时间" align="center" />
           <ElTableColumn fixed="right" label="操作" width="150" align="center">
             <template #default="scope">
-              <el-button type="primary" text bg size="small" @click="handleUpdate(scope.row)">
+              <el-button type="primary" text bg  @click="handleUpdate(scope.row)">
                 修改
               </el-button>
-              <el-button type="danger" text bg size="small" @click="handleDelete(scope.row)">
+              <el-button type="danger" text bg  @click="handleDelete(scope.row)">
                 删除
               </el-button>
             </template>

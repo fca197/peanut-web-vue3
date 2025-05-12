@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
-      <el-form ref="queryForm" :inline="true" :model="queryParams" label-width="100px" size="small">
+      <el-form ref="queryForm" :inline="true" :model="queryParams" label-width="100px" >
 
         <el-form-item label="预测时间" prop="dataRange">
           <el-date-picker v-model="queryParams.dateRange"
