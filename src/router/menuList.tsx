@@ -20,7 +20,7 @@ export function menuList(): RouteRecordRaw[] {
           component: () => import("@/view/aps/ApsRollingForecastFactoryCapacity/ApsRollingForecastFactoryCapacityIndex.vue"),
           meta: {
             title: "工厂滚动产能",
-            elIcon: "Histogram"
+            elIcon: "DataLine"
           }
         },
         {
