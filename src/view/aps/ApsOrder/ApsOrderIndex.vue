@@ -170,7 +170,7 @@ const updateOrderGoodsStatus = (orderId: string, sid: string) => {
   postNoResult("/apsOrder/updateOrderStatus", {
     orderId,
     goodsStatusId: sid
-  }, "修改成功", loadDataIngClose)
+  }, "修改成功", getDataList)
 }
 const updateSchedulingDate = (row: ApsOrder, val: string) => {
   console.info("updateSchedulingDate", row, val)
