@@ -2,23 +2,23 @@ import { KVEntity, postResultInfoList, Result } from "@@/utils/common-js.ts";
 import {request} from "@/http/axios.ts";
 
 export interface ApsOrder {
-  orderNo: string
-  orderRemark: string
-  orderStatus: string
-  orderTotalPrice: string
-  goodsId: string
-  reserveAmount: string
-  reserveDatetime: string
-  finishPayedAmount: string
-  finishPayedDatetime: string
-  makeFinishDate: string
-  actMakeFinishDate: string
-  deliveryDate: string
-  factoryId: string
-  urgencyLevel: string
-  schedulingDate: string
-  orderNoParent: string
-  id: string
+  orderNo: string | undefined
+  orderRemark: string | undefined
+  orderStatus: string | undefined
+  orderTotalPrice: string | undefined
+  goodsId: string | undefined
+  reserveAmount: string | undefined
+  reserveDatetime: string | undefined
+  finishPayedAmount: string | undefined
+  finishPayedDatetime: string | undefined
+  makeFinishDate: string | undefined
+  actMakeFinishDate: string | undefined
+  deliveryDate: string | undefined
+  factoryId: string | undefined
+  urgencyLevel: string | undefined
+  schedulingDate: string | undefined
+  orderNoParent: string | undefined
+  id: string | undefined
 }
 
 export interface OrderStatusRes {

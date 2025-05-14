@@ -15,6 +15,15 @@ export function menuList(): RouteRecordRaw[] {
       component: Layouts,
       children: [
         {
+          path: "/aps/ApsOrder",
+          name: "订单",
+          component: () => import("@/view/aps/ApsOrder/ApsOrderIndex.vue"),
+          meta: {
+            title: "订单",
+            elIcon: "ShoppingCartFull"
+          }
+        },
+        {
           path: "/aps/ApsOrderGoodsHistory",
           name: "订单商品统计",
           component: () => import("@/view/aps/ApsOrderGoodsHistory/ApsOrderGoodsHistoryIndex.vue"),
