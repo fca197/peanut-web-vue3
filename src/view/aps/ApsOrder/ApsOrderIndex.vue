@@ -42,8 +42,10 @@
               </el-select>
             </span>
             <span v-else-if="h.fieldName === 'schedulingDate'">
-              <el-date-picker v-model="scope.row.schedulingDate" value-format="YYYY-MM-DD"
-                              @change="value=>{updateSchedulingDate(scope.row,value)}" style="width: 140px"
+              <el-date-picker
+                :disabled-date="disabledDate"
+                v-model="scope.row.schedulingDate" value-format="YYYY-MM-DD"
+                @change="value=>{updateSchedulingDate(scope.row,value)}" style="width: 140px"
               />
             </span>
             <span v-else>
@@ -199,7 +201,12 @@ const loadDataIngClose = () => {
 const loadDataIngOpen = () => {
   loadDataIng.value = true
 }
+const nowDateTime = new Date().getTime()
 
+console.info("disabledDate min dateTime ", nowDateTime)
+const disabledDate = (time) => {
+  return time.getTime() < nowDateTime; // 禁用所有在今天之前的日期
+};
 // 页面加载事件
 onMounted(() => {
   getDataList()
