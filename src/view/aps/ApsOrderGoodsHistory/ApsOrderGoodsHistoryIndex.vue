@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
+import { onMounted, ref } from "vue"
 import AddEditFormVue from "./ApsOrderGoodsHistoryAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import { ElTable } from "element-plus";
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsOrderGoodsHistory} from "./ApsOrderGoodsHistoryType.ts"
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import { type ApsOrderGoodsHistory } from "./ApsOrderGoodsHistoryType.ts"
+import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
+import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
 
 const dtoUrl = ref<string>("/apsOrderGoodsHistory")
 const documentTitle = ref<string>("历史订单记录")
@@ -52,42 +54,12 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsOrderGoodsHistory[] >([])
+const dataList = ref<ApsOrderGoodsHistory[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
-const headerList = ref<HeaderInfo[]>([
- {fieldName: "id", showName: "序号"},
-  { fieldName: "factoryId", showName: "工厂ID" },
-  { fieldName: "goodsId", showName: "商品ID" },
-  { fieldName: "goodsName", showName: "商品名称" },
-  { fieldName: "year", showName: "年份" },
-  { fieldName: "monthCount01", showName: "1月销售数量" },
-  { fieldName: "monthRatio01", showName: "1月销售占比" },
-  { fieldName: "monthCount02", showName: "2月销售数量" },
-  { fieldName: "monthRatio02", showName: "2月销售占比" },
-  { fieldName: "monthCount03", showName: "3月销售数量" },
-  { fieldName: "monthRatio03", showName: "3月销售占比" },
-  { fieldName: "monthCount04", showName: "4月销售数量" },
-  { fieldName: "monthRatio04", showName: "4月销售占比" },
-  { fieldName: "monthCount05", showName: "5月销售数量" },
-  { fieldName: "monthRatio05", showName: "5月销售占比" },
-  { fieldName: "monthCount06", showName: "6月销售数量" },
-  { fieldName: "monthRatio06", showName: "6月销售占比" },
-  { fieldName: "monthCount07", showName: "7月销售数量" },
-  { fieldName: "monthRatio07", showName: "7月销售占比" },
-  { fieldName: "monthCount08", showName: "8月销售数量" },
-  { fieldName: "monthRatio08", showName: "8月销售占比" },
-  { fieldName: "monthCount09", showName: "9月销售数量" },
-  { fieldName: "monthRatio09", showName: "9月销售占比" },
-  { fieldName: "monthCount10", showName: "10月销售数量" },
-  { fieldName: "monthRatio10", showName: "10月销售占比" },
-  { fieldName: "monthCount11", showName: "11月销售数量" },
-  { fieldName: "monthRatio11", showName: "11月销售占比" },
-  { fieldName: "monthCount12", showName: "12月销售数量" },
-  { fieldName: "monthRatio12", showName: "12月销售占比" },
-])
-
+const headerList = ref<HeaderInfo[]>([])
+const monthList = ref<string[]>(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"])
 
 // 获取表格内数据
 const getDataList = () => {
@@ -126,9 +98,13 @@ const handleSelectionChange = (val: ApsOrderGoodsHistory[]) => {
   console.info("multipleSelection ", multipleSelection)
 }
 
+const factoryList = ref<Factory[]>([])
+const apsGoodsList = ref<ApsGoods[]>([])
 // 页面加载事件
 onMounted(() => {
   getDataList()
+  queryFactoryList().then(r => factoryList.value = r)
+  queryGoodsList().then(r => apsGoodsList.value = r)
 })
 
 </script>
@@ -137,89 +113,18 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="工厂ID" prop="factoryId">
-          <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
+        <el-form-item label="工厂" prop="factoryId">
+          <el-select v-model="queryForm.factoryId" clearable @change="queryForm.goodsId = undefined"
+                     style="width: 200px">
+            <el-option v-for="f in factoryList" :k="f.id" :value="f.id" :label="f.factoryName"/>
+          </el-select>
         </el-form-item>
-        <el-form-item label="商品ID" prop="goodsId">
-          <el-input v-model="queryForm.goodsId" clearable placeholder="请输入商品ID" />
-        </el-form-item>
-        <el-form-item label="商品名称" prop="goodsName">
-          <el-input v-model="queryForm.goodsName" clearable placeholder="请输入商品名称" />
-        </el-form-item>
-        <el-form-item label="年份" prop="year">
-          <el-input v-model="queryForm.year" clearable placeholder="请输入年份" />
-        </el-form-item>
-        <el-form-item label="1月销售数量" prop="monthCount01">
-          <el-input v-model="queryForm.monthCount01" clearable placeholder="请输入1月销售数量" />
-        </el-form-item>
-        <el-form-item label="1月销售占比" prop="monthRatio01">
-          <el-input v-model="queryForm.monthRatio01" clearable placeholder="请输入1月销售占比" />
-        </el-form-item>
-        <el-form-item label="2月销售数量" prop="monthCount02">
-          <el-input v-model="queryForm.monthCount02" clearable placeholder="请输入2月销售数量" />
-        </el-form-item>
-        <el-form-item label="2月销售占比" prop="monthRatio02">
-          <el-input v-model="queryForm.monthRatio02" clearable placeholder="请输入2月销售占比" />
-        </el-form-item>
-        <el-form-item label="3月销售数量" prop="monthCount03">
-          <el-input v-model="queryForm.monthCount03" clearable placeholder="请输入3月销售数量" />
-        </el-form-item>
-        <el-form-item label="3月销售占比" prop="monthRatio03">
-          <el-input v-model="queryForm.monthRatio03" clearable placeholder="请输入3月销售占比" />
-        </el-form-item>
-        <el-form-item label="4月销售数量" prop="monthCount04">
-          <el-input v-model="queryForm.monthCount04" clearable placeholder="请输入4月销售数量" />
-        </el-form-item>
-        <el-form-item label="4月销售占比" prop="monthRatio04">
-          <el-input v-model="queryForm.monthRatio04" clearable placeholder="请输入4月销售占比" />
-        </el-form-item>
-        <el-form-item label="5月销售数量" prop="monthCount05">
-          <el-input v-model="queryForm.monthCount05" clearable placeholder="请输入5月销售数量" />
-        </el-form-item>
-        <el-form-item label="5月销售占比" prop="monthRatio05">
-          <el-input v-model="queryForm.monthRatio05" clearable placeholder="请输入5月销售占比" />
-        </el-form-item>
-        <el-form-item label="6月销售数量" prop="monthCount06">
-          <el-input v-model="queryForm.monthCount06" clearable placeholder="请输入6月销售数量" />
-        </el-form-item>
-        <el-form-item label="6月销售占比" prop="monthRatio06">
-          <el-input v-model="queryForm.monthRatio06" clearable placeholder="请输入6月销售占比" />
-        </el-form-item>
-        <el-form-item label="7月销售数量" prop="monthCount07">
-          <el-input v-model="queryForm.monthCount07" clearable placeholder="请输入7月销售数量" />
-        </el-form-item>
-        <el-form-item label="7月销售占比" prop="monthRatio07">
-          <el-input v-model="queryForm.monthRatio07" clearable placeholder="请输入7月销售占比" />
-        </el-form-item>
-        <el-form-item label="8月销售数量" prop="monthCount08">
-          <el-input v-model="queryForm.monthCount08" clearable placeholder="请输入8月销售数量" />
-        </el-form-item>
-        <el-form-item label="8月销售占比" prop="monthRatio08">
-          <el-input v-model="queryForm.monthRatio08" clearable placeholder="请输入8月销售占比" />
-        </el-form-item>
-        <el-form-item label="9月销售数量" prop="monthCount09">
-          <el-input v-model="queryForm.monthCount09" clearable placeholder="请输入9月销售数量" />
-        </el-form-item>
-        <el-form-item label="9月销售占比" prop="monthRatio09">
-          <el-input v-model="queryForm.monthRatio09" clearable placeholder="请输入9月销售占比" />
-        </el-form-item>
-        <el-form-item label="10月销售数量" prop="monthCount10">
-          <el-input v-model="queryForm.monthCount10" clearable placeholder="请输入10月销售数量" />
-        </el-form-item>
-        <el-form-item label="10月销售占比" prop="monthRatio10">
-          <el-input v-model="queryForm.monthRatio10" clearable placeholder="请输入10月销售占比" />
-        </el-form-item>
-        <el-form-item label="11月销售数量" prop="monthCount11">
-          <el-input v-model="queryForm.monthCount11" clearable placeholder="请输入11月销售数量" />
-        </el-form-item>
-        <el-form-item label="11月销售占比" prop="monthRatio11">
-          <el-input v-model="queryForm.monthRatio11" clearable placeholder="请输入11月销售占比" />
-        </el-form-item>
-        <el-form-item label="12月销售数量" prop="monthCount12">
-          <el-input v-model="queryForm.monthCount12" clearable placeholder="请输入12月销售数量" />
-        </el-form-item>
-        <el-form-item label="12月销售占比" prop="monthRatio12">
-          <el-input v-model="queryForm.monthRatio12" clearable placeholder="请输入12月销售占比" />
+        <el-form-item label="商品" prop="goodsId">
+          <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
+            <el-option
+              v-for="f in apsGoodsList.filter(t=> t.factoryId === queryForm.factoryId)" :k="f.id" :value="f.id"
+              :label="f.goodsName"/>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -241,18 +146,14 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <el-table-column v-for="m in monthList" width="200" :key="m+'month'" :label="m+'月'">
           <template #default="scope">
-            <el-button
-              type="warning"
-              icon="edit"
-              @click="editData(scope.row)"
-            >
-              编辑
-            </el-button>
+            {{
+              scope.row['monthRatio' + m] !== null ? scope.row['monthRatio' + m] + '%' : ''
+            }}/{{ scope.row['monthCount' + m] !== null ? parseInt(scope.row['monthCount' + m]) : '' }}
           </template>
-        </ElTableColumn>
+        </el-table-column>
       </ElTable>
       <el-row class="paginationDiv">
         <el-pagination

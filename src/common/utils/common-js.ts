@@ -9,7 +9,7 @@ export interface Result<T> {
 export interface HeaderInfo {
   fieldName: string
   showName: string
-  width: number
+  width?: number | undefined
 }
 
 export interface ResultPageInfo<T> {

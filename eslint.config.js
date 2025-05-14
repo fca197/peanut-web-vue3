@@ -20,6 +20,7 @@ export default antfu(
   {
     // 对所有文件都生效的规则
     rules: {
+      "style/keyword-spacing": "off",
       "style/indent": "off",
       "ts/no-import-type-side-effects": "off",
       "perfectionist/sort-imports": "off",

@@ -28,7 +28,7 @@ const queryForm = ref<ApsOrderGoodsSaleConfigHistory>({
 // 表格选中的id
 const multipleSelection = ref<(string | undefined)[]>([])
 
-const monthList = ref<string[]>([ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ])
+const monthList = ref<string[]>(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"])
 // 表格
 // const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
 const dataTableRef = ref({})
@@ -41,12 +41,8 @@ const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
   { fieldName: "id", showName: "序号" },
-  { fieldName: "factoryId", showName: "工厂ID" },
-  { fieldName: "goodsId", showName: "商品ID" },
   { fieldName: "goodsName", showName: "商品名称" },
-  { fieldName: "saleParentId", showName: "销售上级ID" },
   { fieldName: "saleParentConfigName", showName: "销售组名称" },
-  { fieldName: "saleConfigId", showName: "销售ID" },
   { fieldName: "saleConfigName", showName: "销售组名称" },
   { fieldName: "year", showName: "年份" },
   { fieldName: "monthCount01", showName: "1月销售数量" },
