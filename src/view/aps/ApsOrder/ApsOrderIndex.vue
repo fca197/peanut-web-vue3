@@ -22,6 +22,7 @@
         :multiple-selection="multipleSelection"
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
+        :dialog-with="1000"
       >
         <template #otherBtn>
           <el-button type="warning" icon="plus" @click="batchInsert">

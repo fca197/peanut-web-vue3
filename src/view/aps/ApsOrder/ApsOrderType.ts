@@ -1,5 +1,7 @@
 import { KVEntity, postResultInfoList, Result } from "@@/utils/common-js.ts";
 import {request} from "@/http/axios.ts";
+import { ApsOrderUser } from "@v/aps/ApsOrderUser/ApsOrderUserType.ts";
+import { ApsOrderGoods } from "@v/aps/ApsOrderGoods/ApsOrderGoodsType.ts";
 
 export interface ApsOrder {
   orderNo: string | undefined
@@ -15,10 +17,12 @@ export interface ApsOrder {
   actMakeFinishDate: string | undefined
   deliveryDate: string | undefined
   factoryId: string | undefined
-  urgencyLevel: string | undefined
+  urgencyLevel: number | undefined
   schedulingDate: string | undefined
   orderNoParent: string | undefined
   id: string | undefined
+  orderUser?: ApsOrderUser
+  goodsList?: ApsOrderGoods[]
 }
 
 export interface OrderStatusRes {
