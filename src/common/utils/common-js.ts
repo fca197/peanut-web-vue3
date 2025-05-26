@@ -72,6 +72,7 @@ export function postResultInfoList(url: string, data: any) {
     method: "post",
     data
   }).then((r) => {
+    // console.info("postResultInfoList ", url, data, r)
     return r.data.dataList
   })
 }
@@ -173,13 +174,13 @@ export async function pinyin4jSzm(value: string | undefined) {
 export function listGroupBy(array: any[], key: string) {
   return array.reduce((result, currentItem) => {
     // 使用 key 函数如果提供的话
-    const groupKey = typeof key === 'function' ? key(currentItem) : currentItem[key];
+    const groupKey = typeof key === "function" ? key(currentItem) : currentItem[key];
     // 初始化分组数组
     if(!result[groupKey]) {
       result[groupKey] = []
     }
     // 将当前项添加到分组数组
     result[groupKey].push(currentItem)
-    return result;
-  }, {});
+    return result
+  }, {})
 }

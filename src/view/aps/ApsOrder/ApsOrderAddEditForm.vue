@@ -13,7 +13,7 @@
         </el-form-item>
         <el-form-item label="定金支付时间">
           <el-date-picker v-model="addForm.reserveDatetime" type="datetime" placeholder="选择日期时间"
-                          align="right" value-format="yyyy-MM-dd HH:mm:ss"
+                          align="right" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%"
           />
         </el-form-item>
 
@@ -22,17 +22,17 @@
         </el-form-item>
         <el-form-item label="尾款支付时间" prop="finishPayedDatetime">
           <el-date-picker v-model="addForm.finishPayedDatetime" type="datetime" placeholder="选择日期时间"
-                          align="right" value-format="yyyy-MM-dd HH:mm:ss"
+                          align="right" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%"
           />
         </el-form-item>
         <el-form-item label="制造完成时间" prop="makeFinishDate">
           <el-date-picker v-model="addForm.makeFinishDate" type="date" placeholder="选择日期时间"
-                          align="right" value-format="yyyy-MM-dd"
+                          align="right" value-format="yyyy-MM-dd" style="width: 100%"
           />
         </el-form-item>
         <el-form-item label="交付时间" prop="deliveryDate">
           <el-date-picker v-model="addForm.deliveryDate" type="date" placeholder="选择日期时间"
-                          align="right" value-format="yyyy-MM-dd"
+                          align="right" value-format="yyyy-MM-dd" style="width: 100%"
           />
         </el-form-item>
 
@@ -50,15 +50,15 @@
         </el-form-item>
         <el-form-item label="客户性别" prop="userMobile">
           <el-radio-group v-model="addForm.orderUser.userSex">
-            <el-radio :label="1">男</el-radio>
-            <el-radio :label="0">女</el-radio>
+            <el-radio label="男" value="1"/>
+            <el-radio label="女" value="0"/>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="国家" prop="userEmail">
-          <el-select v-model="addForm.orderUser.countryCode" placeholder="请选择省份">
-            <el-option v-for="item in countryCodeList" :key="item.code" :label="item.name" :value="item.code"/>
-          </el-select>
-        </el-form-item>
+        <!--        <el-form-item label="国家" prop="userEmail">-->
+        <!--          <el-select v-model="addForm.orderUser.countryCode" placeholder="请选择省份">-->
+        <!--            <el-option v-for="item in countryCodeList" :key="item.code" :label="item.name" :value="item.code"/>-->
+        <!--          </el-select>-->
+        <!--        </el-form-item>-->
         <el-form-item label="省份" prop="provinceCode">
           <el-select v-model="addForm.orderUser.provinceCode" placeholder="请选择省份">
             <el-option v-for="item in provinceCodeList" :key="item.code" :label="item.name" :value="item.code"/>
@@ -82,17 +82,20 @@
         </el-form-item>
       </el-tab-pane>
       <el-tab-pane label="商品管理">
-        <el-form-item :span="24" v-for="(it ,i) in addForm.goodsList" :key="i">
-
-          <el-select v-model="it.goodsId" placeholder="请选择商品" @change="value=>selectGoods(i,value)"
-                     style="width: 100%">
-            <el-option v-for="item in goodsList" :key="item.id" :label="item.goodsName" :value="item.id"/>
+        <el-form-item label="工厂" prop="factoryId">
+          <el-select v-model="addForm.factoryId" style="width: 100%">
+            <el-option v-for="f in factoryList" :value="f.id" :key="f.id" :label="f.factoryName"/>
           </el-select>
-          <el-input disabled v-model="it.goodsNum" placeholder="请输入商品数量"/>
-          <!--              <el-col :span="7" :offset="1">-->
-          <!--                <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteGoods(i)"></el-button>-->
-          <!--                <el-button type="primary" size="mini" icon="el-icon-plus" @click="addGoods"></el-button>-->
-          <!--              </el-col>-->
+        </el-form-item>
+        <el-form-item label="商品">
+          <el-select v-model="addForm.goodsList[0].goodsId" placeholder="请选择商品" @change="selectGoods"
+                     style="width: 100%">
+            <el-option v-for="item in goodsList.filter(t=>t.factoryId === addForm.factoryId)" :key="item.id"
+                       :label="item.goodsName" :value="item.id"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="数量">
+          <el-input disabled v-model="addForm.goodsList[0].goodsNum" placeholder="1"/>
         </el-form-item>
       </el-tab-pane>
       <el-tab-pane label="销售配置">
@@ -126,8 +129,8 @@
           <el-table-column prop="bomCostPrice" label="单价"/>
           <el-table-column prop="isFollow" label="关注"/>
           <el-table-column label="数量">
-            <template slot-scope="scope">
-              <el-input v-model="addForm.goodsBom[scope.row.id]">数量</el-input>
+            <template #default="scope">
+              <el-input v-model="addForm.goodsBom[scope.row.id]" placeholder="数量"></el-input>
             </template>
           </el-table-column>
         </el-table>
@@ -147,11 +150,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 import { type ApsOrder } from "./ApsOrderType.ts"
-import { getById, postNoResult } from "@/common/utils/common-js.ts"
+import { postNoResult, postResultInfoList } from "@/common/utils/common-js.ts"
 import { type FormInstance, FormRules } from "element-plus"
-import { DistrictCode } from "@v/base/DistrictCode/DistrictCodeType.ts";
-import { ApsGoods } from "@v/aps/ApsGoods/ApsGoodsType.ts";
+import { DistrictCode, queryDistrictByParentCode } from "@v/base/DistrictCode/DistrictCodeType.ts";
+import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
 import { ApsGoodsSaleItem } from "@v/aps/ApsGoodsSaleItem/ApsGoodsSaleItemType.ts";
+import { ApsGoodsBom } from "@v/aps/ApsGoodsBom/ApsGoodsBomType.ts";
+import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -170,17 +175,25 @@ const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({})
 
-const countryCodeList = ref<DistrictCode []>([])
+// const countryCodeList = ref<DistrictCode []>([])
 const provinceCodeList = ref<DistrictCode []>([])
 const cityCodeList = ref<DistrictCode []>([])
 const areaCodeList = ref<DistrictCode []>([])
 const apsSaleConfigList = ref<ApsGoodsSaleItem []>([])
 const goodsList = ref<ApsGoods []>([])
-const goodsMap = ref ({})
+const goodsBomList = ref<ApsGoodsBom []>([])
+const goodsMap = ref({})
+const factoryList = ref<Factory[]>([])
 // 页面加载事件
 onMounted(() => {
-  loadById()
+  // loadById()
+  queryDistrictByParentCode("0").then((r) => {
+    provinceCodeList.value = r
+  })
+  queryFactoryList().then(r => factoryList.value = r)
+  queryGoodsList().then(r => goodsList.value = r)
 })
+
 // 添加对象
 const addForm = ref<ApsOrder>({
   orderNo: "",
@@ -200,21 +213,11 @@ const addForm = ref<ApsOrder>({
   schedulingDate: "",
   orderNoParent: "",
   id: "",
-  orderUser: {},
-  goodsList: []
+  orderUser: {
+    userSex: "1"
+  },
+  goodsList: [ {} ]
 })
-
-function loadById() {
-  if(!props.editId) {
-    return
-  }
-  console.info("props.editId ", props.editId)
-  getById(`${dtoUrl.value}/queryByIdList`, props.editId).then((t) => {
-    addForm.value = t
-    console.info(" addForm.value ", addForm.value)
-  })
-}
-
 
 // 保存
 function saveForm() {
@@ -248,10 +251,37 @@ function cancelForm() {
 
 function selectGoods(value) {
   console.info("selectGoods ", value)
+  postResultInfoList("/apsGoodsBom/queryPageList", { data: { goodsId: value } }).then(t => goodsBomList.value = t)
 }
 function changeGM(value) {
   console.info("changeGM ", value)
 }
+
+watch(() => addForm.value.orderUser.provinceCode, (n) => {
+  console.info("addForm.value.orderUser.provinceCode", n)
+  addForm.value.orderUser.cityCode = undefined
+  addForm.value.orderUser.areaCode = undefined
+  queryDistrictByParentCode(n).then(r => {
+    cityCodeList.value = r
+  })
+})
+watch(() => addForm.value.orderUser.cityCode, (n) => {
+  console.info("addForm.value.orderUser.cityCode", n)
+  addForm.value.orderUser.areaCode = undefined
+  queryDistrictByParentCode(n).then(r => {
+    areaCodeList.value = r
+  })
+})
+watch(() => addForm.value.factoryId, (n) => {
+  console.info("addForm.value.factoryId", n)
+  let ll = goodsList.value.filter(t => t.factoryId === n);
+  if(ll.length > 0) {
+    addForm.value.goodsList[0].goodsId = ll[0].id
+  } else {
+    addForm.value.goodsList[0].goodsId = undefined
+
+  }
+})
 </script>
 
 <style scoped lang="scss">
