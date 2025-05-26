@@ -40,7 +40,7 @@ const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
   { fieldName: "id", showName: "序号" },
-  { fieldName: "goodsId", showName: "商品ID" },
+  { fieldName: "goodsId", showName: "商品" },
   { fieldName: "forecastNo", showName: "预测编码" },
   { fieldName: "forecastName", showName: "预测名称" },
   { fieldName: "forecastBeginDate", showName: "开始时间" },

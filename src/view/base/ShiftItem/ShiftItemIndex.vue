@@ -11,7 +11,7 @@
         <el-form-item label="${column.comment}" prop="endTime">
           <el-input v-model="queryForm.endTime" clearable placeholder="请输入${column.comment}" />
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
         </el-form-item>
         <el-form-item>

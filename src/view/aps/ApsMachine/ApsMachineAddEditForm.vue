@@ -6,7 +6,7 @@
       <el-form-item label="机器名称" prop="machineName">
         <el-input v-model="addForm.machineName" clearable placeholder="请输入机器名称"/>
       </el-form-item>
-      <el-form-item label="工厂ID" prop="factoryId">
+      <el-form-item label="工厂" prop="factoryId">
         <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
       </el-form-item>
       <el-form-item label="排序索引" prop="sortIndex">

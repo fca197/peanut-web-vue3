@@ -192,13 +192,13 @@ onMounted(() => {
     <el-form-item label="aps_goods_bom ID " prop="goodsBomId">
       <el-input v-model="addForm.goodsBomId" clearable placeholder="请输入aps_goods_bom ID "/>
     </el-form-item>
-    <el-form-item label="商品ID" prop="goodsId">
+    <el-form-item label="商品" prop="goodsId">
       <el-input v-model="addForm.goodsId" clearable placeholder="请输入商品ID"/>
     </el-form-item>
     <el-form-item label="零件组ID" prop="groupId">
       <el-input v-model="addForm.groupId" clearable placeholder="请输入零件组ID"/>
     </el-form-item>
-    <el-form-item label="商品ID" prop="bomId">
+    <el-form-item label="商品" prop="bomId">
       <el-input v-model="addForm.bomId" clearable placeholder="请输入商品ID"/>
     </el-form-item>
     <el-form-item label="bom 编码" prop="bomCode">
@@ -231,7 +231,7 @@ onMounted(() => {
     <el-form-item label="是否关注" prop="isFollow">
       <el-input v-model="addForm.isFollow" clearable placeholder="请输入是否关注"/>
     </el-form-item>
-    <el-form-item label="工厂ID" prop="factoryId">
+    <el-form-item label="工厂" prop="factoryId">
       <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
     </el-form-item>
     <el-form-item label="状态" prop="goodsStatusId">

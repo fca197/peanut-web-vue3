@@ -40,14 +40,14 @@ const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
   { fieldName: "id", showName: "序号" },
-  { fieldName: "goodsId", showName: "商品ID" },
+  { fieldName: "goodsId", showName: "商品" },
   { fieldName: "forecastNo", showName: "预测编码" },
   { fieldName: "forecastName", showName: "预测名称" },
   { fieldName: "forecastBeginDate", showName: "开始时间" },
   { fieldName: "forecastEndDate", showName: "结束时间" },
   { fieldName: "month", showName: "" },
   { fieldName: "months", showName: "" },
-  { fieldName: "factoryId", showName: "工厂ID" },
+  { fieldName: "factoryId", showName: "工厂" },
 ])
 
 const factoryList = ref<Factory[]>([])

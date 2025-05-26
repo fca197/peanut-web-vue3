@@ -786,7 +786,7 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "bomUseDay364", showName: "使用信息 {lack:1, quantity:3}" },
   { fieldName: "bomUseDay365", showName: "使用信息 {lack:1, quantity:3}" },
   { fieldName: "bomUseDay366", showName: "使用信息 {lack:1, quantity:3}" },
-  { fieldName: "factoryId", showName: "工厂ID" },
+  { fieldName: "factoryId", showName: "工厂" },
   { fieldName: "isFollow", showName: "是否关注" },
 ])
 
@@ -1970,7 +1970,7 @@ onMounted(() => {
         <el-form-item label="使用信息 {lack:1, quantity:3}" prop="bomUseDay366">
           <el-input v-model="queryForm.bomUseDay366" clearable placeholder="请输入使用信息 {lack:1, quantity:3}" />
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
         </el-form-item>
         <el-form-item label="是否关注" prop="isFollow">

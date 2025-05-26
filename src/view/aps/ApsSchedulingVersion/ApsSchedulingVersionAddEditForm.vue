@@ -225,10 +225,10 @@ onMounted(() => {
     <el-form-item label="使用工程配置产能约束" prop="useProjectConfigMakeCapacity">
       <el-input v-model="addForm.useProjectConfigMakeCapacity" clearable placeholder="请输入使用工程配置产能约束"/>
     </el-form-item>
-    <el-form-item label="工厂ID" prop="factoryIdList">
+    <el-form-item label="工厂" prop="factoryIdList">
       <el-input v-model="addForm.factoryIdList" clearable placeholder="请输入工厂ID"/>
     </el-form-item>
-    <el-form-item label="商品ID" prop="goodsIdList">
+    <el-form-item label="商品" prop="goodsIdList">
       <el-input v-model="addForm.goodsIdList" clearable placeholder="请输入商品ID"/>
     </el-form-item>
   </el-form>

@@ -105,13 +105,13 @@ onMounted(() => {
     <el-form-item label="${column.comment}" prop="orderId">
       <el-input v-model="addForm.orderId" clearable placeholder="请输入${column.comment}"/>
     </el-form-item>
-    <el-form-item label="商品ID" prop="goodsId">
+    <el-form-item label="商品" prop="goodsId">
       <el-input v-model="addForm.goodsId" clearable placeholder="请输入商品ID"/>
     </el-form-item>
     <el-form-item label="${column.comment}" prop="configId">
       <el-input v-model="addForm.configId" clearable placeholder="请输入${column.comment}"/>
     </el-form-item>
-    <el-form-item label="工厂ID" prop="factoryId">
+    <el-form-item label="工厂" prop="factoryId">
       <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
     </el-form-item>
   </el-form>

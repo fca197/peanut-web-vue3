@@ -8,7 +8,7 @@
         <el-form-item label="编码" prop="roomCode">
           <el-input v-model="queryForm.roomCode" clearable placeholder="请输入编码"/>
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID"/>
         </el-form-item>
         <el-form-item>

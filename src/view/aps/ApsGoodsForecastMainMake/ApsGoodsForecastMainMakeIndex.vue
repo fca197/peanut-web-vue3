@@ -38,12 +38,12 @@ const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
   { fieldName: "id", showName: "序号" },
-  { fieldName: "goodsId", showName: "商品ID" },
+  { fieldName: "goodsId", showName: "商品" },
   { fieldName: "forecastMakeMainNo", showName: "编码" },
   { fieldName: "forecastMakeMainName", showName: "名称" },
   { fieldName: "forecastMakeMainBeginDate", showName: "开始时间" },
   { fieldName: "forecastMakeMainEndDate", showName: "结束时间" },
-  { fieldName: "factoryId", showName: "工厂ID" }
+  { fieldName: "factoryId", showName: "工厂" }
 ])
 
 const factoryList = ref<Factory[]>([])
@@ -101,12 +101,12 @@ onMounted(() => {
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
 
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-select v-model="queryForm.factoryId" clearable style="width: 200px" @change="queryForm.goodsId=undefined">
             <el-option v-for="f in factoryList" :key="f.id" :value="f.id" :label="f.factoryName"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="商品ID" prop="goodsId">
+        <el-form-item label="商品" prop="goodsId">
           <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
             <el-option
               v-for="g in goodsList.filter(g => g.factoryId === queryForm.factoryId)" :key="g.id"

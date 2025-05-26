@@ -43,7 +43,7 @@ const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
   { fieldName: "id", showName: "序号" },
-  { fieldName: "goodsId", showName: "商品ID" },
+  { fieldName: "goodsId", showName: "商品" },
   { fieldName: "forecastMakeMonthNo", showName: "" },
   { fieldName: "forecastMakeMonthName", showName: "" },
   { fieldName: "forecastMakeMonthBeginDate", showName: "" },
@@ -115,7 +115,7 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="商品ID" prop="goodsId">
+        <el-form-item label="商品" prop="goodsId">
           <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
             <el-option v-for="g in goodsList" :key="g.id" :value="g.id" :label="g.goodsName"/>
           </el-select>

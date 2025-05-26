@@ -50,9 +50,9 @@ const headerList = ref<HeaderInfo[]>([
  {fieldName: "id", showName: "序号"},
   { fieldName: "orderId", showName: "订单ID" },
   { fieldName: "goodsBomId", showName: "aps_goods_bom ID " },
-  { fieldName: "goodsId", showName: "商品ID" },
+  { fieldName: "goodsId", showName: "商品" },
   { fieldName: "groupId", showName: "零件组ID" },
-  { fieldName: "bomId", showName: "商品ID" },
+  { fieldName: "bomId", showName: "商品" },
   { fieldName: "bomCode", showName: "bom 编码" },
   { fieldName: "bomName", showName: "bom 名称" },
   { fieldName: "bomUsage", showName: "使用量" },
@@ -63,7 +63,7 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "bomUseExpression", showName: "使用表达式" },
   { fieldName: "bomInventory", showName: "库存" },
   { fieldName: "isFollow", showName: "是否关注" },
-  { fieldName: "factoryId", showName: "工厂ID" },
+  { fieldName: "factoryId", showName: "工厂" },
   { fieldName: "goodsStatusId", showName: "状态" },
   { fieldName: "bomUseDate", showName: "使用时间" },
 ])
@@ -123,13 +123,13 @@ onMounted(() => {
         <el-form-item label="aps_goods_bom ID " prop="goodsBomId">
           <el-input v-model="queryForm.goodsBomId" clearable placeholder="请输入aps_goods_bom ID " />
         </el-form-item>
-        <el-form-item label="商品ID" prop="goodsId">
+        <el-form-item label="商品" prop="goodsId">
           <el-input v-model="queryForm.goodsId" clearable placeholder="请输入商品ID" />
         </el-form-item>
         <el-form-item label="零件组ID" prop="groupId">
           <el-input v-model="queryForm.groupId" clearable placeholder="请输入零件组ID" />
         </el-form-item>
-        <el-form-item label="商品ID" prop="bomId">
+        <el-form-item label="商品" prop="bomId">
           <el-input v-model="queryForm.bomId" clearable placeholder="请输入商品ID" />
         </el-form-item>
         <el-form-item label="bom 编码" prop="bomCode">
@@ -162,7 +162,7 @@ onMounted(() => {
         <el-form-item label="是否关注" prop="isFollow">
           <el-input v-model="queryForm.isFollow" clearable placeholder="请输入是否关注" />
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
         </el-form-item>
         <el-form-item label="状态" prop="goodsStatusId">

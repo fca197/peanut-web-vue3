@@ -135,7 +135,7 @@ onMounted(() => {
     <el-form-item label="配置ID" prop="schedulingDayConfigId">
       <el-input v-model="addForm.schedulingDayConfigId" clearable placeholder="请输入配置ID"/>
     </el-form-item>
-    <el-form-item label="工厂ID" prop="factoryId">
+    <el-form-item label="工厂" prop="factoryId">
       <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
     </el-form-item>
     <el-form-item label="排程类型" prop="schedulingType">

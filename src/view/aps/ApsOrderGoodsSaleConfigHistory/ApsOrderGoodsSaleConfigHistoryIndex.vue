@@ -137,7 +137,7 @@ onMounted(() => {
             <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="商品ID" prop="goodsId">
+        <el-form-item label="商品" prop="goodsId">
           <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
             <el-option v-for="f in apsGoodsList.filter(t=>t.factoryId === queryForm.factoryId)" :label="f.goodsName"
                        :value="f.id" :key="f.id"/>

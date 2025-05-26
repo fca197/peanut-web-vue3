@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="商品ID" prop="goodsId">
+        <el-form-item label="商品" prop="goodsId">
           <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
             <el-option v-for="g in goodsList" :label="g.goodsName" :value="g.id" :key="g.id"></el-option>
           </el-select>
@@ -19,7 +19,7 @@
             <el-option v-for="f in isFollowList" :label="f.label" :value="f.value" :key="f.value"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-select v-model="queryForm.factoryId" clearable style="width: 200px">
             <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id" />
           </el-select>

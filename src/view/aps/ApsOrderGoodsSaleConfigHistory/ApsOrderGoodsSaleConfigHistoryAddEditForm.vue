@@ -270,10 +270,10 @@ onMounted(() => {
 
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="工厂ID" prop="factoryId">
+    <el-form-item label="工厂" prop="factoryId">
       <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
     </el-form-item>
-    <el-form-item label="商品ID" prop="goodsId">
+    <el-form-item label="商品" prop="goodsId">
       <el-input v-model="addForm.goodsId" clearable placeholder="请输入商品ID"/>
     </el-form-item>
     <el-form-item label="商品名称" prop="goodsName">

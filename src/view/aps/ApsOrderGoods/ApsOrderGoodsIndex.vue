@@ -44,7 +44,7 @@ const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
  {fieldName: "id", showName: "序号"},
   { fieldName: "orderId", showName: "" },
-  { fieldName: "goodsId", showName: "商品ID" },
+  { fieldName: "goodsId", showName: "商品" },
   { fieldName: "goodsName", showName: "" },
   { fieldName: "goodsRemark", showName: "" },
   { fieldName: "goodsAmount", showName: "总价" },
@@ -54,7 +54,7 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "goodsUnitPrice", showName: "成本价" },
   { fieldName: "goodsUnitTotalPrice", showName: "成本价" },
   { fieldName: "goodsStatusId", showName: "订单状态" },
-  { fieldName: "factoryId", showName: "工厂ID" },
+  { fieldName: "factoryId", showName: "工厂" },
   { fieldName: "apsStatusId", showName: "订单状态" },
 ])
 
@@ -110,7 +110,7 @@ onMounted(() => {
         <el-form-item label="${column.comment}" prop="orderId">
           <el-input v-model="queryForm.orderId" clearable placeholder="请输入${column.comment}" />
         </el-form-item>
-        <el-form-item label="商品ID" prop="goodsId">
+        <el-form-item label="商品" prop="goodsId">
           <el-input v-model="queryForm.goodsId" clearable placeholder="请输入商品ID" />
         </el-form-item>
         <el-form-item label="${column.comment}" prop="goodsName">
@@ -140,7 +140,7 @@ onMounted(() => {
         <el-form-item label="订单状态" prop="goodsStatusId">
           <el-input v-model="queryForm.goodsStatusId" clearable placeholder="请输入订单状态" />
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
         </el-form-item>
         <el-form-item label="订单状态" prop="apsStatusId">

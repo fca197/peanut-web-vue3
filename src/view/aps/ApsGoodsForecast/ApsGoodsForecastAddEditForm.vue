@@ -127,7 +127,7 @@ onMounted(() => {
 
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="商品ID" prop="goodsId">
+    <el-form-item label="商品" prop="goodsId">
       <el-select v-model="addForm.goodsId">
         <el-option v-for="g in goodsList" :value="g.id" :label="g.goodsName" :key="g.id"/>
       </el-select>

@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="工厂ID" prop="factoryId" style="width: 200px">
+        <el-form-item label="工厂" prop="factoryId" style="width: 200px">
           <el-select v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID">
             <el-option v-for="f in factoryList" :value="f.id" :key="f.id" :label="f.factoryName"></el-option>
           </el-select>

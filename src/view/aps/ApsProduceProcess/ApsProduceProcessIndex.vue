@@ -8,7 +8,7 @@
         <el-form-item label="生产路径名称" prop="produceProcessName">
           <el-input v-model="queryForm.produceProcessName" clearable placeholder="请输入生产路径名称" />
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
         </el-form-item>
         <el-form-item label="是否默认" prop="isDefault">

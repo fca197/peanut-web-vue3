@@ -3483,7 +3483,7 @@ onMounted(() => {
     <el-form-item label="使用信息 {lack:1, quantity:3}" prop="bomUseDay366">
       <el-input v-model="addForm.bomUseDay366" clearable placeholder="请输入使用信息 {lack:1, quantity:3}"/>
     </el-form-item>
-    <el-form-item label="工厂ID" prop="factoryId">
+    <el-form-item label="工厂" prop="factoryId">
       <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
     </el-form-item>
     <el-form-item label="是否关注" prop="isFollow">

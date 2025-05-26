@@ -120,7 +120,7 @@ onMounted(() => {
 
 <template>
   <el-form label-width="100px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="工厂ID" prop="factoryId">
+    <el-form-item label="工厂" prop="factoryId">
       <el-select v-model="addForm.factoryId">
         <el-option v-for="f in factoryList" :key="f.id" :label="f.factoryName" :value="f.id"></el-option>
       </el-select>

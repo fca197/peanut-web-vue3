@@ -1,6 +1,6 @@
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="工厂ID" prop="factoryId">
+    <el-form-item label="工厂" prop="factoryId">
       <el-select v-model="addForm.factoryId" clearable placeholder="请输入工厂ID">
         <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id" />
       </el-select>

@@ -40,7 +40,7 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "sectionId", showName: "" },
   { fieldName: "stationId", showName: "" },
   { fieldName: "executeTime", showName: "" },
-  { fieldName: "factoryId", showName: "工厂ID" },
+  { fieldName: "factoryId", showName: "工厂" },
   { fieldName: "statusId", showName: "" },
 ])
 
@@ -105,7 +105,7 @@ onMounted(() => {
         <el-form-item label="${column.comment}" prop="executeTime">
           <el-input v-model="queryForm.executeTime" clearable placeholder="请输入${column.comment}" />
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
         </el-form-item>
         <el-form-item label="${column.comment}" prop="statusId">

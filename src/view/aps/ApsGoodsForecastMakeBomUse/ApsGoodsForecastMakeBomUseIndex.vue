@@ -402,7 +402,7 @@ const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
  {fieldName: "id", showName: "序号"},
-  { fieldName: "goodsId", showName: "商品ID" },
+  { fieldName: "goodsId", showName: "商品" },
   { fieldName: "makeMonthId", showName: "" },
   { fieldName: "bomId", showName: "" },
   { fieldName: "year", showName: "" },
@@ -772,7 +772,7 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "dayNum364", showName: "制造数" },
   { fieldName: "dayNum365", showName: "制造数" },
   { fieldName: "dayNum366", showName: "制造数" },
-  { fieldName: "factoryId", showName: "工厂ID" },
+  { fieldName: "factoryId", showName: "工厂" },
   { fieldName: "makeSaleConfigId", showName: "" },
 ])
 
@@ -825,7 +825,7 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="商品ID" prop="goodsId">
+        <el-form-item label="商品" prop="goodsId">
           <el-input v-model="queryForm.goodsId" clearable placeholder="请输入商品ID" />
         </el-form-item>
         <el-form-item label="${column.comment}" prop="makeMonthId">
@@ -1935,7 +1935,7 @@ onMounted(() => {
         <el-form-item label="制造数" prop="dayNum366">
           <el-input v-model="queryForm.dayNum366" clearable placeholder="请输入制造数" />
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
         </el-form-item>
         <el-form-item label="${column.comment}" prop="makeSaleConfigId">

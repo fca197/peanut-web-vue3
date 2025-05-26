@@ -41,7 +41,7 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "processPathName", showName: "" },
   { fieldName: "processPathRemark", showName: "" },
   { fieldName: "isDefault", showName: "" },
-  { fieldName: "factoryId", showName: "工厂ID" },
+  { fieldName: "factoryId", showName: "工厂" },
 ])
 
 const factoryList = ref<Factory[]>([])
@@ -98,7 +98,7 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-select v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" style="width: 200px">
             <el-option v-for="f in factoryList" :key="f.id" :label="f.factoryName" :value="f.id"></el-option>
           </el-select>

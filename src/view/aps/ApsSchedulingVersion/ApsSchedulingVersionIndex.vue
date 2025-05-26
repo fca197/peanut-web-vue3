@@ -62,8 +62,8 @@ const headerList = ref<HeaderInfo[]>([
   // { fieldName: "useGoodsMakeCapacity", showName: "使用商品产能约束" },
   // { fieldName: "useSaleConfigMakeCapacity", showName: "使用销售配置产能约束" },
   // { fieldName: "useProjectConfigMakeCapacity", showName: "使用工程配置产能约束" },
-  // { fieldName: "factoryIdList", showName: "工厂ID" },
-  // { fieldName: "goodsIdList", showName: "商品ID" },
+  // { fieldName: "factoryIdList", showName: "工厂" },
+  // { fieldName: "goodsIdList", showName: "商品" },
 ])
 
 const router = useRouter()

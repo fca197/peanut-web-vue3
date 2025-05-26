@@ -1,6 +1,6 @@
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="工厂ID" prop="factoryId">
+    <el-form-item label="工厂" prop="factoryId">
       <el-select v-model="addForm.factoryId" style="width: 100%">
         <el-option v-for="f in factoryList" :key="f.id" :value="f.id" :label="f.factoryName"/>
       </el-select>
