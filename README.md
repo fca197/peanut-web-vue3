@@ -1,227 +1,99 @@
-<div align="center">
-  <img alt="logo" width="120" height="120" src="./src/common/assets/images/layouts/logo.png">
-  <h1>V3 Admin Vite</h1>
-</div>
+# 安装手册
 
-[![github release](https://img.shields.io/github/v/release/un-pany/v3-admin-vite?style=flat)](https://github.com/un-pany/v3-admin-vite/releases)
-[![github stars](https://img.shields.io/github/stars/un-pany/v3-admin-vite?style=flat)](https://github.com/un-pany/v3-admin-vite/stargazers)
-[![gitee stars](https://gitee.com/un-pany/v3-admin-vite/badge/star.svg)](https://gitee.com/un-pany/v3-admin-vite/stargazers)
+[前端安装手册](install.md)  
+[后端安装手册](https://gitee.com/slsplatform/peanut-end/blob/master/doc/install.md)
 
-<b>English | <a href="./README.zh-CN.md">中文</a></b>
+# 功能流程图
 
-## Introduction
+## aps 功能
 
-V3 Admin Vite is a well-crafted backend management system template, built with popular technologies such as Vue3, Vite, TypeScript, and Element Plus
+> 后端代码 [https://gitee.com/slsplatform/peanut-end](https://gitee.com/slsplatform/peanut-end)  
+> APS操作平台 [ https://aps.solveplan.cn/](https://aps.solveplan.cn/)  👈👈👈👈  
+> 如有疑问或需求,请联系  (微信: rpcjmeter ,备注: APS)    👈👈👈👈
 
-## Notifications
+### 使用范围
 
-> [!NOTE]
-> Powered by love! All source code is free and open-source. If you find it helpful, feel free to give a star to support!
-
-> [!IMPORTANT]
-> Welcome to experience the brand-new version 5.0, currently in the beta stage. It will be a masterpiece!
-
-> [!WARNING]
-> Version 4.x will no longer be maintained unless there are critical bugs! [Click to switch to the 4.x branch](https://github.com/un-pany/v3-admin-vite/tree/4.x)
-
-> [!TIP]
-> Paid services are officially launched! If you don’t want to do it yourself but want to remove TS or other modules, try the lazy package! [Click to check it out](https://github.com/un-pany/v3-admin-vite/issues/225)
-
-> [!TIP]
-> If you have mobile web app needs, try the new open-source template. [MobVue](https://github.com/un-pany/mobvue)
-
-## Usage
-
-<details>
-<summary>Recommended Environment</summary>
-
-<br>
-
-- Latest version of `Visual Studio Code`
-- Install the recommended plugins in the `.vscode/extensions.json` file
-- `node` 20.x or 22+
-- `pnpm` 9.x or 10+
-
-</details>
-
-<details>
-<summary>Local Development</summary>
-
-<br>
-
-```bash
-# Clone the project
-git clone https://github.com/un-pany/v3-admin-vite.git
-
-# Enter the project directory
-cd v3-admin-vite
-
-# Install dependencies
-pnpm i
-
-# Start the development server
-pnpm dev
+```
+ 商品制造复杂的工厂单位:    五金、注塑、涂装、机械、汽配、组装等行业，
 ```
 
-</details>
-
-<details>
-<summary>Build</summary>
-
-<br>
-
-```bash
-# Build for the staging environment
-pnpm build:staging
-
-# Build for the production environment
-pnpm build
-```
-
-</details>
-
-<details>
-<summary>Local Preview</summary>
-
-<br>
-
-```bash
-# Execute the build command first to generate the dist directory, then run the preview command
-pnpm preview
-```
-
-</details>
-
-<details>
-<summary>Code Check</summary>
-
-<br>
-
-```bash
-# Code linting and formatting
-pnpm lint
-
-# Unit tests
-pnpm test
-```
-
-</details>
-
-<details>
-<summary>Commit Guidelines</summary>
-
-<br>
-
-`feat` New feature
-
-`fix` Bug fix
-
-`perf` Performance improvement
-
-`refactor` Code refactoring
-
-`docs` Documentation and comments
-
-`types` Type-related changes
-
-`test` Unit tests related
-
-`ci` Continuous integration, workflows
-
-`revert` Revert changes
-
-`chore` Chores (update dependencies, modify configurations, etc)
-
-</details>
-
-## Links
-
-**Online Preview**: [github-pages](https://un-pany.github.io/v3-admin-vite)
-
-**Chinese Documentation**: [link](https://juejin.cn/post/7089377403717287972)
-
-**Zero to Hero Tutorial**: [link](https://juejin.cn/column/7207659644487139387)
-
-**Mobile Web App**: [mobvue](https://github.com/un-pany/mobvue)
-
-**Electron Desktop Version**: [v3-electron-vite](https://github.com/un-pany/v3-electron-vite)
-
-**Chinese Repository**: [gitee](https://gitee.com/un-pany/v3-admin-vite)
-
-**Optional Group**: [check how to join](https://github.com/un-pany/v3-admin-vite/issues/191)
-
-**Donations**: [buy a coffee for the author](https://github.com/un-pany/v3-admin-vite/issues/69)
-
-**Releases & Changelog**: [releases](https://github.com/un-pany/v3-admin-vite/releases)
-
-## Features
-
-**Simplified structure**: No complex encapsulation, no complicated type gymnastics, just enough to meet the needs
-
-**Detailed comments**: Every configuration item comes with as detailed comments as possible
-
-**Latest dependencies**: Keeps all third-party dependencies up to date
-
-**Consistency**: Unified code style, naming conventions, and comment style
-
-## Built-in Features
-
-**User Management**: Login, logout demonstration
-
-**Permission Management**: Page-level permissions (dynamic routing), button-level permissions (permission directives, permission functions), route guards
-
-**Multiple Environments**: Development, staging, and production environments
-
-**Multiple Themes**: Normal, dark, and deep blue themes
-
-**Multiple Layouts**: Left-side, top, and hybrid layouts
-
-**Homepage**: Different dashboard pages for different users
-
-**Error Pages**: 403, 404
-
-**Mobile Compatibility**: Layouts compatible with mobile screen resolutions
-
-**Others**: SVG sprite sheet, dynamic sidebar, dynamic breadcrumbs, tab navigation, content zoom and fullscreen, composable functions
-
-## Tech Stack
-
-**Vue3**: Vue3 + script setup with the latest Vue3 Composition API
-
-**Element Plus**: The Vue3 version of Element UI
-
-**Pinia**: The legendary Vuex5
-
-**Vite**: Really fast
-
-**Vue Router**: The routing system
-
-**TypeScript**: A superset of JavaScript
-
-**pnpm**: A faster, disk-space-saving package manager
-
-**Scss**: Consistent with Element Plus
-
-**CSS Variables**: Primarily controls layout and color in the project
-
-**ESLint**: Code linting and formatting
-
-**Axios**: Sends network requests
-
-**UnoCSS**: A high-performance, flexible atomic CSS engine
-
-## Project Preview Image
-
-![preview](./src/common/assets/images/docs/preview.png)
-
-## Contributors
-
-A big thank you to all the contributors!
-
-<a href="https://github.com/un-pany/v3-admin-vite/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=un-pany/v3-admin-vite">
-</a>
-
-## License
-
-[MIT](./LICENSE) License © 2022-PRESENT [pany](https://github.com/pany-ang)
+### 功能介绍:
+
+> 实现商品管理,工作日历,工作班次, 工段, 工位,状态, 车间, 工艺路径, 销售特征, 工程特征,零件, 预测生产, 订单, 排产, 排程,
+> 零件等功能
+>
+>> 工作日历,工作班次: 可以设置工厂在一年内的工作时间, 并选择每天上班周期(工作时间影响预生产计划, 工作班次影
+> > 响零件的使用量)
+> > 工艺路径: 可以设置整条生产工艺路线, 设置每个车间到由N个工段, N个工位以及其耗时时间 (工位绑定零件可预测零件使用量)
+> > 预测生产: 可以按销售特征比例及需要生产等数量, 生成每种销售特征需要生产等数量 (由总数到每种销售特征个数)
+> > (预)生产计划: 可以把发布的预生成计划,按当前工作日历的配置时间,平均分配到某一周中( 由月度生产到天生产),并查询零件使用情况
+> > 订单: 从创建订单到订单完成,以及发送大屏用户手中所有状态监控 (订单信息维护)
+> > 排产:  按工厂产能, 配置限制, 订单基本信息等纬度判断订单应该在那一天上线生产(按计划预排每个订单的状态的大概日期)
+> > 排程:  按车间排产顺序, 基于每个时间段的产能限制, 安排商品生产顺序 (定于每个商品的生产时间)
+>>
+
+### 开发计划
+
+>
+
+|     模块      | 列表  | 增加  | 删除  | 修改  | 详情  | 其他       | 需求   |
+|:-----------:|:---:|-----|-----|-----|-----|----------|:-----|
+|    商品管理     |  ✅  | ✅   | ✅   | ✅   | ✅️  |          |      |
+|    工段管理     |  ✅  | ✅   | ✅   | ✅   | ✅️  |          |      |
+|    工位管理     |  ✅  | ✅   | ✅   | ✅   | ✅️  |          |      |
+|    状态管理     |  ✅  | ✅   | ✅   | ✅   | ✅️  |          |      |
+|    车间管理     |  ✅  | ✅   | ✅️  | ✅️  | ✅   |          |      |
+|   工艺路径管理    | ✅️  | ✅️️ | ✅️️ | ✅️️ | ✅️️ |          |      |
+|   销售特征管理    | ️ ✅ | ✅️  | ✅️  | ✅   | ✅️  |          |      |
+|  商品销售特征绑定   | ✅️  | ✅️  | ✅️  | ✅️  | ✅️  |          |      |
+|   工程特征组管理   |  ✅  | ✅️  | ✅️  | ✅️  | ✅️  |          |      |
+|   销售转工程管理   |  ✅  | ✅️  | ❌️  | ✅   | ✅️  |          |      |
+|    零件管理     | ✅️  | ✅️  | ✅️  | ✅️  | ✅️  |          |      |
+|    预测管理     | ✅️  | ✅️  | ✅️  | ✅️  | ✅️  | 上传,发布    | 版本对比 |
+|   预测管理主版本   | ✅️  | ✅️️ | ✅️️ | ✅️️ | ✅️  |          | 版本对比 |
+|  (预)周生产计划   | ✅️  | ✅️️ | ✅️️ | ✅️️ | ✅️  | 发布, 零件使用 |      |
+| (预)周生产计划主版本 | ✅️  | ✅️️ | ✅️️ | ✅️️ | ✅️  |          |      |
+|    订单管理     | ✅️️ | ✅️️ | ❌️  | ❌️  | ❌️  | 订单状态变更   | 报表   |
+|   工厂产能管理    |  ✅  | ✅   | ❌️️ | ✅️️ | ✅️️ |          |      |
+|   销售产能管理    |  ✅  | ✅️  | ❌️  | ✅️️ | ✅️️ |          |      |
+|   商品产能管理    | ✅️️ | ✅️️ | ❌️  | ✅️️ | ✅️️ |          |      |
+|    排产管理     | ✅️  | ✅️️ | ✅️️ | ✅️️ | ✅️️ | 零件使用量    |      |
+|    滚动预测     | ✅️  | ✅️  | ❌️  | ✅️️ | ❌️  |          |      |
+|   零件购买计划    | ✅️  | ✅️️ | ❌️  | ❌️  | ✅️️ |          |      |
+
+
+---
+
+# 各系统页面展示
+
+[各系统页面展示](./doc/md/page-show.md)
+
+# 系统功能概览
+
+> 图示:
+>
+>> ❌: 不实现
+> > ⌛️: 待实现功能
+> > ✅: 已实现
+>>
+
+## 基础功能
+
+|  模块  | 列表 | 增加 | 删除 | 修改 | 详情 | 其他          | 需求 |
+|:----:|:--:|----|----|----|----|-------------|:---|
+| 用户管理 | ✅  | ✅  | ✅  | ✅  | ✅  | 登录,登出       |    |
+| 租户管理 | ✅  | ✅  | ✅  | ✅  | ✅  |             |    |
+| 消息中心 | ✅  | ❌  | ❌  | ❌  | ✅  | 已读          |    |
+| H3接口 | ❌  | ❌  | ❌  | ❌  | ❌  | H3 API接口已接入 |    |
+| 工厂管理 | ✅  | ✅  | ✅  | ✅  | ✅  |             |    |
+| 文件管理 | ✅  | ✅  | ✅  | ⌛️ | ✅  |             |    |
+| 日历管理 | ✅  | ✅️ | ✅️ | ✅  | ✅️ |             |    |
+| 排班管理 | ✅️ | ✅️ | ✅️ | ✅️ | ✅️ |             |    |
+
+# 技术栈
+
+## 前端
+
+| 组建名称         | 依赖版本         | 说明                                                 |
+|--------------|--------------|----------------------------------------------------|
+| V3 Admin Vit | 5.0.0-beta.5 | [vite3版本](https://gitee.com/un-pany/v3-admin-vite) |

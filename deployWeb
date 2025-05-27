@@ -1,20 +1,15 @@
-
 yarn build
-cd dist/
-
-zip -r dist.zip ./*
-
-ssh root@39.100.100.120  'rm -rf  /opt/aps-vue3/* '
+ssh root@39.100.100.120  'rm -rf  /opt/aps/* '
 echo '旧文件删除成功'
 
-scp dist.zip root@39.100.100.120:/opt/aps-vue3/aps.zip
+scp dist/aps.zip root@39.100.100.120:/opt/aps/aps.zip
 
 echo '文件上传成功'
 
-ssh root@39.100.100.120  'unzip -o -d /opt/aps-vue3 /opt/aps-vue3/aps.zip'
+ssh root@39.100.100.120  'unzip -o -d /opt/aps /opt/aps/aps.zip'
 
 echo '文件解压成功'
 
-ssh root@39.100.100.120  'sudo chown  -R nginx:nginx  /opt/aps-vue3'
+ssh root@39.100.100.120  'sudo chown  -R nginx:nginx  /opt/aps'
 
 echo '授权成功'
