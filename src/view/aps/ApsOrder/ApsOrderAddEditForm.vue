@@ -13,7 +13,7 @@
         </el-form-item>
         <el-form-item label="定金支付时间">
           <el-date-picker v-model="addForm.reserveDatetime" type="datetime" placeholder="选择日期时间"
-                          align="right" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%"
+                          align="right" value-format="YYYY-MM-DD HH:mm:ss" style="width: 100%"
           />
         </el-form-item>
 
@@ -22,17 +22,17 @@
         </el-form-item>
         <el-form-item label="尾款支付时间" prop="finishPayedDatetime">
           <el-date-picker v-model="addForm.finishPayedDatetime" type="datetime" placeholder="选择日期时间"
-                          align="right" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%"
+                          align="right" value-format="YYYY-MM-DD HH:mm:ss" style="width: 100%"
           />
         </el-form-item>
         <el-form-item label="制造完成时间" prop="makeFinishDate">
           <el-date-picker v-model="addForm.makeFinishDate" type="date" placeholder="选择日期时间"
-                          align="right" value-format="yyyy-MM-dd" style="width: 100%"
+                          align="right" value-format="YYYY-MM-DD" style="width: 100%"
           />
         </el-form-item>
         <el-form-item label="交付时间" prop="deliveryDate">
           <el-date-picker v-model="addForm.deliveryDate" type="date" placeholder="选择日期时间"
-                          align="right" value-format="yyyy-MM-dd" style="width: 100%"
+                          align="right" value-format="YYYY-MM-DD" style="width: 100%"
           />
         </el-form-item>
 
@@ -41,7 +41,7 @@
           <el-input v-model="addForm.orderRemark" placeholder="请输入订单备注"/>
         </el-form-item>
       </el-tab-pane>
-      <el-tab-pane label="用户管理">
+      <el-tab-pane label="用户管理" style="overflow-y: scroll">
         <el-form-item label="客户名称" prop="userName">
           <el-input v-model="addForm.orderUser.userName" placeholder="请输入客户名称"/>
         </el-form-item>
@@ -88,8 +88,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="商品">
-          <el-select v-model="addForm.goodsList[0].goodsId" placeholder="请选择商品" @change="selectGoods"
-                     style="width: 100%">
+          <el-select v-model="addForm.goodsList[0].goodsId" placeholder="请选择商品" style="width: 100%">
             <el-option v-for="item in goodsList.filter(t=>t.factoryId === addForm.factoryId)" :key="item.id"
                        :label="item.goodsName" :value="item.id"/>
           </el-select>
@@ -98,42 +97,37 @@
           <el-input disabled v-model="addForm.goodsList[0].goodsNum" placeholder="1"/>
         </el-form-item>
       </el-tab-pane>
-      <el-tab-pane label="销售配置">
-        <el-row title="销售配置" v-for="(it ,i) in  addForm.goodsList" :name="i" :key="i">
-          <div v-if="goodsMap[it.goodsId]"> {{ goodsMap[it.goodsId].goodsName }}/ <span>{{
-              it.goodsNum
-            }} /{{ goodsMap[it.goodsId].goodsRemark }}</span></div>
-          <el-col :span="24" v-for="(sa ,index) in apsSaleConfigList" :key="index">
-            <el-divider/>
-            <el-col :span="6">
-              {{ sa.saleName }}/{{ sa.saleCode }}
-            </el-col>
-            <el-col :span="18">
-              <el-radio-group v-model="goodsSaleConfigMap[it.goodsId][sa.id]"
-                              @change="value=>changeGM(it.goodsId, sa.id,value)">
-                <el-radio v-for=" (ss ,j) in sa.children" :label="ss.id" :key="j">{{ ss.saleName }}/{{
-                    ss.saleCode
-                  }}
-                </el-radio>
-              </el-radio-group>
-            </el-col>
-          </el-col>
-        </el-row>
+      <el-tab-pane label="销售配置" :key="loadGoodsSaleKey">
+        <el-form-item v-for="(sa, index) in goodsSaleList" :label="sa.saleName+'/'+sa.saleCode">
+          <el-radio-group v-model="goodsSaleConfigMap[sa.id]" :key="index">
+            <el-radio :value="st.id" v-for="st in sa.children">
+              {{ st.saleName }}/{{ st.saleCode }}
+            </el-radio>
+          </el-radio-group>
+        </el-form-item>
       </el-tab-pane>
-      <el-tab-pane label="工程配置">工程配置</el-tab-pane>
+      <!--      <el-tab-pane label="工程配置">-->
+      <!--        工程配置-->
+      <!--      </el-tab-pane>-->
       <el-tab-pane label="零件">
-        <el-table :data="goodsBomList">
-          <el-table-column prop="bomName" label="名称"/>
-          <el-table-column prop="bomCode" label="编号"/>
-          <el-table-column prop="bomCostPriceUnit" label="单价规格"/>
-          <el-table-column prop="bomCostPrice" label="单价"/>
-          <el-table-column prop="isFollow" label="关注"/>
-          <el-table-column label="数量">
-            <template #default="scope">
-              <el-input v-model="addForm.goodsBom[scope.row.id]" placeholder="数量"></el-input>
-            </template>
-          </el-table-column>
-        </el-table>
+        <el-form-item label="零件">
+          <el-table :data="goodsBomList">
+            <el-table-column prop="bomName" label="名称"/>
+            <el-table-column prop="bomCode" label="编号"/>
+            <el-table-column prop="bomCostPriceUnit" label="单价规格"/>
+            <el-table-column prop="bomCostPrice" label="单价"/>
+            <el-table-column label="关注">
+              <template #default="scope">
+                {{ scope.row.isFollow === true ? "是" : "否" }}
+              </template>
+            </el-table-column>
+            <el-table-column label="数量">
+              <template #default="scope">
+                <el-input v-model="addForm.goodsBom[scope.row.id]" placeholder="数量"></el-input>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-form-item>
       </el-tab-pane>
     </el-tabs>
   </el-form>
@@ -154,9 +148,9 @@ import { postNoResult, postResultInfoList } from "@/common/utils/common-js.ts"
 import { type FormInstance, FormRules } from "element-plus"
 import { DistrictCode, queryDistrictByParentCode } from "@v/base/DistrictCode/DistrictCodeType.ts";
 import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
-import { ApsGoodsSaleItem } from "@v/aps/ApsGoodsSaleItem/ApsGoodsSaleItemType.ts";
 import { ApsGoodsBom } from "@v/aps/ApsGoodsBom/ApsGoodsBomType.ts";
 import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
+import { ApsSaleConfig, querySaleConfigList } from "@v/aps/ApsSaleConfig/ApsSaleConfigType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -179,11 +173,12 @@ const checkRules = ref<FormRules>({})
 const provinceCodeList = ref<DistrictCode []>([])
 const cityCodeList = ref<DistrictCode []>([])
 const areaCodeList = ref<DistrictCode []>([])
-const apsSaleConfigList = ref<ApsGoodsSaleItem []>([])
 const goodsList = ref<ApsGoods []>([])
 const goodsBomList = ref<ApsGoodsBom []>([])
-const goodsMap = ref({})
 const factoryList = ref<Factory[]>([])
+const loadGoodsSaleKey = ref<string>("")
+const goodsSaleList = ref<ApsSaleConfig []>([])
+const goodsSaleConfigMap = ref({})
 // 页面加载事件
 onMounted(() => {
   // loadById()
@@ -191,6 +186,10 @@ onMounted(() => {
     provinceCodeList.value = r
   })
   queryFactoryList().then(r => factoryList.value = r)
+
+  querySaleConfigList().then(r => {
+    goodsSaleList.value = r
+  })
   queryGoodsList().then(r => goodsList.value = r)
 })
 
@@ -216,25 +215,33 @@ const addForm = ref<ApsOrder>({
   orderUser: {
     userSex: "1"
   },
-  goodsList: [ {} ]
+  goodsList: [ {} ],
+  goodsBom: []
 })
 
 // 保存
 function saveForm() {
+
+
+  var goodsId = addForm.value.goodsList[0].goodsId
+  let apsOrderSaleConfigList = []
+  for (let gs in goodsSaleConfigMap.value) {
+    apsOrderSaleConfigList.push({
+      goodsId: goodsId,
+      configId: goodsSaleConfigMap.value[gs]
+    })
+  }
+  let apsGoodsBomList = []
+
+  for (let k in addForm.value.goodsBom) {
+    let v = addForm.value.goodsBom[k]
+    apsGoodsBomList.push({ goodsId: goodsId, bomCount: v, goodsBomId: k })
+  }
+  addForm.value.apsGoodsBomList = apsGoodsBomList
+  addForm.value.apsOrderSaleConfigList = apsOrderSaleConfigList
+
   console.info("addForm ", addForm)
-  addFormRef.value?.validate((valid) => {
-    if(valid) {
-      // 存在ID ，调用更新
-      if(props.editId) {
-        postNoResult(`${dtoUrl.value}/updateById`, addForm.value, "修改成功", saveFormAfter)
-      } else {
-        // 调用保存
-        postNoResult(`${dtoUrl.value}/insert`, addForm.value, "保存成功", saveFormAfter)
-      }
-    } else {
-      ElMessage.error("表单校验失败，请检查必填项")
-    }
-  })
+  postNoResult(`${dtoUrl.value}/insert`, addForm.value, "保存成功", saveFormAfter)
 }
 
 // 保存成功后，方法， 目前关闭弹窗
@@ -249,10 +256,21 @@ function cancelForm() {
   }
 }
 
-function selectGoods(value) {
+watch(() => addForm.value.goodsList[0].goodsId, (value) => {
   console.info("selectGoods ", value)
-  postResultInfoList("/apsGoodsBom/queryPageList", { data: { goodsId: value } }).then(t => goodsBomList.value = t)
-}
+  const data = { data: { goodsId: value }, queryPage: false }
+  postResultInfoList("/apsGoodsBom/queryPageList", data).then(t => {
+    goodsBomList.value = t.sort((a, b) => a.isFollow === true ? - 1 : 1)
+  })
+  postResultInfoList("/apsGoodsSaleItem/queryPageList", data).then(r => {
+    let saleConfigArr = r.map(t => t.saleConfigId);
+    goodsSaleList.value.forEach(t => {
+      t.children = t.children.filter(tt => saleConfigArr.includes(tt.id))
+    })
+    loadGoodsSaleKey.value = Math.random() + ""
+  })
+})
+
 function changeGM(value) {
   console.info("changeGM ", value)
 }
