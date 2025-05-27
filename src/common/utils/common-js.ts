@@ -1,5 +1,5 @@
 import { request } from "@/http/axios"
-import { getToken } from "@@/utils/cache/cookies.ts";
+import { getToken } from "@@/utils/cache/cookies.ts"
 
 export interface Result<T> {
   code: number
@@ -32,7 +32,6 @@ export function postNoResult(url: string, data: any, suMsg: string, suFun: (((da
     method: "post",
     data
   }).then((r) => {
-    console.info("r ", r)
     if(r.code === 200) {
       ElMessage.success(suMsg || "操作成功")
       if(suFun) {
@@ -127,19 +126,7 @@ export async function getById(url: string, id: string) {
     url,
     method: "post",
     data: {
-      idList: [ id ]
-    }
-  }).then((t) => {
-    return t.data.dataList[0]
-  })
-}
-
-export async function queryAllList(url: string) {
-  return request<Result<any>>({
-    url,
-    method: "post",
-    data: {
-      queryPage: false
+      idList: [id]
     }
   }).then((t) => {
     return t.data.dataList[0]
@@ -167,14 +154,14 @@ export async function pinyin4jSzm(value: string | undefined) {
     method: "post",
     data
   }).then((t) => {
-    return t.data.szmUpper + ""
+    return t.data.szmUpper as string
   })
 }
 
 export function listGroupBy(array: any[], key: string) {
   return array.reduce((result, currentItem) => {
     // 使用 key 函数如果提供的话
-    const groupKey = typeof key === "function" ? key(currentItem) : currentItem[key];
+    const groupKey = currentItem[key]
     // 初始化分组数组
     if(!result[groupKey]) {
       result[groupKey] = []
