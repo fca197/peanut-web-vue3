@@ -40,6 +40,7 @@ export default defineConfig(({ mode }) => {
       proxy: {
         "/api/": {
           target: "https://aps.solveplan.cn",
+          // target: "http://localhost",
           // 是否为 WebSocket
           ws: false,
           // 是否允许跨域

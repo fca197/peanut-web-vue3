@@ -271,10 +271,6 @@ watch(() => addForm.value.goodsList[0].goodsId, (value) => {
   })
 })
 
-function changeGM(value) {
-  console.info("changeGM ", value)
-}
-
 watch(() => addForm.value.orderUser.provinceCode, (n) => {
   console.info("addForm.value.orderUser.provinceCode", n)
   addForm.value.orderUser.cityCode = undefined

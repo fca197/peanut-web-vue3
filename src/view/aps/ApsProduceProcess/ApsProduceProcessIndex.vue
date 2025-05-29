@@ -3,16 +3,16 @@
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
         <el-form-item label="生产路径编码" prop="produceProcessNo">
-          <el-input v-model="queryForm.produceProcessNo" clearable placeholder="请输入生产路径编码" />
+          <el-input v-model="queryForm.produceProcessNo" clearable placeholder="请输入生产路径编码"/>
         </el-form-item>
         <el-form-item label="生产路径名称" prop="produceProcessName">
-          <el-input v-model="queryForm.produceProcessName" clearable placeholder="请输入生产路径名称" />
+          <el-input v-model="queryForm.produceProcessName" clearable placeholder="请输入生产路径名称"/>
         </el-form-item>
         <el-form-item label="工厂" prop="factoryId">
-          <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" />
+          <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID"/>
         </el-form-item>
         <el-form-item label="是否默认" prop="isDefault">
-          <el-input v-model="queryForm.isDefault" clearable placeholder="请输入是否默认" />
+          <el-input v-model="queryForm.isDefault" clearable placeholder="请输入是否默认"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -34,7 +34,7 @@
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" :width="h.width"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
@@ -63,12 +63,12 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
+import { onMounted, ref } from "vue"
 import AddEditFormVue from "./ApsProduceProcessAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import { ElTable } from "element-plus"
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsProduceProcess} from "./ApsProduceProcessType.ts"
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import { type ApsProduceProcess } from "./ApsProduceProcessType.ts"
 
 const dtoUrl = ref<string>("/apsProduceProcess")
 const documentTitle = ref<string>("aps 生产路径")
@@ -76,10 +76,10 @@ const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格
 const queryForm = ref<ApsProduceProcess>({
-  produceProcessNo:  undefined,
-  produceProcessName:  undefined,
-  factoryId:  undefined,
-  isDefault:  undefined,
+  produceProcessNo: undefined,
+  produceProcessName: undefined,
+  factoryId: undefined,
+  isDefault: undefined,
   id: undefined
 })
 
@@ -92,7 +92,7 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsProduceProcess[] >([])
+const dataList = ref<ApsProduceProcess[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)

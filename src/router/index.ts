@@ -61,114 +61,73 @@ export const constantRoutes: RouteRecordRaw[] = [
           svgIcon: "dashboard",
           affix: true
         }
-      }
-    ]
-  },
-  {
-    path: "/demo",
-    component: Layouts,
-    redirect: "/demo/unocss",
-    name: "Demo",
-    meta: {
-      title: "示例集合",
-      elIcon: "DataBoard"
-    },
-    children: [
-      {
-        path: "unocss",
-        component: () => import("@/pages/demo/unocss/index.vue"),
-        name: "UnoCSS",
+      }, {
+        path: "/aps/ApsGoodsForecastMainMake/result/:id",
+        name: "制造主版本数据",
+        component: () => import("@/view/aps/ApsGoodsForecastMainMake/ApsGoodsForecastMainMakeData.vue"),
         meta: {
-          title: "UnoCSS"
+          title: "制造主版本数据",
+          elIcon: "SuitcaseLine",
+          hidden: true
         }
       },
       {
-        path: "element-plus",
-        component: () => import("@/pages/demo/element-plus/index.vue"),
-        name: "ElementPlus",
+        path: "/aps/ApsGoodsForecastMake/result/:id",
+        name: "制造版本数据",
+        component: () => import("@/view/aps/ApsGoodsForecastMake/ApsGoodsForecastMakeData.vue"),
         meta: {
-          title: "Element Plus",
-          keepAlive: true
+          title: "制造版本数据",
+          elIcon: "SuitcaseLine",
+          hidden: true
         }
       },
       {
-        path: "level2",
-        component: () => import("@/pages/demo/level2/index.vue"),
-        redirect: "/demo/level2/level3",
-        name: "Level2",
+        path: "/aps/ApsGoodsForecastMain/result/:id",
+        name: "预测主版本结果",
+        component: () => import("@/view/aps/ApsGoodsForecastMain/ApsGoodsForecastMainData.vue"),
         meta: {
-          title: "二级路由",
-          alwaysShow: true
-        },
-        children: [
-          {
-            path: "level3",
-            component: () => import("@/pages/demo/level2/level3/index.vue"),
-            name: "Level3",
-            meta: {
-              title: "三级路由",
-              keepAlive: true
-            }
-          }
-        ]
-      },
-      {
-        path: "composable-demo",
-        redirect: "/demo/composable-demo/use-fetch-select",
-        name: "ComposableDemo",
-        meta: {
-          title: "组合式函数"
-        },
-        children: [
-          {
-            path: "use-fetch-select",
-            component: () => import("@/pages/demo/composable-demo/use-fetch-select.vue"),
-            name: "UseFetchSelect",
-            meta: {
-              title: "useFetchSelect"
-            }
-          },
-          {
-            path: "use-fullscreen-loading",
-            component: () => import("@/pages/demo/composable-demo/use-fullscreen-loading.vue"),
-            name: "UseFullscreenLoading",
-            meta: {
-              title: "useFullscreenLoading"
-            }
-          },
-          {
-            path: "use-watermark",
-            component: () => import("@/pages/demo/composable-demo/use-watermark.vue"),
-            name: "UseWatermark",
-            meta: {
-              title: "useWatermark"
-            }
-          }
-        ]
-      }
-    ]
-  },
-  {
-    path: "/link",
-    meta: {
-      title: "文档链接",
-      elIcon: "Link"
-    },
-    children: [
-      {
-        path: "https://juejin.cn/post/7445151895121543209",
-        component: () => {},
-        name: "Link1",
-        meta: {
-          title: "中文文档"
+          title: "预测主版本结果",
+          elIcon: "DataLine",
+          hidden: true
         }
       },
       {
-        path: "https://juejin.cn/column/7207659644487139387",
-        component: () => {},
-        name: "Link2",
+        path: "/aps/ApsGoodsForecast/result/:id",
+        name: "商品预测结果",
+        component: () => import("@/view/aps/ApsGoodsForecast/ApsGoodsForecastResult.vue"),
         meta: {
-          title: "新手教程"
+          title: "商品预测结果",
+          elIcon: "DataLine",
+          hidden: true
+        }
+      }, {
+        path: "/aps/ApsSchedulingDayConfigVersion/MachineResult/:id/:factoryId",
+        name: "机器排程版本结果",
+        component: () => import("@/view/aps/ApsSchedulingDayConfigVersion/MachineResult.vue"),
+        meta: {
+          title: "机器排程版本结果",
+          elIcon: "Files",
+          hidden: true
+        }
+      },
+      {
+        path: "/aps/ApsSchedulingDayConfigVersion/ProcessLineResult/:id",
+        name: "工艺路径排程版本结果",
+        component: () => import("@/view/aps/ApsSchedulingDayConfigVersion/ProcessLineResult.vue"),
+        meta: {
+          title: "工艺路径排程版本结果",
+          elIcon: "Files",
+          hidden: true
+        }
+      },
+      {
+        path: "/aps/CreateScheduling/:id/:isUpdate",
+        name: "排产创建",
+        component: () => import("@/view/aps/ApsSchedulingVersion/CreateScheduling.vue"),
+        meta: {
+          title: "排产创建",
+          elIcon: "Refrigerator",
+          hidden: true
         }
       }
     ]
