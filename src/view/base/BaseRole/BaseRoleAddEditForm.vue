@@ -1,14 +1,16 @@
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-      <el-form-item label="角色编码" prop="roleCode">
-        <el-input v-model="addForm.roleCode" clearable placeholder="请输入角色编码"/>
-      </el-form-item>
-      <el-form-item label="角色名称" prop="roleName">
-        <el-input v-model="addForm.roleName" clearable placeholder="请输入角色名称"/>
-      </el-form-item>
-      <el-form-item label="角色组" prop="roleGroupId">
-        <el-input v-model="addForm.roleGroupId" clearable placeholder="请输入角色组"/>
-      </el-form-item>
+    <el-form-item label="角色编码" prop="roleCode">
+      <el-input v-model="addForm.roleCode" clearable placeholder="请输入角色编码"/>
+    </el-form-item>
+    <el-form-item label="角色名称" prop="roleName">
+      <el-input v-model="addForm.roleName" clearable placeholder="请输入角色名称"/>
+    </el-form-item>
+    <el-form-item label="角色组" prop="roleGroupId">
+      <el-select v-model="addForm.roleGroupId" >
+        <el-option v-for="f in baseRoleGroupList" :key="f.id" :value="f.id" :label="f.roleGroupName" />
+      </el-select>
+    </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
     <el-button @click="cancelForm" type="info" icon="close">
@@ -21,9 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
-import {getById, postNoResult} from "@/common/utils/common-js.ts"
-import {type FormInstance, FormRules} from "element-plus"
+import { onMounted, ref } from "vue"
+import { getById, postNoResult } from "@/common/utils/common-js.ts"
+import { type FormInstance, FormRules } from "element-plus"
+import { BaseRoleGroup, getRoleGroupList } from "@v/base/BaseRoleGroup/BaseRoleGroupType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -40,34 +43,37 @@ const dtoUrl = ref<string>("/baseRole")
 const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
-    roleCode: [
-      {required: true, message: "请输入角色编码", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    roleName: [
-      {required: true, message: "请输入角色名称", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    roleGroupId: [
-      {required: true, message: "请输入角色组", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
+  roleCode: [
+    { required: true, message: "请输入角色编码", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  roleName: [
+    { required: true, message: "请输入角色名称", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  roleGroupId: [
+    { required: true, message: "请输入角色组", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
 
 })
+
+const baseRoleGroupList = ref<BaseRoleGroup[]>([])
 
 onMounted(() => {
   loadById()
+  getRoleGroupList().then(t => baseRoleGroupList.value = t)
 })
 
 const addForm = ref({
-      roleCode:  undefined,
-      roleName:  undefined,
-      roleGroupId:  undefined,
-      id: undefined
+  roleCode: undefined,
+  roleName: undefined,
+  roleGroupId: undefined,
+  id: undefined
 })
 
 function loadById() {
-  if (!props.editId) {
+  if(!props.editId) {
     return
   }
   console.info("props.editId ", props.editId)
@@ -80,8 +86,8 @@ function loadById() {
 function saveForm() {
   console.info("addForm ", addForm)
   addFormRef.value?.validate((valid) => {
-    if (valid) {
-      if (props.editId) {
+    if(valid) {
+      if(props.editId) {
         postNoResult(`${dtoUrl.value}/updateById`, addForm.value, "修改成功", saveFormAfter)
       } else {
         postNoResult(`${dtoUrl.value}/insert`, addForm.value, "保存成功", saveFormAfter)
@@ -97,7 +103,7 @@ function saveFormAfter() {
 }
 
 function cancelForm() {
-  if (props.saveFun) {
+  if(props.saveFun) {
     props.saveFun()
   }
 }

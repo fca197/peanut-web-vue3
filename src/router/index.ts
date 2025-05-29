@@ -139,7 +139,7 @@ export const constantRoutes: RouteRecordRaw[] = [
  * @description 用来放置有权限 (Roles 属性) 的路由
  * @description 必须带有唯一的 Name 属性
  */
-export const dynamicRoutes: RouteRecordRaw[] = menuList()
+export const dynamicRoutes: RouteRecordRaw[] = await menuList()
 
 /** 路由实例 */
 export const router = createRouter({

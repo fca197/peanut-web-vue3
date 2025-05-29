@@ -65,7 +65,7 @@ export function postResultInfo(url: string, data: any) {
   })
 }
 
-export function postResultInfoList(url: string, data: any) {
+export function postResultInfoList(url: string, data: any): Promise<any []> {
   return request<Result<ResultPageInfo<any>>>({
     url,
     method: "post",
@@ -76,7 +76,7 @@ export function postResultInfoList(url: string, data: any) {
   })
 }
 
-export async function downloadFilePost(reqUrl: string, reqData: any, saveFileName: string) {
+export async function downloadFilePost(reqUrl: string, reqData: any, saveFileName: string): Promise<void> {
   try {
     reqData = reqData || {}
     reqUrl = `/api/peanut${reqUrl}`
