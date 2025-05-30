@@ -58,6 +58,7 @@ function handleLogin() {
       setKeyValue("loginPhone", loginFormData.username);
       userStore.setToken(data.token)
       router.push("/")
+      window.location.reload();
     }).catch(() => {
       loginFormData.password = ""
     }).finally(() => {

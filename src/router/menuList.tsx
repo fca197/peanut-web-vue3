@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from "vue-router";
 import { postResultInfo } from "@@/utils/common-js.ts";
+import { getToken } from "@@/utils/cache/cookies.ts";
 
 const Layouts = () => import("@/layouts/index.vue")
 
@@ -554,6 +555,12 @@ const allMenuList: RouteRecordRaw[] = [
 ]
 
 export async function menuList(): RouteRecordRaw[] {
+  var token = getToken()
+  
+  console.info("menuList token ", token)
+  if(token === undefined) {
+    return []
+  }
   const result = await await postResultInfo("/baseAppResource/queryPageList", { queryPage: false });
   // const ll =
   // const result = postResultInfoList("/baseAppResource/queryPageList", { queryPage: false })

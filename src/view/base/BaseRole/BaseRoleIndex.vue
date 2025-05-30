@@ -2,15 +2,15 @@
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-              <el-form-item label="角色编码" prop="roleCode">
-                <el-input v-model="queryForm.roleCode" clearable placeholder="请输入角色编码" />
-              </el-form-item>
-              <el-form-item label="角色名称" prop="roleName">
-                <el-input v-model="queryForm.roleName" clearable placeholder="请输入角色名称" />
-              </el-form-item>
-              <el-form-item label="角色组" prop="roleGroupId">
-                <el-input v-model="queryForm.roleGroupId" clearable placeholder="请输入角色组" />
-              </el-form-item>
+        <el-form-item label="角色编码" prop="roleCode">
+          <el-input v-model="queryForm.roleCode" clearable placeholder="请输入角色编码"/>
+        </el-form-item>
+        <el-form-item label="角色名称" prop="roleName">
+          <el-input v-model="queryForm.roleName" clearable placeholder="请输入角色名称"/>
+        </el-form-item>
+        <el-form-item label="角色组" prop="roleGroupId">
+          <el-input v-model="queryForm.roleGroupId" clearable placeholder="请输入角色组"/>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
             查询
@@ -31,13 +31,20 @@
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">
             <el-button
               type="warning"
               icon="edit"
               @click="editData(scope.row)"
+            >
+              编辑
+            </el-button>
+            <el-button
+              type="primary"
+              icon="edit"
+              @click="editRoleData(scope.row)"
             >
               编辑
             </el-button>
@@ -56,25 +63,30 @@
         />
       </el-row>
     </el-card>
+
+    <el-dialog title="设置菜单" v-model="roleMenuSetting">
+      <select-resource :close-fun="roleMenuSettingClose" :id="selectRoleId"/>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
+import { ref } from "vue"
 import AddEditFormVue from "./BaseRoleAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type BaseRole} from "./BaseRoleType.ts"
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import SelectResource from "@v/base/BaseRole/SelectResource.vue";
+import { type BaseRole } from "./BaseRoleType.ts"
 
 const dtoUrl = ref<string>("/baseRole")
 const documentTitle = ref<string>("角色表")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 const queryForm = ref({
-      roleCode:  undefined,
-      roleName:  undefined,
-      roleGroupId:  undefined,
-      id: undefined
+  roleCode: undefined,
+  roleName: undefined,
+  roleGroupId: undefined,
+  id: undefined
 })
 
 const multipleSelection = ref<(string | undefined) []>([])
@@ -92,6 +104,15 @@ const currentPageNum = ref(1)
 const currentPageSize = ref(10)
 const tableTotal = ref(0)
 const headerList = ref<HeaderInfo[]>([])
+
+const roleMenuSetting = ref<boolean>(false)
+const selectRoleId = ref<string>("")
+const roleMenuSettingOpen = () => {
+  roleMenuSetting.value = true
+}
+const roleMenuSettingClose = () => {
+  roleMenuSetting.value = false
+}
 
 function getDataList() {
   const req = {
@@ -112,9 +133,13 @@ onMounted(() => {
   getDataList()
 })
 
-function editData(data: any) {
+function editData(data: BaseRole) {
   // console.info("data ", data)
   tableBarRef.value?.showEditDialog(data.id)
+}
+function editRoleData(data: BaseRole) {
+  selectRoleId.value = data.id
+  roleMenuSettingOpen();
 }
 
 function handleSizeChange(val: number) {

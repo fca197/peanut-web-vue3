@@ -1,11 +1,11 @@
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-      <el-form-item label="角色组编码" prop="roleGroupCode">
-        <el-input v-model="addForm.roleGroupCode" clearable placeholder="请输入角色组编码"/>
-      </el-form-item>
-      <el-form-item label="角色组名称" prop="roleGroupName">
-        <el-input v-model="addForm.roleGroupName" clearable placeholder="请输入角色组名称"/>
-      </el-form-item>
+    <el-form-item label="角色组编码" prop="roleGroupCode">
+      <el-input v-model="addForm.roleGroupCode" clearable placeholder="请输入角色组编码"/>
+    </el-form-item>
+    <el-form-item label="角色组名称" prop="roleGroupName">
+      <el-input v-model="addForm.roleGroupName" clearable placeholder="请输入角色组名称"/>
+    </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
     <el-button @click="cancelForm" type="info" icon="close">
@@ -18,9 +18,9 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
-import {getById, postNoResult} from "@/common/utils/common-js.ts"
-import {type FormInstance, FormRules} from "element-plus"
+import { onMounted, ref } from "vue"
+import { getById, postNoResult } from "@/common/utils/common-js.ts"
+import { type FormInstance, FormRules } from "element-plus"
 
 const props = defineProps({
   saveFun: {
@@ -37,14 +37,14 @@ const dtoUrl = ref<string>("/baseRoleGroup")
 const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
-    roleGroupCode: [
-      {required: true, message: "请输入角色组编码", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    roleGroupName: [
-      {required: true, message: "请输入角色组名称", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
+  roleGroupCode: [
+    { required: true, message: "请输入角色组编码", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  roleGroupName: [
+    { required: true, message: "请输入角色组名称", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
 
 })
 
@@ -53,13 +53,13 @@ onMounted(() => {
 })
 
 const addForm = ref({
-      roleGroupCode:  undefined,
-      roleGroupName:  undefined,
-      id: undefined
+  roleGroupCode: undefined,
+  roleGroupName: undefined,
+  id: undefined
 })
 
 function loadById() {
-  if (!props.editId) {
+  if(!props.editId) {
     return
   }
   console.info("props.editId ", props.editId)
@@ -72,8 +72,8 @@ function loadById() {
 function saveForm() {
   console.info("addForm ", addForm)
   addFormRef.value?.validate((valid) => {
-    if (valid) {
-      if (props.editId) {
+    if(valid) {
+      if(props.editId) {
         postNoResult(`${dtoUrl.value}/updateById`, addForm.value, "修改成功", saveFormAfter)
       } else {
         postNoResult(`${dtoUrl.value}/insert`, addForm.value, "保存成功", saveFormAfter)
@@ -89,7 +89,7 @@ function saveFormAfter() {
 }
 
 function cancelForm() {
-  if (props.saveFun) {
+  if(props.saveFun) {
     props.saveFun()
   }
 }

@@ -27,9 +27,10 @@
 }
 
 .addFormBtnRow {
-  margin-top: 30px;
-  text-align: right;
+  margin-top: 30px !important;
+  text-align: right !important;
   display: flow !important;
+  flex: auto;
 }
 
 .hidden{
