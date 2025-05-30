@@ -29,7 +29,7 @@
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
         <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">
             <el-button
               type="warning"
@@ -37,6 +37,13 @@
               @click="editData(scope.row)"
             >
               编辑
+            </el-button>
+            <el-button
+              type="primary"
+              icon="menu"
+              @click="editRoleData(scope.row)"
+            >
+              菜单
             </el-button>
           </template>
         </ElTableColumn>
@@ -53,6 +60,9 @@
         />
       </el-row>
     </el-card>
+    <el-dialog title="设置菜单" v-model="roleMenuSetting" :destroy-on-close="true" :width="400">
+      <select-resource :close-fun="roleMenuSettingClose" :id="selectRoleId"/>
+    </el-dialog>
   </div>
 </template>
 
@@ -62,6 +72,8 @@ import AddEditFormVue from "./BaseRoleGroupAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type BaseRoleGroup} from "./BaseRoleGroupType.ts"
+import SelectResource from "./SelectResource.vue";
+import type { BaseRole } from "@v/base/BaseRole/BaseRoleType.ts";
 
 const dtoUrl = ref<string>("/baseRoleGroup")
 const documentTitle = ref<string>("角色组")
@@ -88,6 +100,15 @@ const currentPageNum = ref(1)
 const currentPageSize = ref(10)
 const tableTotal = ref(0)
 const headerList = ref<HeaderInfo[]>([])
+
+const roleMenuSetting = ref<boolean>(false)
+const selectRoleId = ref<string>("")
+const roleMenuSettingOpen = () => {
+  roleMenuSetting.value = true
+}
+const roleMenuSettingClose = () => {
+  roleMenuSetting.value = false
+}
 
 function getDataList() {
   const req = {
@@ -123,6 +144,10 @@ function handleCurrentChange(val: number) {
   getDataList()
 }
 
+function editRoleData(data: BaseRole) {
+  selectRoleId.value = data.id
+  roleMenuSettingOpen();
+}
 </script>
 
 <style scoped lang="scss">

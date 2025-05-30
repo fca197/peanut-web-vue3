@@ -43,10 +43,10 @@
             </el-button>
             <el-button
               type="primary"
-              icon="edit"
+              icon="menu"
               @click="editRoleData(scope.row)"
             >
-              编辑
+              菜单
             </el-button>
           </template>
         </ElTableColumn>
