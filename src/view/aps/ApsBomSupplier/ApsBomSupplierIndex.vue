@@ -74,7 +74,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsBomSupplier, supplierStatusList} from "./ApsBomSupplierType.ts"
 
 const dtoUrl = ref<string>("/apsBomSupplier")
-const documentTitle = ref<string>("供应商表")
+const documentTitle = ref<string>("供应商")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 const queryForm = ref({

@@ -54,7 +54,7 @@ const headerList = ref<HeaderInfo[]>([
   // { fieldName: "processId", showName: "工艺路径id" },
   // { fieldName: "headerList", showName: "排产日配置版本表头" },
   // { fieldName: "productType", showName: "排产生产类型" },
-  // { fieldName: "goodsIdList", showName: "商品列表" },
+  // { fieldName: "goodsIdList", showName: "商品列" },
   // { fieldName: "saleConfigIdList", showName: "销售配置ID" },
   // { fieldName: "stepIndex", showName: "当前步骤" },
   // { fieldName: "orderFieldList", showName: "订单字段" },

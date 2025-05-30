@@ -194,8 +194,8 @@ onMounted(() => {
         <el-option v-for="b in boolArr" :label="b.label" :value="b.value" :key="b.value"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="商品列表" prop="goodsIdList">
-      <el-select v-model="addForm.goodsIdList" clearable placeholder="请选择商品列表" multiple>
+    <el-form-item label="商品列" prop="goodsIdList">
+      <el-select v-model="addForm.goodsIdList" clearable placeholder="请选择商品列" multiple>
         <el-option
           v-for="g in apsGoodsList.filter(t => t.factoryId === addForm.factoryId)" :key="g.id"
           :label="g.goodsName" :value="g.id"

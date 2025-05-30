@@ -77,7 +77,7 @@ import {type ApsGoods} from "./ApsGoodsType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsGoods")
-const documentTitle = ref<string>("aps 商品表")
+const documentTitle = ref<string>("aps 商品")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 //查询表格

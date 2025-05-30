@@ -7,7 +7,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsGoodsBomBuyPlanItem} from "./ApsGoodsBomBuyPlanItemType.ts"
 
 const dtoUrl = ref<string>("/apsGoodsBomBuyPlanItem")
-const documentTitle = ref<string>("订单商品零件汇总表")
+const documentTitle = ref<string>("订单商品零件汇总")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

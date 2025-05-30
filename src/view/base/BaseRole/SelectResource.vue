@@ -1,11 +1,10 @@
 <template>
-  <el-row style="margin-top: 30px" :key="timeKey">
+  <div :key="timeKey">
 
     <el-tree
       :default-checked-keys="selectResourceList"
       :data="allResourceTree"
       node-key="id"
-      default-expand-all
       :props="treeProps"
       show-checkbox
       ref="treeRef"
@@ -19,12 +18,12 @@
         确定
       </el-button>
     </div>
-  </el-row>
+  </div>
 </template>
 
 <script setup lang="ts">
 
-import { listGroupBy, postResultInfoList } from "@@/utils/common-js.ts";
+import { postNoResult, postResultInfoList } from "@@/utils/common-js.ts";
 import { list2tree } from "@@/utils/listUtils.ts";
 
 const props = defineProps({
@@ -42,7 +41,7 @@ const timeKeyUpdate = () => {
   timeKey.value = Math.random() + ""
 }
 const treeProps = {
-  label: "treeName",
+  label: "resourceName",
   children: "children"
 }
 
@@ -51,7 +50,16 @@ const allResourceTree = ref<any []>([])
 const treeRef = ref(null)
 
 const submitAppForm = () => {
-
+  let checkedKeys = treeRef.value.getCheckedKeys()
+  let halfCheckedKeys = treeRef.value.getHalfCheckedKeys()
+  checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys)
+  let saveObj = {}
+  saveObj["roleId"] = props.id
+  saveObj["resourceIdList"] = checkedKeys
+  console.info("checkedKeys ", saveObj)
+  postNoResult("/baseRoleResource/insertList", saveObj, "保存成功", () => {
+    cancelForm()
+  })
 }
 const cancelForm = () => {
   if(props.closeFun) {
@@ -67,9 +75,10 @@ onMounted(() => {
   }))
   Promise.all(ll).then(vl => {
     const resourceList = vl[0];
-    console.info("vl ", resourceList)
+    const baseRoleResourceList = vl[1];
     allResourceTree.value = list2tree(resourceList, "0")
-    console.info("allResourceTree ", allResourceTree.value)
+    selectResourceList.value = baseRoleResourceList.map(t => t.resourceId)
+    console.info("selectResourceList ", resourceList.map(t => t.id), selectResourceList.value)
   })
 })
 

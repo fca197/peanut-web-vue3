@@ -65,7 +65,7 @@ import {type ApsWorkshopStation} from "./ApsWorkshopStationType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/workshopStation")
-const documentTitle = ref<string>("车间/工位表")
+const documentTitle = ref<string>("车间/工位")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

@@ -73,7 +73,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type DistrictCode, districtCodeLevel} from "./DistrictCodeType.ts"
 
 const dtoUrl = ref<string>("/districtCode")
-const documentTitle = ref<string>("地区代码表")
+const documentTitle = ref<string>("地区代码")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

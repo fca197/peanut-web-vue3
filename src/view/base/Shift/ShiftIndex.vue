@@ -71,7 +71,7 @@ import {type Shift} from "./ShiftType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/shift")
-const documentTitle = ref<string>("班次表")
+const documentTitle = ref<string>("班次")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

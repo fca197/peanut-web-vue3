@@ -7,7 +7,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsOrderGoodsForecastMake} from "./ApsOrderGoodsForecastMakeType.ts"
 
 const dtoUrl = ref<string>("/apsOrderGoodsForecastMake")
-const documentTitle = ref<string>("订单商品节点预测表")
+const documentTitle = ref<string>("订单商品节点预测")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

@@ -8,7 +8,7 @@ import {type ApsProcessPath} from "./ApsProcessPathType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsProcessPath")
-const documentTitle = ref<string>("流程路径表")
+const documentTitle = ref<string>("流程路径")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

@@ -64,7 +64,7 @@
       </el-row>
     </el-card>
 
-    <el-dialog title="设置菜单" v-model="roleMenuSetting">
+    <el-dialog title="设置菜单" v-model="roleMenuSetting" :destroy-on-close="true" :width="400">
       <select-resource :close-fun="roleMenuSettingClose" :id="selectRoleId"/>
     </el-dialog>
   </div>
@@ -79,7 +79,7 @@ import SelectResource from "@v/base/BaseRole/SelectResource.vue";
 import { type BaseRole } from "./BaseRoleType.ts"
 
 const dtoUrl = ref<string>("/baseRole")
-const documentTitle = ref<string>("角色表")
+const documentTitle = ref<string>("角色")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 const queryForm = ref({

@@ -83,7 +83,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsLogisticsPathItem} from "./ApsLogisticsPathItemType.ts"
 
 const dtoUrl = ref<string>("/apsLogisticsPathItem")
-const documentTitle = ref<string>("物流路详情径表")
+const documentTitle = ref<string>("物流路详情径")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

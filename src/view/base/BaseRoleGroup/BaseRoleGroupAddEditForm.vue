@@ -1,5 +1,5 @@
 <template>
-  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
+  <el-form label-width="100px" :model="addForm" ref="addFormRef" :rules="checkRules">
     <el-form-item label="角色组编码" prop="roleGroupCode">
       <el-input v-model="addForm.roleGroupCode" clearable placeholder="请输入角色组编码"/>
     </el-form-item>

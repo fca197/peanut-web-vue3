@@ -91,7 +91,7 @@ import { type ApsOrder } from "./ApsOrderType.ts"
 import { ApsStatus, queryApsStatusList } from "@v/aps/ApsStatus/ApsStatusType.ts";
 
 const dtoUrl = ref<string>("/apsOrder")
-const documentTitle = ref<string>("订单表")
+const documentTitle = ref<string>("订单")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

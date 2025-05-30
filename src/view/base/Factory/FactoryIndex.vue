@@ -76,7 +76,7 @@ import {HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
 import {type Factory, factoryStatusList } from "./FactoryType.ts"
 
 const dtoUrl = ref<string>("/factory")
-const documentTitle = ref<string>("工厂表")
+const documentTitle = ref<string>("工厂")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 // 查询表格
 const queryForm = ref<Factory>({

@@ -7,7 +7,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsSaleConfig} from "./ApsSaleConfigType.ts"
 
 const dtoUrl = ref<string>("/apsSaleConfig")
-const documentTitle = ref<string>("销售配置表")
+const documentTitle = ref<string>("销售配置")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

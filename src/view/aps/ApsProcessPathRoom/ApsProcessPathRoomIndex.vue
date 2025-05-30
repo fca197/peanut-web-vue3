@@ -7,7 +7,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsProcessPathRoom} from "./ApsProcessPathRoomType.ts"
 
 const dtoUrl = ref<string>("/apsProcessPathRoom")
-const documentTitle = ref<string>("流程路径房间表")
+const documentTitle = ref<string>("流程路径房间")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

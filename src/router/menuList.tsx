@@ -555,21 +555,24 @@ const allMenuList: RouteRecordRaw[] = [
 ]
 
 export async function menuList(): RouteRecordRaw[] {
-  var token = getToken()
-  
-  console.info("menuList token ", token)
-  if(token === undefined) {
-    return []
+  try {
+    const token = getToken()
+    if(token === undefined) {
+      return []
+    }
+    const result = await await postResultInfo("/baseAppResource/queryPageList", { queryPage: false });
+    // const ll =
+    // const result = postResultInfoList("/baseAppResource/queryPageList", { queryPage: false })
+    // console.info("baseAppResource ", )
+    const dataList = result.data.dataList.map(t => t.resourceUrl);
+    console.info("menuList.dataList ", dataList)
+    const allMenuListTmp = allMenuList.filter(t => {
+      return dataList.includes(t.path)
+    })
+    console.info("menuList.allMenuListTmp ", allMenuListTmp)
+    return allMenuList
+  } catch (e) {
+    return [] as RouteRecordRaw[]
   }
-  const result = await await postResultInfo("/baseAppResource/queryPageList", { queryPage: false });
-  // const ll =
-  // const result = postResultInfoList("/baseAppResource/queryPageList", { queryPage: false })
-  // console.info("baseAppResource ", )
-  const dataList = result.data.dataList.map(t => t.resourceUrl);
-  console.info("menuList.dataList ", dataList)
-  const allMenuListTmp = allMenuList.filter(t => {
-    return dataList.includes(t.path)
-  })
-  console.info("menuList.allMenuListTmp ", allMenuListTmp)
-  return allMenuList
+  
 }

@@ -80,7 +80,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type FileUpload} from "./FileUploadType.ts"
 
 const dtoUrl = ref<string>("/fileUpload")
-const documentTitle = ref<string>("文件上传表")
+const documentTitle = ref<string>("文件上传")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

@@ -65,7 +65,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type Dictionary} from "./DictionaryType.ts"
 
 const dtoUrl = ref<string>("/dictionary")
-const documentTitle = ref<string>("数据字典表")
+const documentTitle = ref<string>("数据字典")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

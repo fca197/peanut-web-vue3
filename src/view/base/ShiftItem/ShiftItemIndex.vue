@@ -71,7 +71,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ShiftItem} from "./ShiftItemType.ts"
 
 const dtoUrl = ref<string>("/shiftItem")
-const documentTitle = ref<string>("班次明细表")
+const documentTitle = ref<string>("班次明细")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

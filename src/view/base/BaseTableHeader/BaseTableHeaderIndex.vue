@@ -71,7 +71,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type BaseTableHeader} from "./BaseTableHeaderType.ts"
 
 const dtoUrl = ref<string>("/baseTableHeader")
-const documentTitle = ref<string>("表头配置表")
+const documentTitle = ref<string>("表头配置")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

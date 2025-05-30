@@ -22,7 +22,7 @@ const {isFocus, handleBlur, handleFocus} = useFocus()
 const loginFormRef = ref<FormInstance | null>(null)
 
 /** 登录按钮 Loading */
-const loading = ref(false)
+const loading = ref<boolean>(false)
 
 /** 登录表单数据 */
 const loginFormData = reactive({

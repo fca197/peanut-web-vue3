@@ -8,7 +8,7 @@ import { type ApsSchedulingDayConfig } from "./ApsSchedulingDayConfigType.ts"
 import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsSchedulingDayConfig")
-const documentTitle = ref<string>("排程版本表")
+const documentTitle = ref<string>("排程版本")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

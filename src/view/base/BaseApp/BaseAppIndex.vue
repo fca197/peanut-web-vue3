@@ -66,7 +66,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type BaseApp} from "./BaseAppType.ts"
 
 const dtoUrl = ref<string>("/baseApp")
-const documentTitle = ref<string>("应用表")
+const documentTitle = ref<string>("应用")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 const queryForm = ref({

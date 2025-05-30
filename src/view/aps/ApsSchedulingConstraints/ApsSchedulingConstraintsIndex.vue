@@ -8,7 +8,7 @@ import { type ApsSchedulingConstraints } from "./ApsSchedulingConstraintsType.ts
 import CreateContent from "./CreateContent.vue"
 
 const dtoUrl = ref<string>("/apsSchedulingConstraints")
-const documentTitle = ref<string>("排产约束表")
+const documentTitle = ref<string>("排产约束")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

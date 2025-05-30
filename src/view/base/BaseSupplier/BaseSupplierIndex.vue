@@ -68,7 +68,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type BaseSupplier} from "./BaseSupplierType.ts"
 
 const dtoUrl = ref<string>("/baseSupplier")
-const documentTitle = ref<string>("供应商表")
+const documentTitle = ref<string>("供应商")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

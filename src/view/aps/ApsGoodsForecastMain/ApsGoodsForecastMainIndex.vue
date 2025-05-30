@@ -9,7 +9,7 @@ import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
 import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
 
 const dtoUrl = ref<string>("/apsGoodsForecastMain")
-const documentTitle = ref<string>("预测主表")
+const documentTitle = ref<string>("预测主")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

@@ -7,7 +7,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsRoomConfig} from "./ApsRoomConfigType.ts"
 
 const dtoUrl = ref<string>("/apsRoomConfig")
-const documentTitle = ref<string>("房间配置表")
+const documentTitle = ref<string>("房间配置")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

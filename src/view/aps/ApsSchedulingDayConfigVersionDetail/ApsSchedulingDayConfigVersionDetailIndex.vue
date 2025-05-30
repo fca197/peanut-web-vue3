@@ -7,7 +7,7 @@ import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
 import { type ApsSchedulingDayConfigVersionDetail } from "./ApsSchedulingDayConfigVersionDetailType.ts"
 
 const dtoUrl = ref<string>("/apsSchedulingDayConfigVersionDetail")
-const documentTitle = ref<string>("排程版本配置明细表")
+const documentTitle = ref<string>("排程版本配置明细")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

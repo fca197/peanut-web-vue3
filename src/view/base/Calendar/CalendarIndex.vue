@@ -76,7 +76,7 @@ import {type Calendar} from "./CalendarType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/calendar")
-const documentTitle = ref<string>("日历表")
+const documentTitle = ref<string>("日历")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

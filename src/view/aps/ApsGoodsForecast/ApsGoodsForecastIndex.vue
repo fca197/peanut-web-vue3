@@ -9,7 +9,7 @@ import { UploadFilled } from "@element-plus/icons-vue"
 import { getToken } from "@@/utils/cache/cookies.ts"
 
 const dtoUrl = ref<string>("/apsGoodsForecast")
-const documentTitle = ref<string>("预测表")
+const documentTitle = ref<string>("预测")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

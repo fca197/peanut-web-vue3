@@ -64,7 +64,7 @@ import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type BaseRoleGroupResource} from "./BaseRoleGroupResourceType.ts"
 
 const dtoUrl = ref<string>("/baseRoleGroupResource")
-const documentTitle = ref<string>("角色组资源表")
+const documentTitle = ref<string>("角色组资源")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 const queryForm = ref({
