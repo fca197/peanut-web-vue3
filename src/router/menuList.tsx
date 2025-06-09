@@ -406,6 +406,15 @@ const allMenuList: RouteRecordRaw[] = [
         }
       },
       {
+        path: "/aps/ApsOrder/TimeLine",
+        name: "订单状态时间",
+        component: () => import("@/view/aps/ApsOrder/TimeLine.vue"),
+        meta: {
+          title: "订单状态时间",
+          elIcon: "Timer"
+        }
+      },
+      {
         path: "/aps/ApsOrderGoodsHistory",
         name: "订单商品统计",
         component: () => import("@/view/aps/ApsOrderGoodsHistory/ApsOrderGoodsHistoryIndex.vue"),
@@ -572,7 +581,7 @@ export async function menuList(): RouteRecordRaw[] {
     console.info("menuList.allMenuListTmp ", allMenuListTmp)
     return allMenuList
   } catch (e) {
+    console.error("菜单获取失败 ", e)
     return [] as RouteRecordRaw[]
   }
-  
 }
