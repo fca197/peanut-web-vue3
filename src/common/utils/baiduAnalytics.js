@@ -11,7 +11,7 @@ export const initBaiduAnalytics = (id) => {
 };
 
 // 页面访问统计
-export const trackPageview = (url) => {
+export const trackPageView = (url) => {
     if (typeof window === "undefined" || !window._hmt) return;
     window._hmt.push(["_trackPageview", url]);
 };
