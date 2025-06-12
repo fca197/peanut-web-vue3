@@ -7,6 +7,7 @@ import { setRouteChange } from "@@/composables/useRouteListener"
 import { useTitle } from "@@/composables/useTitle"
 import { getToken } from "@@/utils/cache/cookies"
 import NProgress from "nprogress"
+import { trackPageview } from "@@/utils/baiduAnalytics";
 
 NProgress.configure({ showSpinner: false })
 
@@ -55,6 +56,7 @@ export function registerNavigationGuard(router: Router) {
   
   // 全局后置钩子
   router.afterEach((to) => {
+    trackPageview(to.fullPath);
     setRouteChange(to)
     setTitle(to.meta.title)
     NProgress.done()
