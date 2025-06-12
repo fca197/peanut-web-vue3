@@ -17,6 +17,8 @@ export const trackPageView = (url) => {
 };
 
 // 事件统计
+// 记录登录事件
+// trackEvent('User', 'Login', 'Success', 1);
 export const trackEvent = (category, action, label = "", value = 0) => {
     if (typeof window === "undefined" || !window._hmt) return;
     window._hmt.push(["_trackEvent", category, action, label, value]);
