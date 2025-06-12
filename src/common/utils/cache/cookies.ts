@@ -20,5 +20,6 @@ export function setKeyValue(key: string, value: string) {
 }
 
 export function removeToken() {
+  console.info("删除token")
   Cookies.remove(CacheKey.TOKEN)
 }

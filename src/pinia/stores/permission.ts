@@ -5,12 +5,15 @@ import { routerConfig } from "@/router/config"
 import { flatMultiLevelRoutes } from "@/router/helper"
 
 function hasPermission(roles: string[], route: RouteRecordRaw) {
-  const routeRoles = route.meta?.roles
+  return  true;
+  const routeRoles = route.path
+  // console.info("roles ", roles, routeRoles)
   return routeRoles ? roles.some(role => routeRoles.includes(role)) : true
 }
 
 function filterDynamicRoutes(routes: RouteRecordRaw[], roles: string[]) {
   const res: RouteRecordRaw[] = []
+  // console.info("console  routes ", routes)
   routes.forEach((route) => {
     const tempRoute = { ...route }
     if (hasPermission(roles, tempRoute)) {
@@ -32,6 +35,7 @@ export const usePermissionStore = defineStore("permission", () => {
 
   // 根据角色生成可访问的 Routes（可访问的路由 = 常驻路由 + 有访问权限的动态路由）
   const setRoutes = (roles: string[]) => {
+    // menuList()
     const accessedRoutes = filterDynamicRoutes(dynamicRoutes, roles)
     set(accessedRoutes)
   }

@@ -1,9 +1,9 @@
 import type { RouteRecordRaw } from "vue-router"
+import { createRouter } from "vue-router"
 import { routerConfig } from "@/router/config"
 import { registerNavigationGuard } from "@/router/guard"
-import { createRouter } from "vue-router"
 import { flatMultiLevelRoutes } from "./helper"
-import { menuList } from "@/router/menuList.tsx"
+import { menuList, retMenuList } from "@/router/menuList.tsx"
 
 const Layouts = () => import("@/layouts/index.vue")
 
@@ -139,7 +139,7 @@ export const constantRoutes: RouteRecordRaw[] = [
  * @description 用来放置有权限 (Roles 属性) 的路由
  * @description 必须带有唯一的 Name 属性
  */
-export const dynamicRoutes: RouteRecordRaw[] = await menuList()
+export const dynamicRoutes: RouteRecordRaw[] = menuList()
 
 /** 路由实例 */
 export const router = createRouter({
@@ -153,7 +153,7 @@ export function resetRouter() {
     // 注意：所有动态路由路由必须带有 Name 属性，否则可能会不能完全重置干净
     router.getRoutes().forEach((route) => {
       const { name, meta } = route
-      if (name && meta.roles?.length) {
+      if(name && meta.roles?.length) {
         router.hasRoute(name) && router.removeRoute(name)
       }
     })

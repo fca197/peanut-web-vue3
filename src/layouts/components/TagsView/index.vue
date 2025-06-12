@@ -49,6 +49,7 @@ function isAffix(tag: TagView) {
 /** 筛选出固定标签页 */
 function filterAffixTags(routes: RouteRecordRaw[], basePath = "/") {
   const tags: TagView[] = []
+  // console.info("filterAffixTags  routes ", routes)
   routes.forEach((route) => {
     if (isAffix(route)) {
       const tagPath = path.resolve(basePath, route.path)

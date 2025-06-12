@@ -101,6 +101,8 @@ function handleSearch() {
 function resetSearch() {
   searchFormRef.value?.resetFields()
   handleSearch()
+
+
 }
 // #endregion
 

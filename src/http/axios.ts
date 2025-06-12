@@ -1,13 +1,13 @@
 import type { AxiosInstance, AxiosRequestConfig } from "axios"
+import axios from "axios"
 import { useUserStore } from "@/pinia/stores/user"
 import { getToken } from "@@/utils/cache/cookies"
-import axios from "axios"
 import { get, merge } from "lodash-es"
 
 /** 退出登录并强制刷新页面（会重定向到登录页） */
 function logout() {
   useUserStore().logout()
-  location.reload()
+  location.href = "/#/";
 }
 
 /** 创建请求实例 */
@@ -30,11 +30,11 @@ function createInstance() {
       const apiData = response.data
       // 二进制数据则直接返回
       const responseType = response.request?.responseType
-      if (responseType === "blob" || responseType === "arraybuffer") return apiData
+      if(responseType === "blob" || responseType === "arraybuffer") return apiData
       // 这个 code 是和后端约定的业务 code
       const code = apiData.code
       // 如果没有 code, 代表这不是项目后端开发的 api
-      if (code === undefined) {
+      if(code === undefined) {
         ElMessage.error("非本系统的接口")
         return Promise.reject(new Error("非本系统的接口"))
       }

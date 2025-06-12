@@ -19,3 +19,11 @@ export function getCurrentUserApi() {
     data: {}
   });
 }
+/** 获取当前登录用户详情 */
+export function getCurrentUserResourceList() {
+  return request<Result>({
+    url: "/loginAccount/selectBaseResourceList",
+    method: "post",
+    data: {}
+  });
+}

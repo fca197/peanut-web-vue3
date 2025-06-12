@@ -1,6 +1,4 @@
 import type { RouteRecordRaw } from "vue-router";
-import { postResultInfo } from "@@/utils/common-js.ts";
-import { getToken } from "@@/utils/cache/cookies.ts";
 
 const Layouts = () => import("@/layouts/index.vue")
 
@@ -563,25 +561,7 @@ const allMenuList: RouteRecordRaw[] = [
   }
 ]
 
-export async function menuList(): RouteRecordRaw[] {
-  try {
-    const token = getToken()
-    if(token === undefined) {
-      return []
-    }
-    const result = await await postResultInfo("/baseAppResource/queryPageList", { queryPage: false });
-    // const ll =
-    // const result = postResultInfoList("/baseAppResource/queryPageList", { queryPage: false })
-    // console.info("baseAppResource ", )
-    const dataList = result.data.dataList.map(t => t.resourceUrl);
-    console.info("menuList.dataList ", dataList)
-    const allMenuListTmp = allMenuList.filter(t => {
-      return dataList.includes(t.path)
-    })
-    console.info("menuList.allMenuListTmp ", allMenuListTmp)
-    return allMenuList
-  } catch (e) {
-    console.error("菜单获取失败 ", e)
-    return [] as RouteRecordRaw[]
-  }
+export function menuList(): RouteRecordRaw[] {
+  return allMenuList;
 }
+
