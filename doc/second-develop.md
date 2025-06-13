@@ -13,6 +13,10 @@
 > > > > 模块名称  *Index.vue 列表页面，支持table展示与查询
 > > > > 模块名称  *Type.ts 数据结构定义， 可以增加通用查询或修改询接口
 
+```text
+  文件生产建议使用模板生产，可以保持代码一致性， 修改非 input 框字段即可
+```
+
 # 菜单权限
 
 > 目前显示所有菜单，按角色显示请删除： src/pinia/stores/permission.ts , 第八行： return true;
