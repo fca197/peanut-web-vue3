@@ -11,7 +11,7 @@
 > > > 模块名称 (表名)
 > > > > 模块名称  *AddEditForm.vue 添加或修改页面
 > > > > 模块名称  *Index.vue 列表页面，支持table展示与查询
-> > > > 模块名称  *Type.ts 数据结构定义， 可以增加其查询接口
+> > > > 模块名称  *Type.ts 数据结构定义， 可以增加通用查询或修改询接口
 
 # 菜单权限
 
@@ -24,3 +24,10 @@
 # 订单
 
 > 订单相关目录： src/view/aps/ApsOrder*
+
+
+# 百度统计
+>  文件修改： [baiduAnalytics.js](../src/common/utils/baiduAnalytics.js)
+>> [main.ts](../src/main.ts)  // 初始化百度统计（替换为你的 ID）
+>> initBaiduAnalytics("74466160c005f4fe5c7c40b4e1c06610");
+>>[guard.ts](../src/router/guard.ts)  添加当前页面到百度统计 router.afterEach 方法中  trackPageView(to.fullPath)
