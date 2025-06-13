@@ -24,6 +24,7 @@ onMounted(() => {
         openDb()
       } else {
         ElMessage.warning("距离还原数据库还剩： " + r.data.remainingTime)
+        setCookiesValue()
       }
     })
   }
@@ -43,12 +44,13 @@ const openDb = () => {
       postNoResult("/db/reset", {}, "还原成功", undefined)
     })
     .catch(() => {
-      const ti = new Date().getTime() + 1000 * 60 * 60 // 1小时有效
-      Cookies.set(ignoreDbResetKey.value, "1", { expires: new Date(ti), path: '/' });
-
+      setCookiesValue()
     })
 }
-
+const  setCookiesValue =() =>{
+  const ti = new Date().getTime() + 1000 * 60 * 60 // 1小时有效
+  Cookies.set(ignoreDbResetKey.value, "1", { expires: new Date(ti), path: '/' });
+}
 </script>
 
 <template>

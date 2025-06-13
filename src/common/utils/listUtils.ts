@@ -27,3 +27,17 @@ export function list2tree(list: any [], parentId: string | undefined) {
 
   return roots
 }
+
+export function listGroupBy(array: any[], key: string) {
+  return array.reduce((result, currentItem) => {
+    // 使用 key 函数如果提供的话
+    const groupKey = currentItem[key]
+    // 初始化分组数组
+    if(!result[groupKey]) {
+      result[groupKey] = []
+    }
+    // 将当前项添加到分组数组
+    result[groupKey].push(currentItem)
+    return result
+  }, {})
+}

@@ -25,7 +25,7 @@ export interface ResultInfo<T> {
   data: T
 }
 
-/** 增 */
+/** 增，删，改，提示信息 */
 export function postNoResult(url: string, data: any, suMsg: string, suFun: (((data: any) => void) | undefined)) {
   request<Result<ResultInfo<any>>>({
     url,
@@ -41,6 +41,7 @@ export function postNoResult(url: string, data: any, suMsg: string, suFun: (((da
   })
 }
 
+//  get调用获取结构
 export function getResult(url: string, suMsg: string | undefined, suFun: (((data: any) => void) | undefined)) {
   request<Result<any>>({
     url,
@@ -57,6 +58,7 @@ export function getResult(url: string, suMsg: string | undefined, suFun: (((data
   })
 }
 
+// post 接口调用
 export function postResultInfo(url: string, data: any) {
   return request<Result<ResultPageInfo<any>>>({
     url,
@@ -65,6 +67,7 @@ export function postResultInfo(url: string, data: any) {
   })
 }
 
+// 查询返回列表
 export function postResultInfoList(url: string, data: any): Promise<any []> {
   return request<Result<ResultPageInfo<any>>>({
     url,
@@ -76,6 +79,7 @@ export function postResultInfoList(url: string, data: any): Promise<any []> {
   })
 }
 
+// 下载文件
 export async function downloadFilePost(reqUrl: string, reqData: any, saveFileName: string): Promise<void> {
   try {
     reqData = reqData || {}
@@ -116,11 +120,13 @@ export async function downloadFilePost(reqUrl: string, reqData: any, saveFileNam
   }
 }
 
+// 提示 敬请期待
 export async function todo(data: any) {
   console.info("todo ", data)
   ElMessage.warning("敬请期待")
 }
 
+// 根据ID 获取单个详情
 export async function getById(url: string, id: string) {
   return request<Result<any>>({
     url,
@@ -142,6 +148,7 @@ interface pinyin4jSzmData {
   str: string | undefined
 }
 
+// 获取汉字首字母
 export async function pinyin4jSzm(value: string | undefined) {
   if(value === undefined || value.trim().length === 0) {
     return Promise.any("")
@@ -158,16 +165,3 @@ export async function pinyin4jSzm(value: string | undefined) {
   })
 }
 
-export function listGroupBy(array: any[], key: string) {
-  return array.reduce((result, currentItem) => {
-    // 使用 key 函数如果提供的话
-    const groupKey = currentItem[key]
-    // 初始化分组数组
-    if(!result[groupKey]) {
-      result[groupKey] = []
-    }
-    // 将当前项添加到分组数组
-    result[groupKey].push(currentItem)
-    return result
-  }, {})
-}

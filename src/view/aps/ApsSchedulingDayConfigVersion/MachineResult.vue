@@ -83,7 +83,8 @@
 
 import { useRoute } from "vue-router";
 import { ApsMachine, queryApsMachineList } from "@v/aps/ApsMachine/ApsMachineType.ts";
-import { downloadFilePost, KVEntity, listGroupBy, postResultInfo, postResultInfoList } from "@@/utils/common-js.ts";
+import { downloadFilePost, KVEntity,  postResultInfo, postResultInfoList } from "@@/utils/common-js.ts";
+import { listGroupBy } from "@@/utils/listUtils.ts";
 
 const beginDateTime = ref<string>(null)
 const endDateTime = ref<string>(null)

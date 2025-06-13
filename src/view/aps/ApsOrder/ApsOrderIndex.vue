@@ -54,17 +54,17 @@
             </span>
           </template>
         </ElTableColumn>
-        <ElTableColumn fixed="right" label="操作" width="150px">
-          <template #default="scope">
-            <el-button
-              type="warning"
-              icon="edit"
-              @click="editData(scope.row)"
-            >
-              编辑
-            </el-button>
-          </template>
-        </ElTableColumn>
+<!--        <ElTableColumn fixed="right" label="操作" width="150px">-->
+<!--          <template #default="scope">-->
+<!--            <el-button-->
+<!--              type="warning"-->
+<!--              icon="edit"-->
+<!--              @click="editData(scope.row)"-->
+<!--            >-->
+<!--              编辑-->
+<!--            </el-button>-->
+<!--          </template>-->
+<!--        </ElTableColumn>-->
       </ElTable>
       <el-row class="paginationDiv">
         <el-pagination
