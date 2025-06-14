@@ -1,13 +1,8 @@
 <script lang="ts" setup>
-import { useUserStore } from "@/pinia/stores/user"
-import Admin from "./components/Admin.vue"
 import Editor from "./components/Editor.vue"
 import { postNoResult, postResultInfo } from "@@/utils/common-js.ts";
 import Cookies from 'js-cookie';
 
-const userStore = useUserStore()
-
-const isAdmin = userStore.roles.includes("admin")
 
 const ignoreDbResetKey = ref<string>("ignoreDbReset")
 
@@ -47,12 +42,12 @@ const openDb = () => {
       setCookiesValue()
     })
 }
-const  setCookiesValue =() =>{
+const setCookiesValue = () => {
   const ti = new Date().getTime() + 1000 * 60 * 60 // 1小时有效
   Cookies.set(ignoreDbResetKey.value, "1", { expires: new Date(ti), path: '/' });
 }
 </script>
 
 <template>
-  <component :is="isAdmin ? Admin : Editor"/>
+  <component :is="Editor"/>
 </template>

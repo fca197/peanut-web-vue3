@@ -12,12 +12,12 @@ const route = useRoute();
 
 const showVideoDialog = ref<boolean>(false);
 
-const consolePath = () => {
+const playVideoFun = () => {
 
   const currentPath = route.path;
   console.info("path", currentPath)
   for (let key in videoPathMap) {
-    let videoPathMapElement = videoPathMap[key];
+    let videoPathMapElement = videoPathMap[key]
     console.info("key ", key, videoPathMapElement)
     if(currentPath.startsWith(key)) {
       videoSrc.value = videoPathMapElement
@@ -41,7 +41,7 @@ const togglePlay = () => {
 
 <template>
   <div class="notify">
-    <VideoPlay @click="consolePath" class="svg-icon"/>
+    <VideoPlay @click="playVideoFun" class="svg-icon"/>
     <el-dialog title="帮助视频" v-model="showVideoDialog" destroy-on-close :width="950">
       <div class="video-container">
         <video
