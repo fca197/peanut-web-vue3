@@ -31,14 +31,14 @@
 
 
 # 百度统计
->  文件修改： [baiduAnalytics.js](../src/common/utils/baiduAnalytics.js)
->> [main.ts](../src/main.ts)  // 初始化百度统计（替换为你的 ID）
->> initBaiduAnalytics("74466160c005f4fe5c7c40b4e1c06610");
->>[guard.ts](../src/router/guard.ts)  添加当前页面到百度统计 router.afterEach 方法中  trackPageView(to.fullPath)
+>  文件修改： [baiduAnalytics.js](../src/common/utils/baiduAnalytics.js)  
+>> [main.ts](../src/main.ts)  // 初始化百度统计（替换为你的 ID）  
+>> initBaiduAnalytics("74466160c005f4fe5c7c40b4e1c06610");  
+>>[guard.ts](../src/router/guard.ts)  添加当前页面到百度统计 router.afterEach 方法中  trackPageView(to.fullPath)  
  
 # 数据库还原
 > 文件修改： src/pages/dashboard/index.vue ， 删除 onMounted 方法
 
 # 帮助视频
-> 视频配置地址： src/common/components/VideoPlayer/index.ts
+> 视频配置地址： src/common/components/VideoPlayer/index.ts  
 > 匹配逻辑修改： src/common/components/VideoPlayer/index.vue ,playVideoFun 方法中if(currentPath.startsWith(key)) {
