@@ -4,7 +4,7 @@
       <el-form v-model="queryForm" inline>
         <el-form-item label="工厂" prop="factoryId">
           <el-select v-model="queryForm.factoryId" clearable style="width: 200px">
-            <el-option v-for="f in factoryList" :value="f.id" :key="f.id" :label="f.factoryName" />
+            <el-option v-for="f in factoryList" :value="f.id" :key="f.id" :label="f.factoryName"/>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -27,6 +27,11 @@
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
+        <ElTableColumn label="工厂">
+          <template #default="scope">
+            {{ factoryMap[scope.row?.factoryId] }}
+          </template>
+        </ElTableColumn>
         <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
         <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">
@@ -66,14 +71,14 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
+import { ref } from "vue"
 import CalendarDaySetting from "./CalendarDaySetting.vue"
 import AddEditFormVue from "./CalendarAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from "element-plus"
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type Calendar} from "./CalendarType.ts"
-import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
+import { ElTable } from "element-plus"
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import { type Calendar } from "./CalendarType.ts"
+import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/calendar")
 const documentTitle = ref<string>("日历")
@@ -104,12 +109,12 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  { fieldName: "factoryName", showName: "工厂" },
   { fieldName: "calendarCode", showName: "编码" },
-  { fieldName: "calendarName", showName: "名称"}
+  { fieldName: "calendarName", showName: "名称" }
 ])
 
 const factoryList = ref<Factory []>([])
+const factoryMap = ref({})
 const openSettingDay = ref<boolean>(false)
 const currentCalendarId = ref<string>("")
 
@@ -132,7 +137,12 @@ function getDataList() {
 // 页面加载事件
 onMounted(() => {
   getDataList()
-  queryFactoryList().then(t => factoryList.value = t)
+  queryFactoryList().then(t => {
+    factoryList.value = t
+    t.forEach(f => {
+      factoryMap.value[f.id] = f.factoryName
+    })
+  })
 })
 
 // table点击事件
@@ -158,7 +168,7 @@ function handleSelectionChange(val: Calendar[]) {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
-function openSettingDayFun(row){
+function openSettingDayFun(row) {
   console.info("openSettingDayFun ", row)
   currentCalendarId.value = row.id
   openSettingDay.value = true

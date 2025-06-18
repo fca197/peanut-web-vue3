@@ -1,67 +1,3 @@
-<template>
-  <el-form label-width="100px" :model="addForm" ref="addFormRef" :rules="checkRules">
-
-    <el-form-item label="工厂" prop="factoryId">
-      <el-select v-model="addForm.factoryId" placeholder="请选择工厂" clearable>
-        <el-option v-for="item in factoryList" :key="item.id" :label="item.factoryName" :value="item.id"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="商品" prop="goodsId">
-      <el-select v-model="addForm.goodsId" placeholder="请选择零件" clearable>
-        <el-option v-for="item in goodsList.filter(t=>t.factoryId === addForm.factoryId)" :key="item.id"
-                   :label="item.goodsName" :value="item.id" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="工位" prop="bomUseWorkStation">
-      <el-select v-model="addForm.bomUseWorkStation" placeholder="请选择工位" clearable>
-        <el-option v-for="item in workStationList" :key="item.id" :label="item.stationName"
-                   :value="item.id" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="零件" prop="bomId">
-      <el-select v-model="addForm.bomId" placeholder="请选择零件" filterable remote :remote-method="selectBomListFun"
-                 @change="bomChange">
-        <el-option v-for="item in selectBomList" :key="item.id" :label="item.bomName" :value="item.id" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="零件编码" prop="bomCode">
-      <el-input v-model="addForm.bomCode" placeholder="请输入零件编码" readonly disabled/>
-    </el-form-item>
-    <el-form-item label="零件名称" prop="bomName">
-      <el-input v-model="addForm.bomName" placeholder="请输入零件名称" readonly disabled/>
-    </el-form-item>
-    <el-form-item label="成本单价" prop="bomCostPrice">
-      <el-input v-model="addForm.bomCostPrice" placeholder="请输入成本单价" readonly disabled/>
-    </el-form-item>
-    <el-form-item label="用量规格" prop="bomCostPriceUnit">
-      <el-input v-model="addForm.bomCostPriceUnit" placeholder="请输入单价规格" readonly disabled/>
-    </el-form-item>
-    <el-form-item label="零件用量" prop="bomUsage">
-      <el-input v-model="addForm.bomUsage" placeholder="请输入用量"/>
-    </el-form-item>
-    <el-form-item label="用量规格" prop="bomUnit">
-      <el-input v-model="addForm.bomUnit" placeholder="请输入用量规格"/>
-    </el-form-item>
-    <el-form-item label="使用表达式" prop="bomUseExpression" ref="bomUseExpressionRef">
-      <el-input v-model="addForm.bomUseExpression" placeholder="请输入使用表达式"/>
-    </el-form-item>
-    <el-form-item label="是否关注" prop="isFollow">
-      <el-select v-model="addForm.isFollow">
-        <el-option v-for="f in isFollowList" :value="f.value" :label="f.label"/>
-      </el-select>
-    </el-form-item>
-
-  </el-form>
-  <el-row class="addFormBtnRow">
-    <el-button @click="cancelForm" type="info" icon="close">
-      取消
-    </el-button>
-    <el-button @click="saveForm" type="primary" icon="check">
-      确定
-    </el-button>
-  </el-row>
-</template>
-
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
 import {type ApsGoodsBom, checkBomUseExpressionFun, isFollowList} from "./ApsGoodsBomType.ts"
@@ -244,6 +180,69 @@ function bomChange() {
   })
 }
 </script>
+
+<template>
+  <el-form label-width="100px" :model="addForm" ref="addFormRef" :rules="checkRules">
+
+    <el-form-item label="工厂" prop="factoryId">
+      <el-select v-model="addForm.factoryId" placeholder="请选择工厂" clearable>
+        <el-option v-for="item in factoryList" :key="item.id" :label="item.factoryName" :value="item.id"></el-option>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="商品" prop="goodsId">
+      <el-select v-model="addForm.goodsId" placeholder="请选择零件" clearable>
+        <el-option v-for="item in goodsList.filter(t => t.factoryId === addForm.factoryId)" :key="item.id"
+          :label="item.goodsName" :value="item.id" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="工位" prop="bomUseWorkStation">
+      <el-select v-model="addForm.bomUseWorkStation" placeholder="请选择工位" clearable>
+        <el-option v-for="item in workStationList" :key="item.id" :label="item.stationName" :value="item.id" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="零件" prop="bomId">
+      <el-select v-model="addForm.bomId" placeholder="请选择零件" filterable remote :remote-method="selectBomListFun"
+        @change="bomChange">
+        <el-option v-for="item in selectBomList" :key="item.id" :label="item.bomName" :value="item.id" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="零件编码" prop="bomCode">
+      <el-input v-model="addForm.bomCode" placeholder="请输入零件编码" readonly disabled />
+    </el-form-item>
+    <el-form-item label="零件名称" prop="bomName">
+      <el-input v-model="addForm.bomName" placeholder="请输入零件名称" readonly disabled />
+    </el-form-item>
+    <el-form-item label="成本单价" prop="bomCostPrice">
+      <el-input v-model="addForm.bomCostPrice" placeholder="请输入成本单价" readonly disabled />
+    </el-form-item>
+    <el-form-item label="用量规格" prop="bomCostPriceUnit">
+      <el-input v-model="addForm.bomCostPriceUnit" placeholder="请输入单价规格" readonly disabled />
+    </el-form-item>
+    <el-form-item label="零件用量" prop="bomUsage">
+      <el-input v-model="addForm.bomUsage" placeholder="请输入用量" />
+    </el-form-item>
+    <el-form-item label="用量规格" prop="bomUnit">
+      <el-input v-model="addForm.bomUnit" placeholder="请输入用量规格" />
+    </el-form-item>
+    <el-form-item label="使用表达式" prop="bomUseExpression" ref="bomUseExpressionRef">
+      <el-input v-model="addForm.bomUseExpression" placeholder="请输入使用表达式" />
+    </el-form-item>
+    <el-form-item label="是否关注" prop="isFollow">
+      <el-select v-model="addForm.isFollow">
+        <el-option v-for="f in isFollowList" :value="f.value" :label="f.label" />
+      </el-select>
+    </el-form-item>
+
+  </el-form>
+  <el-row class="addFormBtnRow">
+    <el-button @click="cancelForm" type="info" icon="close">
+      取消
+    </el-button>
+    <el-button @click="saveForm" type="primary" icon="check">
+      确定
+    </el-button>
+  </el-row>
+</template>
 
 <style scoped lang="scss">
 

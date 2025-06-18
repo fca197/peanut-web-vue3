@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type {FormInstance, FormRules} from "element-plus"
-import {useSettingsStore} from "@/pinia/stores/settings"
-import {useUserStore} from "@/pinia/stores/user"
+import type { FormInstance, FormRules } from "element-plus"
+import { useSettingsStore } from "@/pinia/stores/settings"
+import { useUserStore } from "@/pinia/stores/user"
 import ThemeSwitch from "@@/components/ThemeSwitch/index.vue"
-import {Lock, User} from "@element-plus/icons-vue"
-import {loginApi} from "./apis"
+import { Lock, User } from "@element-plus/icons-vue"
+import { loginApi } from "./apis"
 import md5 from "md5-js/md5"
 import Owl from "./components/Owl.vue"
-import {useFocus} from "./composables/useFocus"
-import {setKeyValue} from "@@/utils/cache/cookies.ts";
+import { useFocus } from "./composables/useFocus"
+import { checkCookiesValue, setKeyValue } from "@@/utils/cache/cookies.ts"
 
 const router = useRouter()
 
@@ -16,7 +16,7 @@ const userStore = useUserStore()
 
 const settingsStore = useSettingsStore()
 
-const {isFocus, handleBlur, handleFocus} = useFocus()
+const { isFocus, handleBlur, handleFocus } = useFocus()
 
 /** 登录表单元素的引用 */
 const loginFormRef = ref<FormInstance | null>(null)
@@ -34,18 +34,18 @@ const loginFormData = reactive({
 /** 登录表单校验规则 */
 const loginFormRules: FormRules = {
   username: [
-    {required: true, message: "请输入用户名", trigger: "blur"}
+    { required: true, message: "请输入用户名", trigger: "blur" }
   ],
   password: [
-    {required: true, message: "请输入密码", trigger: "blur" },
-    {min: 1, max: 16, message: "长度在 1 到 16 个字符", trigger: "blur"}
+    { required: true, message: "请输入密码", trigger: "blur" },
+    { min: 1, max: 16, message: "长度在 1 到 16 个字符", trigger: "blur" }
   ]
 }
 
 /** 登录 */
 function handleLogin() {
   loginFormRef.value?.validate((valid) => {
-    if (!valid) {
+    if(!valid) {
       ElMessage.error("表单校验不通过")
       return
     }
@@ -54,7 +54,7 @@ function handleLogin() {
       loginPhone: loginFormData.username,
       pwd: md5(loginFormData.password).toUpperCase()
     }
-    loginApi(req).then(({data}) => {
+    loginApi(req).then(({ data }) => {
       setKeyValue("loginPhone", loginFormData.username);
       userStore.setToken(data.token)
       router.push("/")
@@ -67,6 +67,17 @@ function handleLogin() {
   })
 }
 
+onMounted(() => {
+  const gitBrandCk = "git-brand-ck"
+  checkCookiesValue(gitBrandCk, 1000 * 60 * 30, () => {
+    ElNotification({
+      title: "版本提示",
+      message: "当前为master版本",
+      type: "success",
+      duration: 3000
+    })
+  })
+})
 </script>
 
 <template>
@@ -141,6 +152,7 @@ function handleLogin() {
       justify-content: center;
       align-items: center;
       font-weight: 600;
+
       .spanAps {
         height: 100px;
         line-height: 100px;
@@ -148,6 +160,7 @@ function handleLogin() {
         color: red;
         font-size: 90px;
       }
+
       .spanDesc {
         margin-top: 60px;
       }

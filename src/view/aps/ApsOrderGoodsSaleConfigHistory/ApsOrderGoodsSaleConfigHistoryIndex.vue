@@ -28,7 +28,7 @@ const queryForm = ref<ApsOrderGoodsSaleConfigHistory>({
 // 表格选中的id
 const multipleSelection = ref<(string | undefined)[]>([])
 
-const monthList = ref<string[]>(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"])
+const monthList = ref<string[]>([ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ])
 // 表格
 // const dataTableRef = ref<InstanceType<typeof ElTable> | null>(null)
 const dataTableRef = ref({})
@@ -89,10 +89,10 @@ const getDataList = () => {
 }
 
 // table点击事件
-const editData = (data: any) => {
-  // console.info("data ", data)
-  tableBarRef.value?.showEditDialog(data.id)
-}
+// const editData = (data: any) => {
+//   // console.info("data ", data)
+//   tableBarRef.value?.showEditDialog(data.id)
+// }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
   currentPageSize.value = val
@@ -111,7 +111,7 @@ const handleSelectionChange = (val: ApsOrderGoodsSaleConfigHistory[]) => {
 const factoryList = ref<Factory[]>([])
 const apsGoodsList = ref<ApsGoods[]>([])
 
-const refresfHistory = (type) => {
+const refreshHistory = (type) => {
 
   postNoResult("/apsOrderGoodsSaleHistory/selectOrder2History",
     { selectType: type === 1 ? "LAST_MONTH" : "CURRENT_MONTH" }, "刷新成功", () => {
@@ -139,8 +139,10 @@ onMounted(() => {
         </el-form-item>
         <el-form-item label="商品" prop="goodsId">
           <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
-            <el-option v-for="f in apsGoodsList.filter(t=>t.factoryId === queryForm.factoryId)" :label="f.goodsName"
-                       :value="f.id" :key="f.id"/>
+            <el-option
+              v-for="f in apsGoodsList.filter(t=> queryForm.factoryId === undefined || t.factoryId === queryForm.factoryId)"
+              :label="f.goodsName"
+              :value="f.id" :key="f.id"/>
           </el-select>
         </el-form-item>
 
@@ -165,10 +167,10 @@ onMounted(() => {
         :data-batch-delete-url="dataBatchDeleteUrl"
       >
         <template #otherBtn>
-          <el-button type="danger" icon="refresh" @click="refresfHistory(1)">
+          <el-button type="danger" icon="refresh" @click="refreshHistory(1)">
             上月
           </el-button>
-          <el-button type="primary" icon="refresh" @click="refresfHistory(0)">
+          <el-button type="primary" icon="refresh" @click="refreshHistory(0)">
             当月
           </el-button>
         </template>

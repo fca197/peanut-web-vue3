@@ -1,80 +1,11 @@
-<template>
-  <div class="app-container">
-    <el-card class="search-wrapper" shadow="never">
-      <el-form v-model="queryForm" inline>
-              <el-form-item label="商品名称" prop="goodsName">
-                <el-input v-model="queryForm.goodsName" clearable placeholder="请输入商品名称" />
-              </el-form-item>
-              <el-form-item label="商品备注" prop="goodsRemark">
-                <el-input v-model="queryForm.goodsRemark" clearable placeholder="请输入商品备注" />
-              </el-form-item>
-              <el-form-item label="工厂" prop="factoryId">
-                <el-select v-model="queryForm.factoryId" clearable style="width: 200px" >
-                  <el-option v-for="f in factoryList" :value="f.id" :label="f.factoryName" :key="f.id"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="工艺路线" prop="processPathId">
-                <el-input v-model="queryForm.processPathId" clearable placeholder="请输入工艺路线" />
-              </el-form-item>
-              <el-form-item label="制造流水线ID produceProcess" prop="produceProcessId">
-                <el-input v-model="queryForm.produceProcessId" clearable placeholder="请输入制造流水线ID produceProcess" />
-              </el-form-item>
-        <el-form-item>
-          <el-button type="primary" icon="search" @click="getDataList">
-            查询
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
-
-    <el-card shadow="never">
-      <TableBar
-        :document-title="documentTitle"
-        :add-component="AddEditFormVue"
-        :refresh-list="getDataList"
-        :data-table-ref="dataTableRef"
-        :multiple-selection="multipleSelection"
-        ref="tableBarRef"
-        :data-batch-delete-url="dataBatchDeleteUrl"
-      />
-      <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
-        <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" :width="h.width"/>
-        <ElTableColumn fixed="right" label="操作" width="150px">
-          <template #default="scope">
-            <el-button
-              type="warning"
-              icon="edit"
-              @click="editData(scope.row)"
-            >
-              编辑
-            </el-button>
-          </template>
-        </ElTableColumn>
-      </ElTable>
-      <el-row class="paginationDiv">
-        <el-pagination
-          background
-          v-model:current-page="currentPageNum"
-          v-model:page-size="currentPageSize"
-          layout="total, sizes, prev, pager, next"
-          :total="tableTotal"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </el-row>
-    </el-card>
-  </div>
-</template>
-
 <script setup lang="ts">
-import {ref} from "vue"
+import { ref } from "vue"
 import AddEditFormVue from "./ApsGoodsAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import { ElTable } from "element-plus"
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsGoods} from "./ApsGoodsType.ts"
-import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import { type ApsGoods } from "./ApsGoodsType.ts"
+import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsGoods")
 const documentTitle = ref<string>("aps 商品")
@@ -82,29 +13,29 @@ const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 //查询表格
 const queryForm = ref<ApsGoods>({
-  goodsName:  undefined, // 商品名称
-  goodsRemark:  undefined, // 商品备注
-  supplierStatus:  undefined, //
-  factoryId:  undefined, // 工厂ID
-  processPathId:  undefined, // 工艺路线
-  produceProcessId:  undefined, // 制造流水线ID produceProcess
+  goodsName: undefined, // 商品名称
+  goodsRemark: undefined, // 商品备注
+  supplierStatus: undefined, //
+  factoryId: undefined, // 工厂ID
+  processPathId: undefined, // 工艺路线
+  produceProcessId: undefined, // 制造流水线ID produceProcess
   id: undefined
 })
 
 // 表格选中的id
-const multipleSelection = ref<(string | undefined) []>([])
+const multipleSelection = ref<(string | undefined)[]>([])
 
 // 表格
 const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsGoods[] >([])
+const dataList = ref<ApsGoods[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([])
-const factoryList = ref<Factory[]> ([])
+const factoryList = ref<Factory[]>([])
 
 // 获取表格内数据
 function getDataList() {
@@ -124,7 +55,7 @@ function getDataList() {
 // 页面加载事件
 onMounted(() => {
   getDataList()
-  queryFactoryList().then((r)=>{
+  queryFactoryList().then((r) => {
     factoryList.value = r
   })
 })
@@ -151,7 +82,54 @@ function handleSelectionChange(val: ApsGoods[]) {
 
 </script>
 
-<style scoped lang="scss">
+<template>
+  <div class="app-container">
+    <el-card class="search-wrapper" shadow="never">
+      <el-form v-model="queryForm" inline>
+        <el-form-item label="商品名称" prop="goodsName">
+          <el-input v-model="queryForm.goodsName" clearable placeholder="请输入商品名称"/>
+        </el-form-item>
+        <el-form-item label="商品备注" prop="goodsRemark">
+          <el-input v-model="queryForm.goodsRemark" clearable placeholder="请输入商品备注"/>
+        </el-form-item>
+        <el-form-item label="工厂" prop="factoryId">
+          <el-select v-model="queryForm.factoryId" clearable style="width: 200px">
+            <el-option v-for="f in factoryList" :value="f.id" :label="f.factoryName" :key="f.id"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" icon="search" @click="getDataList">
+            查询
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
 
-</style>
-
+    <el-card shadow="never">
+      <TableBar :document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
+                :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
+                :data-batch-delete-url="dataBatchDeleteUrl"/>
+      <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
+        <ElTableColumn type="selection"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"
+                       :width="h.width"/>
+        <ElTableColumn fixed="right" label="操作" width="150px">
+          <template #default="scope">
+            <el-button type="warning" icon="edit" @click="editData(scope.row)">
+              编辑
+            </el-button>
+          </template>
+        </ElTableColumn>
+      </ElTable>
+      <el-row class="paginationDiv">
+        <el-pagination background v-model:current-page="currentPageNum" v-model:page-size="currentPageSize"
+                       layout="total, sizes, prev, pager, next" :total="tableTotal" @size-change="handleSizeChange"
+                       @current-change="handleCurrentChange"/>
+      </el-row>
+    </el-card>
+  </div>
+</template>
+<style
+  scoped
+  lang="scss"
+></style>

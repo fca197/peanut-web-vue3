@@ -1,17 +1,17 @@
-import {request} from "@/http/axios.ts";
-import {Result, ResultPageInfo} from "@@/utils/common-js.ts"
+import { request} from "@/http/axios.ts";
+import { Result, ResultPageInfo} from "@@/utils/common-js.ts"
 
 export interface ApsGoods {
-  goodsName: string
-  goodsRemark: string
-  supplierStatus: string
+  goodsName?: string | undefined
+  goodsRemark?: string | undefined
+  supplierStatus?: string | undefined
   // 工厂ID
-  factoryId: string
+  factoryId?: string | undefined
   // 工艺路线
-  processPathId: string
+  processPathId?: string | undefined
   // 制造流水线ID produceProcess
-  produceProcessId: string
-  id: string
+  produceProcessId?: string | undefined
+  id?: string | undefined
 }
 
 export function queryGoodsList(): Promise<ApsGoods[]> {

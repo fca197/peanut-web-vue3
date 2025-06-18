@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
+import { onMounted, ref } from "vue"
 import AddEditFormVue from "./ApsGoodsBomBuyPlanAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import { ElTable } from "element-plus"
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsGoodsBomBuyPlan} from "./ApsGoodsBomBuyPlanType.ts"
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import { type ApsGoodsBomBuyPlan } from "./ApsGoodsBomBuyPlanType.ts"
+import { isFollowList } from "@v/aps/ApsGoodsBom/ApsGoodsBomType.ts";
 
 const dtoUrl = ref<string>("/apsGoodsBomBuyPlan")
 const documentTitle = ref<string>("BOM 购买计划")
@@ -31,12 +32,12 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsGoodsBomBuyPlan[] >([])
+const dataList = ref<ApsGoodsBomBuyPlan[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
- { fieldName: "id", showName: "序号" },
+  { fieldName: "id", showName: "序号" },
   { fieldName: "planName", showName: "计划名称" },
   { fieldName: "planTotalAmount", showName: "总价" },
   { fieldName: "planSource", showName: "计划来源" },
@@ -96,25 +97,24 @@ onMounted(() => {
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
         <el-form-item label="计划名称" prop="planName">
-          <el-input v-model="queryForm.planName" clearable placeholder="请输入计划名称" />
+          <el-input v-model="queryForm.planName" clearable placeholder="请输入计划名称"/>
         </el-form-item>
         <el-form-item label="总价" prop="planTotalAmount">
-          <el-input v-model="queryForm.planTotalAmount" clearable placeholder="请输入总价" />
+          <el-input v-model="queryForm.planTotalAmount" clearable placeholder="请输入总价"/>
         </el-form-item>
         <el-form-item label="计划来源" prop="planSource">
-          <el-input v-model="queryForm.planSource" clearable placeholder="请输入计划来源" />
-        </el-form-item>
-        <el-form-item label="计划备注" prop="planRemark">
-          <el-input v-model="queryForm.planRemark" clearable placeholder="请输入计划备注" />
-        </el-form-item>
-        <el-form-item label="购买类型" prop="buyPlanType">
-          <el-input v-model="queryForm.buyPlanType" clearable placeholder="请输入购买类型" />
+          <el-input v-model="queryForm.planSource" clearable placeholder="请输入计划来源"/>
         </el-form-item>
         <el-form-item label="是否关注" prop="isFollow">
-          <el-input v-model="queryForm.isFollow" clearable placeholder="请输入是否关注" />
+          <el-select v-model="queryForm.isFollow" clearable placeholder="请选择" style="width: 100px">
+            <el-option v-for="f in isFollowList" :key="f.value" :value="f.value" :label="f.label"/>
+          </el-select>
         </el-form-item>
-        <el-form-item label="日期" prop="bomUseDate">
-          <el-input v-model="queryForm.bomUseDate" clearable placeholder="请输入日期" />
+        <el-form-item label="使用日期" prop="bomUseDate">
+          <el-date-picker
+            v-model="queryForm.bomUseDate" clearable placeholder="请选择日期"
+            type="date" value-format="YYYY-MM" format="YYYY-MM"
+          />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -136,7 +136,8 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" :width="h.width"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"
+                       :width="h.width"/>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button

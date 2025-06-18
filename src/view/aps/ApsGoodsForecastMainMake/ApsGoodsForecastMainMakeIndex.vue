@@ -109,7 +109,7 @@ onMounted(() => {
         <el-form-item label="商品" prop="goodsId">
           <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
             <el-option
-              v-for="g in goodsList.filter(g => g.factoryId === queryForm.factoryId)" :key="g.id"
+              v-for="g in goodsList.filter(g =>  queryForm.factoryId === undefined || g.factoryId === queryForm.factoryId)" :key="g.id"
               :label="g.goodsName" :value="g.id"
             />
           </el-select>

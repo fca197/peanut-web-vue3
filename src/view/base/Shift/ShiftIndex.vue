@@ -7,12 +7,6 @@
             <el-option v-for="f in factoryList" :value="f.id" :key="f.id" :label="f.factoryName" />
           </el-select>
         </el-form-item>
-        <el-form-item label="" prop="shiftName">
-          <el-input v-model="queryForm.shiftName" clearable placeholder="请输入"/>
-        </el-form-item>
-        <el-form-item label="" prop="shiftCode">
-          <el-input v-model="queryForm.shiftCode" clearable placeholder="请输入"/>
-        </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
             查询

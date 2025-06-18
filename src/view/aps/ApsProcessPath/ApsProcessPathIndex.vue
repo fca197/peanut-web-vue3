@@ -99,7 +99,7 @@ onMounted(() => {
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
         <el-form-item label="工厂" prop="factoryId">
-          <el-select v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID" style="width: 200px">
+          <el-select v-model="queryForm.factoryId" clearable placeholder="请选择工厂" style="width: 200px">
             <el-option v-for="f in factoryList" :key="f.id" :label="f.factoryName" :value="f.id"></el-option>
           </el-select>
         </el-form-item>

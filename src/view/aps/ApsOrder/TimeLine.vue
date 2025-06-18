@@ -128,7 +128,7 @@ const getDataList = () => {
         r[rt.beginDate + '_expectMakeBeginTime'] = rt.expectMakeBeginTime
       })
     })
-    tableTotal.value = parseInt(r.data.total)
+    tableTotal.value = parseInt(t.data.total)
 
   })
 }

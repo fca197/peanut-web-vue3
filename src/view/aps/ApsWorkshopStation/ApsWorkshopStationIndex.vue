@@ -2,10 +2,13 @@
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="工厂" prop="factoryId">
-          <el-select v-model="queryForm.factoryId" clearable  style="width: 200px" >
-            <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id" />
-          </el-select>
+        <el-form-item label="编码" prop="stationCode">
+          <el-input v-model="queryForm.stationCode" clearable style="width: 200px" placeholder="请输入编码">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="名称" prop="stationName">
+          <el-input v-model="queryForm.stationName" clearable style="width: 200px" placeholder="请输入名称">
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">

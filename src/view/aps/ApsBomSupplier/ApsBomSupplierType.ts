@@ -1,18 +1,18 @@
-import {KVEntity} from "@@/utils/common-js.ts";
+import { KVEntity } from "@@/utils/common-js.ts"
 
 export interface ApsBomSupplier {
-  bomSupplierName: string
-  bomSupplierCode: string
-  bomSupplierPhone: string
-  bomSupplierTel: string
-  bomSupplierEmail: string
-  provinceCode: string
-  cityCode: string
-  areaCode: string
-  bomSupplierAddr: string
-  bomSupplierRemark: string
-  supplierStatus: string
-  id: string
+  bomSupplierName: string | undefined
+  bomSupplierCode: string | undefined
+  bomSupplierPhone: string | undefined
+  bomSupplierTel: string | undefined
+  bomSupplierEmail: string | undefined
+  provinceCode: string | undefined
+  cityCode: string | undefined
+  areaCode: string | undefined
+  bomSupplierAddr: string | undefined
+  bomSupplierRemark: string | undefined
+  supplierStatus: number | undefined
+  id: string | undefined
 }
 
 export const supplierStatusList: KVEntity[] = [

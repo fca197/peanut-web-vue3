@@ -9,7 +9,10 @@
           <el-input v-model="queryForm.roomCode" clearable placeholder="请输入编码"/>
         </el-form-item>
         <el-form-item label="工厂" prop="factoryId">
-          <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID"/>
+          <el-select v-model="queryForm.factoryId" clearable placeholder="请选择工厂" style="width: 200px">
+            <el-option
+              v-for="f in factoryList" :value="f.id" :label="f.factoryName" />
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button icon="search" type="primary" @click="getDataList">
@@ -61,12 +64,13 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from "vue"
+import { ref } from "vue"
 import AddEditFormVue from "./ApsRoomAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import {ElTable} from "element-plus"
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsRoom} from "./ApsRoomType.ts"
+import { ElTable } from "element-plus"
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import { type ApsRoom } from "./ApsRoomType.ts"
+import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsRoom")
 const documentTitle = ref<string>("车间")
@@ -94,7 +98,7 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([])
-
+const factoryList = ref<Factory[]>([])
 
 // 获取表格内数据
 function getDataList() {
@@ -115,6 +119,7 @@ function getDataList() {
 // 页面加载事件
 onMounted(() => {
   getDataList()
+  queryFactoryList().then(r => factoryList.value = r)
 })
 
 // table点击事件

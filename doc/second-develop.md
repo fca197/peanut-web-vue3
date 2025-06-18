@@ -42,3 +42,7 @@
 # 帮助视频
 > 视频配置地址： src/common/components/VideoPlayer/index.ts  
 > 匹配逻辑修改： src/common/components/VideoPlayer/index.vue ,playVideoFun 方法中if(currentPath.startsWith(key)) {
+
+# 版本提示  
+> 文件修改： [index.vue](../src/pages/login/index.vue)， 方法： onMounted  
+>

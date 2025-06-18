@@ -46,7 +46,8 @@ const allMenuList: RouteRecordRaw[] = [
         component: () => import("@/view/base/BaseApp/BaseAppIndex.vue"),
         meta: {
           title: "App",
-          elIcon: "Compass"
+          elIcon: "Compass",
+          hidden: true
         }
       },
       {
@@ -55,7 +56,8 @@ const allMenuList: RouteRecordRaw[] = [
         component: () => import("@/view/base/BaseAppResource/BaseAppResourceIndex.vue"),
         meta: {
           title: "App菜单",
-          elIcon: "Memo"
+          elIcon: "Memo",
+          hidden: true
         }
       },
       {
@@ -229,7 +231,8 @@ const allMenuList: RouteRecordRaw[] = [
         component: () => import("@/view/base/BaseReportConfigUser/BaseReportConfigUserIndex.vue"),
         meta: {
           title: "用户报表",
-          elIcon: "Notebook"
+          elIcon: "Notebook",
+          hidden: true
         }
       },
       {

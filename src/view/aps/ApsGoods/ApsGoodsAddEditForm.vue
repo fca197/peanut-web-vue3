@@ -1,87 +1,54 @@
-<template>
-  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="商品名称" prop="goodsName">
-      <el-input v-model="addForm.goodsName" clearable placeholder="请输入商品名称"/>
-    </el-form-item>
-    <el-form-item label="商品备注" prop="goodsRemark">
-      <el-input v-model="addForm.goodsRemark" clearable placeholder="请输入商品备注"/>
-    </el-form-item>
-    <el-form-item label="工厂" prop="factoryId">
-      <el-select v-model="addForm.factoryId" style="width: 100%">
-        <el-option v-for="f in factoryList" :value="f.id" :label="f.factoryName" :key="f.id"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="工艺路线" prop="processPathId">
-      <el-input v-model="addForm.processPathId" clearable placeholder="请输入工艺路线"/>
-    </el-form-item>
-    <el-form-item label="制造流水线ID produceProcess" prop="produceProcessId">
-      <el-input v-model="addForm.produceProcessId" clearable placeholder="请输入制造流水线ID produceProcess"/>
-    </el-form-item>
-  </el-form>
-  <el-row class="addFormBtnRow">
-    <el-button @click="cancelForm" type="info" icon="close">
-      取消
-    </el-button>
-    <el-button @click="saveForm" type="primary" icon="check">
-      确定
-    </el-button>
-  </el-row>
-</template>
-
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
-import {type ApsGoods} from "./ApsGoodsType.ts"
-import {getById, postNoResult} from "@/common/utils/common-js.ts"
-import {type FormInstance, FormRules} from "element-plus"
-import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
+  import { onMounted, ref } from "vue"
+  import { type ApsGoods } from "./ApsGoodsType.ts"
+  import { getById, postNoResult } from "@/common/utils/common-js.ts"
+  import { type FormInstance, FormRules } from "element-plus"
+  import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
 
-const props = defineProps({
-  saveFun: {
-    type: Function
-  },
-  editId: {
-    type: String,
-    required: false
-  }
-})
+  const props = defineProps({
+    saveFun: {
+      type: Function
+    },
+    editId: {
+      type: String,
+      required: false
+    }
+  })
 
-// 对象URL
-const dtoUrl = ref<string>("/apsGoods")
-// 表单引用
-const addFormRef = ref<FormInstance>()
-// 表单校验规则
-const checkRules = ref<FormRules>({
-  // 商品名称
-  goodsName: [
-    {required: true, message: "请输入商品名称", trigger: "blur" },
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
-  // 商品备注
-  goodsRemark: [
-    {required: true, message: "请输入商品备注", trigger: "blur" },
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
-  // 工厂ID
-  factoryId: [
-    {required: true, message: "请输入工厂ID", trigger: "blur" },
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
-  // 工艺路线
-  processPathId: [
-    {required: true, message: "请输入工艺路线", trigger: "blur" },
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
-  // 制造流水线ID produceProcess
-  produceProcessId: [
-    {required: true, message: "请输入制造流水线ID produceProcess", trigger: "blur" },
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
+  // 对象URL
+  const dtoUrl = ref<string>("/apsGoods")
+  // 表单引用
+  const addFormRef = ref<FormInstance>()
+  // 表单校验规则
+  const checkRules = ref<FormRules>({
+    // 商品名称
+    goodsName: [
+      { required: true, message: "请输入商品名称", trigger: "blur" },
+      { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+    ],
+    // 商品备注
+    goodsRemark: [
+      { required: true, message: "请输入商品备注", trigger: "blur" },
+      { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+    ],
+    // 工厂ID
+    factoryId: [
+      { required: true, message: "请输入工厂ID", trigger: "blur" },
+      { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+    ],
+    // 工艺路线
+    processPathId: [
+      { required: true, message: "请输入工艺路线", trigger: "blur" },
+      { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+    ],
+    // 制造流水线ID produceProcess
+    produceProcessId: [
+      { required: true, message: "请输入制造流水线ID produceProcess", trigger: "blur" },
+      { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+    ]
+  })
 
-})
-
-const factoryList = ref<Factory[]>([])
-
-
+  const factoryList = ref<Factory[]>([])
 // 页面加载事件
 onMounted(() => {
   loadById()
@@ -91,12 +58,12 @@ onMounted(() => {
 })
 // 添加对象
 const addForm = ref<ApsGoods | null>({
-  goodsName: "",  // 商品名称
-  goodsRemark: "",  // 商品备注
-  supplierStatus: "",  //
-  factoryId: "",  // 工厂ID
-  processPathId: "",  // 工艺路线
-  produceProcessId: "",  // 制造流水线ID produceProcess
+  goodsName: "", // 商品名称
+  goodsRemark: "", // 商品备注
+  supplierStatus: "", //
+  factoryId: "", // 工厂ID
+  processPathId: "", // 工艺路线
+  produceProcessId: "", // 制造流水线ID produceProcess
   id: ""
 })
 
@@ -142,7 +109,37 @@ function cancelForm() {
 }
 </script>
 
-<style scoped lang="scss">
+<template>
+  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
+    <el-form-item label="商品名称" prop="goodsName">
+      <el-input v-model="addForm.goodsName" clearable placeholder="请输入商品名称" />
+    </el-form-item>
+    <el-form-item label="商品备注" prop="goodsRemark">
+      <el-input v-model="addForm.goodsRemark" clearable placeholder="请输入商品备注" />
+    </el-form-item>
+    <el-form-item label="工厂" prop="factoryId">
+      <el-select v-model="addForm.factoryId" style="width: 100%">
+        <el-option v-for="f in factoryList" :value="f.id" :label="f.factoryName" :key="f.id"></el-option>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="工艺路线" prop="processPathId">
+      <el-input v-model="addForm.processPathId" clearable placeholder="请输入工艺路线" />
+    </el-form-item>
+    <el-form-item label="制造流水线ID produceProcess" prop="produceProcessId">
+      <el-input v-model="addForm.produceProcessId" clearable placeholder="请输入制造流水线ID produceProcess" />
+    </el-form-item>
+  </el-form>
+  <el-row class="addFormBtnRow">
+    <el-button @click="cancelForm" type="info" icon="close">
+      取消
+    </el-button>
+    <el-button @click="saveForm" type="primary" icon="check">
+      确定
+    </el-button>
+  </el-row>
+</template>
 
-</style>
-
+<style
+  scoped
+  lang="scss"
+></style>

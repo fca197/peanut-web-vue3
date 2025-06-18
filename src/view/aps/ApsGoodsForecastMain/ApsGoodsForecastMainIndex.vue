@@ -98,6 +98,10 @@ onMounted(() => {
   queryGoodsList().then(r => goodsList.value = r)
 })
 
+watch(() => queryForm.value.factoryId, (data) => {
+  console.info("queryForm.value.factoryId ",data)
+  queryForm.value.goodsId = undefined
+})
 </script>
 
 <template>
@@ -112,9 +116,10 @@ onMounted(() => {
         <el-form-item label="商品" prop="goodsId">
           <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
             <el-option
-              v-for="g in goodsList.filter(t => t.factoryId === queryForm.factoryId)"
+              v-for="g in goodsList.filter(t =>  queryForm.factoryId === undefined || t.factoryId === queryForm.factoryId)"
               :label="g.goodsName"
-              :value="g.id" :key="g.id"/>
+              :value="g.id" :key="g.id"
+            />
           </el-select>
         </el-form-item>
         <el-form-item>

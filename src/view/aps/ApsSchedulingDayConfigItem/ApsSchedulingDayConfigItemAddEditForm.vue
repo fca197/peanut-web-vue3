@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
-import {type ApsSchedulingDayConfigItem} from "./ApsSchedulingDayConfigItemType.ts"
-import {getById, postNoResult} from "@/common/utils/common-js.ts"
-import {type FormInstance, FormRules} from "element-plus"
+import { onMounted, ref } from "vue"
+import { type ApsSchedulingDayConfigItem } from "./ApsSchedulingDayConfigItemType.ts"
+import { getById, postNoResult } from "@/common/utils/common-js.ts"
+import { type FormInstance, FormRules } from "element-plus"
 
 const props = defineProps({
   saveFun: {
@@ -22,74 +22,73 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
     // 排程版本ID
     schedulingDayId: [
-      {required: true, message: "请输入排程版本ID", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 工艺路径ID
-    processId: [
-      {required: true, message: "请输入工艺路径ID", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 车间ID
-    roomId: [
-      {required: true, message: "请输入车间ID", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 状态ID
-    statusId: [
-      {required: true, message: "请输入状态ID", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 配置类型 sale,part,bom ,sleep
-    configBizType: [
-      {required: true, message: "请输入配置类型 sale,part,bom ,sleep", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 配置业务ID
-    configBizId: [
-      {required: true, message: "请输入配置业务ID", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 配置业务名称
-    configBizName: [
-      {required: true, message: "请输入配置业务名称", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 配置业务数量
-    configBizNum: [
-      {required: true, message: "请输入配置业务数量", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 配置业务耗时(秒)
-    configBizTime: [
-      {required: true, message: "请输入配置业务耗时(秒)", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 是否默认 0 否,1 是
-    isDefault: [
-      {required: true, message: "请输入是否默认 0 否,1 是", trigger: "blur"},
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
+    { required: true, message: "请输入排程版本ID", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 工艺路径ID
+  processId: [
+    { required: true, message: "请输入工艺路径ID", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 车间ID
+  roomId: [
+    { required: true, message: "请输入车间ID", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 状态ID
+  statusId: [
+    { required: true, message: "请输入状态ID", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 配置类型 sale,part,bom ,sleep
+  configBizType: [
+    { required: true, message: "请输入配置类型 sale,part,bom ,sleep", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 配置业务ID
+  configBizId: [
+    { required: true, message: "请输入配置业务ID", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 配置业务名称
+  configBizName: [
+    { required: true, message: "请输入配置业务名称", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 配置业务数量
+  configBizNum: [
+    { required: true, message: "请输入配置业务数量", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 配置业务耗时(秒)
+  configBizTime: [
+    { required: true, message: "请输入配置业务耗时(秒)", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ],
+  // 是否默认 0 否,1 是
+  isDefault: [
+    { required: true, message: "请输入是否默认 0 否,1 是", trigger: "blur" },
+    { min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur" }
+  ]
 
 })
-
 
 // 添加对象
 const addForm = ref<ApsSchedulingDayConfigItem>({
-      schedulingDayId: "",
-      processId: "",
-      roomId: "",
-      statusId: "",
-      configBizType: "",
-      configBizId: "",
-      configBizName: "",
-      configBizNum: "",
-      configBizTime: "",
-      isDefault: "",
-      id: "" 
+  schedulingDayId: "",
+  processId: "",
+  roomId: "",
+  statusId: "",
+  configBizType: "",
+  configBizId: "",
+  configBizName: "",
+  configBizNum: "",
+  configBizTime: "",
+  isDefault: "",
+  id: ""
 })
 
-const  loadById = () => {
+const loadById = () => {
   if (!props.editId) {
     return
   }
@@ -139,34 +138,34 @@ onMounted(() => {
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
     <el-form-item label="排程版本ID" prop="schedulingDayId">
-      <el-input v-model="addForm.schedulingDayId" clearable placeholder="请输入排程版本ID"/>
+      <el-input v-model="addForm.schedulingDayId" clearable placeholder="请输入排程版本ID" />
     </el-form-item>
     <el-form-item label="工艺路径ID" prop="processId">
-      <el-input v-model="addForm.processId" clearable placeholder="请输入工艺路径ID"/>
+      <el-input v-model="addForm.processId" clearable placeholder="请输入工艺路径ID" />
     </el-form-item>
     <el-form-item label="车间ID" prop="roomId">
-      <el-input v-model="addForm.roomId" clearable placeholder="请输入车间ID"/>
+      <el-input v-model="addForm.roomId" clearable placeholder="请输入车间ID" />
     </el-form-item>
     <el-form-item label="状态ID" prop="statusId">
-      <el-input v-model="addForm.statusId" clearable placeholder="请输入状态ID"/>
+      <el-input v-model="addForm.statusId" clearable placeholder="请输入状态ID" />
     </el-form-item>
     <el-form-item label="配置类型 sale,part,bom ,sleep" prop="configBizType">
-      <el-input v-model="addForm.configBizType" clearable placeholder="请输入配置类型 sale,part,bom ,sleep"/>
+      <el-input v-model="addForm.configBizType" clearable placeholder="请输入配置类型 sale,part,bom ,sleep" />
     </el-form-item>
     <el-form-item label="配置业务ID" prop="configBizId">
-      <el-input v-model="addForm.configBizId" clearable placeholder="请输入配置业务ID"/>
+      <el-input v-model="addForm.configBizId" clearable placeholder="请输入配置业务ID" />
     </el-form-item>
     <el-form-item label="配置业务名称" prop="configBizName">
-      <el-input v-model="addForm.configBizName" clearable placeholder="请输入配置业务名称"/>
+      <el-input v-model="addForm.configBizName" clearable placeholder="请输入配置业务名称" />
     </el-form-item>
     <el-form-item label="配置业务数量" prop="configBizNum">
-      <el-input v-model="addForm.configBizNum" clearable placeholder="请输入配置业务数量"/>
+      <el-input v-model="addForm.configBizNum" clearable placeholder="请输入配置业务数量" />
     </el-form-item>
     <el-form-item label="配置业务耗时(秒)" prop="configBizTime">
-      <el-input v-model="addForm.configBizTime" clearable placeholder="请输入配置业务耗时(秒)"/>
+      <el-input v-model="addForm.configBizTime" clearable placeholder="请输入配置业务耗时(秒)" />
     </el-form-item>
     <el-form-item label="是否默认 0 否,1 是" prop="isDefault">
-      <el-input v-model="addForm.isDefault" clearable placeholder="请输入是否默认 0 否,1 是"/>
+      <el-input v-model="addForm.isDefault" clearable placeholder="请输入是否默认 0 否,1 是" />
     </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
@@ -179,9 +178,7 @@ onMounted(() => {
   </el-row>
 </template>
 
-
-
-<style scoped lang="scss">
-
-</style>
-
+<style
+  scoped
+  lang="scss"
+></style>

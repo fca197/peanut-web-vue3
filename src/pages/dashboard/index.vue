@@ -1,17 +1,14 @@
 <script lang="ts" setup>
 import Editor from "./components/Editor.vue"
 import { postNoResult, postResultInfo } from "@@/utils/common-js.ts";
-import Cookies from 'js-cookie';
+import { checkCookiesValue, setKeyValueAndTTL } from "@@/utils/cache/cookies.ts";
 
-
-const ignoreDbResetKey = ref<string>("ignoreDbReset")
+const ignoreDbResetKey = ref<string>("ignoreDbReset1")
+const ignoreDbResetKeyTTL = ref<number>(1000 * 60 * 30)
 
 onMounted(() => {
 
-  const ignoreDbResetValue = Cookies.get(ignoreDbResetKey.value);
-  console.info("ignoreDbResetKey ", ignoreDbResetKey.value, ignoreDbResetValue)
-  // openDb()
-  if(ignoreDbResetValue === undefined) {
+  checkCookiesValue(ignoreDbResetKey.value, ignoreDbResetKeyTTL.value, () => {
     postResultInfo("/db/reset/last", {}).then(r => {
       const lastTime = parseInt(r.data.expire)
       console.info("距离还原数据库还剩： ", r.data.remainingTime, lastTime)
@@ -22,7 +19,7 @@ onMounted(() => {
         setCookiesValue()
       }
     })
-  }
+  })
 })
 
 const openDb = () => {
@@ -43,8 +40,7 @@ const openDb = () => {
     })
 }
 const setCookiesValue = () => {
-  const ti = new Date().getTime() + 1000 * 60 * 60 // 1小时有效
-  Cookies.set(ignoreDbResetKey.value, "1", { expires: new Date(ti), path: '/' });
+  setKeyValueAndTTL(ignoreDbResetKey.value, "1", ignoreDbResetKeyTTL.value)
 }
 </script>
 

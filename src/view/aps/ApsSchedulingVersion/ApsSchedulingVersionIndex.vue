@@ -120,6 +120,8 @@ onMounted(() => {
 
 <template>
   <div class="app-container">
+    <el-card class="search-wrapper" shadow="never">
+    </el-card>
     <el-card shadow="never">
       <TableBar
         :show-add-btn="false"

@@ -68,3 +68,17 @@ div:focus {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+/* 覆盖通知框的进入/离开动画 */
+.el-notification.fade-enter-active,
+.el-notification.fade-leave-active {
+  transition: opacity 0.3s ease; /* 仅修改透明度 */
+}
+
+.el-notification.fade-leave-active {
+  opacity: 0;
+}
+
+/* 确保位置不随动画改变 */
+.el-notification {
+  transform: none !important;
+}

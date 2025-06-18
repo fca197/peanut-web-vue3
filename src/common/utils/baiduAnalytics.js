@@ -1,7 +1,6 @@
 // utils/baiduAnalytics.js
 export const initBaiduAnalytics = (id) => {
     if (typeof window === "undefined") return; // 避免 SSR 错误
-
     // 初始化百度统计
     window._hmt = window._hmt || [];
     const hm = document.createElement("script");

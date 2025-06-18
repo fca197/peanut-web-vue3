@@ -16,7 +16,7 @@ const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 const queryForm = ref<ApsMakeCapacityGoods>({
   factoryId: undefined,
   makeCapacityQuantity: undefined,
-  year: undefined,
+  year: `${new Date().getFullYear()}`,
   month: undefined,
   dayMin1: undefined,
   dayMax1: undefined,
@@ -146,6 +146,10 @@ onMounted(() => {
   queryGoodsList().then(r => goodsList.value = r)
 })
 
+watch(() => queryForm.value.factoryId, (data) => {
+  console.info("queryForm.value.factoryId ", data)
+  queryForm.value.goodsId = undefined
+})
 </script>
 
 <template>
@@ -160,7 +164,8 @@ onMounted(() => {
         <el-form-item label="商品" prop="factoryId">
           <el-select v-model="queryForm.goodsId" clearable style="width: 200px">
             <el-option
-              v-for="f in goodsList.filter(t=> t.factoryId === queryForm.factoryId )" :label="f.goodsName"
+              v-for="f in goodsList.filter(t=> queryForm.factoryId === undefined || t.factoryId === queryForm.factoryId )"
+              :label="f.goodsName"
               :value="f.id" :key="f.id"/>
           </el-select>
         </el-form-item>

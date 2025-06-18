@@ -5,7 +5,6 @@ import TableBar from "@/layouts/components/TableBar/index.vue"
 import { ElTable } from "element-plus"
 import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
 import { type ApsMakeCapacitySaleConfig } from "./ApsMakeCapacitySaleConfigType.ts"
-import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
 import { ApsSaleConfig, querySaleConfigList } from "@v/aps/ApsSaleConfig/ApsSaleConfigType.ts";
 
 const dtoUrl = ref<string>("/apsMakeCapacitySaleConfig")
@@ -16,7 +15,7 @@ const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 const queryForm = ref<ApsMakeCapacitySaleConfig>({
   factoryId: undefined,
   makeCapacityQuantity: undefined,
-  year: undefined,
+  year: `${new Date().getFullYear()}`,
   month: undefined,
   dayMin1: undefined,
   dayMax1: undefined,
@@ -98,7 +97,6 @@ const currentPageSize = ref<number>(12)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([])
 
-const factoryList = ref<Factory[]>([])
 // 获取表格内数据
 function getDataList() {
   const req = {
@@ -157,7 +155,8 @@ onMounted(() => {
         <el-form-item label="销售配置" prop="factoryId">
           <el-select v-model="queryForm.saleConfigId" clearable style="width: 200px">
             <el-option-group v-for="f in saleConfigList" :value="f.id" :label="f.saleName" :key="f.id">
-              <el-option v-for="option in f.children" :key="option.saleName" :label="option.saleName" :value="option.id">
+              <el-option v-for="option in f.children" :key="option.saleName" :label="option.saleName"
+                         :value="option.id">
               </el-option>
             </el-option-group>
           </el-select>

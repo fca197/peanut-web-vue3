@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
+import { onMounted, ref } from "vue"
 import AddEditFormVue from "./ApsSchedulingDayConfigItemAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from "element-plus";
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsSchedulingDayConfigItem} from "./ApsSchedulingDayConfigItemType.ts"
+import { ElTable } from "element-plus"
+import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
+import { type ApsSchedulingDayConfigItem } from "./ApsSchedulingDayConfigItemType.ts"
 
 const dtoUrl = ref<string>("/apsSchedulingDayConfigItem")
 const documentTitle = ref<string>("排程版本配置")
@@ -34,12 +34,12 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsSchedulingDayConfigItem[] >([])
+const dataList = ref<ApsSchedulingDayConfigItem[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
- {fieldName: "id", showName: "序号"},
+  { fieldName: "id", showName: "序号" },
   { fieldName: "schedulingDayId", showName: "排程版本ID" },
   { fieldName: "processId", showName: "工艺路径ID" },
   { fieldName: "roomId", showName: "车间ID" },
@@ -49,9 +49,8 @@ const headerList = ref<HeaderInfo[]>([
   { fieldName: "configBizName", showName: "配置业务名称" },
   { fieldName: "configBizNum", showName: "配置业务数量" },
   { fieldName: "configBizTime", showName: "配置业务耗时(秒)" },
-  { fieldName: "isDefault", showName: "是否默认 0 否,1 是" },
+  { fieldName: "isDefault", showName: "是否默认 0 否,1 是" }
 ])
-
 
 // 获取表格内数据
 const getDataList = () => {
@@ -94,7 +93,6 @@ const handleSelectionChange = (val: ApsSchedulingDayConfigItem[]) => {
 onMounted(() => {
   getDataList()
 })
-
 </script>
 
 <template>
@@ -140,46 +138,31 @@ onMounted(() => {
     </el-card>
 
     <el-card shadow="never">
-      <TableBar
-        :document-title="documentTitle"
-        :add-component="AddEditFormVue"
-        :refresh-list="getDataList"
-        :data-table-ref="dataTableRef"
-        :multiple-selection="multipleSelection"
-        ref="tableBarRef"
-        :data-batch-delete-url="dataBatchDeleteUrl"
-      />
+      <TableBar :document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
+        :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
+        :data-batch-delete-url="dataBatchDeleteUrl" />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
-        <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" :width="h.width"/>
+        <ElTableColumn type="selection" />
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"
+          :width="h.width" />
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
-            <el-button
-              type="warning"
-              icon="edit"
-              @click="editData(scope.row)"
-            >
+            <el-button type="warning" icon="edit" @click="editData(scope.row)">
               编辑
             </el-button>
           </template>
         </ElTableColumn>
       </ElTable>
       <el-row class="paginationDiv">
-        <el-pagination
-          background
-          v-model:current-page="currentPageNum"
-          v-model:page-size="currentPageSize"
-          layout="total, sizes, prev, pager, next"
-          :total="tableTotal"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
+        <el-pagination background v-model:current-page="currentPageNum" v-model:page-size="currentPageSize"
+          layout="total, sizes, prev, pager, next" :total="tableTotal" @size-change="handleSizeChange"
+          @current-change="handleCurrentChange" />
       </el-row>
     </el-card>
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
-
+<style
+  scoped
+  lang="scss"
+></style>

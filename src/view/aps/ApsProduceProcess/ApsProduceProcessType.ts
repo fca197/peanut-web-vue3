@@ -1,8 +1,7 @@
 export interface ApsProduceProcess {
-  produceProcessNo: string
-  produceProcessName: string
-  factoryId: string
-  isDefault: string
-  id: string
+  produceProcessNo?: string | undefined
+  produceProcessName?: string | undefined
+  factoryId?: string | undefined
+  isDefault?: string | undefined
+  id?: string | undefined
 }
-

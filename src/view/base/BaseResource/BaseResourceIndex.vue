@@ -1,76 +1,3 @@
-<template>
-  <div class="app-container">
-    <el-card class="search-wrapper" shadow="never">
-      <el-form v-model="queryForm" inline>
-        <el-form-item label="菜单编码" prop="resourceCode">
-          <el-input v-model="queryForm.resourceCode" clearable placeholder="请输入菜单编码" />
-        </el-form-item>
-        <el-form-item label="菜单名称" prop="resourceName">
-          <el-input v-model="queryForm.resourceName" clearable placeholder="请输入菜单名称" />
-        </el-form-item>
-        <el-form-item label="菜单URL" prop="resourceUrl">
-          <el-input v-model="queryForm.resourceUrl" clearable placeholder="请输入菜单URL" />
-        </el-form-item>
-        <el-form-item label="菜单图标" prop="resourceIcon">
-          <el-input v-model="queryForm.resourceIcon" clearable placeholder="请输入菜单图标" />
-        </el-form-item>
-        <el-form-item label="菜单类型" prop="resourceType">
-          <el-input v-model="queryForm.resourceType" clearable placeholder="请输入菜单类型" />
-        </el-form-item>
-
-        <el-form-item label="父菜单ID" prop="parentId">
-          <el-input v-model="queryForm.parentId" clearable placeholder="请输入父菜单ID" />
-        </el-form-item>
-        <el-form-item label="菜单路径" prop="path">
-          <el-input v-model="queryForm.path" clearable placeholder="请输入菜单路径" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" icon="search" @click="getDataList">
-            查询
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
-
-    <el-card shadow="never">
-      <TableBar
-        :document-title="documentTitle"
-        :add-component="AddEditFormVue"
-        :refresh-list="getDataList"
-        :data-table-ref="dataTableRef"
-        :multiple-selection="multipleSelection"
-        ref="tableBarRef"
-        :data-batch-delete-url="dataBatchDeleteUrl"
-      />
-      <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
-        <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" :width="h.width"/>
-        <ElTableColumn fixed="right" label="操作" width="150px">
-          <template #default="scope">
-            <el-button
-              type="warning"
-              icon="edit"
-              @click="editData(scope.row)"
-            >
-              编辑
-            </el-button>
-          </template>
-        </ElTableColumn>
-      </ElTable>
-      <el-row class="paginationDiv">
-        <el-pagination
-          background
-          v-model:current-page="currentPageNum"
-          v-model:page-size="currentPageSize"
-          layout="total, sizes, prev, pager, next"
-          :total="tableTotal"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </el-row>
-    </el-card>
-  </div>
-</template>
 
 <script setup lang="ts">
 import {ref, onMounted} from "vue"
@@ -161,7 +88,68 @@ onMounted(() => {
 
 </script>
 
+<template>
+  <div class="app-container">
+    <el-card class="search-wrapper" shadow="never">
+      <el-form v-model="queryForm" inline>
+        <el-form-item label="菜单编码" prop="resourceCode">
+          <el-input v-model="queryForm.resourceCode" clearable placeholder="请输入菜单编码" />
+        </el-form-item>
+        <el-form-item label="菜单名称" prop="resourceName">
+          <el-input v-model="queryForm.resourceName" clearable placeholder="请输入菜单名称" />
+        </el-form-item>
+        <el-form-item label="上级" prop="resourceName">
+          <el-input v-model="queryForm.parentId" clearable placeholder="请输入上级" />
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" icon="search" @click="getDataList">
+            查询
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+
+    <el-card shadow="never">
+      <TableBar
+        :document-title="documentTitle"
+        :add-component="AddEditFormVue"
+        :refresh-list="getDataList"
+        :data-table-ref="dataTableRef"
+        :multiple-selection="multipleSelection"
+        ref="tableBarRef"
+        :data-batch-delete-url="dataBatchDeleteUrl"
+      />
+      <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
+        <ElTableColumn type="selection"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
+        <ElTableColumn fixed="right" label="操作" width="150px">
+          <template #default="scope">
+            <el-button
+              type="warning"
+              icon="edit"
+              @click="editData(scope.row)"
+            >
+              编辑
+            </el-button>
+          </template>
+        </ElTableColumn>
+      </ElTable>
+      <el-row class="paginationDiv">
+        <el-pagination
+          background
+          v-model:current-page="currentPageNum"
+          v-model:page-size="currentPageSize"
+          layout="total, sizes, prev, pager, next"
+          :total="tableTotal"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </el-row>
+    </el-card>
+  </div>
+</template>
+
 <style scoped lang="scss">
 
 </style>
-

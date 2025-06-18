@@ -15,7 +15,7 @@ const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 const queryForm = ref<ApsMakeCapacityFactory>({
   factoryId: undefined,
   makeCapacityQuantity: undefined,
-  year: undefined,
+  year: `${new Date().getFullYear()}`,
   month: undefined,
   dayMin1: undefined,
   dayMax1: undefined,
