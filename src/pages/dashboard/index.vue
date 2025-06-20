@@ -40,7 +40,7 @@ const openDb = () => {
     })
 }
 const setCookiesValue = () => {
-  setKeyValueAndTTL(ignoreDbResetKey.value, "1", ignoreDbResetKeyTTL.value)
+  setKeyValueAndTTL(ignoreDbResetKey.value, "1", ignoreDbResetKeyTTL.value, false)
 }
 </script>
 

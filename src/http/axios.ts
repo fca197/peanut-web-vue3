@@ -1,7 +1,7 @@
 import type { AxiosInstance, AxiosRequestConfig } from "axios"
 import axios from "axios"
 import { useUserStore } from "@/pinia/stores/user"
-import { getToken } from "@@/utils/cache/cookies"
+import {getDeviceId, getToken} from "@@/utils/cache/cookies"
 import { get, merge } from "lodash-es"
 
 /** 退出登录并强制刷新页面（会重定向到登录页） */
@@ -111,6 +111,7 @@ function createRequest(instance: AxiosInstance) {
       headers: {
         // 携带 Token
         "j-token": token ? `${token}` : undefined,
+        "x-device-id": getDeviceId(),
         "Content-Type": "application/json"
       },
       // 请求体
