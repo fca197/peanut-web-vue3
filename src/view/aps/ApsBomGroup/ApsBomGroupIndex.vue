@@ -91,7 +91,8 @@ function handleCurrentChange(val: number) {
     <el-card shadow="never">
       <el-tabs type="border-card">
         <el-tab-pane label="表格形式">
-          <TableBar :document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
+          <TableBar
+:document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
             :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
             :data-batch-delete-url="dataBatchDeleteUrl" />
           <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">

@@ -141,7 +141,8 @@ watch(() => queryForm.value.factoryId, (data) => {
     </el-card>
 
     <el-card shadow="never">
-      <TableBar :document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
+      <TableBar
+:document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
                 :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
                 :data-batch-delete-url="dataBatchDeleteUrl" :dialog-with="800"/>
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">

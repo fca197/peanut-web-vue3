@@ -98,7 +98,8 @@ function handleCurrentChange(val: number) {
           <el-input v-model="queryForm.bomName" clearable placeholder="请输入bom 名称" />
         </el-form-item>
         <el-form-item label="组ID" prop="groupId">
-          <el-tree-select :props="apsGroupDefaultProps" style="width: 200px" node-key="id" :data="apsBomGroupList"
+          <el-tree-select
+            :props="apsGroupDefaultProps" style="width: 200px" node-key="id" :data="apsBomGroupList"
             v-model="queryForm.groupId" clearable placeholder="请输入组ID" />
         </el-form-item>
         <el-form-item label="供给方式" prop="supplyMode">
@@ -115,7 +116,8 @@ function handleCurrentChange(val: number) {
     </el-card>
 
     <el-card shadow="never">
-      <TableBar :document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
+      <TableBar
+        :document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
         :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl" down-load-url="/apsBom/exportQueryPageList" upload-url="/upload" />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">

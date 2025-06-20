@@ -1,5 +1,5 @@
-import { request} from "@/http/axios.ts";
-import { Result, ResultPageInfo} from "@@/utils/common-js.ts"
+import {request} from "@/http/axios.ts";
+import {Result, ResultPageInfo} from "@@/utils/common-js.ts"
 
 export interface ApsGoods {
   goodsName?: string | undefined
@@ -11,7 +11,7 @@ export interface ApsGoods {
   processPathId?: string | undefined
   // 制造流水线ID produceProcess
   produceProcessId?: string | undefined
-  id?: string | undefined
+  id?: string
 }
 
 export function queryGoodsList(): Promise<ApsGoods[]> {
