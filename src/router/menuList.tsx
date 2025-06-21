@@ -75,7 +75,8 @@ const allMenuList: RouteRecordRaw[] = [
         component: () => import("@/view/base/BaseTableHeader/BaseTableHeaderIndex.vue"),
         meta: {
           title: "动态表头",
-          elIcon: "Coin"
+          elIcon: "Coin",
+          hidden: true
         }
       },
       {
@@ -84,7 +85,8 @@ const allMenuList: RouteRecordRaw[] = [
         component: () => import("@/view/base/LoginAccount/index.vue"),
         meta: {
           title: "登录账户",
-          elIcon: "User"
+          elIcon: "User",
+          hidden: true
         }
       },
       {
@@ -93,7 +95,8 @@ const allMenuList: RouteRecordRaw[] = [
         component: () => import("@/view/base/BaseRoleGroup/BaseRoleGroupIndex.vue"),
         meta: {
           title: "角色组信息",
-          elIcon: "UserFilled"
+          elIcon: "UserFilled",
+          hidden: true
         }
       },
       {
@@ -102,7 +105,8 @@ const allMenuList: RouteRecordRaw[] = [
         component: () => import("@/view/base/BaseRole/BaseRoleIndex.vue"),
         meta: {
           title: "角色信息",
-          elIcon: "Avatar"
+          elIcon: "Avatar",
+          hidden: true
         }
       }
     ]

@@ -20,7 +20,8 @@
 # 菜单权限
 
 > 目前显示所有菜单，按角色显示请删除： src/pinia/stores/permission.ts , 第八行： return true;
-
+> 目前已隐藏菜单： 登录账户 ， 角色组信息 ， 角色信息  , 文件目录 src/router/menuList.tsx， 删除  hidden: true 配置即可  
+ 
 # 本地代理
 
 > 修改本地文件： vite.config.ts 中反向代理配置： vite.config.ts:42
@@ -45,4 +46,3 @@
 
 # 版本提示  
 > 文件修改： [index.vue](../src/pages/login/index.vue)， 方法： onMounted  
->

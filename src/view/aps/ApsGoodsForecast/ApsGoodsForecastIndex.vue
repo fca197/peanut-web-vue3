@@ -170,14 +170,15 @@ onMounted(() => {
                   <el-dropdown-item icon="edit" @click="editData(scope.row)">
                     编辑
                   </el-dropdown-item>
+
+                  <el-dropdown-item icon="download" @click="downloadTemplate(scope.row)">
+                    下载
+                  </el-dropdown-item>
                   <el-dropdown-item icon="upload" @click="uploadShowFun(scope.row)">
                     上传
                   </el-dropdown-item>
                   <el-dropdown-item icon="Grid" @click="showForecastData(scope.row)">
                     上传数据
-                  </el-dropdown-item>
-                  <el-dropdown-item icon="download" @click="downloadTemplate(scope.row)">
-                    下载
                   </el-dropdown-item>
                   <el-dropdown-item icon="Notification" @click="compute(scope.row)">
                     计算
