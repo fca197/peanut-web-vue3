@@ -1,7 +1,8 @@
 <script setup lang="ts">
 
-import { postResultInfo } from "@@/utils/common-js.ts";
-import { useRoute } from 'vue-router';
+import {postResultInfo} from "@@/utils/common-js.ts";
+import {useRoute} from 'vue-router';
+import Decimal from "decimal.js";
 
 const tableData = ref<any>({})
 
@@ -12,23 +13,23 @@ const route = useRoute();
 const id = route.params.id as string;
 
 const getSummaries = (param) => {
-  const { columns, data } = param;
+  const {columns, data} = param;
   const sums = [];
   columns.forEach((column, index) => {
-    if(index === 0) {
+    if (index === 0) {
       sums[index] = '合计';
       return;
     }
-    if(index === 1 || index === 2) {
+    if (index === 1 || index === 2) {
       sums[index] = '';
       return;
     }
     const values = data.slice(0).map(item => Number(item[column.property]) ? Number(item[column.property]) : Number(item[column.property].replaceAll("%", "")));
     const t = values[0];
-    if(!values.every(value => isNaN(value))) {
+    if (!values.every(value => isNaN(value))) {
       sums[index] = values.reduce((prev, curr) => {
         const value = Number(curr);
-        if(!isNaN(value)) {
+        if (!isNaN(value)) {
           return prev + curr;
         } else {
           return prev;
@@ -44,31 +45,45 @@ const getSummaries = (param) => {
 }
 
 onMounted(() => {
-  postResultInfo("/apsGoodsForecast/getForecastDataById", { id: id }).then(t => {
+  postResultInfo("/apsGoodsForecast/getForecastDataById", {id: id}).then(t => {
     tableData.value = t.data
     tableData.value.headerList [0].width = 600
 
     const headerList = t.data.headerList.slice(3)
-    for (let i = 1; i < t.data.dataList.length; i ++) {
+    for (let i = 1; i < t.data.dataList.length; i++) {
       const item = t.data.dataList[i]
       headerList.forEach(header => {
-        item[header.fieldName] = item[header.fieldName] * 100 + '%'
+        const userData = toPercentage(item[header.fieldName] * 1);
+        if (item[header.fieldName + "_result"]) {
+          const targetData = toPercentage(item[header.fieldName + "_result"] * 1);
+          item[header.fieldName] = userData + "/" + targetData
+        } else {
+          item[header.fieldName] = userData
+        }
       })
     }
     // tableData.value.headerList.slice(1).forEach(h => h.width = 180)
     console.log("tableData.value = t ", t)
   })
 })
+
+const toPercentage = (num: number, decimalPlaces = 2) => {
+  return `${new Decimal(num).times(100).toFixed(decimalPlaces)}%`;
+}
 </script>
 
 <template>
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-divider>预测数据</el-divider>
-      <el-table id="dataTable" :data="tableData.dataList" :summary-method="getSummaries" cellpadding="0" cellspacing="0"
-                show-summary>
-        <el-table-column v-for="(item,index) in  tableData.headerList" :key="index" :label="item.showName"
-                         :prop="item.fieldName" align="center"/>
+      <el-table
+        id="dataTable" :data="tableData.dataList" :summary-method="getSummaries"
+        cellpadding="0" cellspacing="0"
+        show-summary>
+        <el-table-column
+          v-for="(item,index) in tableData.headerList" :key="index"
+          :label="item.showName"
+          :prop="item.fieldName" align="center"/>
       </el-table>
     </el-card>
   </div>

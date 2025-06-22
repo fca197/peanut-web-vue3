@@ -1,0 +1,42 @@
+<script setup lang="ts">
+
+const props = defineProps({
+  excelErrorMsg: {
+    type: Array,
+    required: true
+  }
+})
+const showDialog = ref<boolean>(false)
+
+const showDialogFun = () => {
+  console.info("props.excelErrorMsg ", props.excelErrorMsg)
+  if (props.excelErrorMsg) {
+    if (props.excelErrorMsg.length > 0) {
+      showDialog.value = true
+    }
+  }
+}
+onMounted(() => {
+  showDialogFun()
+})
+watch(() => props.excelErrorMsg, (data) => {
+  console.info("excelErrorMsg change ", data)
+  showDialogFun()
+})
+</script>
+
+<template>
+  <el-dialog title="文件上传错误信息" v-model="showDialog" destroy-on-close>
+    <el-table :data="props.excelErrorMsg">
+      <el-table-column prop="columnIndex" label="列索引"/>
+      <el-table-column prop="columnName" label="列名称"/>
+      <el-table-column prop="columnStr" label="列"/>
+      <el-table-column prop="rowIndex" label="行号"/>
+      <el-table-column prop="errMsg" label="错误信息"/>
+    </el-table>
+  </el-dialog>
+</template>
+
+<style scoped lang="scss">
+
+</style>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import {onMounted, ref} from "vue"
 import AddEditFormVue from "./ApsGoodsForecastAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from "element-plus"
-import { downloadFilePost, HeaderInfo, postNoResult, postResultInfo } from "@@/utils/common-js.ts"
-import { type ApsGoodsForecast } from "./ApsGoodsForecastType.ts"
-import { UploadFilled } from "@element-plus/icons-vue"
-import { getToken } from "@@/utils/cache/cookies.ts"
+import {ElTable} from "element-plus"
+import {downloadFilePost, HeaderInfo, postNoResult, postResultInfo} from "@@/utils/common-js.ts"
+import {type ApsGoodsForecast} from "./ApsGoodsForecastType.ts"
+import {UploadFilled} from "@element-plus/icons-vue"
+import {getToken} from "@@/utils/cache/cookies.ts"
+import {ExcelErrorMsg} from "@v/common/excel/ExcelErrorMsg.ts";
+import ShowExcelErrorMsg from "@v/common/excel/ShowExcelErrorMsg.vue";
 
 const dtoUrl = ref<string>("/apsGoodsForecast")
 const documentTitle = ref<string>("预测")
@@ -39,15 +41,15 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  { fieldName: "id", showName: "序号" },
-  { fieldName: "goodsId", showName: "商品" },
-  { fieldName: "forecastNo", showName: "预测编码" },
-  { fieldName: "forecastName", showName: "预测名称" },
-  { fieldName: "forecastBeginDate", showName: "开始时间" },
-  { fieldName: "forecastEndDate", showName: "结束时间" },
-  { fieldName: "month", showName: "" },
-  { fieldName: "months", showName: "" },
-  { fieldName: "forecastStatus", showName: "" }
+  {fieldName: "id", showName: "序号"},
+  {fieldName: "goodsId", showName: "商品"},
+  {fieldName: "forecastNo", showName: "预测编码"},
+  {fieldName: "forecastName", showName: "预测名称"},
+  {fieldName: "forecastBeginDate", showName: "开始时间"},
+  {fieldName: "forecastEndDate", showName: "结束时间"},
+  {fieldName: "month", showName: ""},
+  {fieldName: "months", showName: ""},
+  {fieldName: "forecastStatus", showName: ""}
 ])
 
 const uploadShow = ref<boolean>(false)
@@ -98,11 +100,18 @@ const uploadShowFun = (val: ApsGoodsForecast) => {
   uploadShow.value = true
 }
 
+const excelErrorMsgList = ref<ExcelErrorMsg []>([])
+
 const uploadShowCloseFun = (res: any) => {
   console.info("uploadShowCloseFun ", res)
-  if(res.code !== 200) {
+  if (res.code !== 200) {
     ElMessage.error("文件上传失败，请检查文件")
     return
+  }
+  if (res.data.subCode === 300) {
+    excelErrorMsgList.value = res.data.excelErrorMsgList;
+
+    console.info("excelErrorMsgList ", excelErrorMsgList.value)
   }
   uploadShow.value = false
 }
@@ -120,7 +129,7 @@ const router = useRouter()
 const showResultData = (row: ApsGoodsForecast) => {
   router.push(`/aps/ApsGoodsForecast/result/${row.id}`)
 }
- const showForecastData = (row: ApsGoodsForecast) => {
+const showForecastData = (row: ApsGoodsForecast) => {
   router.push(`/aps/ApsGoodsForecast/forecast/${row.id}`)
 }
 
@@ -160,34 +169,58 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName"
+                       :prop="h.fieldName"/>
+        <ElTableColumn label="状态">
+          <template #default="scope">
+
+            <span v-if="scope.row.forecastStatus === 10">
+              待上传
+            </span>
+            <span v-if="scope.row.forecastStatus === 30">
+              待计算
+            </span>
+            <span v-if="scope.row.forecastStatus === 50">
+              计算结束
+            </span>
+          </template>
+        </ElTableColumn>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-dropdown type="primary" split-button>
               操作
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item icon="edit" @click="editData(scope.row)">
-                    编辑
-                  </el-dropdown-item>
+                  <!--            TO_UPLOAD(10, "待上传"), //-->
+                  <!--            TO_COMPUTED(30, "待计算"), //-->
+                  <!--            COMPUTED_RESULT(50, "计算结束"),-->
+                  <!--                  <el-dropdown-item  icon="edit" @click="editData(scope.row)">-->
+                  <!--                    编辑-->
+                  <!--                  </el-dropdown-item>-->
 
-                  <el-dropdown-item icon="download" @click="downloadTemplate(scope.row)">
+                  <el-dropdown-item v-if="scope.row.forecastStatus === 10 || scope.row.forecastStatus === 30" icon="download"
+                                    @click="downloadTemplate(scope.row)">
                     下载
                   </el-dropdown-item>
-                  <el-dropdown-item icon="upload" @click="uploadShowFun(scope.row)">
+                  <el-dropdown-item v-if="scope.row.forecastStatus === 10 || scope.row.forecastStatus === 30" icon="upload"
+                                    @click="uploadShowFun(scope.row)">
                     上传
                   </el-dropdown-item>
-                  <el-dropdown-item icon="Grid" @click="showForecastData(scope.row)">
-                    上传数据
+                  <el-dropdown-item v-if="scope.row.forecastStatus === 30" icon="Grid"
+                                    @click="showForecastData(scope.row)">
+                    查看上传数据
                   </el-dropdown-item>
-                  <el-dropdown-item icon="Notification" @click="compute(scope.row)">
+                  <el-dropdown-item v-if="scope.row.forecastStatus === 30" icon="Notification"
+                                    @click="compute(scope.row)">
                     计算
                   </el-dropdown-item>
-                  <el-dropdown-item icon="DataAnalysis" @click="deployData(scope.row)">
-                    发布
-                  </el-dropdown-item>
-                  <el-dropdown-item icon="Histogram" @click="showResultData(scope.row)">
+                  <el-dropdown-item v-if="scope.row.forecastStatus === 50" icon="Histogram"
+                                    @click="showResultData(scope.row)">
                     计算结果
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="scope.row.forecastStatus === 50" icon="DataAnalysis"
+                                    @click="deployData(scope.row)">
+                    发布
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
@@ -207,7 +240,7 @@ onMounted(() => {
         />
       </el-row>
     </el-card>
-    <el-dialog v-model="uploadShow">
+    <el-dialog v-model="uploadShow" destroy-on-close>
       <el-upload
         class="upload-demo"
         drag
@@ -231,6 +264,7 @@ onMounted(() => {
         </template>
       </el-upload>
     </el-dialog>
+    <ShowExcelErrorMsg :excel-error-msg="excelErrorMsgList"/>
   </div>
 </template>
 

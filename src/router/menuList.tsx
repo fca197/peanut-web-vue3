@@ -19,7 +19,8 @@ const allMenuList: RouteRecordRaw[] = [
         component: () => import("@/view/base/BaseResource/BaseResourceIndex.vue"),
         meta: {
           title: "菜单",
-          elIcon: "Menu"
+          elIcon: "Menu",
+          hidden: true
         }
       },
       {
