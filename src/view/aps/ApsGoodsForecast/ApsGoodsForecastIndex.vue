@@ -198,15 +198,19 @@ onMounted(() => {
                   <!--                    编辑-->
                   <!--                  </el-dropdown-item>-->
 
-                  <el-dropdown-item v-if="scope.row.forecastStatus === 10 || scope.row.forecastStatus === 30" icon="download"
-                                    @click="downloadTemplate(scope.row)">
+                  <el-dropdown-item
+                    v-if="scope.row.forecastStatus === 10 || scope.row.forecastStatus === 30"
+                    icon="download"
+                    @click="downloadTemplate(scope.row)">
                     下载
                   </el-dropdown-item>
-                  <el-dropdown-item v-if="scope.row.forecastStatus === 10 || scope.row.forecastStatus === 30" icon="upload"
-                                    @click="uploadShowFun(scope.row)">
+                  <el-dropdown-item
+                    v-if="scope.row.forecastStatus === 10 || scope.row.forecastStatus === 30"
+                    icon="upload"
+                    @click="uploadShowFun(scope.row)">
                     上传
                   </el-dropdown-item>
-                  <el-dropdown-item v-if="scope.row.forecastStatus === 30" icon="Grid"
+                  <el-dropdown-item v-if="scope.row.forecastStatus >= 30" icon="Grid"
                                     @click="showForecastData(scope.row)">
                     查看上传数据
                   </el-dropdown-item>
@@ -216,7 +220,7 @@ onMounted(() => {
                   </el-dropdown-item>
                   <el-dropdown-item v-if="scope.row.forecastStatus === 50" icon="Histogram"
                                     @click="showResultData(scope.row)">
-                    计算结果
+                    查看计算结果
                   </el-dropdown-item>
                   <el-dropdown-item v-if="scope.row.forecastStatus === 50" icon="DataAnalysis"
                                     @click="deployData(scope.row)">
