@@ -307,6 +307,24 @@ const allMenuList: RouteRecordRaw[] = [
         }
       },
       {
+        path: "/aps/ApsProjectConfig",
+        name: "制造配置",
+        component: () => import("@/view/aps/ApsProjectConfig/ApsProjectConfigIndex.vue"),
+        meta: {
+          title: "制造配置",
+          elIcon: "Money"
+        }
+      },
+      {
+        path: "/aps/ApsSaleConfig",
+        name: "销售配置",
+        component: () => import("@/view/aps/ApsSaleConfig/ApsSaleConfigIndex.vue"),
+        meta: {
+          title: "销售配置",
+          elIcon: "MagicStick"
+        }
+      },
+      {
         path: "/aps/ApsGoodsSaleProjectConfig",
         name: "商品销售制造配置",
         component: () => import("@/view/aps/ApsGoodsSaleProjectConfig/ApsGoodsSaleProjectConfigIndex.vue"),
@@ -381,7 +399,8 @@ const allMenuList: RouteRecordRaw[] = [
           title: "制造版本",
           elIcon: "SuitcaseLine"
         }
-      }, {
+      },
+      {
         path: "/aps/ApsGoodsForecastMainMake",
         name: "制造主版本",
         component: () => import("@/view/aps/ApsGoodsForecastMainMake/ApsGoodsForecastMainMakeIndex.vue"),
@@ -538,33 +557,33 @@ const allMenuList: RouteRecordRaw[] = [
     ]
   },
   {
-    path: "/base/config",
-    name: "基本配置",
+    path: "/base/kitting",
+    name: "齐套",
     redirect: "",
     meta: {
-      title: "基本配置",
+      title: "齐套",
       elIcon: "Money"
     },
     component: Layouts,
     children: [
       {
-        path: "/aps/ApsProjectConfig",
-        name: "制造配置",
-        component: () => import("@/view/aps/ApsProjectConfig/ApsProjectConfigIndex.vue"),
+        path: "/aps/ApsOrderGoodsBomKittingVersion",
+        name: "齐套字段模板",
+        component: () => import("@/view/aps/ApsOrderGoodsBomKittingVersion/ApsOrderGoodsBomKittingVersionIndex.vue"),
         meta: {
-          title: "制造配置",
-          elIcon: "Money"
+          title: "齐套字段模板",
+          elIcon: "Files"
         }
       },
       {
-        path: "/aps/ApsSaleConfig",
-        name: "销售配置",
-        component: () => import("@/view/aps/ApsSaleConfig/ApsSaleConfigIndex.vue"),
+        path: "/aps/ApsOrderGoodsBomKittingVersion",
+        name: "齐套检查版本",
+        component: () => import("@/view/aps/ApsOrderGoodsBomKittingVersion/ApsOrderGoodsBomKittingVersionIndex.vue"),
         meta: {
-          title: "销售配置",
-          elIcon: "MagicStick"
+          title: "齐套检查版本",
+          elIcon: "Files"
         }
-      }
+      },
     ]
   }
 ]

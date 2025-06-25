@@ -129,6 +129,16 @@ export const constantRoutes: RouteRecordRaw[] = [
           elIcon: "Refrigerator",
           hidden: true
         }
+      },
+      {
+        path: "/aps/ApsOrderGoodsBomKittingVersionOrder/:id",
+        name: "齐套详情",
+        component: () => import("@/view/aps/ApsOrderGoodsBomKittingVersionOrder/ApsOrderGoodsBomKittingVersionOrderIndex.vue"),
+        meta: {
+          title: "齐套详情",
+          elIcon: "Refrigerator",
+          hidden: true
+        }
       }
     ]
   }
