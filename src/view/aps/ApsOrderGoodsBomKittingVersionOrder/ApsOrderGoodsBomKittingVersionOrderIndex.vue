@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
-import AddEditFormVue from "./ApsOrderGoodsBomKittingVersionOrderAddEditForm.vue"
+import {onMounted, ref} from "vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from "element-plus";
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {
   type ApsOrderGoodsBomKittingVersionOrder
 } from "./ApsOrderGoodsBomKittingVersionOrderType.ts"
+import KittingRate from "@v/aps/ApsOrderGoodsBomKittingVersion/KittingRate.vue";
+import {router} from "@/router";
 
 const dtoUrl = ref<string>("/apsOrderGoodsBomKittingVersionOrder")
 const documentTitle = ref<string>("齐套检查订单详情")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
+const route = useRoute()
+
+const kittingVersionId = ref<string | undefined>(route.params.id)
+console.info("kittingVersionId ", kittingVersionId)
 // 查询表格
 const queryForm = ref<ApsOrderGoodsBomKittingVersionOrder>({
-  kittingVersionId: undefined,
+  kittingVersionId: kittingVersionId,
   orderId: undefined,
   orderNo: undefined,
   kittingRate: undefined,
@@ -58,33 +63,11 @@ const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
   {fieldName: "id", showName: "序号"},
-  {fieldName: "kittingVersionId", showName: "齐套版本id"},
   {fieldName: "orderId", showName: "订单ID"},
-  {fieldName: "orderNo", showName: "订单ID"},
-  {fieldName: "kittingRate", showName: "齐套率"},
-  {fieldName: "kittingStatus", showName: "齐套状态 已齐套， 部分齐套，未齐套"},
-  {fieldName: "kittingMissingBom", showName: "缺失物料前10 [{id: label}]"},
-  {fieldName: "orderField01", showName: "订单字段"},
-  {fieldName: "orderField02", showName: "订单字段"},
-  {fieldName: "orderField03", showName: "订单字段"},
-  {fieldName: "orderField04", showName: "订单字段"},
-  {fieldName: "orderField05", showName: "订单字段"},
-  {fieldName: "orderField06", showName: "订单字段"},
-  {fieldName: "orderField07", showName: "订单字段"},
-  {fieldName: "orderField08", showName: "订单字段"},
-  {fieldName: "orderField09", showName: "订单字段"},
-  {fieldName: "orderField10", showName: "订单字段"},
-  {fieldName: "orderField11", showName: "订单字段"},
-  {fieldName: "orderField12", showName: "订单字段"},
-  {fieldName: "orderField13", showName: "订单字段"},
-  {fieldName: "orderField14", showName: "订单字段"},
-  {fieldName: "orderField15", showName: "订单字段"},
-  {fieldName: "orderField16", showName: "订单字段"},
-  {fieldName: "orderField17", showName: "订单字段"},
-  {fieldName: "orderField18", showName: "订单字段"},
-  {fieldName: "orderField19", showName: "订单字段"},
-  {fieldName: "orderField20", showName: "订单字段"},
-  {fieldName: "factoryId", showName: "工厂ID"},
+  {fieldName: "orderNo", showName: "订单编号"},
+  // {fieldName: "kittingRate", showName: "齐套率"},
+  // {fieldName: "kittingStatus", showName: "齐套状态"},
+  // {fieldName: "kittingMissingBom", showName: "缺失物料前10 [{id: label}]"}
 ])
 
 // 获取表格内数据
@@ -99,14 +82,15 @@ const getDataList = () => {
   .then((t) => {
     dataList.value = t.data.dataList
     tableTotal.value = Number.parseInt(t.data.total)
-    headerList.value = t.data.headerList
+    // headerList.value = t.data.headerList
   })
 }
 
 // table点击事件
-const editData = (data: any) => {
+const showData = (data: any) => {
   // console.info("data ", data)
-  tableBarRef.value?.showEditDialog(data.id)
+  // tableBarRef.value?.showEditDialog(data.id)
+  router.push("/aps/ApsOrderGoodsBomKittingVersionOrderItem/"+kittingVersionId.value+"/"+data.orderId)
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
@@ -134,88 +118,8 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="齐套版本id" prop="kittingVersionId">
-          <el-input v-model="queryForm.kittingVersionId" clearable placeholder="请输入齐套版本id"/>
-        </el-form-item>
-        <el-form-item label="订单ID" prop="orderId">
-          <el-input v-model="queryForm.orderId" clearable placeholder="请输入订单ID"/>
-        </el-form-item>
-        <el-form-item label="订单ID" prop="orderNo">
+        <el-form-item label="订单号" prop="orderNo">
           <el-input v-model="queryForm.orderNo" clearable placeholder="请输入订单ID"/>
-        </el-form-item>
-        <el-form-item label="齐套率" prop="kittingRate">
-          <el-input v-model="queryForm.kittingRate" clearable placeholder="请输入齐套率"/>
-        </el-form-item>
-        <el-form-item label="齐套状态 已齐套， 部分齐套，未齐套" prop="kittingStatus">
-          <el-input v-model="queryForm.kittingStatus" clearable
-                    placeholder="请输入齐套状态 已齐套， 部分齐套，未齐套"/>
-        </el-form-item>
-        <el-form-item label="缺失物料前10 [{id: label}]" prop="kittingMissingBom">
-          <el-input v-model="queryForm.kittingMissingBom" clearable
-                    placeholder="请输入缺失物料前10 [{id: label}]"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField01">
-          <el-input v-model="queryForm.orderField01" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField02">
-          <el-input v-model="queryForm.orderField02" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField03">
-          <el-input v-model="queryForm.orderField03" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField04">
-          <el-input v-model="queryForm.orderField04" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField05">
-          <el-input v-model="queryForm.orderField05" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField06">
-          <el-input v-model="queryForm.orderField06" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField07">
-          <el-input v-model="queryForm.orderField07" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField08">
-          <el-input v-model="queryForm.orderField08" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField09">
-          <el-input v-model="queryForm.orderField09" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField10">
-          <el-input v-model="queryForm.orderField10" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField11">
-          <el-input v-model="queryForm.orderField11" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField12">
-          <el-input v-model="queryForm.orderField12" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField13">
-          <el-input v-model="queryForm.orderField13" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField14">
-          <el-input v-model="queryForm.orderField14" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField15">
-          <el-input v-model="queryForm.orderField15" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField16">
-          <el-input v-model="queryForm.orderField16" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField17">
-          <el-input v-model="queryForm.orderField17" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField18">
-          <el-input v-model="queryForm.orderField18" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField19">
-          <el-input v-model="queryForm.orderField19" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="订单字段" prop="orderField20">
-          <el-input v-model="queryForm.orderField20" clearable placeholder="请输入订单字段"/>
-        </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
-          <el-input v-model="queryForm.factoryId" clearable placeholder="请输入工厂ID"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -227,41 +131,46 @@ onMounted(() => {
 
     <el-card shadow="never">
       <TableBar
-          :document-title="documentTitle"
-          :add-component="AddEditFormVue"
-          :refresh-list="getDataList"
-          :data-table-ref="dataTableRef"
-          :multiple-selection="multipleSelection"
-          ref="tableBarRef"
-          :data-batch-delete-url="dataBatchDeleteUrl"
+        :document-title="documentTitle"
+        :refresh-list="getDataList"
+        :data-table-ref="dataTableRef"
+        :multiple-selection="multipleSelection"
+        ref="tableBarRef"
+        :data-batch-delete-url="dataBatchDeleteUrl"
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
-        <ElTableColumn type="selection"/>
         <ElTableColumn
-            v-for="h in headerList" :key="h.fieldName" :label="h.showName"
-            :prop="h.fieldName" :width="h.width"
+          type="selection"/>
+        <ElTableColumn
+          v-for="h in headerList" :key="h.fieldName" :label="h.showName"
+          :prop="h.fieldName" :width="h.width"
         />
+        <ElTableColumn prop="kittingRate" label="齐套率">
+          <template #default="scope">
+            <KittingRate :kitting-rate="scope.row.kittingRate" />
+          </template>
+        </ElTableColumn>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
-                type="warning"
-                icon="edit"
-                @click="editData(scope.row)"
+              type="primary"
+              icon="Histogram"
+              @click="showData(scope.row)"
             >
-              编辑
+              详情
             </el-button>
           </template>
         </ElTableColumn>
       </ElTable>
       <el-row class="paginationDiv">
         <el-pagination
-            background
-            v-model:current-page="currentPageNum"
-            v-model:page-size="currentPageSize"
-            layout="total, sizes, prev, pager, next"
-            :total="tableTotal"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
+          background
+          v-model:current-page="currentPageNum"
+          v-model:page-size="currentPageSize"
+          layout="total, sizes, prev, pager, next"
+          :total="tableTotal"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
         />
       </el-row>
     </el-card>

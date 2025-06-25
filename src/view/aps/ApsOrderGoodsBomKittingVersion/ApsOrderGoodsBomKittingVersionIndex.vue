@@ -9,14 +9,11 @@ import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 import Decimal from "decimal.js";
 import {router} from "@/router";
 import {useRoute} from 'vue-router'
+import KittingRate from "@v/aps/ApsOrderGoodsBomKittingVersion/KittingRate.vue";
 const dtoUrl = ref<string>("/apsOrderGoodsBomKittingVersion")
 const documentTitle = ref<string>("齐套检查版本")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
-const route = useRoute()
-
-const kittingVersionId = ref<string>(route.params.id)
-console.info("kittingVersionId ", kittingVersionId)
 // 查询表格
 const queryForm = ref<ApsOrderGoodsBomKittingVersion>({
   kittingVersionNo: undefined,
@@ -158,29 +155,7 @@ onMounted(() => {
         />
         <ElTableColumn prop="kittingRate" label="齐套率">
           <template #default="scope">
-            <div
-              class="success"
-              v-if="scope.row.kittingRate >= 100.00 "
-            >
-              100%
-            </div>
-            <div
-              class="warning"
-              v-else-if="scope.row.kittingRate >= 80 "
-              key="scope.row.kittingRate +'%'"
-            >
-              {{ scope.row.kittingRate }}%
-            </div>
-            <div
-              v-else-if="scope.row.kittingRate >= 30 " class="warning"
-            >
-              {{ scope.row.kittingRate }}%
-            </div>
-            <div
-              v-else :key="scope.row.kittingRate +'%'" class="danger"
-            >
-              {{ scope.row.kittingRate }}%
-            </div>
+            <KittingRate :kitting-rate="scope.row.kittingRate" />
           </template>
         </ElTableColumn>
         <ElTableColumn prop="kittingStatus" label="齐套状态">
@@ -214,31 +189,4 @@ onMounted(() => {
 
 <style scoped lang="scss">
 
-div.success {
-  font-weight: bold;
-  width: 60px;
-  text-align: center;
-  color: green;
-}
-
-div.warning {
-  width: 60px;
-  font-weight: bold;
-  text-align: center;
-  color: burlywood;
-}
-
-div.warning_max {
-  width: 60px;
-  font-weight: bold;
-  text-align: center;
-  color: deeppink;
-}
-
-div.danger {
-  width: 60px;
-  font-weight: bold;
-  text-align: center;
-  color: red;
-}
 </style>

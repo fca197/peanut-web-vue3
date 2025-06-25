@@ -1,9 +1,9 @@
-import type { RouteRecordRaw } from "vue-router"
-import { createRouter } from "vue-router"
-import { routerConfig } from "@/router/config"
-import { registerNavigationGuard } from "@/router/guard"
-import { flatMultiLevelRoutes } from "./helper"
-import { menuList, retMenuList } from "@/router/menuList.tsx"
+import type {RouteRecordRaw} from "vue-router"
+import {createRouter} from "vue-router"
+import {routerConfig} from "@/router/config"
+import {registerNavigationGuard} from "@/router/guard"
+import {flatMultiLevelRoutes} from "./helper"
+import {menuList} from "@/router/menuList.tsx"
 
 const Layouts = () => import("@/layouts/index.vue")
 
@@ -139,6 +139,16 @@ export const constantRoutes: RouteRecordRaw[] = [
           elIcon: "Refrigerator",
           hidden: true
         }
+      },
+      {
+        path: "/aps/ApsOrderGoodsBomKittingVersionOrderItem/:versionId/:orderId",
+        name: "齐套订单详情",
+        component: () => import("@/view/aps/ApsOrderGoodsBomKittingVersionOrderItem/ApsOrderGoodsBomKittingVersionOrderItemIndex.vue"),
+        meta: {
+          title: "齐套订单详情",
+          elIcon: "Refrigerator",
+          hidden: true
+        }
       }
     ]
   }
@@ -162,8 +172,8 @@ export function resetRouter() {
   try {
     // 注意：所有动态路由路由必须带有 Name 属性，否则可能会不能完全重置干净
     router.getRoutes().forEach((route) => {
-      const { name, meta } = route
-      if(name && meta.roles?.length) {
+      const {name, meta} = route
+      if (name && meta.roles?.length) {
         router.hasRoute(name) && router.removeRoute(name)
       }
     })
