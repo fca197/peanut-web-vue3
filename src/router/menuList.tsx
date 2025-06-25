@@ -567,7 +567,7 @@ const allMenuList: RouteRecordRaw[] = [
     component: Layouts,
     children: [
       {
-        path: "/aps/ApsOrderGoodsBomKittingVersion",
+        path: "/aps/ApsOrderGoodsBomKittingVersionTemplate",
         name: "齐套字段模板",
         component: () => import("@/view/aps/ApsOrderGoodsBomKittingVersion/ApsOrderGoodsBomKittingVersionIndex.vue"),
         meta: {

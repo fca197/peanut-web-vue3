@@ -1,6 +1,6 @@
 export interface ApsOrderGoodsBomKittingVersionOrderItem {
-  kittingVersionId: string | undefined
-  orderId: string | undefined
+  kittingVersionId: string
+  orderId: string
   orderNo: string | undefined
   orderMakeBeginDateTime: string | undefined
   goodsId: string | undefined
@@ -22,4 +22,5 @@ export interface ApsOrderGoodsBomKittingVersionOrderItem {
   createDate: string | undefined
   factoryId: string | undefined
   id: string | undefined
+  isEnough: boolean | undefined
 }
