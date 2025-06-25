@@ -1,0 +1,16 @@
+export interface ApsOrderGoodsBomKittingVersion {
+  kittingVersionNo: string | undefined
+  kittingVersionName: string | undefined
+  kittingVersionSource: string | undefined
+  orderCount: string | undefined
+  kittingSuccessCount: string | undefined
+  kittingFailCount: string | undefined
+  kittingRate: string | undefined
+  kittingStatus: string | undefined
+  kittingMissingBom: string | undefined
+  createDate: string | undefined
+  factoryId: string | undefined
+  goodsStatusId: string | undefined
+  bomUseDate: string | undefined
+  id: string | undefined
+}
