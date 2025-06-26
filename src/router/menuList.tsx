@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from "vue-router";
+import type {RouteRecordRaw} from "vue-router";
 
 const Layouts = () => import("@/layouts/index.vue")
 
@@ -567,9 +567,9 @@ const allMenuList: RouteRecordRaw[] = [
     component: Layouts,
     children: [
       {
-        path: "/aps/ApsOrderGoodsBomKittingVersionTemplate",
+        path: "/aps/ApsOrderGoodsBomKittingTemplate",
         name: "齐套字段模板",
-        component: () => import("@/view/aps/ApsOrderGoodsBomKittingVersion/ApsOrderGoodsBomKittingVersionIndex.vue"),
+        component: () => import("@/view/aps/ApsOrderGoodsBomKittingTemplate/ApsOrderGoodsBomKittingTemplateIndex.vue"),
         meta: {
           title: "齐套字段模板",
           elIcon: "Files"
