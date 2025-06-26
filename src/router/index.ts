@@ -121,7 +121,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         }
       },
       {
-        path: "/aps/CreateScheduling/:id/:isUpdate",
+        path: "/aps/CreateScheduling/:id/:operType",
         name: "排产创建",
         component: () => import("@/view/aps/ApsSchedulingVersion/CreateScheduling.vue"),
         meta: {

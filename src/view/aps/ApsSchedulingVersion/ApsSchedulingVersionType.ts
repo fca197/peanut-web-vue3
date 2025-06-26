@@ -6,7 +6,7 @@ export interface ApsSchedulingVersion {
   capacityHeaderList: string | undefined
   capacityDateList: string | undefined
   schedulingDayCount: string | undefined
-  versionStep: string | undefined
+  versionStep: number | undefined
   versionStepError: string | undefined
   bomTotalEndDate: string | undefined
   startDate: string | undefined

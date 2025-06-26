@@ -11,7 +11,7 @@ export interface ApsGoods {
   processPathId?: string | undefined
   // 制造流水线ID produceProcess
   produceProcessId?: string | undefined
-  id?: string
+  id?: string | undefined
 }
 
 export function queryGoodsList(): Promise<ApsGoods[]> {
