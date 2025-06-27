@@ -10,9 +10,10 @@ const route = useRoute()
 
 const currentId = ref<string>(route.params.id)
 const operType = ref<string>(route.params.operType)
-console.info("params ", currentId, operType)
+const step = ref<string>(route.params.step)
+console.info("params ", currentId, operType, step)
 
-const active = ref<number>(1)
+const active = ref<number>(parseInt(step.value))
 
 const toStep1 = () => {
   console.log("toStep ", 1)

@@ -1,7 +1,12 @@
 <script setup lang="ts">
 
-import {postNoResult, postResultInfo, postResultInfoList} from "@@/utils/common-js.ts"
+import {KVEntity, postNoResult, postResultInfo, postResultInfoList} from "@@/utils/common-js.ts"
+import {useRoute} from "vue-router";
+import {label} from "happy-dom/lib/PropertySymbol.d.ts.js";
 
+const route = useRoute()
+const step = ref<string>(route.params.step)
+console.info("step ", step)
 const props = defineProps({
   id: {
     type: String,
@@ -26,6 +31,7 @@ const props = defineProps({
 const total = ref<number>(0)
 const apsSchedulingVersionLimitKey = ref<number>(0)
 const loading = ref<boolean>(true)
+const createKitting = ref<boolean>(false)
 const tableHeaderList = ref<any[]>([])
 const dayList = ref<any[]>([])
 const brandNameList = ref<any[]>([])
@@ -35,6 +41,9 @@ const queryParams = ref<any>({
   currentDate: [],
   pageNum: 1,
   pageSize: 10
+})
+const createKittingModel = ref({
+  kittingDate: []
 })
 const useConstraintsResult = () => {
   queryParams.value.currentDate = queryParams.value.currentDate.sort()
@@ -77,21 +86,39 @@ const loadDayList = () => {
   })
 }
 const updateFinish = () => {
-  if ("2" === props.operType){
+  if ("2" === props.operType) {
     if (props.saveAfterFun) {
       props.saveAfterFun()
       return
     }
   }
-  postNoResult("/apsSchedulingVersion/finish",{
+  postNoResult("/apsSchedulingVersion/finish", {
     id: props.id
-  },"排产结束",()=>{
+  }, "排产结束", () => {
     if (props.saveAfterFun) {
       props.saveAfterFun()
     }
   })
 
 }
+
+const autoDayList: KVEntity = [
+  3, 5, 7, 10, 15, 20, 30
+].map(t => {
+  return {
+    label: t, value:
+    t
+  }
+})
+
+const showCreateKitting = () => {
+  createKitting.value = true
+}
+const selectKittingDate = (c: number) => {
+  createKittingModel.value.kittingDate = dayList.value.slice(0, c).map(t => t.currentDay)
+  console.info("createKittingModel.value ", createKittingModel.value)
+}
+
 onMounted(() => {
   loadDayList()
   useConstraintsResult()
@@ -113,11 +140,12 @@ onMounted(() => {
       </el-checkbox-group>
     </el-col>
     <el-col :span="20">
-      <el-col style="border-bottom: #f6c1c1 1px solid;margin-bottom: 20px" :span="24"
-              v-for="(d,i) in queryParams.currentDate" :key="i">
+      <el-col
+        style="border-bottom: #f6c1c1 1px solid;margin-bottom: 20px" :span="24"
+        v-for="(d,i) in queryParams.currentDate" :key="i">
         <el-col :span="24">当前日期: <label>{{ d }}</label>
           <el-badge is-dot class="item"
-                    v-if="dayList.filter(iten=>iten.currentDay===d)[0].hasEnough===false"></el-badge>
+                    v-if="dayList.filter(iten=>iten.currentDay===d)[0].hasEnough === false"></el-badge>
         </el-col>
         <el-row type="flex" style="flex-wrap: wrap;width:100%">
           <el-col :span="6" style="margin: 2px 0 ;height: 25px"
@@ -133,9 +161,12 @@ onMounted(() => {
       <el-col :span="24">
         <el-table v-loading="loading" :data="brandNameList" width="100%">
           <!--     <el-table-column label="全选" type="selection" align="center" prop="id" width="50"/>-->
-          <el-table-column v-for="(item,index) in tableHeaderList" :key="index" align="center"
-                           :prop="item.fieldName"
-                           :label="item.showName"/>
+          <el-table-column
+            v-for="(item,index) in tableHeaderList" :key="index" align="center"
+            :prop="item.fieldName"
+            :width="item.width"
+            :label="item.showName"
+          />
           <el-table-column label="" type="text" align="center"/>
         </el-table>
 
@@ -157,7 +188,29 @@ onMounted(() => {
       <el-button type="primary" @click="updateFinish">
         下一步
       </el-button>
+      <el-button type="primary" v-if="step === '3'" @click="showCreateKitting">
+        生成齐套版本
+      </el-button>
     </el-row>
+    <el-dialog v-model="createKitting" title="生成齐套版本" destroy-on-close>
+      <el-row>
+        <el-button
+          v-for="k in autoDayList" type="primary" @click="selectKittingDate(k.value)"
+        >最近 {{ k.label }} 天
+        </el-button>
+      </el-row>
+      <el-row>
+        <el-checkbox-group
+          v-model="createKittingModel.kittingDate">
+          <el-checkbox
+            v-for="(d ,index) in dayList" :key="index" :value="d.currentDay"
+            :label="d.currentDay" @change="useConstraintsResult">
+            <label>{{ d.currentDay }} </label>
+            <el-badge is-dot class="item" v-if="!d.hasEnough"> {{ d.currentCount }}</el-badge>
+          </el-checkbox>
+        </el-checkbox-group>
+      </el-row>
+    </el-dialog>
   </el-row>
 </template>
 

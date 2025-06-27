@@ -78,16 +78,25 @@ const getDataList = () => {
   postResultInfo(`${dtoUrl.value}/queryPageList`, req)
   .then((t) => {
     dataList.value = t.data.dataList
+    dataList.value.forEach(tt => {
+      tt.isFinish = tt.versionStep === 100
+      tt.isNotFinish = tt.versionStep !== 100
+    })
     tableTotal.value = Number.parseInt(t.data.total)
     headerList.value = t.data.headerList
   })
 }
 
 // table点击事件
-const editData = (data: any) => {
+const editData = (data: any, step = 1) => {
   // console.info("data ", data)
   // tableBarRef.value?.showEditDialog(data.id)
-  router.push(`/aps/CreateScheduling/${data.id}/${data.versionStep !== 100 ? '1' : '2'}`)
+  router.push(`/aps/CreateScheduling/${data.id}/${data.isNotFinish ? '1' : '2'}/${step}`)
+}
+
+const settingKitting = (data: ApsSchedulingVersion) => {
+
+  router.push(`/aps/CreateScheduling/${data.id}/${data.isNotFinish ? '1' : '2'}/3`)
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
@@ -143,25 +152,38 @@ onMounted(() => {
         <ElTableColumn type="selection"/>
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
-          :prop="h.fieldName"/>
-        <ElTableColumn fixed="right" label="操作" width="150px">
+          :prop="h.fieldName"
+        />
+        <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">
             <el-button
-              v-if="scope.row.versionStep !== 100"
+              v-if="scope.row.isNotFinish"
               type="warning"
               icon="edit"
-              @click="editData(scope.row)"
+              @click="editData(scope.row,1)"
             >
               编辑
             </el-button>
-            <el-button
-              v-else
-              type="primary"
-              icon="Histogram"
-              @click="editData(scope.row)"
-            >
-              详情
-            </el-button>
+
+            <el-dropdown type="primary" split-button v-if="scope.row.isFinish">
+              操作
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="editData(scope.row , 2)" icon="Histogram">
+                    查看不加限数据
+                  </el-dropdown-item>
+                  <el-dropdown-item @click="editData(scope.row , 3)" icon="Histogram">
+                    查看加限数据
+                  </el-dropdown-item>
+                  <el-dropdown-item @click="settingKitting(scope.row)" icon="Setting">
+                    齐套检查
+                  </el-dropdown-item>
+                  <el-dropdown-item @click="editData(scope.row, 3)" icon="DataLine">
+                    齐套报告
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </template>
         </ElTableColumn>
       </ElTable>
