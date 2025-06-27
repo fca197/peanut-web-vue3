@@ -90,7 +90,7 @@ const getDataList = () => {
 const showData = (data: any) => {
   // console.info("data ", data)
   // tableBarRef.value?.showEditDialog(data.id)
-  router.push("/aps/ApsOrderGoodsBomKittingVersionOrderItem/"+kittingVersionId.value+"/"+data.orderId)
+  router.push("/aps/ApsOrderGoodsBomKittingVersionOrderItem/" + kittingVersionId.value + "/" + data.orderId)
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
@@ -133,21 +133,24 @@ onMounted(() => {
       <TableBar
         :document-title="documentTitle"
         :refresh-list="getDataList"
+        :show-del-btn="false"
+        :show-add-btn="false"
         :data-table-ref="dataTableRef"
         :multiple-selection="multipleSelection"
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
-        <ElTableColumn
-          type="selection"/>
+        <ElTableColumn type="selection"/>
+
+        <ElTableColumn prop="numberIndex" label="制造序号" :width="80"/>
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
           :prop="h.fieldName" :width="h.width"
         />
         <ElTableColumn prop="kittingRate" label="齐套率">
           <template #default="scope">
-            <KittingRate :kitting-rate="scope.row.kittingRate" />
+            <KittingRate :kitting-rate="scope.row.kittingRate"/>
           </template>
         </ElTableColumn>
         <ElTableColumn fixed="right" label="操作" width="150px">

@@ -132,10 +132,10 @@ export const constantRoutes: RouteRecordRaw[] = [
       },
       {
         path: "/aps/ApsOrderGoodsBomKittingVersionOrder/:id",
-        name: "齐套详情",
+        name: "齐套订单概览",
         component: () => import("@/view/aps/ApsOrderGoodsBomKittingVersionOrder/ApsOrderGoodsBomKittingVersionOrderIndex.vue"),
         meta: {
-          title: "齐套详情",
+          title: "齐套订单概览",
           elIcon: "Refrigerator",
           hidden: true
         }

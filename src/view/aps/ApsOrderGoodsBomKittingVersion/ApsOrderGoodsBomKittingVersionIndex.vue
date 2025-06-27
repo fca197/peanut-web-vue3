@@ -6,10 +6,9 @@ import {ElTable} from "element-plus";
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsOrderGoodsBomKittingVersion} from "./ApsOrderGoodsBomKittingVersionType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
-import Decimal from "decimal.js";
 import {router} from "@/router";
-import {useRoute} from 'vue-router'
 import KittingRate from "@v/aps/ApsOrderGoodsBomKittingVersion/KittingRate.vue";
+
 const dtoUrl = ref<string>("/apsOrderGoodsBomKittingVersion")
 const documentTitle = ref<string>("齐套检查版本")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
@@ -58,7 +57,7 @@ const getDataList = () => {
   .then((t) => {
     dataList.value = t.data.dataList
     dataList.value.forEach(t => {
-      t.kittingRate = new Decimal(t.kittingRate)
+      // t.kittingRate = new Decimal(t.kittingRate)
     })
     tableTotal.value = Number.parseInt(t.data.total)
     headerList.value = t.data.headerList
@@ -69,7 +68,7 @@ const getDataList = () => {
 const showData = (data: any) => {
   // console.info("data ", data)
   // tableBarRef.value?.showEditDialog(data.id)
-  router.push("/aps/ApsOrderGoodsBomKittingVersionOrder/"+data.id)
+  router.push("/aps/ApsOrderGoodsBomKittingVersionOrder/" + data.id)
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
@@ -119,10 +118,11 @@ onMounted(() => {
             placeholder="请输入齐套版本名称"/>
         </el-form-item>
         <el-form-item label="计算日期" prop="createDate">
-          <el-date-picker v-model="queryForm.createDate"
-                          clearable
-                          type="date" placeholder="选择日期时间"
-                          value-format="YYYY-MM-DD" style="width: 100%"
+          <el-date-picker
+            v-model="queryForm.createDate"
+            clearable
+            type="date" placeholder="选择日期时间"
+            value-format="YYYY-MM-DD" style="width: 100%"
           />
         </el-form-item>
         <el-form-item>
@@ -155,11 +155,10 @@ onMounted(() => {
         />
         <ElTableColumn prop="kittingRate" label="齐套率">
           <template #default="scope">
-            <KittingRate :kitting-rate="scope.row.kittingRate" />
+            <KittingRate :kitting-rate="scope.row.kittingRate"/>
           </template>
         </ElTableColumn>
-        <ElTableColumn prop="kittingStatus" label="齐套状态">
-        </ElTableColumn>
+        <ElTableColumn prop="kittingStatus" label="齐套状态"/>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button

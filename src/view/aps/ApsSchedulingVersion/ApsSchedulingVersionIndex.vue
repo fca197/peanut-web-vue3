@@ -5,6 +5,9 @@ import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from "element-plus";
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsSchedulingVersion} from "./ApsSchedulingVersionType.ts"
+import {
+  ApsOrderGoodsBomKittingTemplate
+} from "@v/aps/ApsOrderGoodsBomKittingTemplate/ApsOrderGoodsBomKittingTemplateType.ts";
 
 const dtoUrl = ref<string>("/apsSchedulingVersion")
 const documentTitle = ref<string>("排产版本")
@@ -118,8 +121,10 @@ const toCreatePage = (isUpdate: boolean) => {
   // const id = new Date().getTime() + "" + Math.floor(Math.random() * 1000000)
   const id = "-1"
   console.info("toCreatePage ", id, isUpdate)
-  router.push(`/aps/CreateScheduling/${id}/0`)
+  router.push(`/aps/CreateScheduling/${id}/0/1`)
 }
+
+
 // 页面加载事件
 onMounted(() => {
   getDataList()

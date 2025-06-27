@@ -141,7 +141,7 @@ export async function getById(url: string, id: string) {
 }
 
 export interface KVEntity {
-  label: string
+  label: any
   value: any
 }
 

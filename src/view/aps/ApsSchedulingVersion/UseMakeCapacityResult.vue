@@ -3,6 +3,10 @@
 import {KVEntity, postNoResult, postResultInfo, postResultInfoList} from "@@/utils/common-js.ts"
 import {useRoute} from "vue-router";
 import {label} from "happy-dom/lib/PropertySymbol.d.ts.js";
+import {ref} from "vue";
+import {
+  ApsOrderGoodsBomKittingTemplate
+} from "@v/aps/ApsOrderGoodsBomKittingTemplate/ApsOrderGoodsBomKittingTemplateType.ts";
 
 const route = useRoute()
 const step = ref<string>(route.params.step)
@@ -43,6 +47,8 @@ const queryParams = ref<any>({
   pageSize: 10
 })
 const createKittingModel = ref({
+  schedulingVersionTemplateId: null,
+  schedulingVersionId: props.id,
   kittingDate: []
 })
 const useConstraintsResult = () => {
@@ -102,12 +108,11 @@ const updateFinish = () => {
 
 }
 
-const autoDayList: KVEntity = [
-  3, 5, 7, 10, 15, 20, 30
+const autoDayList: KVEntity[] = [
+  1, 3, 7, 10, 15, 20, 30, 60
 ].map(t => {
   return {
-    label: t, value:
-    t
+    label: t, value: t
   }
 })
 
@@ -119,10 +124,27 @@ const selectKittingDate = (c: number) => {
   console.info("createKittingModel.value ", createKittingModel.value)
 }
 
+const createKittingVersion = () => {
+  postNoResult("/apsOrderGoodsBomKittingVersion/createSchedulingKittingVersion", createKittingModel.value, "版本创建", () => {
+    createKitting.value = false
+  })
+}
+
+const apsOrderGoodsBomKittingTemplateList = ref<ApsOrderGoodsBomKittingTemplate[]>([])
+
+const kittingTemplate = () => {
+  postResultInfoList("/apsOrderGoodsBomKittingTemplate/queryPageList", {queryPage: false})
+  .then(r => {
+    apsOrderGoodsBomKittingTemplateList.value = r
+    createKittingModel.value.schedulingVersionTemplateId =r[0].id
+  })
+}
+
 onMounted(() => {
   loadDayList()
   useConstraintsResult()
   apsSchedulingVersionLimitFun()
+  kittingTemplate()
 })
 </script>
 
@@ -192,23 +214,42 @@ onMounted(() => {
         生成齐套版本
       </el-button>
     </el-row>
-    <el-dialog v-model="createKitting" title="生成齐套版本" destroy-on-close>
-      <el-row>
-        <el-button
-          v-for="k in autoDayList" type="primary" @click="selectKittingDate(k.value)"
-        >最近 {{ k.label }} 天
-        </el-button>
-      </el-row>
-      <el-row>
-        <el-checkbox-group
-          v-model="createKittingModel.kittingDate">
-          <el-checkbox
-            v-for="(d ,index) in dayList" :key="index" :value="d.currentDay"
-            :label="d.currentDay" @change="useConstraintsResult">
-            <label>{{ d.currentDay }} </label>
-            <el-badge is-dot class="item" v-if="!d.hasEnough"> {{ d.currentCount }}</el-badge>
-          </el-checkbox>
-        </el-checkbox-group>
+    <el-dialog v-model="createKitting" title="生成齐套版本" destroy-on-close :width="950">
+      <el-row style="margin: 10px 20px; text-align: left">
+        <el-row style="margin: 10px 0 ; line-height: 25px ; ">
+          模板版本:
+          <el-select v-model="createKittingModel.schedulingVersionTemplateId" style="width: 300px">
+            <el-option
+              v-for="(t ,index ) in apsOrderGoodsBomKittingTemplateList"
+              :key="t.id" :label="t.kittingTemplateName" :value="t.id"
+            />
+          </el-select>
+        </el-row>
+        <el-row>
+          <el-button
+            v-for="k in autoDayList" type="warning" @click="selectKittingDate(k.value)"
+            :key="k.value"
+          >
+            最近 {{ k.label }} 天
+          </el-button>
+        </el-row>
+        <el-row style="margin: 10px 0 20px">
+          <el-checkbox-group
+            v-model="createKittingModel.kittingDate">
+            <el-checkbox
+              v-for="(d, index) in dayList" :key="index" :value="d.currentDay"
+              :label="d.currentDay" @change="useConstraintsResult"
+            >
+              <label>{{ d.currentDay }} </label>
+              <el-badge is-dot class="item" v-if="!d.hasEnough"> {{ d.currentCount }}</el-badge>
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-row>
+        <el-row style="width: 900px;display: block;">
+          <el-button type="primary" style="float: right" @click="createKittingVersion">
+            创建齐套版本
+          </el-button>
+        </el-row>
       </el-row>
     </el-dialog>
   </el-row>
