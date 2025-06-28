@@ -584,6 +584,16 @@ const allMenuList: RouteRecordRaw[] = [
           elIcon: "Files"
         }
       },
+      {
+        path: "/aps/ApsOrderGoodsBomKittingVersion/:bizKey",
+        name: "齐套版本",
+        component: () => import("@/view/aps/ApsOrderGoodsBomKittingVersion/ApsOrderGoodsBomKittingVersionIndex.vue"),
+        meta: {
+          title: "齐套版本",
+          elIcon: "Files",
+          hidden: true
+        }
+      },
     ]
   }
 ]

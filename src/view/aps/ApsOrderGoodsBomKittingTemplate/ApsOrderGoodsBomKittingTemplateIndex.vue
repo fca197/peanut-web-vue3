@@ -85,6 +85,7 @@ const handleSelectionChange = (val: ApsOrderGoodsBomKittingTemplate[]) => {
   console.info("multipleSelection ", multipleSelection)
 }
 
+
 // 页面加载事件
 onMounted(() => {
   getDataList()

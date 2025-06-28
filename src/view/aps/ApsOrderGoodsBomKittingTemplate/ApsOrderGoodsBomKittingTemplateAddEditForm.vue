@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
 import {type ApsOrderGoodsBomKittingTemplate} from "./ApsOrderGoodsBomKittingTemplateType.ts"
-import {getById, KVEntity, postNoResult} from "@/common/utils/common-js.ts"
+import {getById, KVEntity, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {querySaleConfigList} from "@v/aps/ApsSaleConfig/ApsSaleConfigType.ts";
 import {queryOrderFieldList} from "@v/aps/ApsOrder/ApsOrderType.ts";
@@ -101,6 +101,9 @@ const cancelForm = () => {
   }
 }
 
+watch(()=>addForm.value.kittingTemplateName,(data)=>{
+  pinyin4jSzm(addForm.value.kittingTemplateName).then(r=> addForm.value.kittingTemplateNo = r)
+})
 // 页面加载事件
 onMounted(() => {
   loadById()
@@ -118,11 +121,11 @@ onMounted(() => {
 
 <template>
   <el-form label-width="120px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="模板编号" prop="kittingTemplateNo">
-      <el-input v-model="addForm.kittingTemplateNo" clearable placeholder="请输入模板编号"/>
-    </el-form-item>
     <el-form-item label="模板名称" prop="kittingTemplateName">
       <el-input v-model="addForm.kittingTemplateName" clearable placeholder="请输入模板名称"/>
+    </el-form-item>
+    <el-form-item label="模板编号" prop="kittingTemplateNo">
+      <el-input v-model="addForm.kittingTemplateNo" clearable placeholder="请输入模板编号"/>
     </el-form-item>
     <el-form-item label="工厂" prop="factoryId">
       <el-select v-model="addForm.factoryId" clearable placeholder="请输入工厂">

@@ -5,9 +5,6 @@ import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from "element-plus";
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsSchedulingVersion} from "./ApsSchedulingVersionType.ts"
-import {
-  ApsOrderGoodsBomKittingTemplate
-} from "@v/aps/ApsOrderGoodsBomKittingTemplate/ApsOrderGoodsBomKittingTemplateType.ts";
 
 const dtoUrl = ref<string>("/apsSchedulingVersion")
 const documentTitle = ref<string>("排产版本")
@@ -124,7 +121,9 @@ const toCreatePage = (isUpdate: boolean) => {
   router.push(`/aps/CreateScheduling/${id}/0/1`)
 }
 
-
+const showKitting = (data: any) => {
+  router.push(`/aps/ApsOrderGoodsBomKittingVersion/${data.id}`)
+}
 // 页面加载事件
 onMounted(() => {
   getDataList()
@@ -183,7 +182,7 @@ onMounted(() => {
                   <el-dropdown-item @click="settingKitting(scope.row)" icon="Setting">
                     齐套检查
                   </el-dropdown-item>
-                  <el-dropdown-item @click="editData(scope.row, 3)" icon="DataLine">
+                  <el-dropdown-item @click="showKitting(scope.row)" icon="DataLine">
                     齐套报告
                   </el-dropdown-item>
                 </el-dropdown-menu>

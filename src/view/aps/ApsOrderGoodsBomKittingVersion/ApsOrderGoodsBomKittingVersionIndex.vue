@@ -8,10 +8,16 @@ import {type ApsOrderGoodsBomKittingVersion} from "./ApsOrderGoodsBomKittingVers
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 import {router} from "@/router";
 import KittingRate from "@v/aps/ApsOrderGoodsBomKittingVersion/KittingRate.vue";
+import {useRoute} from "vue-router";
 
 const dtoUrl = ref<string>("/apsOrderGoodsBomKittingVersion")
 const documentTitle = ref<string>("齐套检查版本")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
+
+
+const route = useRoute()
+const bizKey = ref<String>(route.params.bizKey)
+console.info("bizKey ", bizKey)
 
 // 查询表格
 const queryForm = ref<ApsOrderGoodsBomKittingVersion>({
@@ -24,6 +30,7 @@ const queryForm = ref<ApsOrderGoodsBomKittingVersion>({
   kittingRate: undefined,
   kittingStatus: undefined,
   kittingMissingBom: undefined,
+  bizId: bizKey,
   createDate: undefined,
   factoryId: undefined,
   goodsStatusId: undefined,

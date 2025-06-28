@@ -66,7 +66,6 @@ function handleLogin() {
       router.push("/")
       window.location.reload();
     }).catch(() => {
-      loginFormData.password = ""
     }).finally(() => {
       loading.value = false
     })
