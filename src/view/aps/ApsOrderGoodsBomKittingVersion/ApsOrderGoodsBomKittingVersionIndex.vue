@@ -166,7 +166,7 @@ onMounted(() => {
           </template>
         </ElTableColumn>
         <ElTableColumn prop="kittingStatus" label="齐套状态"/>
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn fixed="right" label="操作" width="150px" style="float: right">
           <template #default="scope">
             <el-button
               type="primary"
