@@ -178,12 +178,14 @@ onMounted(() => {
       <el-input v-model="addForm.kittingRate" clearable placeholder="请输入齐套率"/>
     </el-form-item>
     <el-form-item label="齐套状态 已齐套， 部分齐套，未齐套" prop="kittingStatus">
-      <el-input v-model="addForm.kittingStatus" clearable
-                placeholder="请输入齐套状态 已齐套， 部分齐套，未齐套"/>
+      <el-input
+        v-model="addForm.kittingStatus" clearable
+        placeholder="请输入齐套状态 已齐套， 部分齐套，未齐套"/>
     </el-form-item>
     <el-form-item label="缺失物料前10 [{id: label}]" prop="kittingMissingBom">
-      <el-input v-model="addForm.kittingMissingBom" clearable
-                placeholder="请输入缺失物料前10 [{id: label}]"/>
+      <el-input
+        v-model="addForm.kittingMissingBom" clearable
+        placeholder="请输入缺失物料前10 [{id: label}]"/>
     </el-form-item>
     <el-form-item label="计算日期" prop="createDate">
       <el-input v-model="addForm.createDate" clearable placeholder="请输入计算日期"/>
@@ -208,8 +210,6 @@ onMounted(() => {
   </el-row>
 </template>
 
-
 <style scoped lang="scss">
 
 </style>
-

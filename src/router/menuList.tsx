@@ -558,10 +558,10 @@ const allMenuList: RouteRecordRaw[] = [
   },
   {
     path: "/base/kitting",
-    name: "齐套",
+    name: "齐套管理",
     redirect: "",
     meta: {
-      title: "齐套",
+      title: "齐套管理",
       elIcon: "Money"
     },
     component: Layouts,

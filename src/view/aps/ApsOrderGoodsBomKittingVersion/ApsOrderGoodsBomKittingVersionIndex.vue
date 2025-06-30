@@ -9,6 +9,7 @@ import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 import {router} from "@/router";
 import KittingRate from "@v/aps/ApsOrderGoodsBomKittingVersion/KittingRate.vue";
 import {useRoute} from "vue-router";
+import KittingMissingBom from "@v/aps/ApsOrderGoodsBomKittingVersion/KittingMissingBom.vue";
 
 const dtoUrl = ref<string>("/apsOrderGoodsBomKittingVersion")
 const documentTitle = ref<string>("齐套检查版本")
@@ -166,6 +167,11 @@ onMounted(() => {
           </template>
         </ElTableColumn>
         <ElTableColumn prop="kittingStatus" label="齐套状态"/>
+        <ElTableColumn prop="kittingMissingBom" label="前10缺失物料" :width="130">
+          <template #default="scope">
+            <KittingMissingBom :kitting-missing-bom="scope.row.kittingMissingBom"/>
+          </template>
+        </ElTableColumn>
         <ElTableColumn fixed="right" label="操作" width="150px" style="float: right">
           <template #default="scope">
             <el-button

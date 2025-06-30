@@ -2,12 +2,17 @@
 import {onMounted, ref} from "vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from "element-plus";
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
+import {HeaderInfo, KVEntity, postResultInfo, postResultInfoList} from "@@/utils/common-js.ts"
 import {
   type ApsOrderGoodsBomKittingVersionOrder
 } from "./ApsOrderGoodsBomKittingVersionOrderType.ts"
 import KittingRate from "@v/aps/ApsOrderGoodsBomKittingVersion/KittingRate.vue";
 import {router} from "@/router";
+import KittingMissingBom from "@v/aps/ApsOrderGoodsBomKittingVersion/KittingMissingBom.vue";
+import {
+  ApsOrderGoodsBomKittingVersion
+} from "@v/aps/ApsOrderGoodsBomKittingVersion/ApsOrderGoodsBomKittingVersionType.ts";
+import Decimal from "decimal.js";
 
 const dtoUrl = ref<string>("/apsOrderGoodsBomKittingVersionOrder")
 const documentTitle = ref<string>("齐套检查订单详情")
@@ -17,6 +22,8 @@ const route = useRoute()
 
 const kittingVersionId = ref<string | undefined>(route.params.id)
 console.info("kittingVersionId ", kittingVersionId)
+
+const apsOrderGoodsBomKittingVersion = ref<ApsOrderGoodsBomKittingVersion>({})
 // 查询表格
 const queryForm = ref<ApsOrderGoodsBomKittingVersionOrder>({
   kittingVersionId: kittingVersionId,
@@ -25,26 +32,6 @@ const queryForm = ref<ApsOrderGoodsBomKittingVersionOrder>({
   kittingRate: undefined,
   kittingStatus: undefined,
   kittingMissingBom: undefined,
-  orderField01: undefined,
-  orderField02: undefined,
-  orderField03: undefined,
-  orderField04: undefined,
-  orderField05: undefined,
-  orderField06: undefined,
-  orderField07: undefined,
-  orderField08: undefined,
-  orderField09: undefined,
-  orderField10: undefined,
-  orderField11: undefined,
-  orderField12: undefined,
-  orderField13: undefined,
-  orderField14: undefined,
-  orderField15: undefined,
-  orderField16: undefined,
-  orderField17: undefined,
-  orderField18: undefined,
-  orderField19: undefined,
-  orderField20: undefined,
   factoryId: undefined,
   id: undefined
 })
@@ -90,7 +77,7 @@ const getDataList = () => {
 const showData = (data: any) => {
   // console.info("data ", data)
   // tableBarRef.value?.showEditDialog(data.id)
-  router.push("/aps/ApsOrderGoodsBomKittingVersionOrderItem/" + kittingVersionId.value + "/" + data.orderId)
+  router.push("/aps/ApsOrderGoodsBomKittingVersionOrderBom/" + kittingVersionId.value + "/" + data.orderId)
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
@@ -108,9 +95,19 @@ const handleSelectionChange = (val: ApsOrderGoodsBomKittingVersionOrder[]) => {
   console.info("multipleSelection ", multipleSelection)
 }
 
+const templateHeaderList = ref<KVEntity[]>([])
+
 // 页面加载事件
 onMounted(() => {
   getDataList()
+  postResultInfoList("/apsOrderGoodsBomKittingVersion/queryByIdList",
+    {idList: [kittingVersionId.value]}
+  ).then(r => {
+    apsOrderGoodsBomKittingVersion.value = r[0]
+    templateHeaderList.value = r[0].templateHeaderList
+  }).then(r => {
+
+  })
 })
 </script>
 
@@ -119,7 +116,7 @@ onMounted(() => {
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
         <el-form-item label="订单号" prop="orderNo">
-          <el-input v-model="queryForm.orderNo" clearable placeholder="请输入订单ID"/>
+          <el-input v-model="queryForm.orderNo" clearable placeholder="请输入订单号"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -128,7 +125,81 @@ onMounted(() => {
         </el-form-item>
       </el-form>
     </el-card>
+    <el-card class="search-wrapper" shadow="never">
+      <el-row>
+        <el-col :span="6">
+          <el-card>
+            <div class="total_title">
+              <div class="total_title_all"></div>
+              <div> 总齐套项数</div>
+            </div>
+            <div class="total_value">
+              {{ apsOrderGoodsBomKittingVersion.orderCount }}
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card>
+            <div class="total_title">
+              <div class="total_title_success"></div>
+              <div>
+                已齐套项数
+              </div>
+            </div>
+            <div class="total_value">
+            <span>
+                {{ apsOrderGoodsBomKittingVersion.kittingSuccessCount }}
+            </span>
+              <span class="total_value_desc total_value_success">
+               / {{
+                  (apsOrderGoodsBomKittingVersion.kittingSuccessCount / apsOrderGoodsBomKittingVersion.orderCount * 100).toFixed(2)
+                }}%
+            </span>
 
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card>
+            <div class="total_title ">
+              <div class="total_title_fail"></div>
+              <div>
+                未齐套项数
+              </div>
+            </div>
+            <div class="total_value">
+              <span>
+                {{ apsOrderGoodsBomKittingVersion.kittingFailCount }}
+            </span>
+              <span class="total_value_desc total_value_error">
+               / {{
+                  (apsOrderGoodsBomKittingVersion.kittingFailCount / apsOrderGoodsBomKittingVersion.orderCount * 100).toFixed(2)
+                }}%
+            </span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card>
+            <div class="total_title">
+              <div class="total_title_fail"></div>
+              <div>
+                缺失零件总数
+              </div>
+            </div>
+            <div class="total_value total_value_error">
+
+              {{
+                apsOrderGoodsBomKittingVersion.kittingMissingBom?.reduce((sum, item) => {
+                  return sum.plus(new Decimal(item.value));
+                }, new Decimal(0)).toFixed(6)
+              }}
+              <div class="total_value_info">详情</div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
+    </el-card>
     <el-card shadow="never">
       <TableBar
         :document-title="documentTitle"
@@ -140,20 +211,33 @@ onMounted(() => {
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
       />
-      <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
+      <ElTable ref="dataTableRef" :data="dataList" @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
 
         <ElTableColumn prop="numberIndex" label="制造序号" :width="80"/>
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
-          :prop="h.fieldName" :width="h.width"
+          :prop="h.fieldName" :width="200"
         />
         <ElTableColumn prop="kittingRate" label="齐套率">
           <template #default="scope">
             <KittingRate :kitting-rate="scope.row.kittingRate"/>
           </template>
         </ElTableColumn>
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn prop="kittingMissingBom" label="前10缺失物料" :width="130">
+          <template #default="scope">
+            <KittingMissingBom :kitting-missing-bom="scope.row.kittingMissingBom"/>
+          </template>
+        </ElTableColumn>
+        <ElTableColumn
+          v-for="(h,i) in templateHeaderList" :key="h.label" :label="h.label"
+          :width="200"
+        >
+          <template #default="scope">
+            {{ scope.row["orderField" + ((i + 1) < 10 ? "0" + (i + 1) : i + 1)] }}
+          </template>
+        </ElTableColumn>
+        <ElTableColumn fixed="right" label="操作" width="150px" style="float: right">
           <template #default="scope">
             <el-button
               type="primary"
@@ -182,5 +266,89 @@ onMounted(() => {
 
 <style scoped lang="scss">
 
-</style>
+.total_title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 5px 0 15px 0;
+  line-height: 30px;
+  display: inline-flex;
+}
 
+.total_title > div:first-child {
+  margin-right: 10px;
+}
+
+.total_value {
+  text-align: center;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.total_title_all {
+  content: " ";
+  background-color: #00bb99;
+  border: 1px solid #00bb99;
+  line-height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+.total_title_success {
+  content: " ";
+  background-color: #00bb99;
+  border: 1px solid #00bb99;
+  line-height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+.total_title_fail {
+  content: " ";
+  background-color: lightcoral;
+  border: 1px solid lightcoral;
+  line-height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+.total_title_bom {
+  content: " ";
+  background-color: lightcoral;
+  border: 1px solid lightcoral;
+  line-height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+.total_value_info {
+  margin-top: 15px;
+  font-weight: 200;
+  text-align: right;
+  margin-right: 20px;
+  display: none;
+}
+
+.el-card {
+  margin: 10px 5px 10px 5px;
+}
+
+.total_value_desc {
+  font-weight: 350;
+  color: #64748b;
+}
+
+.total_value_error {
+  text-align: center;
+  font-weight: 500;
+  margin-top: 5px;
+  color: #d23131;
+}
+
+.total_value_success {
+  text-align: center;
+  font-weight: 500;
+  margin-top: 5px;
+  color: #00bb99;
+}
+</style>

@@ -4,8 +4,8 @@ import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from "element-plus";
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
 import {
-  type ApsOrderGoodsBomKittingVersionOrderItem
-} from "./ApsOrderGoodsBomKittingVersionOrderItemType.ts"
+  type ApsOrderGoodsBomKittingVersionOrderBom
+} from "./ApsOrderGoodsBomKittingVersionOrderBomType.ts"
 
 const dtoUrl = ref<string>("/apsOrderGoodsBomKittingVersionOrderItem")
 const documentTitle = ref<string>("齐套检查版本详情")
@@ -17,7 +17,7 @@ const kittingVersionId = ref<string>(route.params.versionId)
 const orderId = ref<string>(route.params.orderId)
 console.info("kittingVersionId orderId ", kittingVersionId, orderId)
 // 查询表格
-const queryForm = ref<ApsOrderGoodsBomKittingVersionOrderItem>({
+const queryForm = ref<ApsOrderGoodsBomKittingVersionOrderBom>({
   kittingVersionId: kittingVersionId,
   orderId: orderId,
   orderNo: undefined,
@@ -51,7 +51,7 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsOrderGoodsBomKittingVersionOrderItem[]>([])
+const dataList = ref<ApsOrderGoodsBomKittingVersionOrderBom[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
@@ -104,14 +104,14 @@ const handleCurrentChange = (val: number) => {
   getDataList()
 }
 // 表格选中事件
-const handleSelectionChange = (val: ApsOrderGoodsBomKittingVersionOrderItem[]) => {
+const handleSelectionChange = (val: ApsOrderGoodsBomKittingVersionOrderBom[]) => {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
 
 const tableRowClassName = ({row, rowIndex,}:
                            {
-                             row: ApsOrderGoodsBomKittingVersionOrderItem
+                             row: ApsOrderGoodsBomKittingVersionOrderBom
                              rowIndex: number
                            }) => {
   console.info("row.isEnough ", rowIndex, row)
@@ -178,7 +178,9 @@ onMounted(() => {
         @selection-change="handleSelectionChange"
         :row-class-name="tableRowClassName"
       >
-        <ElTableColumn type="selection"/>
+        <ElTableColumn
+          type="selection"
+        />
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
           :prop="h.fieldName" :width="h.width"
