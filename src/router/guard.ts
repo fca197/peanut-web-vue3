@@ -17,6 +17,8 @@ const LOGIN_PATH = "/login"
 export function registerNavigationGuard(router: Router) {
   // 全局前置守卫
   router.beforeEach(async (to, _from) => {
+    console.log("[导航守卫] 开始跳转:", _from.path, " → ", to.path)
+
     NProgress.start()
     const userStore = useUserStore()
     const permissionStore = usePermissionStore()
@@ -59,10 +61,11 @@ export function registerNavigationGuard(router: Router) {
   })
 
   // 全局后置钩子
-  router.afterEach((to) => {
+  router.afterEach((to, from) => {
     trackPageView(to.fullPath)
     setRouteChange(to)
     setTitle(to.meta.title)
     NProgress.done()
+    console.log("[导航守卫] 跳转完成:", from.path, " → ", to.path)
   })
 }

@@ -14,10 +14,11 @@ const {isTop} = useLayoutMode()
 </script>
 
 <template>
-  <div class="layout-logo-container" :class="{ 'collapse': props.collapse, 'layout-mode-top': isTop }">
+  <div class="layout-logo-container"
+       :class="{ 'collapse': props.collapse, 'layout-mode-top': isTop }">
     <transition name="layout-logo-fade">
       <router-link v-if="props.collapse" key="collapse" to="/">
-        <span class="logoTitle">APS</span>
+        <span class="logoTitle_MIN">APS</span>
       </router-link>
       <router-link v-else key="expand" to="/">
         <span class="logoTitle">APS</span>
@@ -66,6 +67,12 @@ const {isTop} = useLayoutMode()
 .logoTitle {
   font-weight: 600;
   font-size: 40px;
+  color: red;
+}
+
+.logoTitle_MIN {
+  font-weight: 600;
+  font-size: 20px;
   color: red;
 }
 </style>

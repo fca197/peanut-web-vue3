@@ -8,4 +8,5 @@ export interface ApsGoodsForecast {
   months: string | undefined
   forecastStatus: string | undefined
   id: string | undefined
+  saleConfigList?: string[]
 }

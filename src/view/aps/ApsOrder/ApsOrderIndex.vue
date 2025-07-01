@@ -188,7 +188,7 @@ const updateSchedulingDate = (row: ApsOrder, val: string) => {
   })
 }
 
-const createCount = ref<number>(100);
+const createCount = ref<number>(300);
 
 const batchInsert = () => {
   loadDataIngOpen()

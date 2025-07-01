@@ -1,5 +1,5 @@
-import { request } from "@/http/axios"
-import { getToken } from "@@/utils/cache/cookies.ts"
+import {request} from "@/http/axios"
+import {getToken} from "@@/utils/cache/cookies.ts"
 
 export interface Result<T> {
   code: number
@@ -10,6 +10,7 @@ export interface HeaderInfo {
   fieldName: string
   showName: string
   width?: number | undefined
+  sortValue?: number | undefined
 }
 
 export interface ResultPageInfo<T> {
@@ -32,9 +33,9 @@ export function postNoResult(url: string, data: any, suMsg: string, suFun: (((da
     method: "post",
     data
   }).then((r) => {
-    if(r.code === 200) {
+    if (r.code === 200) {
       ElMessage.success(suMsg || "操作成功")
-      if(suFun) {
+      if (suFun) {
         suFun(r.data)
       }
     }
@@ -47,11 +48,11 @@ export function getResult(url: string, suMsg: string | undefined, suFun: (((data
     url,
     method: "get"
   }).then((r) => {
-    if(r.code === 200) {
-      if(suMsg !== undefined) {
+    if (r.code === 200) {
+      if (suMsg !== undefined) {
         ElMessage.success(suMsg)
       }
-      if(suFun !== undefined) {
+      if (suFun !== undefined) {
         suFun(r)
       }
     }
@@ -101,12 +102,12 @@ export async function downloadFilePost(reqUrl: string, reqData: any, saveFileNam
     // 提取文件名
     let fileName = saveFileName || "未命名.xlsx"
     const contentDisposition = response.headers.get("Content-Disposition")
-    if(contentDisposition) {
+    if (contentDisposition) {
       const match = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)
-      if(match != null && match[1]) {
+      if (match != null && match[1]) {
         fileName = match[1].replace(/['"]/g, "")
       }
-      if(fileName.includes("%")) {
+      if (fileName.includes("%")) {
         fileName = decodeURI(fileName)
       }
     }
@@ -140,7 +141,7 @@ export async function getById(url: string, id: string) {
 }
 
 export interface KVEntity {
-  label: string
+  label: any
   value: any
 }
 
@@ -150,7 +151,7 @@ interface pinyin4jSzmData {
 
 // 获取汉字首字母
 export async function pinyin4jSzm(value: string | undefined) {
-  if(value === undefined || value.trim().length === 0) {
+  if (value === undefined || value.trim().length === 0) {
     return Promise.any("")
   }
   const data: pinyin4jSzmData = {
@@ -164,6 +165,7 @@ export async function pinyin4jSzm(value: string | undefined) {
     return t.data.szmUpper as string
   })
 }
+
 // utils/uuid.js
 export const generateSimpleUUID = () => {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {

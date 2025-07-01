@@ -5,6 +5,7 @@ import {getById, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {ApsGoods, queryGoodsList} from "@v/aps/ApsGoods/ApsGoodsType.ts";
 import dayjs from "dayjs";
+import {ApsSaleConfig, querySaleGroupConfigList} from "@v/aps/ApsSaleConfig/ApsSaleConfigType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -24,17 +25,17 @@ const addFormRef = ref<FormInstance>()
 const checkRules = ref<FormRules>({
   // 商品ID
   goodsId: [
-    {required: true, message: "请输入商品ID", trigger: "blur" },
+    {required: true, message: "请输入商品ID", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 预测编码
   forecastNo: [
-    {required: true, message: "请输入预测编码", trigger: "blur" },
+    {required: true, message: "请输入预测编码", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 预测名称
   forecastName: [
-    {required: true, message: "请输入预测名称", trigger: "blur" },
+    {required: true, message: "请输入预测名称", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 开始时间
@@ -49,6 +50,7 @@ const checkRules = ref<FormRules>({
 })
 
 const goodsList = ref<ApsGoods []>([])
+const saleGroupList = ref<ApsSaleConfig []>([])
 // 添加对象
 const addForm = ref<ApsGoodsForecast>({
   goodsId: "",
@@ -59,7 +61,8 @@ const addForm = ref<ApsGoodsForecast>({
   month: "",
   months: "",
   forecastStatus: "",
-  id: ""
+  id: "",
+  saleConfigList: []
 })
 
 function loadById() {
@@ -122,29 +125,48 @@ onMounted(() => {
     goodsList.value = t
     addForm.value.goodsId = t[0].id
   })
+  querySaleGroupConfigList().then((r) => {
+    saleGroupList.value = r
+  })
 })
 </script>
 
 <template>
-  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
+  <el-form label-width="100px" :model="addForm" ref="addFormRef" :rules="checkRules">
     <el-form-item label="商品" prop="goodsId">
       <el-select v-model="addForm.goodsId">
         <el-option v-for="g in goodsList" :value="g.id" :label="g.goodsName" :key="g.id"/>
       </el-select>
     </el-form-item>
     <el-form-item label="预测名称" prop="forecastName">
-      <el-input v-model="addForm.forecastName" clearable placeholder="请输入预测名称" @change="loadSzm"/>
+      <el-input
+        v-model="addForm.forecastName" clearable placeholder="请输入预测名称"
+        @change="loadSzm"/>
     </el-form-item>
     <el-form-item label="预测编码" prop="forecastNo">
       <el-input v-model="addForm.forecastNo" clearable placeholder="请输入预测编码"/>
     </el-form-item>
     <el-form-item label="开始时间" prop="forecastBeginDate">
-      <el-date-picker type="month" value-format="YYYY-MM" format="YYYY-MM" v-model="addForm.forecastBeginDate" clearable
-                      placeholder="请输入开始时间" :disabled-date="disabledDateNow"/>
+      <el-date-picker
+        type="month" value-format="YYYY-MM" format="YYYY-MM" v-model="addForm.forecastBeginDate"
+        clearable style="width: 100%"
+        placeholder="请输入开始时间" :disabled-date="disabledDateNow"/>
     </el-form-item>
     <el-form-item label="结束时间" prop="forecastEndDate">
-      <el-date-picker type="month" value-format="YYYY-MM" format="YYYY-MM" v-model="addForm.forecastEndDate" clearable
-                      placeholder="请输入结束时间" :disabled-date="disabledDateBegin"/>
+      <el-date-picker
+        type="month" value-format="YYYY-MM" format="YYYY-MM" v-model="addForm.forecastEndDate"
+        clearable style="width: 100%"
+        placeholder="请输入结束时间" :disabled-date="disabledDateBegin"/>
+    </el-form-item>
+    <el-form-item label="销售配置组">
+      <el-select
+        style="width: 100%" multiple
+        v-model="addForm.saleConfigList">
+        <el-option
+          v-for="s in saleGroupList"
+          :value="s.id" :label="s.saleName" :key="s.id"
+        />
+      </el-select>
     </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">

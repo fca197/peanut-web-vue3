@@ -34,7 +34,7 @@ export const useUserStore = defineStore("user", () => {
     const {data} = await getCurrentUserResourceList();
     // console.info("getMenuPathList data",data)
     roles.value = data.dataList.map(tt => tt.resourceUrl)
-    // roles.value = []
+    roles.value.push("")
   }
 
   // 模拟角色变化

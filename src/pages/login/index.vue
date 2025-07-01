@@ -66,7 +66,6 @@ function handleLogin() {
       router.push("/")
       window.location.reload();
     }).catch(() => {
-      loginFormData.password = ""
     }).finally(() => {
       loading.value = false
     })
@@ -79,7 +78,7 @@ onMounted(() => {
   checkCookiesValue(gitBrandCk, 1000 * 60 * 30, () => {
     ElNotification({
       title: "版本提示",
-      message: "当前为master版本",
+      message: "当前为develop版本",
       type: "success",
       duration: 3000
     })

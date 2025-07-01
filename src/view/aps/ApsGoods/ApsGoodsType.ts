@@ -1,5 +1,5 @@
-import { request} from "@/http/axios.ts";
-import { Result, ResultPageInfo} from "@@/utils/common-js.ts"
+import {request} from "@/http/axios.ts";
+import {Result, ResultPageInfo} from "@@/utils/common-js.ts"
 
 export interface ApsGoods {
   goodsName?: string | undefined

@@ -1,6 +1,7 @@
 export interface videoPathInfo {
   url: string
   videoItemList: videoPathItem[]
+  pageList: videoPathItem[]
 }
 
 export interface videoPathItem {
@@ -19,6 +20,12 @@ export const videoPathInfo: videoPathInfo [] = [
       {
         name: "首页文档2",
         url: "https://solveplan.cn/upload/video/aps-home.mov"
+      }
+    ],
+    pageList: [
+      {
+        name: "",
+        url: ""
       }
     ]
   }

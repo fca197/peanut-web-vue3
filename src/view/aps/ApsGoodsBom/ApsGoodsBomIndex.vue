@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import {ref} from "vue"
 import AddEditFormVue from "./ApsGoodsBomAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from "element-plus"
-import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
-import { type ApsGoodsBom, isFollowList } from "./ApsGoodsBomType.ts"
-import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
-import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
+import {ElTable} from "element-plus"
+import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
+import {type ApsGoodsBom, isFollowList} from "./ApsGoodsBomType.ts"
+import {ApsGoods, queryGoodsList} from "@v/aps/ApsGoods/ApsGoodsType.ts";
+import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsGoodsBom")
 const documentTitle = ref<string>("BOM 清单")
@@ -56,11 +56,11 @@ function getDataList() {
   }
   console.info("getDataList {}", req)
   postResultInfo(`${dtoUrl.value}/queryPageList`, req)
-    .then((t) => {
-      dataList.value = t.data.dataList
-      tableTotal.value = Number.parseInt(t.data.total)
-      headerList.value = t.data.headerList
-    })
+  .then((t) => {
+    dataList.value = t.data.dataList
+    tableTotal.value = Number.parseInt(t.data.total)
+    headerList.value = t.data.headerList
+  })
 }
 
 // 页面加载事件
@@ -129,7 +129,8 @@ watch(() => queryForm.value.factoryId, (data) => {
         </el-form-item>
         <el-form-item label="是否关注" prop="isFollow">
           <el-select v-model="queryForm.isFollow" clearable style="width: 200px">
-            <el-option v-for="f in isFollowList" :label="f.label" :value="f.value" :key="f.value"></el-option>
+            <el-option v-for="f in isFollowList" :label="f.label" :value="f.value"
+                       :key="f.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -141,13 +142,16 @@ watch(() => queryForm.value.factoryId, (data) => {
     </el-card>
 
     <el-card shadow="never">
-      <TableBar :document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
-                :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
-                :data-batch-delete-url="dataBatchDeleteUrl" :dialog-with="800"/>
+      <TableBar
+        :document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
+        :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
+        :data-batch-delete-url="dataBatchDeleteUrl" :dialog-with="800"/>
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName"
+                       :width="h.width"
+                       :prop="h.fieldName"/>
+        <ElTableColumn fixed="right" label="操作" width="150px" style="float: right">
           <template #default="scope">
             <el-button type="warning" icon="edit" @click="editData(scope.row)">
               编辑
@@ -156,9 +160,12 @@ watch(() => queryForm.value.factoryId, (data) => {
         </ElTableColumn>
       </ElTable>
       <el-row class="paginationDiv">
-        <el-pagination background v-model:current-page="currentPageNum" v-model:page-size="currentPageSize"
-                       layout="total, sizes, prev, pager, next" :total="tableTotal" @size-change="handleSizeChange"
-                       @current-change="handleCurrentChange"/>
+        <el-pagination
+          background v-model:current-page="currentPageNum"
+          v-model:page-size="currentPageSize"
+          layout="total, sizes, prev, pager, next" :total="tableTotal"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"/>
       </el-row>
     </el-card>
   </div>

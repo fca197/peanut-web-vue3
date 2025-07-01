@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import {ref} from "vue";
 import TableBar from "@/layouts/components/TableBar/index.vue";
-import type { ApsSchedulingVersion } from "@v/aps/ApsSchedulingVersion/ApsSchedulingVersionType.ts";
-import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts";
-import { ApsGoods, queryGoodsList } from "@v/aps/ApsGoods/ApsGoodsType.ts";
+import type {ApsSchedulingVersion} from "@v/aps/ApsSchedulingVersion/ApsSchedulingVersionType.ts";
+import {HeaderInfo, postNoResult, postResultInfo} from "@@/utils/common-js.ts";
+import {ApsGoods, queryGoodsList} from "@v/aps/ApsGoods/ApsGoodsType.ts";
 
 const props = defineProps({
   id: {
     type: String,
     required: false
   },
-  isUpdate: {
-    type: Boolean,
-    default: false,
+  operType: {
+    type: String,
+    default: "0", // 0：创建。 1：修改。 2： 查看
     required: false
   },
   saveAfterFun: {
-    type: Function,
+    type: Function || undefined,
     required: false
   },
   preStepFun: {
-    type: Function,
+    type: Function || undefined,
     required: false
   }
 })
@@ -57,7 +57,7 @@ const handleCurrentChange = (val: number) => {
   getDataList()
 }
 
-console.info("props ",props)
+console.info("props ", props)
 const getDataList = () => {
   postResultInfo("/apsSchedulingVersion/useConstraintsResult", {
     pageNum: currentPageNum.value,
@@ -71,18 +71,38 @@ const getDataList = () => {
   })
 }
 
+const useMakeCapacity = () => {
+  console.info("useMakeCapacity ", props.operType)
+  if ("2" != props.operType) {
+    postNoResult("/apsSchedulingVersion/useMakeCapacity", {id: props.id}, "开始计算产能", () => {
+      if (props.saveAfterFun) {
+        props.saveAfterFun()
+      }
+    })
+  } else {
+    if (props.saveAfterFun) {
+      props.saveAfterFun()
+    }
+  }
+}
 
 onMounted(() => {
   queryGoodsList().then(r => goodsList.value = r)
   getDataList()
 })
 </script>
+
 <template>
   <div>
     <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="88px">
       <el-form-item label="商品" prop="goodsId">
-        <el-select v-model="queryParams.data.goodsId" placeholder="请选择商品" clearable  style="width: 200px">
-          <el-option v-for="item in goodsList" :key="item.id" :label="item.goodsName" :value="item.id"></el-option>
+        <el-select
+          v-model="queryParams.data.goodsId" placeholder="请选择商品" clearable
+          style="width: 200px">
+          <el-option
+            v-for="item in goodsList" :key="item.id" :label="item.goodsName"
+            :value="item.id"
+          />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -111,11 +131,11 @@ onMounted(() => {
       />
     </el-row>
 
-    <el-row>
-      <el-button type="warning" @click="props.preStepFun">
-        上一步
-      </el-button>
-      <el-button type="primary" @click="props.saveAfterFun">
+    <el-row style="margin-top: 20px">
+      <!--      <el-button type="warning" @click="props.preStepFun">-->
+      <!--        上一步-->
+      <!--      </el-button>-->
+      <el-button type="primary" @click="useMakeCapacity">
         下一步
       </el-button>
     </el-row>

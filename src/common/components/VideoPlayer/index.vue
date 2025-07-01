@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { videoPathInfo, videoPathItem } from "./index.ts"
+import {ref} from 'vue'
+import {useRoute} from 'vue-router'
+import {videoPathInfo, videoPathItem} from "./index.ts"
 
 const videoRef = ref(null)
 const videoSrc = ref<string>(null)
 const videoItemList = ref<videoPathItem[]>([])
+const pathList = ref<videoPathItem[]>([])
 // 获取当前路由信息
 const route = useRoute()
 
@@ -22,14 +23,15 @@ const playVideoFun = () => {
   for (let key in videoPathInfo) {
     const videoPathMapElement = videoPathInfo[key]
     console.info("key ", key, videoPathMapElement)
-    if(currentPath.startsWith(videoPathMapElement.url)) {
+    if (currentPath.startsWith(videoPathMapElement.url)) {
       const videoItemListTmp = videoPathMapElement.videoItemList
-      if(videoItemListTmp.length === 1) {
+      if (videoItemListTmp.length === 1) {
         videoSrc.value = videoItemListTmp[0].url
         showVideoItem.value = true
       } else {
         videoItemList.value = videoItemListTmp
       }
+      pathList.value = videoPathMapElement.pageList
       showVideoDialog.value = true
       return
     }
@@ -40,7 +42,7 @@ const playVideoFun = () => {
 // 切换播放/暂停状态
 const togglePlay = () => {
   const video = videoRef.value
-  if(video.paused) {
+  if (video.paused) {
     video.play()
   } else {
     video.pause()
@@ -61,7 +63,9 @@ const playVideoItem = (item: videoPathItem) => {
     <el-dialog title="帮助视频" v-model="showVideoDialog" :destroy-on-close="true" :width="950">
       <div class="video-container">
         <div v-show="!showVideoItem">
-          <div class="videoItem" v-for="item in videoItemList" @click="playVideoItem(item)">{{ item.name }}</div>
+          <div class="videoItem" v-for="item in videoItemList" @click="playVideoItem(item)">
+            {{ item.name }}
+          </div>
         </div>
         <video
           v-if="showVideoItem"
@@ -77,6 +81,13 @@ const playVideoItem = (item: videoPathItem) => {
           <source :src="videoSrc" type="video/mp4">
           您的浏览器不支持HTML5视频播放。
         </video>
+      </div>
+      <div>
+        <div v-if="pathList.length>0">
+          <div class="videoItem" :key="item.name" v-for="item in pathList">
+            <a :href="item.url">{{ item.name }}</a>
+          </div>
+        </div>
       </div>
     </el-dialog>
   </div>

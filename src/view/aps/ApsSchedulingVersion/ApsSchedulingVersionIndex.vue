@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import {onMounted, ref} from "vue"
 import AddEditFormVue from "./ApsSchedulingVersionAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from "element-plus";
-import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
-import { type ApsSchedulingVersion } from "./ApsSchedulingVersionType.ts"
+import {ElTable} from "element-plus";
+import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
+import {type ApsSchedulingVersion} from "./ApsSchedulingVersionType.ts"
 
 const dtoUrl = ref<string>("/apsSchedulingVersion")
 const documentTitle = ref<string>("排产版本")
@@ -46,7 +46,7 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  { fieldName: "id", showName: "序号" },
+  {fieldName: "id", showName: "序号"},
   // { fieldName: "schedulingVersionNo", showName: "" },
   // { fieldName: "schedulingVersionName", showName: "" },
   // { fieldName: "schedulingConstraintsId", showName: "" },
@@ -76,18 +76,27 @@ const getDataList = () => {
   }
   console.info("getDataList {}", req)
   postResultInfo(`${dtoUrl.value}/queryPageList`, req)
-    .then((t) => {
-      dataList.value = t.data.dataList
-      tableTotal.value = Number.parseInt(t.data.total)
-      headerList.value = t.data.headerList
+  .then((t) => {
+    dataList.value = t.data.dataList
+    dataList.value.forEach(tt => {
+      tt.isFinish = tt.versionStep === 100
+      tt.isNotFinish = tt.versionStep !== 100
     })
+    tableTotal.value = Number.parseInt(t.data.total)
+    headerList.value = t.data.headerList
+  })
 }
 
 // table点击事件
-const editData = (data: any) => {
+const editData = (data: any, step = 1) => {
   // console.info("data ", data)
   // tableBarRef.value?.showEditDialog(data.id)
-  router.push(`/aps/CreateScheduling/${data.id}/${data.versionStep !== 100}`)
+  router.push(`/aps/CreateScheduling/${data.id}/${data.isNotFinish ? '1' : '2'}/${step}`)
+}
+
+const settingKitting = (data: ApsSchedulingVersion) => {
+
+  router.push(`/aps/CreateScheduling/${data.id}/${data.isNotFinish ? '1' : '2'}/3`)
 }
 // 页面条数变更事件
 const handleSizeChange = (val: number) => {
@@ -106,10 +115,14 @@ const handleSelectionChange = (val: ApsSchedulingVersion[]) => {
 }
 
 const toCreatePage = (isUpdate: boolean) => {
- // const id = new Date().getTime() + "" + Math.floor(Math.random() * 1000000)
+  // const id = new Date().getTime() + "" + Math.floor(Math.random() * 1000000)
   const id = "-1"
   console.info("toCreatePage ", id, isUpdate)
-  router.push(`/aps/CreateScheduling/${id}/false`)
+  router.push(`/aps/CreateScheduling/${id}/0/1`)
+}
+
+const showKitting = (data: any) => {
+  router.push(`/aps/ApsOrderGoodsBomKittingVersion/${data.id}`)
 }
 // 页面加载事件
 onMounted(() => {
@@ -141,16 +154,40 @@ onMounted(() => {
       </TableBar>
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn
+          v-for="h in headerList" :key="h.fieldName" :label="h.showName"
+          :prop="h.fieldName"
+        />
+        <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">
             <el-button
+              v-if="scope.row.isNotFinish"
               type="warning"
               icon="edit"
-              @click="editData(scope.row)"
+              @click="editData(scope.row,1)"
             >
               编辑
             </el-button>
+
+            <el-dropdown type="primary" split-button v-if="scope.row.isFinish">
+              操作
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="editData(scope.row , 2)" icon="Histogram">
+                    查看不加限数据
+                  </el-dropdown-item>
+                  <el-dropdown-item @click="editData(scope.row , 3)" icon="Histogram">
+                    查看加限数据
+                  </el-dropdown-item>
+                  <el-dropdown-item @click="settingKitting(scope.row)" icon="Setting">
+                    齐套检查
+                  </el-dropdown-item>
+                  <el-dropdown-item @click="showKitting(scope.row)" icon="DataLine">
+                    齐套报告
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </template>
         </ElTableColumn>
       </ElTable>

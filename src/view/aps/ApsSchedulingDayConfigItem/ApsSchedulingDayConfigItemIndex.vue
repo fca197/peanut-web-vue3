@@ -138,7 +138,8 @@ onMounted(() => {
     </el-card>
 
     <el-card shadow="never">
-      <TableBar :document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
+      <TableBar
+:document-title="documentTitle" :add-component="AddEditFormVue" :refresh-list="getDataList"
         :data-table-ref="dataTableRef" :multiple-selection="multipleSelection" ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl" />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">

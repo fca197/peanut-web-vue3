@@ -134,7 +134,7 @@ const factoryList = ref<Factory []>([])
 const apsGoodsList = ref<ApsGoods[]>([])
 const orderFieldList = ref<KVEntity[]>([])
 const orderUserFieldList = ref<KVEntity[]>([])
-const apsSaleConfigList = ref<ApsSaleConfig[]>([])
+const apsSaleConfigList = ref<KVEntity[]>([])
 
 watch(() => addForm.value.factoryId, (n) => {
   console.info("addForm.factoryId", n)
