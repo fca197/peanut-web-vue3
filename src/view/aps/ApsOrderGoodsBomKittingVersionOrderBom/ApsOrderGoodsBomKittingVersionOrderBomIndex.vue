@@ -60,16 +60,16 @@ const headerList = ref<HeaderInfo[]>([
   {fieldName: "orderNo", showName: "订单编号", width: 200},
   // {fieldName: "orderMakeBeginDateTime", showName: "开始制造时间", width: 200},
   {fieldName: "goodsName", showName: "商品名称", width: 200},
-  {fieldName: "workshopSectionName", showName: "工段名称", width: 100},
-  {fieldName: "workshopStationName", showName: "工位名称", width: 100},
-  {fieldName: "apsRoomName", showName: "车间名称", width: 100},
+  // {fieldName: "workshopSectionName", showName: "工段名称", width: 100},
+  // {fieldName: "workshopStationName", showName: "工位名称", width: 100},
+  // {fieldName: "apsRoomName", showName: "车间名称", width: 100},
   {fieldName: "bomName", showName: "零件名称", width: 100},
   {fieldName: "bomUsage", showName: "商品用量", width: 100},
   {fieldName: "inventoryBeforeCount", showName: "库存(前)", width: 100},
   {fieldName: "inventoryAfterCount", showName: "库存(后)", width: 100},
-  {fieldName: "goodsStatusName", showName: "状态名称", width: 100},
-  {fieldName: "bomUseDateTime", showName: "零件使用时间", width: 150},
-  {fieldName: "createDate", showName: "计算日期", width: 150}
+  // {fieldName: "goodsStatusName", showName: "状态名称", width: 100},
+  // {fieldName: "bomUseDateTime", showName: "零件使用时间", width: 150},
+  // {fieldName: "createDate", showName: "计算日期", width: 150}
 ])
 
 // 获取表格内数据
@@ -183,7 +183,7 @@ onMounted(() => {
         />
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
-          :prop="h.fieldName" :width="h.width"
+          :prop="h.fieldName"
         />
       </ElTable>
       <el-row class="paginationDiv">

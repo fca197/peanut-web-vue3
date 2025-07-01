@@ -67,6 +67,5 @@ export function registerNavigationGuard(router: Router) {
     setTitle(to.meta.title)
     NProgress.done()
     console.log("[导航守卫] 跳转完成:", from.path, " → ", to.path)
-
   })
 }

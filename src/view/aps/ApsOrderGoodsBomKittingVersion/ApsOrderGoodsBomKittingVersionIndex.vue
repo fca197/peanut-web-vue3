@@ -105,16 +105,6 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-        <el-form-item label="工厂" prop="factoryId">
-          <el-select
-            v-model="queryForm.factoryId" clearable placeholder="请选择"
-            style="width: 200px"
-          >
-            <el-option
-              v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id"/>
-          </el-select>
-        </el-form-item>
-
         <el-form-item label="齐套版本编码" prop="kittingVersionNo">
           <el-input
             v-model="queryForm.kittingVersionNo" clearable
@@ -167,7 +157,7 @@ onMounted(() => {
           </template>
         </ElTableColumn>
         <ElTableColumn prop="kittingStatus" label="齐套状态"/>
-        <ElTableColumn prop="kittingMissingBom" label="前10缺失物料" :width="130">
+        <ElTableColumn prop="kittingMissingBom" label="缺失物料" :width="130">
           <template #default="scope">
             <KittingMissingBom :kitting-missing-bom="scope.row.kittingMissingBom"/>
           </template>

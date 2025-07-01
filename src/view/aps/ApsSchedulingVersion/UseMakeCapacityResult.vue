@@ -36,6 +36,7 @@ const total = ref<number>(0)
 const apsSchedulingVersionLimitKey = ref<number>(0)
 const loading = ref<boolean>(true)
 const createKitting = ref<boolean>(false)
+const apsSchedulingIssueItemAddDilogShow = ref<boolean>(false)
 const tableHeaderList = ref<any[]>([])
 const dayList = ref<any[]>([])
 const brandNameList = ref<any[]>([])
@@ -51,6 +52,7 @@ const createKittingModel = ref({
   schedulingVersionId: props.id,
   kittingDate: []
 })
+
 const useConstraintsResult = () => {
   queryParams.value.currentDate = queryParams.value.currentDate.sort()
   postResultInfo("/apsSchedulingVersion/useMakeCapacityResult", queryParams.value).then(t => {
@@ -124,10 +126,25 @@ const selectKittingDate = (c: number) => {
   console.info("createKittingModel.value ", createKittingModel.value)
 }
 
+const apsSchedulingIssueItemAddDialogForm = ref({
+  schedulingVersionId: props.id,
+  scheduledDayList: []
+})
+const apsSchedulingIssueItemAddDialogDate = (c: number) => {
+  apsSchedulingIssueItemAddDialogForm.value.scheduledDayList = dayList.value.slice(0, c).map(t => t.currentDay)
+  console.info("apsSchedulingIssueItemAddDialogForm.value ", apsSchedulingIssueItemAddDialogForm.value)
+}
+
+const apsSchedulingIssueItemAdd = () => {
+  postNoResult("/apsSchedulingIssueItem/insert", apsSchedulingIssueItemAddDialogForm.value, "下发完成", undefined)
+}
 const createKittingVersion = () => {
-  postNoResult("/apsOrderGoodsBomKittingVersion/createSchedulingKittingVersion", createKittingModel.value, "版本创建", () => {
-    createKitting.value = false
-  })
+  postNoResult("/apsOrderGoodsBomKittingVersion/createSchedulingKittingVersion", createKittingModel.value,
+    "齐套版本创建成功", () => {
+      createKitting.value = false
+      // router.
+      showKitting()
+    })
 }
 
 const apsOrderGoodsBomKittingTemplateList = ref<ApsOrderGoodsBomKittingTemplate[]>([])
@@ -136,8 +153,17 @@ const kittingTemplate = () => {
   postResultInfoList("/apsOrderGoodsBomKittingTemplate/queryPageList", {queryPage: false})
   .then(r => {
     apsOrderGoodsBomKittingTemplateList.value = r
-    createKittingModel.value.schedulingVersionTemplateId =r[0].id
+    createKittingModel.value.schedulingVersionTemplateId = r[0].id
   })
+}
+
+const router = useRouter()
+const showKitting = () => {
+  router.push(`/aps/ApsOrderGoodsBomKittingVersion/${props.id}`)
+}
+
+const apsSchedulingIssueItemAddDialogShowFun = () => {
+  apsSchedulingIssueItemAddDilogShow.value = true
 }
 
 onMounted(() => {
@@ -213,6 +239,12 @@ onMounted(() => {
       <el-button type="primary" v-if="step === '3'" @click="showCreateKitting">
         生成齐套版本
       </el-button>
+      <el-button type="primary" v-if="step === '3'" @click="showKitting">
+        查看齐套报告
+      </el-button>
+      <el-button type="primary" v-if="step === '3'" @click="apsSchedulingIssueItemAddDialogShowFun">
+        下发
+      </el-button>
     </el-row>
     <el-dialog v-model="createKitting" title="生成齐套版本" destroy-on-close :width="950">
       <el-row style="margin: 10px 20px; text-align: left">
@@ -238,7 +270,7 @@ onMounted(() => {
             v-model="createKittingModel.kittingDate">
             <el-checkbox
               v-for="(d, index) in dayList" :key="index" :value="d.currentDay"
-              :label="d.currentDay" @change="useConstraintsResult"
+              :label="d.currentDay"
             >
               <label>{{ d.currentDay }} </label>
               <el-badge is-dot class="item" v-if="!d.hasEnough"> {{ d.currentCount }}</el-badge>
@@ -250,6 +282,37 @@ onMounted(() => {
             创建齐套版本
           </el-button>
         </el-row>
+      </el-row>
+    </el-dialog>
+
+    <el-dialog
+      title="订单下发" v-model="apsSchedulingIssueItemAddDilogShow" destroy-on-close
+      :width="950">
+      <el-row>
+        <el-button
+          v-for="k in autoDayList" type="warning"
+          @click="apsSchedulingIssueItemAddDialogDate(k.value)"
+          :key="k.value"
+        >
+          最近 {{ k.label }} 天
+        </el-button>
+      </el-row>
+      <el-row style="margin: 10px 0 20px">
+        <el-checkbox-group
+          v-model="apsSchedulingIssueItemAddDialogForm.scheduledDayList">
+          <el-checkbox
+            v-for="(d, index) in dayList" :key="index" :value="d.currentDay"
+            :label="d.currentDay"
+          >
+            <label>{{ d.currentDay }} </label>
+            <el-badge is-dot class="item" v-if="!d.hasEnough"> {{ d.currentCount }}</el-badge>
+          </el-checkbox>
+        </el-checkbox-group>
+      </el-row>
+      <el-row style="width: 900px;display: block; margin-bottom: 60px">
+        <el-button type="primary" style="float: right" @click="apsSchedulingIssueItemAdd">
+          下发
+        </el-button>
       </el-row>
     </el-dialog>
   </el-row>

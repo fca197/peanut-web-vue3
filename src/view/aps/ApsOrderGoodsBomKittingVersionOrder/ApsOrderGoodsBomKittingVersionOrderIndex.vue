@@ -224,7 +224,7 @@ onMounted(() => {
             <KittingRate :kitting-rate="scope.row.kittingRate"/>
           </template>
         </ElTableColumn>
-        <ElTableColumn prop="kittingMissingBom" label="前10缺失物料" :width="130">
+        <ElTableColumn prop="kittingMissingBom" label="缺失物料" :width="130">
           <template #default="scope">
             <KittingMissingBom :kitting-missing-bom="scope.row.kittingMissingBom"/>
           </template>
