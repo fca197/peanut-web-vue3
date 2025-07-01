@@ -7,7 +7,7 @@ import {
   type ApsOrderGoodsBomKittingVersionOrderBom
 } from "./ApsOrderGoodsBomKittingVersionOrderBomType.ts"
 
-const dtoUrl = ref<string>("/apsOrderGoodsBomKittingVersionOrderItem")
+const dtoUrl = ref<string>("/apsOrderGoodsBomKittingVersionOrderBom")
 const documentTitle = ref<string>("齐套检查版本详情")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
