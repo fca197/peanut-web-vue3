@@ -115,14 +115,6 @@ onMounted(() => {
             v-model="queryForm.kittingVersionName" clearable
             placeholder="请输入齐套版本名称"/>
         </el-form-item>
-        <el-form-item label="计算日期" prop="createDate">
-          <el-date-picker
-            v-model="queryForm.createDate"
-            clearable
-            type="date" placeholder="选择日期时间"
-            value-format="YYYY-MM-DD" style="width: 100%"
-          />
-        </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
             查询
