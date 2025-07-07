@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import {onMounted, ref} from "vue"
 import AddEditFormVue from "./ApsSchedulingDayConfigVersionAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from "element-plus";
-import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
-import { type ApsSchedulingDayConfigVersion } from "./ApsSchedulingDayConfigVersionType.ts"
-import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
+import {ElTable} from "element-plus";
+import {HeaderInfo, postNoResult, postResultInfo} from "@@/utils/common-js.ts"
+import {type ApsSchedulingDayConfigVersion} from "./ApsSchedulingDayConfigVersionType.ts"
+import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsSchedulingDayConfigVersion")
 const documentTitle = ref<string>("排程版本")
@@ -44,11 +44,11 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  { fieldName: "id", showName: "序号" },
-  { fieldName: "schedulingDayConfigId", showName: "配置" },
-  { fieldName: "factoryId", showName: "工厂" },
-  { fieldName: "schedulingDayVersionNo", showName: "排程版本号" },
-  { fieldName: "schedulingDay", showName: "排程日期" },
+  {fieldName: "id", showName: "序号"},
+  {fieldName: "schedulingDayConfigId", showName: "配置"},
+  {fieldName: "factoryId", showName: "工厂"},
+  {fieldName: "schedulingDayVersionNo", showName: "排程版本号"},
+  {fieldName: "schedulingDay", showName: "排程日期"},
   // { fieldName: "searchOld", showName: "是否查询历史订单 0否， 1是" },
   // { fieldName: "isIssuedThird", showName: "是否下发 0 否,1 是" },
   // { fieldName: "processId", showName: "工艺路径id" },
@@ -71,20 +71,20 @@ const getDataList = () => {
   }
   console.info("getDataList {}", req)
   postResultInfo(`${dtoUrl.value}/queryPageList`, req)
-    .then((t) => {
-      dataList.value = t.data.dataList
-      tableTotal.value = Number.parseInt(t.data.total)
-      headerList.value = t.data.headerList
-    })
+  .then((t) => {
+    dataList.value = t.data.dataList
+    tableTotal.value = Number.parseInt(t.data.total)
+    headerList.value = t.data.headerList
+  })
 }
 
 // table点击事件
 const showData = (data: ApsSchedulingDayConfigVersion) => {
-   console.info("data ", data)
+  console.info("data ", data)
   // tableBarRef.value?.showEditDialog(data.id)
   if (data.productType === "MAKE") {
     router.push(`/aps/ApsSchedulingDayConfigVersion/MachineResult/${data.id}/${data.factoryId}`)
-  }else{
+  } else {
     router.push(`/aps/ApsSchedulingDayConfigVersion/ProcessLineResult/${data.id}`)
   }
 }
@@ -106,6 +106,12 @@ const handleSelectionChange = (val: ApsSchedulingDayConfigVersion[]) => {
 }
 
 const factoryList = ref<Factory[]>([])
+
+const schedulingOrderList = (data: ApsSchedulingDayConfigVersion) => {
+  postNoResult("/apsSchedulingDayConfigVersion/schedulingOrderList", data, "排程成功", () => {
+    data.stepIndex = 2
+  })
+}
 // 页面加载事件
 onMounted(() => {
   getDataList()
@@ -124,7 +130,8 @@ onMounted(() => {
           </el-select>
         </el-form-item>
         <el-form-item label="排程日期" prop="schedulingDay">
-          <el-date-picker type="date" value-format="YYYY-MM-DD" v-model="queryForm.schedulingDay" clearable
+          <el-date-picker type="date" value-format="YYYY-MM-DD" v-model="queryForm.schedulingDay"
+                          clearable
                           placeholder="请输入排程日期"/>
         </el-form-item>
         <el-form-item>
@@ -148,15 +155,26 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn
+          v-for="h in headerList" :key="h.fieldName" :label="h.showName"
+          :prop="h.fieldName"/>
+        <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">
             <el-button
+              v-if="scope.row.stepIndex ==2"
               type="primary"
               icon="Histogram"
               @click="showData(scope.row)"
             >
               详情
+            </el-button>
+            <el-button
+              v-if="scope.row.stepIndex ==1"
+              type="primary"
+              icon="Refresh"
+              @click="schedulingOrderList(scope.row)"
+            >
+              开始排程
             </el-button>
           </template>
         </ElTableColumn>

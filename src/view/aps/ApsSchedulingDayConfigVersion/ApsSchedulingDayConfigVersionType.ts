@@ -12,7 +12,7 @@ export interface ApsSchedulingDayConfigVersion {
   productType: string | undefined
   goodsIdList: string | undefined
   saleConfigIdList: string | undefined
-  stepIndex: string | undefined
+  stepIndex: number | undefined
   orderFieldList: string | undefined
   orderUserFieldList: string | undefined
   id: string | undefined

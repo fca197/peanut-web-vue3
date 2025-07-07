@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import {onMounted, ref} from "vue"
 import AddEditFormVue from "./ApsSchedulingDayConfigAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
-import { ElTable } from "element-plus";
-import { HeaderInfo, postResultInfo } from "@@/utils/common-js.ts"
-import { type ApsSchedulingDayConfig } from "./ApsSchedulingDayConfigType.ts"
-import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
+import {ElTable} from "element-plus";
+import {HeaderInfo, postNoResult, postResultInfo} from "@@/utils/common-js.ts"
+import {type ApsSchedulingDayConfig} from "./ApsSchedulingDayConfigType.ts"
+import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsSchedulingDayConfig")
 const documentTitle = ref<string>("排程版本")
@@ -39,16 +39,16 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  { fieldName: "id", showName: "序号" },
-  { fieldName: "schedulingDayConfigId", showName: "配置ID" },
-  { fieldName: "factoryId", showName: "工厂" },
-  { fieldName: "schedulingType", showName: "排程类型" },
-  { fieldName: "processId", showName: "工艺路径ID" },
-  { fieldName: "makeProcessId", showName: "制造路径" },
-  { fieldName: "schedulingDayNo", showName: "排程版本号" },
-  { fieldName: "schedulingDayName", showName: "排程版本名称" },
-  { fieldName: "isDefault", showName: "是否默认 0 否,1 是" },
-  { fieldName: "roomConfig", showName: "车间配置" },
+  {fieldName: "id", showName: "序号"},
+  {fieldName: "schedulingDayConfigId", showName: "配置ID"},
+  {fieldName: "factoryId", showName: "工厂"},
+  {fieldName: "schedulingType", showName: "排程类型"},
+  {fieldName: "processId", showName: "工艺路径ID"},
+  {fieldName: "makeProcessId", showName: "制造路径"},
+  {fieldName: "schedulingDayNo", showName: "排程版本号"},
+  {fieldName: "schedulingDayName", showName: "排程版本名称"},
+  {fieldName: "isDefault", showName: "是否默认 0 否,1 是"},
+  {fieldName: "roomConfig", showName: "车间配置"},
 ])
 
 const factoryList = ref<Factory[]>([])
@@ -61,11 +61,11 @@ const getDataList = () => {
   }
   console.info("getDataList {}", req)
   postResultInfo(`${dtoUrl.value}/queryPageList`, req)
-    .then((t) => {
-      dataList.value = t.data.dataList
-      tableTotal.value = Number.parseInt(t.data.total)
-      headerList.value = t.data.headerList
-    })
+  .then((t) => {
+    dataList.value = t.data.dataList
+    tableTotal.value = Number.parseInt(t.data.total)
+    headerList.value = t.data.headerList
+  })
 }
 
 // table点击事件
@@ -95,6 +95,10 @@ onMounted(() => {
   queryFactoryList().then(r => factoryList.value = r)
 })
 
+const schedulingOrderList = (data: any) => {
+  postNoResult("/apsSchedulingDayConfigVersion/schedulingOrderList", {data}, "排程成功", () => {
+  })
+}
 </script>
 
 <template>
@@ -104,7 +108,7 @@ onMounted(() => {
 
         <el-form-item label="工厂" prop="factoryId">
           <el-select v-model="queryForm.factoryId" clearable style="width: 200px">
-            <el-option v-for="f in factoryList" :key="f.id" :value="f.id" :label="f.factoryName" />
+            <el-option v-for="f in factoryList" :key="f.id" :value="f.id" :label="f.factoryName"/>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -128,7 +132,8 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName"
+                       :prop="h.fieldName"/>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button
@@ -137,6 +142,13 @@ onMounted(() => {
               @click="editData(scope.row)"
             >
               编辑
+            </el-button>
+            <el-button
+              type="primary"
+              icon="edit"
+              @click="schedulingOrderList(scope.row)"
+            >
+              排程
             </el-button>
           </template>
         </ElTableColumn>

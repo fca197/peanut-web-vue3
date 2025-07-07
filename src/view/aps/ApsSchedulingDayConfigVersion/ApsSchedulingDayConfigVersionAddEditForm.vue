@@ -194,30 +194,30 @@ onMounted(() => {
         <el-option v-for="b in boolArr" :label="b.label" :value="b.value" :key="b.value"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="商品列" prop="goodsIdList">
-      <el-select v-model="addForm.goodsIdList" clearable placeholder="请选择商品列" multiple>
-        <el-option
-          v-for="g in apsGoodsList.filter(t => t.factoryId === addForm.factoryId)" :key="g.id"
-          :label="g.goodsName" :value="g.id"
-        />
-      </el-select>
-    </el-form-item>
+<!--    <el-form-item label="商品列" prop="goodsIdList">-->
+<!--      <el-select v-model="addForm.goodsIdList" clearable placeholder="请选择商品列" multiple>-->
+<!--        <el-option-->
+<!--          v-for="g in apsGoodsList.filter(t => t.factoryId === addForm.factoryId)" :key="g.id"-->
+<!--          :label="g.goodsName" :value="g.id"-->
+<!--        />-->
+<!--      </el-select>-->
+<!--    </el-form-item>-->
 
-    <el-form-item label="销售配置" prop="saleConfigIdList">
-      <el-select v-model="addForm.saleConfigIdList" clearable placeholder="请选择销售配置" multiple>
-        <el-option v-for="s in apsSaleConfigList" :value="s" :label="s.label" :key="s.label"/>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="订单字段" prop="orderFieldList">
-      <el-select v-model="addForm.orderFieldList" clearable placeholder="请选择订单字段" multiple>
-        <el-option v-for="k in orderFieldList" :value="k" :key="k.value" :label="k.label"/>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="订单用户字段" prop="orderUserFieldList">
-      <el-select v-model="addForm.orderUserFieldList" clearable placeholder="请选择订单用户字段" multiple>
-        <el-option v-for="k in orderUserFieldList" :value="k" :key="k.value" :label="k.label"/>
-      </el-select>
-    </el-form-item>
+<!--    <el-form-item label="销售配置" prop="saleConfigIdList">-->
+<!--      <el-select v-model="addForm.saleConfigIdList" clearable placeholder="请选择销售配置" multiple>-->
+<!--        <el-option v-for="s in apsSaleConfigList" :value="s" :label="s.label" :key="s.label"/>-->
+<!--      </el-select>-->
+<!--    </el-form-item>-->
+<!--    <el-form-item label="订单字段" prop="orderFieldList">-->
+<!--      <el-select v-model="addForm.orderFieldList" clearable placeholder="请选择订单字段" multiple>-->
+<!--        <el-option v-for="k in orderFieldList" :value="k" :key="k.value" :label="k.label"/>-->
+<!--      </el-select>-->
+<!--    </el-form-item>-->
+<!--    <el-form-item label="订单用户字段" prop="orderUserFieldList">-->
+<!--      <el-select v-model="addForm.orderUserFieldList" clearable placeholder="请选择订单用户字段" multiple>-->
+<!--        <el-option v-for="k in orderUserFieldList" :value="k" :key="k.value" :label="k.label"/>-->
+<!--      </el-select>-->
+<!--    </el-form-item>-->
   </el-form>
   <el-row class="addFormBtnRow">
     <el-button @click="cancelForm" type="info" icon="close">

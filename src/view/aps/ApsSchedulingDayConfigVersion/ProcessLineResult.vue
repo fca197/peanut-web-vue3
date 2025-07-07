@@ -9,46 +9,64 @@
         <div class="orderDivTitle">
           <div class="value">{{ item.showName }}</div>
           <div class="operation hidden">
-            <el-button type="primary" @click="confirmSortIndex(item.fieldName+index)">确认序列</el-button>
+            <el-button type="primary" @click="confirmSortIndex(item.fieldName+index)">确认序列
+            </el-button>
           </div>
         </div>
         <div class="orderDivSingleton">
-          <div v-for="(order,index) in orderList" class="orderDiv" :key="index" :ref="item.fieldName"
-               v-bind:id="order.id">
-
-            <table >
+          <div
+            v-for="(order,index) in orderList" class="orderDiv" :key="index"
+            :ref="item.fieldName"
+            v-bind:id="order.id">
+            <table>
               <tr>
                 <td class="title">制造序号:</td>
-                <td class="value">{{ order.sortIndex }}</td>
+                <td class="value">
+                  {{ order.sortIndex }}
+                </td>
               </tr>
               <tr>
                 <td class="title">排程制造ID:</td>
-                <td class="value">{{ order.id }}</td>
+                <td class="value">
+                  {{ order.id }}
+                </td>
               </tr>
               <tr>
                 <td class="title">单号:</td>
-                <td class="value">{{ order.orderNo }}</td>
+                <td class="value">
+                  {{ order.orderNo }}
+                </td>
               </tr>
               <tr>
                 <td class="title">匹配类型:</td>
-                <td class="value">{{ order.configBizType }}</td>
+                <td class="value">
+                  {{ order.configBizType }}
+                </td>
               </tr>
 
               <tr>
                 <td class="title">匹配名称:</td>
-                <td class="value">{{ order.configBizName }}</td>
+                <td class="value">
+                  {{ order.configBizName }}
+                </td>
               </tr>
               <tr>
                 <td class="title">匹配:</td>
-                <td class="value">{{ order.isMatch }}</td>
+                <td class="value">
+                  {{ order.isMatch }}
+                </td>
               </tr>
               <tr>
                 <td class="title">满足:</td>
-                <td class="value">{{ order.loopEnough }}</td>
+                <td class="value">
+                  {{ order.loopEnough }}
+                </td>
               </tr>
               <tr>
                 <td class="title">循环:</td>
-                <td class="value">{{ order.loopIndex }}</td>
+                <td class="value">
+                  {{ order.loopIndex }}
+                </td>
               </tr>
             </table>
           </div>
@@ -62,9 +80,9 @@
 
 <script setup lang="ts">
 
-import { ref } from "vue";
-import { postResultInfo } from "@@/utils/common-js.ts";
-import { useRoute } from "vue-router";
+import {ref} from "vue";
+import {postResultInfo} from "@@/utils/common-js.ts";
+import {useRoute} from "vue-router";
 
 
 // 获取当前路由信息
@@ -73,10 +91,12 @@ const route = useRoute();
 // 从路由参数中获取id
 const id = route.params.id as string;
 console.info("id ", id)
+
 interface DataInfo {
   versionDetailMap: undefined
   headerList: []
 }
+
 const data = ref<DataInfo>({})
 
 
@@ -84,11 +104,11 @@ const confirmSortIndex = () => {
   console.info("confirmSortIndex")
 }
 onMounted(() => {
-  postResultInfo("/apsSchedulingDayConfigVersion/detailList", { id: id })
-    .then(r => {
-      console.info("r ", r)
-      data.value = r.data
-    })
+  postResultInfo("/apsSchedulingDayConfigVersion/detailList", {id: id})
+  .then(r => {
+    console.info("r ", r)
+    data.value = r.data
+  })
 })
 </script>
 
