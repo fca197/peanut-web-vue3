@@ -94,11 +94,6 @@ onMounted(() => {
   getDataList()
   queryFactoryList().then(r => factoryList.value = r)
 })
-
-const schedulingOrderList = (data: any) => {
-  postNoResult("/apsSchedulingDayConfigVersion/schedulingOrderList", {data}, "排程成功", () => {
-  })
-}
 </script>
 
 <template>
@@ -135,7 +130,7 @@ const schedulingOrderList = (data: any) => {
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
           :prop="h.fieldName"/>
-        <ElTableColumn fixed="right" label="操作" width="200px" style="float:right;">
+        <ElTableColumn fixed="right" label="操作" width="150px" style="float:right;">
           <template #default="scope">
             <el-button
               type="warning"
@@ -143,13 +138,6 @@ const schedulingOrderList = (data: any) => {
               @click="editData(scope.row)"
             >
               编辑
-            </el-button>
-            <el-button
-              type="primary"
-              icon="edit"
-              @click="schedulingOrderList(scope.row)"
-            >
-              排程
             </el-button>
           </template>
         </ElTableColumn>
