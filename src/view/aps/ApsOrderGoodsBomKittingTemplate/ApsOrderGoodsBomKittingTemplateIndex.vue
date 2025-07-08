@@ -131,24 +131,23 @@ onMounted(() => {
         <ElTableColumn type="selection"/>
         <ElTableColumn prop="kittingTemplateNo" label="编号"/>
         <ElTableColumn prop="kittingTemplateName" label="名称"/>
-        <ElTableColumn prop="factoryName" label="工厂"/>
-        <ElTableColumn prop="kittingTemplateSaleConfigList" label="工厂">
-          <template #default ="scope">
-            {{ scope.row.kittingTemplateSaleConfigList.map(t => t.label).join(", ")}}
-          </template>
-        </ElTableColumn>
-        <ElTableColumn prop="kittingTemplateOrderConfigList" label="订单配置">
+<!--        <ElTableColumn prop="factoryName" label="工厂"/>-->
+        <ElTableColumn prop="kittingTemplateOrderConfigList" label="订单配置" :width="300">
           <template #default ="scope">
             {{ scope.row.kittingTemplateOrderConfigList.map(t => t.label).join(", ")}}
           </template>
         </ElTableColumn>
-        <ElTableColumn prop="kittingTemplateOrderUserConfigList" label="订单用户配置">
+        <ElTableColumn prop="kittingTemplateOrderUserConfigList" label="订单用户配置" :width="300">
           <template #default ="scope">
             {{ scope.row.kittingTemplateOrderUserConfigList.map(t => t.label).join(", ")}}
           </template>
         </ElTableColumn>
-
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn prop="kittingTemplateSaleConfigList" label="销售配置" :width="300">
+          <template #default ="scope">
+            {{ scope.row.kittingTemplateSaleConfigList.map(t => t.label).join(", ")}}
+          </template>
+        </ElTableColumn>
+        <ElTableColumn fixed="right" label="操作" width="150px" style="float: right">
           <template #default="scope">
             <el-button
               type="warning"

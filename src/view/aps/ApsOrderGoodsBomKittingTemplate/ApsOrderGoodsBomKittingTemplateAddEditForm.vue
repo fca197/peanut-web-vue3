@@ -39,11 +39,11 @@ const checkRules = ref<FormRules>({
     {required: true, message: "请输入模板名称", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
-  // 工厂ID
-  factoryId: [
-    {required: true, message: "请输入工厂ID", trigger: "blur"},
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
+  // // 工厂ID
+  // factoryId: [
+  //   {required: true, message: "请输入工厂ID", trigger: "blur"},
+  //   {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+  // ],
 
 })
 
@@ -127,18 +127,11 @@ onMounted(() => {
     <el-form-item label="模板编号" prop="kittingTemplateNo">
       <el-input v-model="addForm.kittingTemplateNo" clearable placeholder="请输入模板编号"/>
     </el-form-item>
-    <el-form-item label="工厂" prop="factoryId">
-      <el-select v-model="addForm.factoryId" clearable placeholder="请输入工厂">
-        <el-option v-for="f in factoryList" :key="f.id" :value="f.id" :label="f.factoryName"/>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="销售配置" prop="kittingTemplateSaleConfigList">
-      <el-select
-        v-model="addForm.kittingTemplateSaleConfigList" clearable multiple
-        placeholder="请输入销售配置">
-        <el-option v-for="s in apsSaleConfigList" :value="s" :label="s.label" :key="s.label"/>
-      </el-select>
-    </el-form-item>
+<!--    <el-form-item label="工厂" prop="factoryId">-->
+<!--      <el-select v-model="addForm.factoryId" clearable placeholder="请输入工厂">-->
+<!--        <el-option v-for="f in factoryList" :key="f.id" :value="f.id" :label="f.factoryName"/>-->
+<!--      </el-select>-->
+<!--    </el-form-item>-->
     <el-form-item label="订单配置" prop="kittingTemplateOrderConfigList">
       <el-select
         v-model="addForm.kittingTemplateOrderConfigList" clearable multiple
@@ -151,6 +144,13 @@ onMounted(() => {
         v-model="addForm.kittingTemplateOrderUserConfigList" clearable multiple
         placeholder="请输入订单配置">
         <el-option v-for="k in orderUserFieldList" :value="k" :key="k.value" :label="k.label"/>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="销售配置" prop="kittingTemplateSaleConfigList">
+      <el-select
+        v-model="addForm.kittingTemplateSaleConfigList" clearable multiple
+        placeholder="请输入销售配置">
+        <el-option v-for="s in apsSaleConfigList" :value="s" :label="s.label" :key="s.label"/>
       </el-select>
     </el-form-item>
   </el-form>
