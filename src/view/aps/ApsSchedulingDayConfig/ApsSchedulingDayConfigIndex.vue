@@ -132,9 +132,10 @@ const schedulingOrderList = (data: any) => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName"
-                       :prop="h.fieldName"/>
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn
+          v-for="h in headerList" :key="h.fieldName" :label="h.showName"
+          :prop="h.fieldName"/>
+        <ElTableColumn fixed="right" label="操作" width="200px" style="float:right;">
           <template #default="scope">
             <el-button
               type="warning"
