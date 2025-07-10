@@ -14,6 +14,16 @@ const allMenuList: RouteRecordRaw[] = [
     component: Layouts,
     children: [
       {
+        path: "/base/WebSocket",
+        name: "webSocket",
+        component: () => import("@/view/websocket/WebSocketIndex.vue"),
+        meta: {
+          title: "webSocket",
+          elIcon: "Switch",
+          hidden: true
+        }
+      },
+      {
         path: "/base/BaseResource",
         name: "菜单",
         component: () => import("@/view/base/BaseResource/BaseResourceIndex.vue"),
