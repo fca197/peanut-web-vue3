@@ -7,9 +7,20 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 
 // 定义消息接口
 export interface WebSocketMessage {
-  sender: string
-  content: string
-  timestamp: string
+  messageType: string
+  messageTypeDesc: string
+  messageTitle: string
+  messageContent: string
+  messageDetailUrl: string
+  messageCallBackFunName: string
+  messageDateTime: string
+  requestId: string
+  tmp01: string
+  tmp02: string
+  tmp03: string
+  tmp04: string
+  tmp05: string
+  tmp06: string
 }
 
 // 定义连接状态类型
@@ -19,7 +30,6 @@ export type ConnectionState = "DISCONNECTED" | "CONNECTING" | "CONNECTED" | "ERR
 export const useWebSocket = () => {
   const stompClient = ref<Client | null>(null)
   const connectionState = ref<ConnectionState>("DISCONNECTED")
-  const messages = reactive<WebSocketMessage[]>([])
   const error = ref<string | null>(null)
 
   // 连接到 WebSocket 服务器
@@ -34,10 +44,10 @@ export const useWebSocket = () => {
     stompClient.value = new Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000, // 初始重连延迟（毫秒）
-      maxReconnectDelay: 30000,  // 最大重连延迟
-      heartbeatIncoming: 10000,  // 期望接收心跳的间隔（毫秒）
-      heartbeatOutgoing: 10000,  // 发送心跳的间隔（毫秒）
-      connectionTimeout: 10000,  // 连接超时时间
+      // maxReconnectDelay: 30000, // 最大重连延迟
+      heartbeatIncoming: 10000, // 期望接收心跳的间隔（毫秒）
+      heartbeatOutgoing: 10000, // 发送心跳的间隔（毫秒）
+      connectionTimeout: 10000, // 连接超时时间
 
 
       // 连接成功回调
@@ -92,8 +102,9 @@ export const useWebSocket = () => {
           console.info("destination ", destination, stompMessage)
           if (stompMessage.body) {
             const message: WebSocketMessage = JSON.parse(stompMessage.body)
-            messages.push(message)
             callback(message)
+          } else {
+            console.log("消息为空")
           }
         } catch (e) {
           console.error("解析消息失败:", e)
@@ -147,7 +158,6 @@ export const useWebSocket = () => {
   return {
     connectionState,
     connectionText,
-    messages,
     error,
     webSocketConnect,
     disconnect,
