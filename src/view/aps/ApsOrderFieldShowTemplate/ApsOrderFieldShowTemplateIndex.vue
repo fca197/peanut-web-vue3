@@ -1,25 +1,23 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
-import AddEditFormVue from "./ApsOrderGoodsBomKittingTemplateAddEditForm.vue"
+import AddEditFormVue from "./ApsOrderFieldShowTemplateAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from "element-plus";
 import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
-import {type ApsOrderGoodsBomKittingTemplate} from "./ApsOrderGoodsBomKittingTemplateType.ts"
-import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
+import {type ApsOrderFieldShowTemplate, isDefaultList} from "./ApsOrderFieldShowTemplateType.ts"
 
-const dtoUrl = ref<string>("/apsOrderGoodsBomKittingTemplate")
-const documentTitle = ref<string>("齐套模板")
+const dtoUrl = ref<string>("/apsOrderFieldShowTemplate")
+const documentTitle = ref<string>("订单显示模板")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格
-const queryForm = ref<ApsOrderGoodsBomKittingTemplate>({
-  kittingTemplateNo: undefined,
-  kittingTemplateName: undefined,
-  kittingTemplateUserConfigList: undefined,
-  kittingTemplateSaleConfigList: undefined,
-  kittingTemplateOrderConfigList: undefined,
-  kittingTemplateOrderUserConfigList: undefined,
-  factoryId: undefined,
+const queryForm = ref<ApsOrderFieldShowTemplate>({
+  apsOrderUserNo: undefined,
+  apsOrderUserName: undefined,
+  isDefault: undefined,
+  apsOrderSaleConfigList: undefined,
+  apsOrderOrderConfigList: undefined,
+  apsOrderOrderUserConfigList: undefined,
   id: undefined
 })
 
@@ -31,21 +29,18 @@ const dataTableRef = ref({})
 // 表格操作头
 const tableBarRef = ref<InstanceType<typeof TableBar> | null>(null)
 // 表格相关
-const dataList = ref<ApsOrderGoodsBomKittingTemplate[]>([])
+const dataList = ref<ApsOrderFieldShowTemplate[]>([])
 const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
-const factoryList = ref<Factory[]>([])
-
 const headerList = ref<HeaderInfo[]>([
   {fieldName: "id", showName: "序号"},
-  {fieldName: "kittingTemplateNo", showName: "模板编号"},
-  {fieldName: "kittingTemplateName", showName: "模板名称"},
-  {fieldName: "kittingTemplateUserConfigList", showName: "用户配置"},
-  {fieldName: "kittingTemplateSaleConfigList", showName: "销售配置"},
-  {fieldName: "kittingTemplateOrderConfigList", showName: "订单配置"},
-  {fieldName: "kittingTemplateOrderUserConfigList", showName: "订单配置"},
-  {fieldName: "factoryId", showName: "工厂ID"},
+  {fieldName: "apsOrderUserNo", showName: "模板编号"},
+  {fieldName: "apsOrderUserName", showName: "模板名称"},
+  {fieldName: "isDefault", showName: "是否默认"},
+  {fieldName: "apsOrderSaleConfigList", showName: "销售配置"},
+  {fieldName: "apsOrderOrderConfigList", showName: "订单配置"},
+  {fieldName: "apsOrderOrderUserConfigList", showName: "订单配置"},
 ])
 
 // 获取表格内数据
@@ -80,16 +75,14 @@ const handleCurrentChange = (val: number) => {
   getDataList()
 }
 // 表格选中事件
-const handleSelectionChange = (val: ApsOrderGoodsBomKittingTemplate[]) => {
+const handleSelectionChange = (val: ApsOrderFieldShowTemplate[]) => {
   multipleSelection.value = val.map(t => t.id)
   console.info("multipleSelection ", multipleSelection)
 }
 
-
 // 页面加载事件
 onMounted(() => {
   getDataList()
-  queryFactoryList().then(r => factoryList.value = r)
 })
 </script>
 
@@ -97,12 +90,21 @@ onMounted(() => {
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
       <el-form v-model="queryForm" inline>
-
-        <el-form-item label="模板编号" prop="kittingTemplateNo">
-          <el-input v-model="queryForm.kittingTemplateNo" clearable placeholder="请输入模板编号"/>
+        <el-form-item label="模板编号" prop="apsOrderUserNo">
+          <el-input v-model="queryForm.apsOrderUserNo" clearable placeholder="请输入模板编号"/>
         </el-form-item>
-        <el-form-item label="模板名称" prop="kittingTemplateName">
-          <el-input v-model="queryForm.kittingTemplateName" clearable placeholder="请输入模板名称"/>
+        <el-form-item label="模板名称" prop="apsOrderUserName">
+          <el-input v-model="queryForm.apsOrderUserName" clearable placeholder="请输入模板名称"/>
+        </el-form-item>
+        <el-form-item label="是否默认" prop="isDefault">
+          <el-select v-model="queryForm.isDefault" clearable style="width: 200px">
+            <el-option
+              v-for="d in isDefaultList"
+              :value="d.value"
+              :key="d.value"
+              :label="d.label"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="getDataList">
@@ -121,28 +123,32 @@ onMounted(() => {
         :multiple-selection="multipleSelection"
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
-        :dialog-with="800"
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn prop="kittingTemplateNo" label="编号"/>
-        <ElTableColumn prop="kittingTemplateName" label="名称"/>
-<!--        <ElTableColumn prop="factoryName" label="工厂"/>-->
-        <ElTableColumn prop="kittingTemplateOrderConfigList" label="订单配置" :width="300">
-          <template #default ="scope">
-            {{ scope.row.kittingTemplateOrderConfigList.map(t => t.label).join(", ")}}
+        <ElTableColumn
+          v-for="h in headerList" :key="h.fieldName" :label="h.showName"
+          :prop="h.fieldName" :width="h.width"
+        />
+        <el-table-column
+          label="订单销售字段" prop="apsOrderSaleConfigList" show-overflow-tooltip>
+          <template #default="scope">
+            {{ scope.row.apsOrderSaleConfigList?.map(t => t.label).join(",") }}
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="kittingTemplateOrderUserConfigList" label="订单用户配置" :width="300">
-          <template #default ="scope">
-            {{ scope.row.kittingTemplateOrderUserConfigList.map(t => t.label).join(", ")}}
+        </el-table-column>
+        <el-table-column
+          label="订单字段" prop="apsOrderOrderConfigList" show-overflow-tooltip>
+          <template #default="scope">
+            {{ scope.row.apsOrderOrderConfigList?.map(t => t.label).join(",") }}
           </template>
-        </ElTableColumn>
-        <ElTableColumn prop="kittingTemplateSaleConfigList" label="销售配置" :width="300">
-          <template #default ="scope">
-            {{ scope.row.kittingTemplateSaleConfigList.map(t => t.label).join(", ")}}
+        </el-table-column>
+        <el-table-column
+          label="订单用户字段" prop="apsOrderOrderUserConfigList"
+          show-overflow-tooltip>
+          <template #default="scope">
+            {{ scope.row.apsOrderOrderUserConfigList?.map(t => t.label).join(",") }}
           </template>
-        </ElTableColumn>
+        </el-table-column>
         <ElTableColumn fixed="right" label="操作" width="150px" style="float: right">
           <template #default="scope">
             <el-button

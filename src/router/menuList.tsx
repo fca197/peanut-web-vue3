@@ -432,6 +432,15 @@ const allMenuList: RouteRecordRaw[] = [
     component: Layouts,
     children: [
       {
+        path: "/aps/ApsOrderFieldShowTemplate",
+        name: "订单显示模板",
+        component: () => import("@/view/aps/ApsOrderFieldShowTemplate/ApsOrderFieldShowTemplateIndex.vue"),
+        meta: {
+          title: "订单显示模板",
+          elIcon: "Coin"
+        }
+      },
+      {
         path: "/aps/ApsOrder",
         name: "订单",
         component: () => import("@/view/aps/ApsOrder/ApsOrderIndex.vue"),
