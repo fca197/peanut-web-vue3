@@ -1,7 +1,8 @@
-import {computed, onBeforeUnmount, onMounted, reactive, ref} from "vue"
+import {computed, onBeforeUnmount, onMounted, ref} from "vue"
 import {Client, Message, StompHeaders} from "@stomp/stompjs"
 import SockJS from "sockjs-client"
 import {ActivationState} from "@stomp/stompjs/src/types.ts";
+import {getToken} from "@@/utils/cache/cookies.ts";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -89,12 +90,17 @@ export const useWebSocket = () => {
   // 订阅主题
   const webSocketSubscribe = (
     destination: string,
-    callback: (message: WebSocketMessage) => void
+    callback: (message: WebSocketMessage) => void,
+    isUserMsg: boolean = false,
+    sleepTime: number = 2000
   ): void => {
     setTimeout(() => {
       if (!stompClient.value || !stompClient.value.connected) {
         console.warn("无法订阅，连接未建立")
         return
+      }
+      if (isUserMsg) {
+        destination = `/user/${getToken()}${destination}`
       }
       console.log("开始订阅 ", destination)
       stompClient.value.subscribe(destination, (stompMessage: Message) => {
@@ -110,7 +116,7 @@ export const useWebSocket = () => {
           console.error("解析消息失败:", e)
         }
       })
-    }, 1000)
+    }, sleepTime)
   }
 
   // 发送消息

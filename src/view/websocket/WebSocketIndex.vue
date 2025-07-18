@@ -7,10 +7,10 @@ import {useUserStore} from "@/pinia/stores/user.ts";
 const {
   connectionState,
   connectionText,
-  messages,
   error,
   webSocketConnect,
-  disconnect, webSocketSubscribe,
+  disconnect,
+  webSocketSubscribe,
   webSocketSend
 } = useWebSocket()
 

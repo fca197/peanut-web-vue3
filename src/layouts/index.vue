@@ -12,6 +12,8 @@ import TopMode from "./modes/TopMode.vue"
 import {getValue} from "@@/utils/cache/cookies.ts";
 // #endregion
 import dayjs from "dayjs"
+import {useWebSocket} from "@v/websocket/websocket.ts"
+import {onBeforeUnmount} from "vue";
 
 // Layout 布局响应式
 useResize()
@@ -22,6 +24,11 @@ const {isLeft, isTop, isLeftTop} = useLayoutMode()
 const settingsStore = useSettingsStore()
 const {showSettings, showTagsView, showWatermark} = storeToRefs(settingsStore)
 
+const {
+  webSocketConnect,
+  webSocketSubscribe,
+  disconnect
+} = useWebSocket()
 // #region 隐藏标签栏时删除其高度，是为了让 Logo 组件高度和 Header 区域高度始终一致
 const cssVarName = "--v3-tagsview-height"
 const v3TagsviewHeight = getCssVar(cssVarName)
@@ -35,7 +42,19 @@ watchEffect(() => {
   const loginPhone = getValue("loginPhone")
   const userName = getValue("userName")
   const time = dayjs(new Date()).format("YYYY-MM-DD")
-  setWatermark(userName + "-" + loginPhone?.substring(loginPhone?.length - 4) + "-" + time)
+  setWatermark(`${userName}-${loginPhone?.substring(loginPhone?.length - 4)}-${time}`)
+})
+onMounted(() => {
+  webSocketConnect()
+  setTimeout(() => {
+    webSocketSubscribe("/notice", (r) => {
+      console.info("/notice ", r)
+    },true)
+  })
+})
+
+onBeforeUnmount(() => {
+  disconnect()
 })
 </script>
 

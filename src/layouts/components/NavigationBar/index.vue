@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import { useAppStore } from "@/pinia/stores/app"
-import { useSettingsStore } from "@/pinia/stores/settings"
-import { useUserStore } from "@/pinia/stores/user"
+import {useAppStore} from "@/pinia/stores/app"
+import {useSettingsStore} from "@/pinia/stores/settings"
+import {useUserStore} from "@/pinia/stores/user"
 import Notify from "@@/components/Notify/index.vue"
 import Screenfull from "@@/components/Screenfull/index.vue"
 import SearchMenu from "@@/components/SearchMenu/index.vue"
 import ThemeSwitch from "@@/components/ThemeSwitch/index.vue"
 import VideoPlay from "@@/components/VideoPlayer/index.vue"
-import { useDevice } from "@@/composables/useDevice"
-import { useLayoutMode } from "@@/composables/useLayoutMode"
-import { UserFilled } from "@element-plus/icons-vue"
-import { Breadcrumb, Hamburger, Sidebar } from "../index"
+import {useDevice} from "@@/composables/useDevice"
+import {useLayoutMode} from "@@/composables/useLayoutMode"
+import {UserFilled} from "@element-plus/icons-vue"
+import {Breadcrumb, Hamburger, Sidebar} from "../index"
 
-const { isMobile } = useDevice()
-const { isTop } = useLayoutMode()
+const {isMobile} = useDevice()
+const {isTop} = useLayoutMode()
 const router = useRouter()
 const appStore = useAppStore()
 const userStore = useUserStore()
 const settingsStore = useSettingsStore()
-const { showNotify, showThemeSwitch, showScreenfull, showSearchMenu } = storeToRefs(settingsStore)
+const {showNotify, showThemeSwitch, showScreenfull, showSearchMenu} = storeToRefs(settingsStore)
 
 /** 切换侧边栏 */
 function toggleSidebar() {
@@ -30,6 +30,8 @@ function logout() {
   userStore.logout()
   router.push("/login")
 }
+
+
 </script>
 
 <template>
