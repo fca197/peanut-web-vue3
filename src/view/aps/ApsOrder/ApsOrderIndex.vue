@@ -233,6 +233,7 @@ watch(() => queryForm.value.orderTemplate, (v) => {
           v-for="o in queryForm.orderTemplate?.apsOrderOrderConfigList"
           :label="o.label"
           :width="220"
+          :key="o.label"
         >
           <template #default="scope">
             {{ scope.row[o.value] }}
@@ -242,6 +243,7 @@ watch(() => queryForm.value.orderTemplate, (v) => {
           v-for="o in queryForm.orderTemplate?.apsOrderOrderUserConfigList"
           :label="o.label"
           :width="220"
+          :key="o.label"
         >
           <template #default="scope">
             {{ scope.row.orderUser[o.value] }}
@@ -251,6 +253,7 @@ watch(() => queryForm.value.orderTemplate, (v) => {
           v-for="o in queryForm.orderTemplate?.apsOrderSaleConfigList"
           :label="o.label"
           :width="220"
+          :key="o.label"
         >
           <template #default="scope">
             {{ scope.row.goodsSaleConfigList.filter(t => o.value === t.configParentId) [0]?.configName}}
