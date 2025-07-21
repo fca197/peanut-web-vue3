@@ -183,7 +183,7 @@ onMounted(() => {
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" :min-width="h.width"/>
         <ElTableColumn v-for="(item,index) in  31" :key="index" :label="item+'日'" :prop="''+item" width="80"
                        align="center">
           <template #default="scope">

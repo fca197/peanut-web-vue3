@@ -122,7 +122,7 @@ function handleCurrentChange(val: number) {
         :data-batch-delete-url="dataBatchDeleteUrl" down-load-url="/apsBom/exportQueryPageList" upload-url="/upload" />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection" />
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" />
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" :min-width="h.width"/>
         <ElTableColumn fixed="right" label="操作" width="150px">
           <template #default="scope">
             <el-button type="warning" icon="edit" @click="editData(scope.row)">
@@ -132,9 +132,11 @@ function handleCurrentChange(val: number) {
         </ElTableColumn>
       </ElTable>
       <el-row class="paginationDiv">
-        <el-pagination background v-model:current-page="currentPageNum" v-model:page-size="currentPageSize"
+        <el-pagination
+          background v-model:current-page="currentPageNum" v-model:page-size="currentPageSize"
           layout="total, sizes, prev, pager, next" :total="tableTotal" @size-change="handleSizeChange"
-          @current-change="handleCurrentChange" />
+          @current-change="handleCurrentChange"
+        />
       </el-row>
     </el-card>
   </div>

@@ -128,7 +128,7 @@ onMounted(() => {
         <ElTableColumn type="selection"/>
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
-          :prop="h.fieldName" :width="h.width"
+          :prop="h.fieldName" :min-width="h.width"
         />
         <el-table-column
           label="订单销售字段" prop="apsOrderSaleConfigList" show-overflow-tooltip>

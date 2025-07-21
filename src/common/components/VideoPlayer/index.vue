@@ -59,7 +59,20 @@ const playVideoItem = (item: videoPathItem) => {
 
 <template>
   <div class="notify">
-    <VideoPlay @click="playVideoFun" class="svg-icon"/>
+
+    <svg
+      @click="playVideoFun"
+      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      aria-hidden="true" role="img"
+      class="text-[#000000E0] hover:text-gray-400 iconify iconify--gitee icon-question-circle"
+      width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16">
+      <g fill="none" fill-rule="evenodd">
+        <path d="M0 0h16v16H0z" />
+        <path
+          fill="currentColor"
+              d="M8 1a7 7 0 110 14A7 7 0 018 1zm0 1a6 6 0 100 12A6 6 0 008 2zm0 8.5a.8.8 0 110 1.6.8.8 0 010-1.6zm.184-7c1.394 0 2.516.76 2.516 2.085 0 .853-.501 1.445-1.288 1.958-.736.486-.957.729-.966 1.312v.15c0 .283-.147.495-.464.495-.323 0-.483-.199-.483-.482V8.74c0-.778.528-1.294 1.25-1.776.59-.398.999-.751.999-1.383 0-.769-.7-1.255-1.596-1.255-.745 0-1.32.318-1.56 1.158-.069.216-.225.349-.46.349-.28 0-.432-.177-.432-.429 0-.168.041-.37.138-.579.39-.852 1.306-1.325 2.346-1.325z"></path>
+      </g>
+    </svg>
     <el-dialog title="帮助视频" v-model="showVideoDialog" :destroy-on-close="true" :width="950">
       <div class="video-container">
         <div v-show="!showVideoItem">

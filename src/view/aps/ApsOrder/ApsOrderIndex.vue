@@ -205,7 +205,7 @@ watch(() => queryForm.value.orderTemplate, (v) => {
         <ElTableColumn type="selection"/>
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"
-          :width="h.width"
+          :min-width="h.width"
         >
           <template #default="scope">
             <span v-if="h.fieldName === 'orderGoodsStatus'">
