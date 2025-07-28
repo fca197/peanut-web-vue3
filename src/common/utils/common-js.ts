@@ -164,6 +164,24 @@ export async function pinyin4jSzm(value: string | undefined) {
   }).then((t) => {
     return t.data.szmUpper as string
   })
+}// 获取汉字首字母
+export async function pinyin4jSzmV2(value: string | undefined,oldValue: string | undefined) {
+  if (oldValue === undefined || oldValue.trim().length === 0) {
+    return Promise.reject("");
+  }
+  if (value === undefined || value.trim().length === 0) {
+    return Promise.any("")
+  }
+  const data: pinyin4jSzmData = {
+    str: value
+  }
+  return request<Result<any>>({
+    url: "/pinyin4j/getSZM",
+    method: "post",
+    data
+  }).then((t) => {
+    return t.data.szmUpper as string
+  })
 }
 
 // utils/uuid.js

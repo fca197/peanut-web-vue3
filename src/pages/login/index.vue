@@ -8,13 +8,7 @@ import {loginApi} from "./apis"
 import md5 from "md5-js/md5"
 import Owl from "./components/Owl.vue"
 import {useFocus} from "./composables/useFocus"
-import {
-  checkCookiesValue,
-  setDeviceId,
-  setKeyValue,
-  setKeyValueAndTTL
-} from "@@/utils/cache/cookies.ts"
-import {generateSimpleUUID} from "@@/utils/common-js.ts";
+import {checkCookiesValue, setDeviceId, setKeyValue} from "@@/utils/cache/cookies.ts"
 
 const router = useRouter()
 
@@ -124,6 +118,11 @@ onMounted(() => {
           <el-button :loading="loading" type="primary" size="large" @click.prevent="handleLogin">
             登 录
           </el-button>
+          <div style="margin-top: 15px; text-align: right; font-size: 15px">
+            浏览器下载： <a
+            href="https://www.google.cn/chrome/next-steps.html?installdataindex=empty"
+            style="color: #00bb99">Google Chrome</a>
+          </div>
         </el-form>
       </div>
     </div>

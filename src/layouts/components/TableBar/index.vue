@@ -111,10 +111,14 @@ function saveFun() {
 
 function showEditDialog(eId: string) {
   console.info("editId ", eId)
-  editId.value = eId
-  config.value.title = `修改${props.documentTitle}`
-  dialogType.value = "addItem"
-  addDialogShow.value = true
+  try {
+    editId.value = eId
+    config.value.title = `修改${props.documentTitle}`
+    dialogType.value = "addItem"
+    addDialogShow.value = true
+  }catch (e){
+    console.error("showEditDialog error" ,e)
+  }
 }
 
 function downloadFun() {

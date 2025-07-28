@@ -1,17 +1,24 @@
 <template>
-  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-      <el-form-item label="生产路径编码" prop="produceProcessNo">
-        <el-input v-model="addForm.produceProcessNo" clearable placeholder="请输入生产路径编码"/>
-      </el-form-item>
-      <el-form-item label="生产路径名称" prop="produceProcessName">
-        <el-input v-model="addForm.produceProcessName" clearable placeholder="请输入生产路径名称"/>
-      </el-form-item>
-      <el-form-item label="工厂" prop="factoryId">
-        <el-input v-model="addForm.factoryId" clearable placeholder="请输入工厂ID"/>
-      </el-form-item>
-      <el-form-item label="是否默认" prop="isDefault">
-        <el-input v-model="addForm.isDefault" clearable placeholder="请输入是否默认"/>
-      </el-form-item>
+  <el-form label-width="100px" :model="addForm" ref="addFormRef" :rules="checkRules">
+    <el-form-item label="路径编码" prop="produceProcessNo">
+      <el-input v-model="addForm.produceProcessNo" clearable placeholder="请输入生产路径编码"/>
+    </el-form-item>
+    <el-form-item label="路径名称" prop="produceProcessName">
+      <el-input v-model="addForm.produceProcessName" clearable placeholder="请输入生产路径名称"/>
+    </el-form-item>
+    <el-form-item label="工厂" prop="factoryId">
+      <el-select v-model="addForm.factoryId" clearable style="width:200px"
+      >
+        <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id"/>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="是否默认" prop="isDefault">
+      <el-select v-model="addForm.isDefault" clearable style="width:200px">
+        <el-option
+          v-for="d in isDefaultKVList" :label="d.label" :value="d.value" :key="d.label"
+        />
+      </el-select>
+    </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">
     <el-button @click="cancelForm" type="info" icon="close">
@@ -25,9 +32,10 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
-import {type ApsProduceProcess} from "./ApsProduceProcessType.ts"
+import {type ApsProduceProcess, isDefaultKVList} from "./ApsProduceProcessType.ts"
 import {getById, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
+import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -45,37 +53,31 @@ const dtoUrl = ref<string>("/apsProduceProcess")
 const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
-    // 生产路径编码
-    produceProcessNo: [
-      {required: true, message: "请输入生产路径编码", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 生产路径名称
-    produceProcessName: [
-      {required: true, message: "请输入生产路径名称", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 工厂ID
-    factoryId: [
-      {required: true, message: "请输入工厂ID", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 是否默认
-    isDefault: [
-      {required: true, message: "请输入是否默认", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
+  // 生产路径编码
+  produceProcessNo: [
+    {required: true, message: "请输入生产路径编码", trigger: "blur"},
+    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+  ],
+  // 生产路径名称
+  produceProcessName: [
+    {required: true, message: "请输入生产路径名称", trigger: "blur"},
+    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+  ],
+  // 工厂ID
+  factoryId: [
+    {required: true, message: "请输入工厂ID", trigger: "blur"},
+    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+  ],
 
 })
-
-
+const factoryList = ref<Factory[]>([])
 // 添加对象
 const addForm = ref<ApsProduceProcess>({
-      produceProcessNo: "",
-      produceProcessName: "",
-      factoryId: "",
-      isDefault: "",
-      id: ""
+  produceProcessNo: "",
+  produceProcessName: "",
+  factoryId: "",
+  isDefault: false,
+  id: ""
 })
 
 function loadById() {
@@ -122,6 +124,8 @@ function cancelForm() {
 // 页面加载事件
 onMounted(() => {
   loadById()
+
+  queryFactoryList().then((t) => factoryList.value = t)
 })
 </script>
 

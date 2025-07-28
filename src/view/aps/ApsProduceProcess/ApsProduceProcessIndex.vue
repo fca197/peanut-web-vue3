@@ -10,7 +10,9 @@
         </el-form-item>
         <el-form-item label="工厂" prop="factoryId">
           <el-select v-model="queryForm.factoryId" clearable placeholder="请选择工厂" style="width: 200px">
-            <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id"/>
+            <el-option
+              v-for="f in factoryList" :key="f.id" :label="f.factoryName" :value="f.id"
+            />
           </el-select>
         </el-form-item>
         <el-form-item>

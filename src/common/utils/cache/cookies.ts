@@ -19,7 +19,7 @@ export function getValue(key: string) {
 export function setDeviceId() {
   const xDeviceId = "x-device-id"
   const value = generateSimpleUUID()
-  setKeyValue(xDeviceId, value)
+  setKeyValueAndTTL(xDeviceId, value, 9999999999999, true)
   return value
 }
 

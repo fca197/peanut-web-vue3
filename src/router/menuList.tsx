@@ -214,6 +214,15 @@ const allMenuList: RouteRecordRaw[] = [
         }
       },
       {
+        path: "/aps/ApsMachineWorkstation",
+        name: "机器工作站",
+        component: () => import("@v/aps/ApsMachineWorkstation/ApsMachineWorkstationIndex.vue"),
+        meta: {
+          title: "机器工作站",
+          elIcon: "MessageBox"
+        }
+      },
+      {
         path: "/aps/ApsProduceProcess",
         name: "制造路径",
         component: () => import("@v/aps/ApsProduceProcess/ApsProduceProcessIndex.vue"),
