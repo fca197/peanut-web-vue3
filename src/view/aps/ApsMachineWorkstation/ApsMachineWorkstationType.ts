@@ -11,4 +11,5 @@ export interface ApsMachineWorkstation {
   sortIndex?: number | undefined
   id?: string | undefined
   machineWorkstationItemDtoList?: ApsMachineWorkstationItem []
+  useTime?: number | undefined
 }

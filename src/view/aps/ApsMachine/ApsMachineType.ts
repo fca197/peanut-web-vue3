@@ -8,6 +8,7 @@ export interface ApsMachine {
   minPower: number | undefined | string
   maxPower: number | undefined | string
   id: string
+  machineId?: string | undefined
 }
 
 export function queryApsMachineList(factoryId: string) {

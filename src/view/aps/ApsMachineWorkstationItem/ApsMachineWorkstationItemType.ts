@@ -6,4 +6,6 @@ export interface ApsMachineWorkstationItem {
   factoryId?: string | undefined
   sortIndex?: string | undefined
   id?: string | undefined
+  useTime?: string | undefined
+  machineName?: string | undefined
 }

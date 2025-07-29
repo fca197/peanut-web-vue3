@@ -56,7 +56,6 @@ const getDataList = () => {
   .then((t) => {
     dataList.value = t.data.dataList
     tableTotal.value = Number.parseInt(t.data.total)
-
     headerList.value = t.data.headerList
   })
 }
@@ -104,7 +103,7 @@ onMounted(() => {
             v-model="queryForm.machineWorkstationNo" clearable
             placeholder="请输入工作站编号"/>
         </el-form-item>
-        <el-form-item label="工厂ID" prop="factoryId">
+        <el-form-item label="工厂" prop="factoryId">
           <el-select
             v-model="queryForm.factoryId" clearable placeholder="请选择工厂"
             style="width: 200px">
@@ -130,6 +129,7 @@ onMounted(() => {
         :multiple-selection="multipleSelection"
         ref="tableBarRef"
         :data-batch-delete-url="dataBatchDeleteUrl"
+        :dialog-with="1000"
       />
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
