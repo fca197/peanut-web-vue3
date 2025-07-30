@@ -1,39 +1,7 @@
-<template>
-  <el-form label-width="100px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="路径编码" prop="produceProcessNo">
-      <el-input v-model="addForm.produceProcessNo" clearable placeholder="请输入生产路径编码"/>
-    </el-form-item>
-    <el-form-item label="路径名称" prop="produceProcessName">
-      <el-input v-model="addForm.produceProcessName" clearable placeholder="请输入生产路径名称"/>
-    </el-form-item>
-    <el-form-item label="工厂" prop="factoryId">
-      <el-select v-model="addForm.factoryId" clearable style="width:200px"
-      >
-        <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id"/>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="是否默认" prop="isDefault">
-      <el-select v-model="addForm.isDefault" clearable style="width:200px">
-        <el-option
-          v-for="d in isDefaultKVList" :label="d.label" :value="d.value" :key="d.label"
-        />
-      </el-select>
-    </el-form-item>
-  </el-form>
-  <el-row class="addFormBtnRow">
-    <el-button @click="cancelForm" type="info" icon="close">
-      取消
-    </el-button>
-    <el-button @click="saveForm" type="primary" icon="check">
-      确定
-    </el-button>
-  </el-row>
-</template>
-
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
 import {type ApsProduceProcess, isDefaultKVList} from "./ApsProduceProcessType.ts"
-import {getById, postNoResult} from "@/common/utils/common-js.ts"
+import {getById, pinyin4jSzmV4, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
@@ -124,10 +92,47 @@ function cancelForm() {
 // 页面加载事件
 onMounted(() => {
   loadById()
-
   queryFactoryList().then((t) => factoryList.value = t)
 })
+
+const produceProcessNameBlur = () => {
+  pinyin4jSzmV4(addForm.value.produceProcessName, addForm, "produceProcessNo")
+}
 </script>
+
+<template>
+  <el-form label-width="100px" :model="addForm" ref="addFormRef" :rules="checkRules">
+    <el-form-item label="工厂" prop="factoryId">
+      <el-select v-model="addForm.factoryId" clearable style="width:100%"
+      >
+        <el-option v-for="f in factoryList" :label="f.factoryName" :value="f.id" :key="f.id"/>
+      </el-select>
+    </el-form-item>
+
+    <el-form-item label="路径名称" prop="produceProcessName">
+      <el-input v-model="addForm.produceProcessName" clearable placeholder="请输入生产路径名称"
+                @blur="produceProcessNameBlur"/>
+    </el-form-item>
+    <el-form-item label="路径编码" prop="produceProcessNo">
+      <el-input v-model="addForm.produceProcessNo" clearable placeholder="请输入生产路径编码"/>
+    </el-form-item>
+    <el-form-item label="是否默认" prop="isDefault">
+      <el-select v-model="addForm.isDefault" clearable style="width:100%">
+        <el-option
+          v-for="d in isDefaultKVList" :label="d.label" :value="d.value" :key="d.label"
+        />
+      </el-select>
+    </el-form-item>
+  </el-form>
+  <el-row class="addFormBtnRow">
+    <el-button @click="cancelForm" type="info" icon="close">
+      取消
+    </el-button>
+    <el-button @click="saveForm" type="primary" icon="check">
+      确定
+    </el-button>
+  </el-row>
+</template>
 
 <style scoped lang="scss">
 

@@ -1,53 +1,7 @@
-<template>
-  <el-form label-width="110px" :model="addForm" ref="addFormRef" :rules="checkRules">
-    <el-form-item label="机器名称" prop="machineName">
-      <el-input v-model="addForm.machineName" clearable placeholder="请输入机器名称"/>
-    </el-form-item>
-    <el-form-item label="机器编号" prop="machineNo">
-      <el-input v-model="addForm.machineNo" clearable placeholder="请输入机器编号"/>
-    </el-form-item>
-    <el-form-item label="最小功率(W)" prop="minPower">
-      <el-input-number
-        v-model="addForm.minPower" style="width: 100%" clearable
-        placeholder="请输入最小功率"
-        :precision="4"
-      />
-    </el-form-item>
-    <el-form-item label="最大功率(W)" prop="maxPower">
-      <el-input-number
-        v-model="addForm.maxPower" style="width: 100%" clearable
-        placeholder="请输入最大功率"
-        :precision="4"
-      />
-    </el-form-item>
-    <el-form-item label="工厂" prop="factoryId">
-      <el-select v-model="addForm.factoryId">
-        <el-option
-          v-for="f in factoryList"
-          :key="f.id"
-          :label="f.factoryName"
-          :value="f.id"
-        />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="排序索引" prop="sortIndex">
-      <el-input v-model="addForm.sortIndex" clearable placeholder="请输入排序索引"/>
-    </el-form-item>
-  </el-form>
-  <el-row class="addFormBtnRow">
-    <el-button @click="cancelForm" type="info" icon="close">
-      取消
-    </el-button>
-    <el-button @click="saveForm" type="primary" icon="check">
-      确定
-    </el-button>
-  </el-row>
-</template>
-
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
 import {type ApsMachine} from "./ApsMachineType.ts"
-import {getById, pinyin4jSzmV2, postNoResult} from "@/common/utils/common-js.ts"
+import {getById, pinyin4jSzmV2, pinyin4jSzmV4, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
@@ -85,7 +39,7 @@ const checkRules = ref<FormRules>({
   // 排序索引
   sortIndex: [
     {required: true, message: "请输入排序索引", trigger: "blur"},
-    {min: 1, max: 4, message: "长度在 1 到 5 个字符", trigger: "blur"}
+    // {min: 1, max: 4, message: "长度在 1 到 5 个字符", trigger: "blur"}
   ],
 
 })
@@ -102,7 +56,7 @@ const addForm = ref<ApsMachine>({
   machineNo: "",
   machineName: "",
   factoryId: "",
-  sortIndex: "",
+  sortIndex: 0,
   maxPower: undefined,
   minPower: undefined,
   id: ""
@@ -112,7 +66,7 @@ watch(addForm, (n, o) => {
 })
 
 watch(() => addForm.value.machineName, (n, o) => {
-  pinyin4jSzmV2(addForm.value.machineName,o).then((res) => addForm.value.machineNo = res)
+  pinyin4jSzmV2(addForm.value.machineName, o).then((res) => addForm.value.machineNo = res)
 
 })
 
@@ -126,6 +80,7 @@ function loadById() {
     try {
       addForm.value.maxPower = parseFloat(addForm.value.maxPower)
       addForm.value.minPower = parseFloat(addForm.value.minPower)
+      addForm.value.sortIndex = parseInt(addForm.value.sortIndex)
       console.info(" addForm.value ", addForm.value)
     } catch (e) {
       console.error(e)
@@ -162,7 +117,62 @@ function cancelForm() {
     props.saveFun()
   }
 }
+
+const machineNameBlur = () => {
+  pinyin4jSzmV4(addForm.value.machineName, addForm,"machineNo")
+}
+
 </script>
+
+<template>
+  <el-form label-width="110px" :model="addForm" ref="addFormRef" :rules="checkRules">
+    <el-form-item label="工厂" prop="factoryId">
+      <el-select v-model="addForm.factoryId" :disabled="addForm.id !== '' ">
+        <el-option
+          v-for="f in factoryList"
+          :key="f.id"
+          :label="f.factoryName"
+          :value="f.id"
+        />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="机器名称" prop="machineName">
+      <el-input
+        v-model="addForm.machineName" @blur="machineNameBlur" clearable
+        placeholder="请输入机器名称"
+      />
+    </el-form-item>
+    <el-form-item label="机器编号" prop="machineNo">
+      <el-input v-model="addForm.machineNo" clearable placeholder="请输入机器编号"/>
+    </el-form-item>
+    <el-form-item label="最小功率(W)" prop="minPower">
+      <el-input-number
+        v-model="addForm.minPower" style="width: 100%" clearable
+        placeholder="请输入最小功率"
+        :precision="4"
+      />
+    </el-form-item>
+    <el-form-item label="最大功率(W)" prop="maxPower">
+      <el-input-number
+        v-model="addForm.maxPower" style="width: 100%" clearable
+        placeholder="请输入最大功率"
+        :precision="4"
+      />
+    </el-form-item>
+    <el-form-item label="排序索引" prop="sortIndex">
+      <el-input-number style="width: 100%" v-model="addForm.sortIndex" clearable
+                       placeholder="请输入排序索引"/>
+    </el-form-item>
+  </el-form>
+  <el-row class="addFormBtnRow">
+    <el-button @click="cancelForm" type="info" icon="close">
+      取消
+    </el-button>
+    <el-button @click="saveForm" type="primary" icon="check">
+      确定
+    </el-button>
+  </el-row>
+</template>
 
 <style scoped lang="scss">
 

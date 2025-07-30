@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
 import {type ApsMachineWorkstation} from "./ApsMachineWorkstationType.ts"
-import {getById, pinyin4jSzmV2, postNoResult} from "@/common/utils/common-js.ts"
+import {getById, pinyin4jSzm, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
-import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
-import {ApsMachine, queryApsMachineList} from "@v/aps/ApsMachine/ApsMachineType.ts";
-import {ArrowDown} from "@element-plus/icons-vue";
+import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts"
+import {ApsMachine, queryApsMachineList} from "@v/aps/ApsMachine/ApsMachineType.ts"
+import {ApsStatus, queryApsStatusList} from "@v/aps/ApsStatus/ApsStatusType.ts"
 
 const props = defineProps({
   saveFun: {
@@ -33,16 +33,7 @@ const checkRules = ref<FormRules>({
     {required: true, message: "请输入工作站名称", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
-  // 最小功率
-  minPower: [
-    {required: true, message: "请输入最小功率", trigger: "blur"},
-    {min: 1, max: 20, message: "长度在 1 到 20 个字符", trigger: "blur"}
-  ],
-  // 最大功率
-  maxPower: [
-    {required: true, message: "请输入最大功率", trigger: "blur"},
-    {min: 1, max: 20, message: "长度在 1 到 20 个字符", trigger: "blur"}
-  ],
+
   // 工厂ID
   factoryId: [
     {required: true, message: "请输入工厂ID", trigger: "blur"},
@@ -77,8 +68,8 @@ const apsMachineList = ref<ApsMachine[]>([])
 const loadingMachineList = ref<boolean>(false)
 watch(() => addForm.value.factoryId, (n) => {
   if (n) {
-    loadingMachineList.value = true;
-    // addForm.value.machineWorkstationItemDtoList = []
+    loadingMachineList.value = true
+    addForm.value.machineWorkstationItemDtoList = []
     queryApsMachineList(addForm.value.factoryId).then((res) => {
       apsMachineList.value = res
       apsMachineList.value.forEach(t => {
@@ -86,8 +77,7 @@ watch(() => addForm.value.factoryId, (n) => {
         t.id = undefined
         t.sortIndex = Number.parseInt(t.sortIndex)
       })
-      loadingMachineList.value = false;
-      sortArrays()
+      loadingMachineList.value = false
       loadEntity.value = false
     })
   } else {
@@ -140,55 +130,27 @@ const cancelForm = () => {
 }
 const factoryList = ref<Factory[]>([])
 
+const apsStatusList = ref<ApsStatus[]>([])
 // 页面加载事件
 onMounted(() => {
   loadById()
+  queryApsStatusList().then(t => apsStatusList.value = t)
   queryFactoryList().then(t => factoryList.value = t)
 })
-watch(() => addForm.value.machineWorkstationName, (n, o) => {
-  pinyin4jSzmV2(addForm.value.machineWorkstationName, o).then((res) => addForm.value.machineWorkstationNo = res)
-})
-
-// 按数组A的顺序排序数组B，多余元素排在后面
-const sortArrays = () => {
-  // 创建ID到索引的映射
-  const arrayA = addForm.value.machineWorkstationItemDtoList
-  const arrayB = apsMachineList;
-  const idIndexMap = new Map()
-  arrayA.forEach((item, index) => {
-    idIndexMap.set(item.machineId, index)
-  })
-
-  // 分离匹配元素和多余元素
-  const matchedItems = []
-  const extraItems = []
-
-  arrayB.value.forEach(item => {
-    if (idIndexMap.has(item.machineId)) {
-      matchedItems.push(item)
-    } else {
-      extraItems.push(item)
-    }
-  })
-  console.log("matchedItems", matchedItems, extraItems)
-  // 对匹配的元素进行排序
-  matchedItems.sort((a, b) => {
-    const indexA = idIndexMap.get(a.machineId)
-    const indexB = idIndexMap.get(b.machineId)
-    return indexA - indexB
-  })
-  console.info("matchedItems ", matchedItems, extraItems)
-  // 合并排序后的元素和多余元素
-  apsMachineList.value = [...matchedItems, ...extraItems]
-  console.info("apsMachineList ", apsMachineList)
+const machineWorkstationNameBlur = () => {
+  pinyin4jSzm(addForm.value.machineWorkstationName).then((res) => addForm.value.machineWorkstationNo = res)
 }
 
 // 交换数组中两个元素的位置
 const swapItems = (indexA, indexB) => {
   const array = addForm.value.machineWorkstationItemDtoList;
-  [array[indexA], array[indexB]] = [array[indexB], array[indexA]];
+  if (indexA >= 0 && indexA < array.length && indexB >= 0 && indexB < array.length) {
+    [array[indexA], array[indexB]] = [array[indexB], array[indexA]];
+  }
 }
-const addMachine = (data: ApsMachine) => {
+
+const addMachine = (dataIndex: number) => {
+  const data = apsMachineList.value[dataIndex]
   addForm.value?.machineWorkstationItemDtoList.push({...data})
 }
 const deleteMachine = (index: number) => {
@@ -216,18 +178,12 @@ const sumMaxPower = () => {
   .map(t => Number.parseInt(t))
   .reduce((acc, curr) => acc + curr, 0)
 }
-
 </script>
 
 <template>
-  <el-form v-loading="loadEntity" label-width="100px" :model="addForm" ref="addFormRef"
-           :rules="checkRules">
-    <el-form-item label="工作站名称" prop="machineWorkstationName">
-      <el-input v-model="addForm.machineWorkstationName" clearable placeholder="请输入工作站名称"/>
-    </el-form-item>
-    <el-form-item label="工作站编号" prop="machineWorkstationNo">
-      <el-input v-model="addForm.machineWorkstationNo" clearable placeholder="请输入工作站编号"/>
-    </el-form-item>
+  <el-form
+    v-loading="loadEntity" label-width="100px" :model="addForm" ref="addFormRef"
+    :rules="checkRules">
     <el-form-item label="工厂" prop="factoryId">
       <el-select v-model="addForm.factoryId" clearable placeholder="请选择工厂" style="width: 100%">
         <el-option
@@ -235,24 +191,20 @@ const sumMaxPower = () => {
         />
       </el-select>
     </el-form-item>
+    <el-form-item label="工作站名称" prop="machineWorkstationName">
+      <el-input
+        v-model="addForm.machineWorkstationName" @blur="machineWorkstationNameBlur"
+        clearable placeholder="请输入工作站名称"/>
+    </el-form-item>
+    <el-form-item label="工作站编号" prop="machineWorkstationNo">
+      <el-input v-model="addForm.machineWorkstationNo" clearable placeholder="请输入工作站编号"/>
+    </el-form-item>
     <el-form-item label="机器">
-      <el-dropdown type="primary">
-        <template #default>
-          <el-button type="primary">
-            添加
-            <el-icon class="el-icon--right">
-              <arrow-down/>
-            </el-icon>
-          </el-button>
-        </template>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item @click="addMachine(m)" v-for="m in apsMachineList" :key="m.machineId">
-              {{ m.machineName }}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      <el-select @change="addMachine" style="margin-bottom: 10px" filterable>
+        <el-option
+          :value="i" v-for="(m,i) in apsMachineList" :key="m.machineId" :label="m.machineName"
+        />
+      </el-select>
       <el-table
         :data="addForm.machineWorkstationItemDtoList">
         <el-table-column prop="machineName" label="机器名称"/>
@@ -263,6 +215,14 @@ const sumMaxPower = () => {
             <el-input v-model="scope.row.useTime"/>
           </template>
         </el-table-column>
+        <ElTableColumn prop="goodsStatusId" label="商品状态" width="170">
+          <template #default="scope">
+            <el-select v-model="scope.row.goodsStatusId" clearable style="width: 150px">
+              <el-option v-for="s in apsStatusList" :value="s.id" :label="s.statusName"
+                         :key="s.id"/>
+            </el-select>
+          </template>
+        </ElTableColumn>
         <ElTableColumn fixed="right" label="操作" width="250" align="center">
           <template #default="scope">
             <el-button type="primary" icon="ArrowUp" v-if="scope.$index !==0"

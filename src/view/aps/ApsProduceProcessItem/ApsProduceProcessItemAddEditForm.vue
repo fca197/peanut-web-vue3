@@ -1,28 +1,3 @@
-<template>
-  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
-      <el-form-item label="生产路径 Id aps_produce_process" prop="produceProcessId">
-        <el-input v-model="addForm.produceProcessId" clearable placeholder="请输入生产路径 Id aps_produce_process"/>
-      </el-form-item>
-      <el-form-item label="机器ID" prop="machineId">
-        <el-input v-model="addForm.machineId" clearable placeholder="请输入机器ID"/>
-      </el-form-item>
-      <el-form-item label="状态ID" prop="statusId">
-        <el-input v-model="addForm.statusId" clearable placeholder="请输入状态ID"/>
-      </el-form-item>
-      <el-form-item label="耗时（秒）" prop="machineUseTimeSecond">
-        <el-input v-model="addForm.machineUseTimeSecond" clearable placeholder="请输入耗时（秒）"/>
-      </el-form-item>
-  </el-form>
-  <el-row class="addFormBtnRow">
-    <el-button @click="cancelForm" type="info" icon="close">
-      取消
-    </el-button>
-    <el-button @click="saveForm" type="primary" icon="check">
-      确定
-    </el-button>
-  </el-row>
-</template>
-
 <script setup lang="ts">
 import {onMounted, ref} from "vue"
 import {type ApsProduceProcessItem} from "./ApsProduceProcessItemType.ts"
@@ -45,37 +20,36 @@ const dtoUrl = ref<string>("/apsProduceProcessItem")
 const addFormRef = ref<FormInstance>()
 // 表单校验规则
 const checkRules = ref<FormRules>({
-    // 生产路径 Id aps_produce_process
-    produceProcessId: [
-      {required: true, message: "请输入生产路径 Id aps_produce_process", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 机器ID
-    machineId: [
-      {required: true, message: "请输入机器ID", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 状态ID
-    statusId: [
-      {required: true, message: "请输入状态ID", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
-    // 耗时（秒）
-    machineUseTimeSecond: [
-      {required: true, message: "请输入耗时（秒）", trigger: "blur" },
-      {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-    ],
+  // 生产路径 Id aps_produce_process
+  produceProcessId: [
+    {required: true, message: "请输入生产路径 Id aps_produce_process", trigger: "blur"},
+    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+  ],
+  // 机器ID
+  machineId: [
+    {required: true, message: "请输入机器ID", trigger: "blur"},
+    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+  ],
+  // 状态ID
+  goodsStatusId: [
+    {required: true, message: "请输入状态ID", trigger: "blur"},
+    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+  ],
+  // 耗时（秒）
+  machineUseTimeSecond: [
+    {required: true, message: "请输入耗时（秒）", trigger: "blur"},
+    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
+  ],
 
 })
 
-
 // 添加对象
 const addForm = ref<ApsProduceProcessItem>({
-      produceProcessId: "",
-      machineId: "",
-      statusId: "",
-      machineUseTimeSecond: "",
-      id: ""
+  produceProcessId: "",
+  machineId: "",
+  goodsStatusId: "",
+  machineUseTimeSecond: "",
+  id: ""
 })
 
 function loadById() {
@@ -124,6 +98,32 @@ onMounted(() => {
   loadById()
 })
 </script>
+
+<template>
+  <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
+    <el-form-item label="生产路径 Id aps_produce_process" prop="produceProcessId">
+      <el-input v-model="addForm.produceProcessId" clearable
+                placeholder="请输入生产路径 Id aps_produce_process"/>
+    </el-form-item>
+    <el-form-item label="机器ID" prop="machineId">
+      <el-input v-model="addForm.machineId" clearable placeholder="请输入机器ID"/>
+    </el-form-item>
+    <el-form-item label="状态ID" prop="goodsStatusId">
+      <el-input v-model="addForm.goodsStatusId" clearable placeholder="请输入状态ID"/>
+    </el-form-item>
+    <el-form-item label="耗时（秒）" prop="machineUseTimeSecond">
+      <el-input v-model="addForm.machineUseTimeSecond" clearable placeholder="请输入耗时（秒）"/>
+    </el-form-item>
+  </el-form>
+  <el-row class="addFormBtnRow">
+    <el-button @click="cancelForm" type="info" icon="close">
+      取消
+    </el-button>
+    <el-button @click="saveForm" type="primary" icon="check">
+      确定
+    </el-button>
+  </el-row>
+</template>
 
 <style scoped lang="scss">
 

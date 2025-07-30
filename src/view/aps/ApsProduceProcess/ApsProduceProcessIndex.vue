@@ -73,7 +73,7 @@ import { type ApsProduceProcess } from "./ApsProduceProcessType.ts"
 import { Factory, queryFactoryList } from "@v/base/Factory/FactoryType.ts";
 
 const dtoUrl = ref<string>("/apsProduceProcess")
-const documentTitle = ref<string>("aps 生产路径")
+const documentTitle = ref<string>("生产路径")
 const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 
 // 查询表格

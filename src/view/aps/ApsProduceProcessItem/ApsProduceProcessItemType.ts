@@ -1,8 +1,7 @@
 export interface ApsProduceProcessItem {
   produceProcessId: string
   machineId: string
-  statusId: string
+  goodsStatusId: string
   machineUseTimeSecond: string
   id: string
 }
-

@@ -39,7 +39,7 @@ export const useWebSocket = () => {
     error.value = null
 
     // 创建 SockJS 连接
-    const socket = new SockJS(url)
+    const socket =  new SockJS(url)
 
     // 初始化 STOMP 客户端
     stompClient.value = new Client({
