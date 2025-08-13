@@ -6,9 +6,7 @@ import {ElTable} from "element-plus"
 import {HeaderInfo, postNoResult, postResultInfo, postResultInfoList} from "@@/utils/common-js.ts"
 import {type ApsOrder} from "./ApsOrderType.ts"
 import {ApsStatus, queryApsStatusList} from "@v/aps/ApsStatus/ApsStatusType.ts"
-import {
-  ApsOrderFieldShowTemplate
-} from "@v/aps/ApsOrderFieldShowTemplate/ApsOrderFieldShowTemplateType.ts";
+import {ApsOrderFieldShowTemplate} from "@v/aps/ApsOrderFieldShowTemplate/ApsOrderFieldShowTemplateType.ts";
 
 const dtoUrl = ref<string>("/apsOrder")
 const documentTitle = ref<string>("订单")
@@ -123,9 +121,9 @@ const updateSchedulingDate = (row: ApsOrder, val: string) => {
 
 const createCount = ref<number>(300)
 
-const batchInsert = () => {
+const batchInsert = (isProcessMake: number) => {
   loadDataIngOpen()
-  postNoResult("/apsOrder/batchInsert", {createCount: createCount.value}, "添加成功", getDataList)
+  postNoResult("/apsOrder/batchInsert", {createCount: createCount.value, isProcessMake: isProcessMake}, "添加成功", getDataList)
 }
 
 const loadDataIngClose = () => {
@@ -140,6 +138,12 @@ const nowDateTime = new Date().getTime()
 console.info("disabledDate min dateTime ", nowDateTime)
 const disabledDate = (time) => {
   return time.getTime() < nowDateTime // 禁用所有在今天之前的日期
+}
+
+const deleteAll = () => {
+  postNoResult("/apsOrder/deleteAll", {}, "删除成功", () => {
+    getDataList()
+  })
 }
 
 const orderTemplateList = ref<ApsOrderFieldShowTemplate []>([])
@@ -175,6 +179,7 @@ watch(() => queryForm.value.orderTemplate, (v) => {
               v-for="tt in orderTemplateList"
               :label="tt.apsOrderUserName"
               :value="tt"
+              :key="tt.id"
             />
           </el-select>
         </el-form-item>
@@ -193,8 +198,14 @@ watch(() => queryForm.value.orderTemplate, (v) => {
         :dialog-with="1000"
       >
         <template #otherBtn>
-          <el-button type="warning" icon="plus" @click="batchInsert">
-            批量随机{{ createCount }}条
+          <el-button type="warning" icon="plus" @click="batchInsert(1)">
+            批量随机{{ createCount }}条(制造)
+          </el-button>
+          <el-button type="warning" icon="plus" @click="batchInsert(0)">
+            批量随机{{ createCount }}条(工艺)
+          </el-button>
+          <el-button type="danger" icon="delete" @click="deleteAll">
+            删除所有订单
           </el-button>
         </template>
       </TableBar>
@@ -213,7 +224,8 @@ watch(() => queryForm.value.orderTemplate, (v) => {
                 v-model="scope.row.orderGoodsStatus"
                 @change="value => { updateOrderGoodsStatus(scope.row.id, value) }"
               >
-                <el-option v-for="(s, i) in apsStatusList" :key="s.id" :value="s.id"
+                <el-option v-for="(s, i) in apsStatusList"
+                           :key="s.id" :value="s.id"
                            :label="s.statusName"/>
               </el-select>
             </span>
@@ -256,11 +268,9 @@ watch(() => queryForm.value.orderTemplate, (v) => {
           :key="o.label"
         >
           <template #default="scope">
-            {{ scope.row.goodsSaleConfigList.filter(t => o.value === t.configParentId) [0]?.configName}}
+            {{ scope.row.goodsSaleConfigList.filter(t => o.value === t.configParentId) [0]?.configName }}
           </template>
         </ElTableColumn>
-
-
         <!--        <ElTableColumn fixed="right" label="操作" width="150px"> -->
         <!--          <template #default="scope"> -->
         <!--            <el-button -->

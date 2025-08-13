@@ -14,7 +14,7 @@ const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 const queryForm = ref<ApsMachineWorkstationItem>({
   machineWorkstationId: undefined,
   machineId: undefined,
-  minPower: undefined,
+  // minPower: undefined,
   maxPower: undefined,
   factoryId: undefined,
   sortIndex: undefined,
@@ -37,7 +37,7 @@ const headerList = ref<HeaderInfo[]>([
   {fieldName: "id", showName: "序号"},
   {fieldName: "machineWorkstationId", showName: "工作站id"},
   {fieldName: "machineId", showName: "机器ID"},
-  {fieldName: "minPower", showName: "最小功率"},
+  // {fieldName: "minPower", showName: "最小功率"},
   {fieldName: "maxPower", showName: "最大功率"},
   {fieldName: "factoryId", showName: "工厂ID"},
   {fieldName: "sortIndex", showName: "排序索引"},
@@ -97,9 +97,7 @@ onMounted(() => {
         <el-form-item label="机器ID" prop="machineId">
           <el-input v-model="queryForm.machineId" clearable placeholder="请输入机器ID"/>
         </el-form-item>
-        <el-form-item label="最小功率" prop="minPower">
-          <el-input v-model="queryForm.minPower" clearable placeholder="请输入最小功率"/>
-        </el-form-item>
+
         <el-form-item label="最大功率" prop="maxPower">
           <el-input v-model="queryForm.maxPower" clearable placeholder="请输入最大功率"/>
         </el-form-item>

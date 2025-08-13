@@ -15,7 +15,7 @@ const dataBatchDeleteUrl = ref<string>(`${dtoUrl.value}/deleteByIdList`)
 const queryForm = ref<ApsMachineWorkstation>({
   machineWorkstationNo: undefined,
   machineWorkstationName: undefined,
-  minPower: undefined,
+  // minPower: undefined,
   maxPower: undefined,
   factoryId: undefined,
   sortIndex: undefined,
@@ -38,7 +38,7 @@ const headerList = ref<HeaderInfo[]>([
   {fieldName: "id", showName: "序号"},
   {fieldName: "machineWorkstationNo", showName: "工作站编号"},
   {fieldName: "machineWorkstationName", showName: "工作站名称"},
-  {fieldName: "minPower", showName: "最小功率"},
+  // {fieldName: "minPower", showName: "最小功率"},
   {fieldName: "maxPower", showName: "最大功率"},
   {fieldName: "factoryId", showName: "工厂ID"},
   {fieldName: "sortIndex", showName: "排序索引"},

@@ -3,7 +3,7 @@ import {onMounted, ref} from "vue"
 import AddEditFormVue from "./ApsProcessPathAddEditForm.vue"
 import TableBar from "@/layouts/components/TableBar/index.vue"
 import {ElTable} from "element-plus"
-import {HeaderInfo, postResultInfo} from "@@/utils/common-js.ts"
+import {HeaderInfo, postNoResult, postResultInfo} from "@@/utils/common-js.ts"
 import {type ApsProcessPath} from "./ApsProcessPathType.ts"
 import {Factory, queryFactoryList} from "@v/base/Factory/FactoryType.ts";
 
@@ -36,12 +36,12 @@ const currentPageNum = ref<number>(1)
 const currentPageSize = ref<number>(10)
 const tableTotal = ref<number>(0)
 const headerList = ref<HeaderInfo[]>([
-  { fieldName: "id", showName: "序号" },
-  { fieldName: "processPathCode", showName: "" },
-  { fieldName: "processPathName", showName: "" },
-  { fieldName: "processPathRemark", showName: "" },
-  { fieldName: "isDefault", showName: "" },
-  { fieldName: "factoryId", showName: "工厂" },
+  {fieldName: "id", showName: "序号"},
+  {fieldName: "processPathCode", showName: ""},
+  {fieldName: "processPathName", showName: ""},
+  {fieldName: "processPathRemark", showName: ""},
+  {fieldName: "isDefault", showName: ""},
+  {fieldName: "factoryId", showName: "工厂"},
 ])
 
 const factoryList = ref<Factory[]>([])
@@ -55,17 +55,21 @@ function getDataList() {
   }
   console.info("getDataList {}", req)
   postResultInfo(`${dtoUrl.value}/queryPageList`, req)
-    .then((t) => {
-      dataList.value = t.data.dataList
-      tableTotal.value = Number.parseInt(t.data.total)
-      headerList.value = t.data.headerList
-    })
+  .then((t) => {
+    dataList.value = t.data.dataList
+    tableTotal.value = Number.parseInt(t.data.total)
+    headerList.value = t.data.headerList
+  })
 }
 
 // table点击事件
 function editData(data: any) {
   // console.info("data ", data)
   tableBarRef.value?.showEditDialog(data.id)
+}
+
+const copyData = (data: ApsProcessPath) => {
+  postNoResult("/apsProcessPath/copy", {id: data.id}, "复制成功", getDataList)
 }
 
 // 页面条数变更事件
@@ -125,7 +129,7 @@ onMounted(() => {
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
         <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" :min-width="h.width"/>
-        <ElTableColumn fixed="right" label="操作" width="150px">
+        <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">
             <el-button
               type="warning"
@@ -133,6 +137,13 @@ onMounted(() => {
               @click="editData(scope.row)"
             >
               编辑
+            </el-button>
+            <el-button
+              type="primary"
+              icon="CopyDocument"
+              @click="copyData(scope.row)"
+            >
+              复制
             </el-button>
           </template>
         </ElTableColumn>

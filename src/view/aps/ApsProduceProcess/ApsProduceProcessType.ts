@@ -1,4 +1,5 @@
 import {KVEntity} from "@@/utils/common-js.ts";
+import {ApsProduceProcessItem} from "@v/aps/ApsProduceProcessItem/ApsProduceProcessItemType.ts";
 
 export interface ApsProduceProcess {
   produceProcessNo?: string | undefined
@@ -6,6 +7,7 @@ export interface ApsProduceProcess {
   factoryId?: string | undefined
   isDefault?: boolean | undefined
   id?: string | undefined
+  produceProcessItemDtoList: ApsProduceProcessItem []
 }
 
 export const isDefaultKVList: KVEntity[] = [

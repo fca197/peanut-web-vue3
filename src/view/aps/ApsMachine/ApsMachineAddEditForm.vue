@@ -57,8 +57,7 @@ const addForm = ref<ApsMachine>({
   machineName: "",
   factoryId: "",
   sortIndex: 0,
-  maxPower: undefined,
-  minPower: undefined,
+  maxPower: 0,
   id: ""
 })
 watch(addForm, (n, o) => {
@@ -78,8 +77,8 @@ function loadById() {
   getById(`${dtoUrl.value}/queryByIdList`, props.editId).then((t) => {
     addForm.value = t
     try {
-      addForm.value.maxPower = parseFloat(addForm.value.maxPower)
-      addForm.value.minPower = parseFloat(addForm.value.minPower)
+      addForm.value.maxPower =  addForm.value.maxPower
+    //  addForm.value.minPower = parseFloat(addForm.value.minPower)
       addForm.value.sortIndex = parseInt(addForm.value.sortIndex)
       console.info(" addForm.value ", addForm.value)
     } catch (e) {
@@ -145,18 +144,11 @@ const machineNameBlur = () => {
     <el-form-item label="机器编号" prop="machineNo">
       <el-input v-model="addForm.machineNo" clearable placeholder="请输入机器编号"/>
     </el-form-item>
-    <el-form-item label="最小功率(W)" prop="minPower">
-      <el-input-number
-        v-model="addForm.minPower" style="width: 100%" clearable
-        placeholder="请输入最小功率"
-        :precision="4"
-      />
-    </el-form-item>
+
     <el-form-item label="最大功率(W)" prop="maxPower">
       <el-input-number
         v-model="addForm.maxPower" style="width: 100%" clearable
         placeholder="请输入最大功率"
-        :precision="4"
       />
     </el-form-item>
     <el-form-item label="排序索引" prop="sortIndex">

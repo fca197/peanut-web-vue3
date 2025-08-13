@@ -56,9 +56,9 @@ const loadEntity = ref<boolean>(true)
 const addForm = ref<ApsMachineWorkstation>({
   machineWorkstationNo: "",
   machineWorkstationName: "",
-  minPower: "",
+  // minPower: "",
   maxPower: "",
-  factoryId: "",
+  factoryId: null,
   sortIndex: 0,
   id: "",
   machineWorkstationItemDtoList: []
@@ -69,7 +69,7 @@ const loadingMachineList = ref<boolean>(false)
 watch(() => addForm.value.factoryId, (n) => {
   if (n) {
     loadingMachineList.value = true
-    addForm.value.machineWorkstationItemDtoList = []
+    // addForm.value.machineWorkstationItemDtoList = []
     queryApsMachineList(addForm.value.factoryId).then((res) => {
       apsMachineList.value = res
       apsMachineList.value.forEach(t => {
@@ -152,9 +152,13 @@ const swapItems = (indexA, indexB) => {
 const addMachine = (dataIndex: number) => {
   const data = apsMachineList.value[dataIndex]
   addForm.value?.machineWorkstationItemDtoList.push({...data})
+
+  sumMaxPower()
 }
 const deleteMachine = (index: number) => {
   addForm.value.machineWorkstationItemDtoList.splice(index, 1)
+
+  sumMaxPower()
 }
 
 const sumUseTime = () => {
@@ -164,13 +168,13 @@ const sumUseTime = () => {
   .map(t => Number.parseInt(t))
   .reduce((acc, curr) => acc + curr, 0)
 }
-const sumMinPower = () => {
-  addForm.value.minPower = addForm.value?.machineWorkstationItemDtoList
-  .map(t => t.minPower)
-  .filter(t => t !== undefined && t !== null)
-  .map(t => Number.parseInt(t))
-  .reduce((acc, curr) => acc + curr, 0)
-}
+
+watch(() => addForm.value?.machineWorkstationItemDtoList, () => {
+  sumUseTime();
+}, {
+  deep: true
+})
+
 const sumMaxPower = () => {
   addForm.value.maxPower = addForm.value?.machineWorkstationItemDtoList
   .map(t => t.maxPower)
@@ -185,7 +189,9 @@ const sumMaxPower = () => {
     v-loading="loadEntity" label-width="100px" :model="addForm" ref="addFormRef"
     :rules="checkRules">
     <el-form-item label="工厂" prop="factoryId">
-      <el-select v-model="addForm.factoryId" clearable placeholder="请选择工厂" style="width: 100%">
+      <el-select v-model="addForm.factoryId" clearable placeholder="请选择工厂" style="width: 100%"
+        :disabled="addForm.factoryId !== null "
+      >
         <el-option
           v-for=" f in factoryList" :label="f.factoryName" :key="f.id" :value="f.id"
         />
@@ -208,7 +214,7 @@ const sumMaxPower = () => {
       <el-table
         :data="addForm.machineWorkstationItemDtoList">
         <el-table-column prop="machineName" label="机器名称"/>
-        <el-table-column prop="minPower" label="最小功率"/>
+        <!--        <el-table-column prop="minPower" label="最小功率"/>-->
         <el-table-column prop="maxPower" label="最大功率"/>
         <el-table-column prop="useTime" label="耗时">
           <template #default="scope">
@@ -236,25 +242,18 @@ const sumMaxPower = () => {
         </ElTableColumn>
       </el-table>
     </el-form-item>
-    <el-form-item label="最小功率" prop="minPower">
-      <el-input v-model="addForm.minPower" clearable placeholder="请输入最小功率">
-        <template #append>
-          <el-button icon="Refresh" @click="sumMinPower"/>
-        </template>
-      </el-input>
-    </el-form-item>
     <el-form-item label="最大功率" prop="maxPower">
-      <el-input v-model="addForm.maxPower" clearable placeholder="请输入最大功率">
-        <template #append>
-          <el-button icon="Refresh" @click="sumMaxPower"/>
-        </template>
+      <el-input v-model="addForm.maxPower" readonly clearable placeholder="请输入最大功率">
+<!--        <template #append>-->
+<!--          <el-button icon="Refresh" @click="sumMaxPower"/>-->
+<!--        </template>-->
       </el-input>
     </el-form-item>
     <el-form-item label="耗时" prop="useTime">
-      <el-input v-model="addForm.useTime" clearable placeholder="请输入耗时">
-        <template #append>
-          <el-button icon="Refresh" @click="sumUseTime"/>
-        </template>
+      <el-input v-model="addForm.useTime" readonly clearable placeholder="请输入耗时">
+<!--        <template #append>-->
+<!--          <el-button icon="Refresh" @click="sumUseTime"/>-->
+<!--        </template>-->
       </el-input>
     </el-form-item>
     <el-form-item label="排序索引" prop="sortIndex">

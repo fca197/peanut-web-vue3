@@ -1,84 +1,3 @@
-<template>
-  <div class="app-container">
-    <el-card class="search-wrapper" shadow="never">
-      <el-form :inline="true" >
-        <el-form-item label="时间间隔">
-          <el-select style="width: 200px" v-model="timeInterval" @change="timeSpanChange">
-            <el-option v-for="t in timeIntervalArr" :key="t.value" :value="t.value" :label="t.label"/>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-
-          <el-button type="primary" icon="download" @click="downloadDataList">
-            下载
-          </el-button>
-        </el-form-item>
-      </el-form>
-      <el-divider>
-        概览
-      </el-divider>
-      <el-form :inline="true">
-        <el-form-item label="开始时间:">{{ beginDateTime }}</el-form-item>
-        <el-form-item label="结束时间时间:">{{ endDateTime }}</el-form-item>
-        <el-form-item label="时间段数量:">{{ zzljEnd - zzljStart }}</el-form-item>
-        <el-form-item label="总耗时:">{{ (zzljEnd - zzljStart) * timeInterval }} 秒</el-form-item>
-      </el-form>
-    </el-card>
-    <el-card class="search-wrapper" shadow="never">
-      <el-divider>
-        机器生产顺序
-      </el-divider>
-      <el-row :style="{'width':((zzljEnd-zzljStart)*130+100 )+'px'}" id="jqscsxDivId" :key="reloadZZLJKey">
-        <div class="headerItem " style="width: 100px"> 机器名称</div>
-        <span class="headerItem  header" v-for="(index,i) in zzljEnd-zzljStart" style="width: 130px;text-align: center">
-        {{ formatDate(new Date((zzljStart * 1000 * timeInterval) + index * 1000 * timeInterval)).substr(0, 10) }}
-        <br/>
-        {{ formatDate(new Date((zzljStart * 1000 * timeInterval) + index * 1000 * timeInterval)).substr(11) }}
-      </span>
-
-        <div v-for="(m,i) in machineList">
-          <el-row class="headerItem  orderNoDiv" style="width: 100px">{{ m.machineName }}</el-row>
-          <el-row class="headerItem orderNoDiv" :id="m.id + '_' + i" v-for="(index,i) in zzljEnd-zzljStart"
-                  style="width: 130px;text-align: left">
-            <el-row
-              v-if="orderNoTimeMap[m.id + '_' + index] && orderNoTimeMap[m.id + '_' + index].length>0">
-              <el-row class="orderNoInfo"
-                      :style="{'z-index': index,'width': o.colSpan*130 +'px','backgroundColor':colorMap[o.orderNo]}"
-                      v-for="(o,i) in  ( orderNoTimeMap[m.id + '_' + index])"
-              >{{ o.orderNo }}
-              </el-row>
-            </el-row>
-          </el-row>
-          <hr/>
-        </div>
-      </el-row>
-    </el-card>
-
-    <el-card class="search-wrapper" shadow="never">
-      <h2>机器使用率</h2>
-      <el-table :data="machineList" :key="reloadZZLJKey">
-        <el-table-column label="机器名称" prop="machineName"></el-table-column>
-        <el-table-column label="制造数量">
-          <template #default="scope">
-            {{ machineUseRate[scope.row.id]["makeProduceCount"] }}
-          </template>
-        </el-table-column>
-        <el-table-column label="制造耗时">
-          <template #default="scope">
-            {{ machineUseRate[scope.row.id]["useTime"] }}
-          </template>
-        </el-table-column>
-        <el-table-column label="使用率">
-          <template #default="scope">
-            {{ machineUseRate[scope.row.id]["useUsageRate"] }}%
-          </template>
-        </el-table-column>
-
-      </el-table>
-    </el-card>
-  </div>
-</template>
-
 <script setup lang="ts">
 
 import { useRoute } from "vue-router";
@@ -137,13 +56,14 @@ const padLeftZero = (str) => {
 const timeSpanChange = () => {
   queryDetailList()
 }
+const  loadData =ref<boolean>(true);
 const queryDetailList = () => {
   orderNoTimeMap.value = {}
-
+  loadData.value=true
   return queryApsMachineList(factoryId).then(r => {
     r = r.sort((a, b) => {
-      return parseInt(a.sortIndex) - parseInt(b.sortIndex)
-    })
+      return parseInt(b.sortIndex) - parseInt(a.sortIndex)
+    }).reverse();
     machineList.value = r
     console.info("queryApsMachineList", machineList.value, factoryId)
   }).then(() => {
@@ -188,9 +108,11 @@ const queryDetailList = () => {
       reloadZZLJKey.value = Math.random() + ""
       console.info("reloadZZLJKey ", reloadZZLJKey.value, "orderNoTimeMap", orderNoTimeMap, machineList.value, "jqscsxDivRef", jqscsxDivRef.value)
 
+
     }).then(() => {
       console.info("      document.getElementById(\"jqscsxDivId\") ", document.getElementById("jqscsxDivId"))
       document.getElementById("jqscsxDivId").className = "scrollDiv"
+      loadData.value=false
     })
   })
 }
@@ -198,12 +120,12 @@ const queryDetailList = () => {
 const queryMachineUserRate = () => {
 
   postResultInfoList("/apsSchedulingDayConfigVersionDetailMachineUseTime/queryList", { data: { schedulingDayId: id } })
-    .then(r => {
-      // log(t)
-      r.forEach(tt => {
-        machineUseRate.value[tt.machineId] = tt
-      })
+  .then(r => {
+    // log(t)
+    r.forEach(tt => {
+      machineUseRate.value[tt.machineId] = tt
     })
+  })
 }
 onMounted(() => {
   queryDetailList()
@@ -228,6 +150,87 @@ const downloadDataList = () => {
   }, "排程结果.xlsx")
 }
 </script>
+
+<template>
+  <div class="app-container">
+    <el-card class="search-wrapper" shadow="never">
+      <el-form :inline="true" >
+        <el-form-item label="时间间隔">
+          <el-select style="width: 200px" v-model="timeInterval" @change="timeSpanChange">
+            <el-option v-for="t in timeIntervalArr" :key="t.value" :value="t.value" :label="t.label"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+
+          <el-button type="primary" icon="download" @click="downloadDataList">
+            下载
+          </el-button>
+        </el-form-item>
+      </el-form>
+      <el-divider>
+        概览
+      </el-divider>
+      <el-form :inline="true">
+        <el-form-item label="开始时间:">{{ beginDateTime }}</el-form-item>
+        <el-form-item label="结束时间时间:">{{ endDateTime }}</el-form-item>
+        <el-form-item label="时间段数量:">{{ zzljEnd - zzljStart }}</el-form-item>
+        <el-form-item label="总耗时:">{{ (zzljEnd - zzljStart) * timeInterval }} 秒</el-form-item>
+      </el-form>
+    </el-card>
+    <el-card class="search-wrapper" shadow="never">
+      <el-divider>
+        机器生产顺序
+      </el-divider>
+      <el-row  v-loading="loadData" :style="{'width':((zzljEnd-zzljStart)*130+100 )+'px'}" id="jqscsxDivId" :key="reloadZZLJKey">
+        <div class="headerItem " style="width: 100px"> 机器名称</div>
+        <span class="headerItem  header" v-for="(index,i) in zzljEnd-zzljStart" style="width: 130px;text-align: center">
+        {{ formatDate(new Date((zzljStart * 1000 * timeInterval) + index * 1000 * timeInterval)).substr(0, 10) }}
+        <br/>
+        {{ formatDate(new Date((zzljStart * 1000 * timeInterval) + index * 1000 * timeInterval)).substr(11) }}
+      </span>
+
+        <div v-for="(m,i) in machineList">
+          <el-row class="headerItem  orderNoDiv" style="width: 100px">{{ m.machineName }}</el-row>
+          <el-row class="headerItem orderNoDiv" :id="m.id + '_' + i" v-for="(index,i) in zzljEnd-zzljStart"
+                  style="width: 130px;text-align: left">
+            <el-row
+              v-if="orderNoTimeMap[m.id + '_' + index] && orderNoTimeMap[m.id + '_' + index].length>0">
+              <el-row class="orderNoInfo"
+                      :style="{'z-index': index,'width': o.colSpan*130 +'px','backgroundColor':colorMap[o.orderNo]}"
+                      v-for="(o,i) in  ( orderNoTimeMap[m.id + '_' + index])"
+              >{{ o.orderNo }}
+              </el-row>
+            </el-row>
+          </el-row>
+          <hr/>
+        </div>
+      </el-row>
+    </el-card>
+
+    <el-card class="search-wrapper" shadow="never">
+      <h2>机器使用率</h2>
+      <el-table :data="machineList" :key="reloadZZLJKey">
+        <el-table-column label="机器名称" prop="machineName"></el-table-column>
+        <el-table-column label="制造数量">
+          <template #default="scope">
+            {{ machineUseRate[scope.row.id]["makeProduceCount"] }}
+          </template>
+        </el-table-column>
+        <el-table-column label="制造耗时">
+          <template #default="scope">
+            {{ machineUseRate[scope.row.id]["useTime"] }}
+          </template>
+        </el-table-column>
+        <el-table-column label="使用率">
+          <template #default="scope">
+            {{ machineUseRate[scope.row.id]["useUsageRate"] }}%
+          </template>
+        </el-table-column>
+
+      </el-table>
+    </el-card>
+  </div>
+</template>
 
 <style scoped lang="scss">
 

@@ -3,6 +3,10 @@ import {onMounted, ref} from "vue"
 import {type ApsProduceProcessItem} from "./ApsProduceProcessItemType.ts"
 import {getById, postNoResult} from "@/common/utils/common-js.ts"
 import {type FormInstance, FormRules} from "element-plus"
+import {
+  ApsMachineWorkstation,
+  queryApsMachineWorkstationList
+} from "@v/aps/ApsMachineWorkstation/ApsMachineWorkstationType.ts";
 
 const props = defineProps({
   saveFun: {
@@ -36,7 +40,7 @@ const checkRules = ref<FormRules>({
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
   // 耗时（秒）
-  machineUseTimeSecond: [
+  useTime: [
     {required: true, message: "请输入耗时（秒）", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
@@ -48,7 +52,7 @@ const addForm = ref<ApsProduceProcessItem>({
   produceProcessId: "",
   machineId: "",
   goodsStatusId: "",
-  machineUseTimeSecond: "",
+  useTime: "",
   id: ""
 })
 
@@ -102,8 +106,9 @@ onMounted(() => {
 <template>
   <el-form label-width="80px" :model="addForm" ref="addFormRef" :rules="checkRules">
     <el-form-item label="生产路径 Id aps_produce_process" prop="produceProcessId">
-      <el-input v-model="addForm.produceProcessId" clearable
-                placeholder="请输入生产路径 Id aps_produce_process"/>
+      <el-input
+        v-model="addForm.produceProcessId" clearable
+        placeholder="请输入生产路径 Id aps_produce_process"/>
     </el-form-item>
     <el-form-item label="机器ID" prop="machineId">
       <el-input v-model="addForm.machineId" clearable placeholder="请输入机器ID"/>
@@ -111,8 +116,8 @@ onMounted(() => {
     <el-form-item label="状态ID" prop="goodsStatusId">
       <el-input v-model="addForm.goodsStatusId" clearable placeholder="请输入状态ID"/>
     </el-form-item>
-    <el-form-item label="耗时（秒）" prop="machineUseTimeSecond">
-      <el-input v-model="addForm.machineUseTimeSecond" clearable placeholder="请输入耗时（秒）"/>
+    <el-form-item label="耗时（秒）" prop="useTime">
+      <el-input v-model="addForm.useTime" clearable placeholder="请输入耗时（秒）"/>
     </el-form-item>
   </el-form>
   <el-row class="addFormBtnRow">

@@ -5,7 +5,7 @@ export interface ApsMachine {
   machineName: string
   factoryId: string
   sortIndex: number
-  minPower: number | undefined
+  // minPower: number | undefined
   maxPower: number | undefined
   id: string
   machineId?: string | undefined

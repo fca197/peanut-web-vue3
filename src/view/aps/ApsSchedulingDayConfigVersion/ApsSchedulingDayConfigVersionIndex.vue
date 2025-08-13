@@ -157,6 +157,7 @@ onMounted(() => {
         <ElTableColumn type="selection"/>
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
+          :width="h.width"
           :prop="h.fieldName"/>
         <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">

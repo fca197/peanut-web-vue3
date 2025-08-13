@@ -30,11 +30,7 @@ const checkRules = ref<FormRules>({
     {required: true, message: "请输入机器ID", trigger: "blur"},
     {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
   ],
-  // 最小功率
-  minPower: [
-    {required: true, message: "请输入最小功率", trigger: "blur"},
-    {min: 2, max: 20, message: "长度在 2 到 20 个字符", trigger: "blur"}
-  ],
+
   // 最大功率
   maxPower: [
     {required: true, message: "请输入最大功率", trigger: "blur"},
@@ -58,7 +54,7 @@ const checkRules = ref<FormRules>({
 const addForm = ref<ApsMachineWorkstationItem>({
   machineWorkstationId: "",
   machineId: "",
-  minPower: "",
+  // minPower: "",
   maxPower: "",
   factoryId: "",
   sortIndex: "",
@@ -120,9 +116,7 @@ onMounted(() => {
     <el-form-item label="机器ID" prop="machineId">
       <el-input v-model="addForm.machineId" clearable placeholder="请输入机器ID"/>
     </el-form-item>
-    <el-form-item label="最小功率" prop="minPower">
-      <el-input v-model="addForm.minPower" clearable placeholder="请输入最小功率"/>
-    </el-form-item>
+
     <el-form-item label="最大功率" prop="maxPower">
       <el-input v-model="addForm.maxPower" clearable placeholder="请输入最大功率"/>
     </el-form-item>

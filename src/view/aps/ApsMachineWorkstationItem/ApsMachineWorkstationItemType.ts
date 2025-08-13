@@ -1,7 +1,8 @@
 export interface ApsMachineWorkstationItem {
   machineWorkstationId?: string | undefined
+  apsMachineWorkstationName?: string | undefined
   machineId?: string | undefined
-  minPower?: string | undefined
+  // minPower?: string | undefined
   maxPower?: string | undefined
   factoryId?: string | undefined
   sortIndex?: string | undefined
