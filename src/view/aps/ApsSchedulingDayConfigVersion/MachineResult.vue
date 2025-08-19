@@ -1,125 +1,30 @@
 <script setup lang="ts">
 
-import { useRoute } from "vue-router";
-import { ApsMachine, queryApsMachineList } from "@v/aps/ApsMachine/ApsMachineType.ts";
-import { downloadFilePost, KVEntity,  postResultInfo, postResultInfoList } from "@@/utils/common-js.ts";
-import { listGroupBy } from "@@/utils/listUtils.ts";
+import {gantt} from "dhtmlx-gantt"
+import "dhtmlx-gantt/codebase/dhtmlxgantt.css"
 
-const beginDateTime = ref<string>(null)
-const endDateTime = ref<string>(null)
-const reloadZZLJKey = ref<string>(Math.random() * 100000 + "")
-const zzljEnd = ref<number>(0)
-const zzljStart = ref<number>(0)
-const jqscsxDivRef = ref<any>(null)
+import {useRoute} from "vue-router"
+import {downloadFilePost, postResultInfo, postResultInfoList} from "@@/utils/common-js.ts"
+import {ApsMachine, queryApsMachineList} from "@v/aps/ApsMachine/ApsMachineType.ts"
+import {initGantt, zoomConfig} from "@v/aps/ApsSchedulingDayConfigVersion/gatt.ts"
 
-const timeIntervalArr = ref<KVEntity []>([
-  { label: "10分钟", value: 600 },
-  { label: "15分钟", value: 900 },
-  { label: "30分钟", value: 1800 },
-  { label: "1小时", value: 3600 },
-  { label: "3小时", value: 10800 },
-  { label: "6小时", value: 21600 },
-  { label: "12小时", value: 43200 },
-  { label: "24小时", value: 86400 }
-])
+const zoomLevel = ref<string>("day")
 
-const timeInterval = ref<number>(timeIntervalArr.value[0].value)
 const machineList = ref<ApsMachine[]>([])
-const orderNoTimeMap = ref<any>({})
-const colorMap = ref<any>({})
 const machineUseRate = ref<any>({})
 // 获取当前路由信息
-const route = useRoute();
+const route = useRoute()
 
+const loadingData = ref<boolean>(true)
 // 从路由参数中获取id
-const id = route.params.id as string;
+const id = route.params.id as string
 console.info("id ", id)
-const factoryId = route.params.factoryId as string;
+const factoryId = route.params.factoryId as string
 console.info("factoryId ", factoryId)
-
-const formatDate = (val) => {
-  var date = new Date(Number(val)); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-  var Y = date.getFullYear() + "-";
-  var M = (date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1)
-    : date.getMonth() + 1) + "-";
-  var D = padLeftZero(date.getDate()) + " ";
-  var h = padLeftZero(date.getHours()) + ":";
-  var m = padLeftZero(date.getMinutes()) + ":";
-  var s = padLeftZero(date.getSeconds());
-  return Y + M + D + h + m + s;
-}
-
-const padLeftZero = (str) => {
-  return str <= 9 ? '0' + str : str;
-}
-
-const timeSpanChange = () => {
-  queryDetailList()
-}
-const  loadData =ref<boolean>(true);
-const queryDetailList = () => {
-  orderNoTimeMap.value = {}
-  loadData.value=true
-  return queryApsMachineList(factoryId).then(r => {
-    r = r.sort((a, b) => {
-      return parseInt(b.sortIndex) - parseInt(a.sortIndex)
-    }).reverse();
-    machineList.value = r
-    console.info("queryApsMachineList", machineList.value, factoryId)
-  }).then(() => {
-    postResultInfo("/apsSchedulingDayConfigVersionDetailMachine/queryList", {
-      data: {
-        schedulingDayId: id
-      }
-    }).then(r => {
-      let ll = r.data.dataList.sort((a, b) => a.beginDateTime.localeCompare(b.beginDateTime))
-      ll.forEach(o => {
-        let t = colorMap.value[o.orderNo]
-        if(t === undefined) {
-          colorMap.value[o.orderNo] = getRandomShallowColor()
-        }
-      })
-      let apsSchedulingDayConfigVersionDetailMachineList = listGroupBy(ll, 'machineName')
-      beginDateTime.value = ll.map(t => t.beginDateTime).sort()[0]
-      endDateTime.value = ll.map(t => t.beginDateTime).sort()[ll.length - 1]
-      zzljStart.value = getTimeInterval(beginDateTime.value) - 1
-      zzljEnd.value = getTimeInterval(endDateTime.value) - 1
-      for (let k in apsSchedulingDayConfigVersionDetailMachineList) {
-        let orderList = apsSchedulingDayConfigVersionDetailMachineList[k]
-        let tm = {}
-        console.info("k ", k, orderList)
-        orderList.forEach(o => {
-          let obI = getTimeInterval(o.beginDateTime)
-          let ebI = getTimeInterval(o.endDateTime)
-          let elementId = o.machineId + '_' + (obI - zzljStart.value)
-          let t = tm[elementId]
-          o.colSpan = ebI - obI + 1
-          if(t) {
-            tm[elementId].push(o)
-          } else {
-            tm[elementId] = [ o ]
-          }
-          // this.orderNoTimeMap [elementId]=  this.orderNoTimeMap [elementId].sort(function(o1, o2) {return  o1.beginDateTime > o2.beginDateTime})
-        })
-        for (const tmKey in tm) {
-          orderNoTimeMap.value[tmKey] = tm[tmKey]
-        }
-      }
-      reloadZZLJKey.value = Math.random() + ""
-      console.info("reloadZZLJKey ", reloadZZLJKey.value, "orderNoTimeMap", orderNoTimeMap, machineList.value, "jqscsxDivRef", jqscsxDivRef.value)
-
-
-    }).then(() => {
-      console.info("      document.getElementById(\"jqscsxDivId\") ", document.getElementById("jqscsxDivId"))
-      document.getElementById("jqscsxDivId").className = "scrollDiv"
-      loadData.value=false
-    })
-  })
-}
 
 const queryMachineUserRate = () => {
 
-  postResultInfoList("/apsSchedulingDayConfigVersionDetailMachineUseTime/queryList", { data: { schedulingDayId: id } })
+  postResultInfoList("/apsSchedulingDayConfigVersionDetailMachineUseTime/queryList", {data: {schedulingDayId: id}})
   .then(r => {
     // log(t)
     r.forEach(tt => {
@@ -130,20 +35,92 @@ const queryMachineUserRate = () => {
 onMounted(() => {
   queryDetailList()
   queryMachineUserRate()
+  loadGantt()
 })
-const getRandomShallowColor = () => {
-  const maxValue = 255
-  const shallowValue = 200  // 假设浅色的明度是最大值的一半
-  const randomValue = () => Math.random() * shallowValue + shallowValue / 2 // 生成位于半明度和最大值之间的随机数
-  return `rgb(${randomValue()}, ${randomValue()}, ${randomValue()})`
-}
-const getTimeInterval = (time) => {
-  return parseInt(new Date(Date.parse(time)).getTime() / 1000 / timeInterval.value + '')
+const queryDetailList = () => {
+  return queryApsMachineList(factoryId).then(r => {
+    r = r.sort((a, b) => {
+      return parseInt(b.sortIndex) - parseInt(a.sortIndex)
+    }).reverse()
+    machineList.value = r
+    console.info("queryApsMachineList", machineList.value, factoryId)
+  })
 }
 
+const changeZoomLevel = (value: string) => {
+  zoomConfig.levels.filter(t => t.name === value)[0].name
+  loadGantt()
+}
+
+const loadGantt = () => {
+  loadingData.value = true
+  initGantt(gantt, zoomConfig, zoomLevel)
+
+  postResultInfo("/apsSchedulingDayConfigVersionDetailMachine/queryList", {
+    data: {
+      schedulingDayId: id
+    }
+  }).then(r => {
+    let ll = r.data.dataList.sort((a, b) => a.beginDateTime.localeCompare(b.beginDateTime))
+    ll.forEach(tt => {
+      tt.start_date = tt.beginDateTime
+      tt.end_date = tt.endDateTime
+      tt.open = true
+    })
+
+    const groups = {}
+    ll.forEach(item => {
+      if (!groups[item.orderId]) {
+        groups[item.orderId] = []
+      }
+      groups[item.orderId].push(item)
+    })
+
+// 2. 创建父节点数组，并建立父子关系
+    const parentNodes = []
+    Object.keys(groups).forEach(orderId => {
+      // 创建父节点
+      const parentId = `parent_${orderId}`
+      const lt = groups[orderId];
+      const parentNode = {
+        id: parentId, // 父节点唯一ID
+        orderId: orderId, // 关联的orderId
+        machineName: lt[0].orderNo,
+        isParent: true, // 标记为父节点
+        start_date: lt[0].start_date,
+        end_date: lt[lt.length - 1].end_date,
+        open: true, // 默认展开
+        parentId: null // 顶级节点父ID为null
+      }
+      // 为当前分组的所有子节点设置parentId
+      lt.forEach(child => {
+        child.parent = parentId
+      })
+
+      parentNodes.push(parentNode)
+    })
+// 3. 合并父节点和子节点，形成新的数组
+    const result = [...parentNodes, ...ll]
+    result.forEach(t => {
+      t.text = t.machineName
+    })
+    console.log(" result ", result)
+    gantt.parse({
+      tasks: result
+    })
+
+    parentNodes.forEach(parentNode => {
+      gantt.close(parentNode.id);
+    })
+
+  }).then(() => {
+    loadingData.value = false
+  })
+}
 const downloadDataList = () => {
+  var timeInterval = zoomConfig.levels.filter(tt => tt.name === zoomLevel.value)[0].timeInterval;
   downloadFilePost("/apsSchedulingDayConfigVersionDetailMachine/exportQueryPageList", {
-    timeSpan: timeInterval.value,
+    timeSpan: timeInterval,
     data: {
       schedulingDayId: id
     }
@@ -154,62 +131,30 @@ const downloadDataList = () => {
 <template>
   <div class="app-container">
     <el-card class="search-wrapper" shadow="never">
-      <el-form :inline="true" >
-        <el-form-item label="时间间隔">
-          <el-select style="width: 200px" v-model="timeInterval" @change="timeSpanChange">
-            <el-option v-for="t in timeIntervalArr" :key="t.value" :value="t.value" :label="t.label"/>
+      <el-form :inline="true">
+
+        <el-form-item label="缩放纬度">
+          <el-select v-model="zoomLevel" style="width: 200px" @change="changeZoomLevel">
+            <el-option
+              v-for="l in zoomConfig.levels"
+              :key="l.name"
+              :value="l.name"
+              :label="l.label"
+            />
           </el-select>
         </el-form-item>
         <el-form-item>
-
-          <el-button type="primary" icon="download" @click="downloadDataList">
-            下载
-          </el-button>
+          <el-button type="primary" @click="downloadDataList">导出</el-button>
         </el-form-item>
       </el-form>
-      <el-divider>
-        概览
-      </el-divider>
-      <el-form :inline="true">
-        <el-form-item label="开始时间:">{{ beginDateTime }}</el-form-item>
-        <el-form-item label="结束时间时间:">{{ endDateTime }}</el-form-item>
-        <el-form-item label="时间段数量:">{{ zzljEnd - zzljStart }}</el-form-item>
-        <el-form-item label="总耗时:">{{ (zzljEnd - zzljStart) * timeInterval }} 秒</el-form-item>
-      </el-form>
     </el-card>
-    <el-card class="search-wrapper" shadow="never">
-      <el-divider>
-        机器生产顺序
-      </el-divider>
-      <el-row  v-loading="loadData" :style="{'width':((zzljEnd-zzljStart)*130+100 )+'px'}" id="jqscsxDivId" :key="reloadZZLJKey">
-        <div class="headerItem " style="width: 100px"> 机器名称</div>
-        <span class="headerItem  header" v-for="(index,i) in zzljEnd-zzljStart" style="width: 130px;text-align: center">
-        {{ formatDate(new Date((zzljStart * 1000 * timeInterval) + index * 1000 * timeInterval)).substr(0, 10) }}
-        <br/>
-        {{ formatDate(new Date((zzljStart * 1000 * timeInterval) + index * 1000 * timeInterval)).substr(11) }}
-      </span>
-
-        <div v-for="(m,i) in machineList">
-          <el-row class="headerItem  orderNoDiv" style="width: 100px">{{ m.machineName }}</el-row>
-          <el-row class="headerItem orderNoDiv" :id="m.id + '_' + i" v-for="(index,i) in zzljEnd-zzljStart"
-                  style="width: 130px;text-align: left">
-            <el-row
-              v-if="orderNoTimeMap[m.id + '_' + index] && orderNoTimeMap[m.id + '_' + index].length>0">
-              <el-row class="orderNoInfo"
-                      :style="{'z-index': index,'width': o.colSpan*130 +'px','backgroundColor':colorMap[o.orderNo]}"
-                      v-for="(o,i) in  ( orderNoTimeMap[m.id + '_' + index])"
-              >{{ o.orderNo }}
-              </el-row>
-            </el-row>
-          </el-row>
-          <hr/>
-        </div>
-      </el-row>
+    <el-card class="search-wrapper" shadow="never" style="height: 800px">
+      <div v-loading="loadingData" id="gantt_here" style="  width:100% ; height:750px"/>
     </el-card>
 
     <el-card class="search-wrapper" shadow="never">
       <h2>机器使用率</h2>
-      <el-table :data="machineList" :key="reloadZZLJKey">
+      <el-table :data="machineList" v-loading="loadingData">
         <el-table-column label="机器名称" prop="machineName"></el-table-column>
         <el-table-column label="制造数量">
           <template #default="scope">
@@ -250,7 +195,7 @@ const downloadDataList = () => {
 div.orderNoInfo {
   line-height: 25px;
   height: 25px;
-  border: 1px solid #dddddd;
+  border: 1px solid #dddddd
 }
 
 div.orderNoDiv {
