@@ -10,7 +10,7 @@ export interface ApsGoods {
   // 工艺路线
   processPathId?: string | undefined
   // 制造流水线ID produceProcess
-  produceProcessId?: string | undefined
+  produceProcessId?: string | undefined | null
   id?: string | undefined
 }
 

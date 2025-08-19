@@ -23,7 +23,7 @@
       "@v/*": ["src/view/*"]
     },
     "resolveJsonModule": true,
-    "types": ["vite/client", "element-plus/global"],
+    "types": ["vite/client", "element-plus/global", "@types/sockjs-client"],
     // 允许导入 .ts .mts .tsx 拓展名的文件
     "allowImportingTsExtensions": true,
     // 允许 JS

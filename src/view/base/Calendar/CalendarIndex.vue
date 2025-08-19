@@ -32,7 +32,7 @@
             {{ factoryMap[scope.row?.factoryId] }}
           </template>
         </ElTableColumn>
-        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName"/>
+        <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName" :prop="h.fieldName" :min-width="h.width"/>
         <ElTableColumn fixed="right" label="操作" width="250px">
           <template #default="scope">
             <el-button

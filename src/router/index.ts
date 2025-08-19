@@ -54,7 +54,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     children: [
       {
         path: "dashboard",
-        component: () => import("@/pages/dashboard/index.vue"),
+        component: () => import("@/pages/dashboard/index2.vue"),
         name: "Dashboard",
         meta: {
           title: "首页",
@@ -100,7 +100,18 @@ export const constantRoutes: RouteRecordRaw[] = [
           elIcon: "DataLine",
           hidden: true
         }
-      }, {
+      },
+      {
+        path: "/aps/MachineResult",
+        name: "机器排程版本结果",
+        component: () => import("@/view/aps/ApsSchedulingDayConfigVersion/MachineResult.vue"),
+        meta: {
+          title: "机器排程版本结果",
+          elIcon: "Files",
+          hidden: true
+        }
+      },
+      {
         path: "/aps/ApsSchedulingDayConfigVersion/MachineResult/:id/:factoryId",
         name: "机器排程版本结果",
         component: () => import("@/view/aps/ApsSchedulingDayConfigVersion/MachineResult.vue"),

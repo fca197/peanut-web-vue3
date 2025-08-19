@@ -140,7 +140,7 @@ onMounted(() => {
         />
         <ElTableColumn
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
-          :width="h.width"
+          :min-width="h.width"
           :prop="h.fieldName"
         />
         <ElTableColumn prop="kittingRate" label="齐套率">

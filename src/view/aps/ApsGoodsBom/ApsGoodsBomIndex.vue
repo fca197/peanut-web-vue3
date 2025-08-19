@@ -149,7 +149,7 @@ watch(() => queryForm.value.factoryId, (data) => {
       <ElTable ref="dataTableRef" :data="dataList" stripe @selection-change="handleSelectionChange">
         <ElTableColumn type="selection"/>
         <ElTableColumn v-for="h in headerList" :key="h.fieldName" :label="h.showName"
-                       :width="h.width"
+                       :min-width="h.width"
                        :prop="h.fieldName"/>
         <ElTableColumn fixed="right" label="操作" width="150px" style="float: right">
           <template #default="scope">

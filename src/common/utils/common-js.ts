@@ -166,6 +166,43 @@ export async function pinyin4jSzm(value: string | undefined) {
   })
 }
 
+// 获取汉字首字母
+export async function pinyin4jSzmV4(value: string | undefined, obj: any ,fieldName : string) {
+  if (value === undefined || value.trim().length === 0) {
+    return Promise.any("")
+  }
+  const data: pinyin4jSzmData = {
+    str: value
+  }
+  return request<Result<any>>({
+    url: "/pinyin4j/getSZM",
+    method: "post",
+    data
+  }).then((t) => {
+    obj.value[fieldName] = t.data.szmUpper;
+  })
+}
+
+// 获取汉字首字母
+export async function pinyin4jSzmV2(value: string | undefined, oldValue: string | undefined) {
+  if (oldValue === undefined || oldValue.trim().length === 0) {
+    return Promise.any("");
+  }
+  if (value === undefined || value.trim().length === 0) {
+    return Promise.any("")
+  }
+  const data: pinyin4jSzmData = {
+    str: value
+  }
+  return request<Result<any>>({
+    url: "/pinyin4j/getSZM",
+    method: "post",
+    data
+  }).then((t) => {
+    return t.data.szmUpper as string
+  })
+}
+
 // utils/uuid.js
 export const generateSimpleUUID = () => {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {

@@ -3,6 +3,7 @@ import type { NotifyItem } from "./type"
 import { Bell } from "@element-plus/icons-vue"
 import { messageData, notifyData, todoData } from "./data"
 import List from "./List.vue"
+// import  WebSocketIndex from  '@/view/websocket/WebSocketIndex.vue'
 
 type TabName = "通知" | "消息" | "待办"
 
@@ -82,6 +83,7 @@ function handleHistory() {
         </div>
       </template>
     </el-popover>
+<!--    <WebSocketIndex/>-->
   </div>
 </template>
 

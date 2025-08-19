@@ -133,8 +133,10 @@ onMounted(() => {
 
 <template>
   <div class="app-container">
-    <el-card class="search-wrapper" shadow="never">
-    </el-card>
+    <el-card
+      class="search-wrapper"
+      shadow="never"
+    />
     <el-card shadow="never">
       <TableBar
         :show-add-btn="false"
@@ -158,7 +160,9 @@ onMounted(() => {
           v-for="h in headerList" :key="h.fieldName" :label="h.showName"
           :prop="h.fieldName"
         />
-        <ElTableColumn fixed="right" label="操作" width="250px">
+        <ElTableColumn prop="createUserName" label="创建人" width="200"/>
+        <ElTableColumn prop="createTime" label="创建时间" width="200"/>
+        <ElTableColumn fixed="right" label="操作" width="250px" style="float: right">
           <template #default="scope">
             <el-button
               v-if="scope.row.isNotFinish"
@@ -184,6 +188,9 @@ onMounted(() => {
                   </el-dropdown-item>
                   <el-dropdown-item @click="showKitting(scope.row)" icon="DataLine">
                     齐套报告
+                  </el-dropdown-item>
+                  <el-dropdown-item @click="settingKitting(scope.row)" icon="Share">
+                    订单下发
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </template>

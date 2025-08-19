@@ -12,11 +12,12 @@ export const factoryStatusList: KVEntity [] = [
   {
     label: "启用",
     value: "ENABLED"
-  },
-  {
-    label: "禁用",
-    value: "DISABLED"
   }
+  // ,
+  // {
+  //   label: "禁用",
+  //   value: "DISABLED"
+  // }
 ]
 
 export function queryFactoryList(): Promise<Factory[]> {

@@ -14,6 +14,16 @@ const allMenuList: RouteRecordRaw[] = [
     component: Layouts,
     children: [
       {
+        path: "/base/WebSocket",
+        name: "webSocket",
+        component: () => import("@/view/websocket/WebSocketIndex.vue"),
+        meta: {
+          title: "webSocket",
+          elIcon: "Switch",
+          hidden: true
+        }
+      },
+      {
         path: "/base/BaseResource",
         name: "菜单",
         component: () => import("@/view/base/BaseResource/BaseResourceIndex.vue"),
@@ -201,6 +211,15 @@ const allMenuList: RouteRecordRaw[] = [
         meta: {
           title: "机器",
           elIcon: "Coin"
+        }
+      },
+      {
+        path: "/aps/ApsMachineWorkstation",
+        name: "机器工作站",
+        component: () => import("@v/aps/ApsMachineWorkstation/ApsMachineWorkstationIndex.vue"),
+        meta: {
+          title: "机器工作站",
+          elIcon: "MessageBox"
         }
       },
       {
@@ -422,6 +441,15 @@ const allMenuList: RouteRecordRaw[] = [
     component: Layouts,
     children: [
       {
+        path: "/aps/ApsOrderFieldShowTemplate",
+        name: "订单显示模板",
+        component: () => import("@/view/aps/ApsOrderFieldShowTemplate/ApsOrderFieldShowTemplateIndex.vue"),
+        meta: {
+          title: "订单显示模板",
+          elIcon: "Coin"
+        }
+      },
+      {
         path: "/aps/ApsOrder",
         name: "订单",
         component: () => import("@/view/aps/ApsOrder/ApsOrderIndex.vue"),
@@ -519,21 +547,12 @@ const allMenuList: RouteRecordRaw[] = [
     component: Layouts,
     children: [
       {
-        path: "/aps/ApsSchedulingDayConfigVersion",
-        name: "排程版本",
-        component: () => import("@/view/aps/ApsSchedulingDayConfigVersion/ApsSchedulingDayConfigVersionIndex.vue"),
+        path: "/aps/ApsSchedulingConstraints",
+        name: "排产约束",
+        component: () => import("@/view/aps/ApsSchedulingConstraints/ApsSchedulingConstraintsIndex.vue"),
         meta: {
-          title: "排程版本",
-          elIcon: "Files"
-        }
-      },
-      {
-        path: "/aps/ApsSchedulingDayConfig",
-        name: "排程配置",
-        component: () => import("@/view/aps/ApsSchedulingDayConfig/ApsSchedulingDayConfigIndex.vue"),
-        meta: {
-          title: "排程配置",
-          elIcon: "Suitcase"
+          title: "排产约束",
+          elIcon: "ShoppingBag"
         }
       },
       {
@@ -546,12 +565,21 @@ const allMenuList: RouteRecordRaw[] = [
         }
       },
       {
-        path: "/aps/ApsSchedulingConstraints",
-        name: "排产约束",
-        component: () => import("@/view/aps/ApsSchedulingConstraints/ApsSchedulingConstraintsIndex.vue"),
+        path: "/aps/ApsSchedulingDayConfig",
+        name: "排程配置",
+        component: () => import("@/view/aps/ApsSchedulingDayConfig/ApsSchedulingDayConfigIndex.vue"),
         meta: {
-          title: "排产约束",
-          elIcon: "ShoppingBag"
+          title: "排程配置",
+          elIcon: "Suitcase"
+        }
+      },
+      {
+        path: "/aps/ApsSchedulingDayConfigVersion",
+        name: "排程版本",
+        component: () => import("@/view/aps/ApsSchedulingDayConfigVersion/ApsSchedulingDayConfigVersionIndex.vue"),
+        meta: {
+          title: "排程版本",
+          elIcon: "Files"
         }
       }
     ]

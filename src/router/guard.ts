@@ -62,7 +62,7 @@ export function registerNavigationGuard(router: Router) {
 
   // 全局后置钩子
   router.afterEach((to, from) => {
-    trackPageView(to.fullPath)
+    trackPageView(`/#${to.fullPath}`)
     setRouteChange(to)
     setTitle(to.meta.title)
     NProgress.done()

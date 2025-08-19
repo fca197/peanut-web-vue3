@@ -2,6 +2,9 @@ import { KVEntity, postResultInfoList, Result } from "@@/utils/common-js.ts";
 import {request} from "@/http/axios.ts";
 import { ApsOrderUser } from "@v/aps/ApsOrderUser/ApsOrderUserType.ts";
 import { ApsOrderGoods } from "@v/aps/ApsOrderGoods/ApsOrderGoodsType.ts"
+import {
+  ApsOrderFieldShowTemplate
+} from "@v/aps/ApsOrderFieldShowTemplate/ApsOrderFieldShowTemplateType.ts";
 
 export interface ApsOrder {
   orderNo: string | undefined
@@ -24,6 +27,7 @@ export interface ApsOrder {
   orderUser?: ApsOrderUser
   goodsList?: ApsOrderGoods[]
   goodsBom?: any
+  orderTemplate?: ApsOrderFieldShowTemplate
 }
 
 export interface OrderStatusRes {

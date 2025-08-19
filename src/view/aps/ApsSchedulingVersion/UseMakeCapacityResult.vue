@@ -136,7 +136,9 @@ const apsSchedulingIssueItemAddDialogDate = (c: number) => {
 }
 
 const apsSchedulingIssueItemAdd = () => {
-  postNoResult("/apsSchedulingIssueItem/insert", apsSchedulingIssueItemAddDialogForm.value, "下发完成", undefined)
+  postNoResult("/apsSchedulingIssueItem/insert", apsSchedulingIssueItemAddDialogForm.value, "下发完成", ()=>{
+    apsSchedulingIssueItemAddDilogShow.value=false
+  })
 }
 const createKittingVersion = () => {
   postNoResult("/apsOrderGoodsBomKittingVersion/createSchedulingKittingVersion", createKittingModel.value,
@@ -243,7 +245,7 @@ onMounted(() => {
         查看齐套报告
       </el-button>
       <el-button type="primary" v-if="step === '3'" @click="apsSchedulingIssueItemAddDialogShowFun">
-        下发
+        订单下发
       </el-button>
     </el-row>
     <el-dialog v-model="createKitting" title="生成齐套版本" destroy-on-close :width="950">
